@@ -1,0 +1,33 @@
+
+.wrapper{
+   display: flex;
+   justify-content: center;
+   flex-direction: column;
+}
+
+.game-difficulty-select-wrapper{
+    padding: 10px;
+}
+
+.board{
+    display: flex;
+    justify-content: center;
+    flex-shrink: 1;
+    width: 450px;
+}
+
+.board.easy{
+    width: 450px;
+}
+
+.tile {
+    flex: 0 0 33%;
+    height: 49px;
+    width: 49px;
+    background: lightgray;
+    border: 1px solid black;
+    align-content: center;
+    text-align: center;
+    vertical-align: middle;
+}
+
