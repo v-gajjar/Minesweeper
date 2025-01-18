@@ -1,54 +1,65 @@
 import { useState, useEffect } from 'react'
+import GameDifficultyLevel from './GameDifficultyLevel';
 import './App.css'
 
 function App() {
 
   const [board, setBoard] = useState([]);
-  const [gameDifficultyLevel, setGameDifficultyLevel] = useState("easy");
-  const [gridSize, setGridSize] = useState(9);
-  const [numberOfMines, setNumberOfMines] = useState(10)
+ 
+  const [gameDifficultySettings, setGameDifficultySettings] = useState({
+    level: GameDifficultyLevel.EASY,
+    boardSize: 9,
+    numberOfMines: 10
+  })
+
 
   useEffect(() => {
     generateBoard();
-  }, [gridSize]);
+  }, [gameDifficultySettings]);
 
   const onGameDifficultyLevelChanged = (event) => {
     const value = event.target.value;
     console.log("game difficulty level changed to: " + value);
-    setGameDifficultyLevel(value);
 
     switch(value){
-      case "easy":
-        setGridSize(9);
-        setNumberOfMines(10);
-        assignMines(10);
+      case GameDifficultyLevel.EASY:
+        setGameDifficultySettings({
+          level: GameDifficultyLevel.EASY,
+          boardSize: 9,
+          numberOfMines: 10,
+        });
         break;
-      case "medium":
-        setGridSize(16);
-        setNumberOfMines(40);
-        assignMines(40);
+      case GameDifficultyLevel.MEDIUM:
+        setGameDifficultySettings({
+          level: GameDifficultyLevel.MEDIUM,
+          boardSize: 16,
+          numberOfMines: 40,
+        });
         break;
-      case "hard":
-        setGridSize(20);
-        setNumberOfMines(80);
-        assignMines(80);
+      case GameDifficultyLevel.HARD:
+        setGameDifficultySettings({
+          level: GameDifficultyLevel.HARD,
+          boardSize: 20,
+          numberOfMines: 80,
+        });
         break;
     }
   }
 
-  const assignMines = (numberOfMines) => {
+  const assignMines = (grid, numberOfMines) => {
     
     let allowocatedMines = 0;
 
     while ( allowocatedMines < numberOfMines ){
-      let cellX = Math.floor(Math.random() * gridSize);
-      let cellY = Math.floor(Math.random() * gridSize);
+      let boardSize = gameDifficultySettings.boardSize;
+;
 
-      let tile = board[cellX][cellY];
+      let cellX = Math.floor(Math.random() * boardSize);
+      let cellY = Math.floor(Math.random() * boardSize);
+      let tile = grid[cellX][cellY];
 
       if ( ! tile.hasMine){
         tile.hasMine = true;
-        console.log(tile);
         allowocatedMines++;
       }
     }
@@ -66,8 +77,8 @@ function App() {
 
   const generateBoard = () => {
 
-    let numRows = gridSize;
-    let numCols = gridSize;
+    let numRows = gameDifficultySettings.boardSize;
+    let numCols = gameDifficultySettings.boardSize;
 
     let cells = [];
 
@@ -80,11 +91,15 @@ function App() {
           x: i,
           y: j,
           hasMine: false,
+          opened: false,
+          flagged: false
         })
       }
     }
-    console.log(cells);
+    assignMines(cells, gameDifficultySettings.numberOfMines);
     setBoard(cells);
+
+    console.log(cells);
   
   }
  
@@ -96,21 +111,23 @@ function App() {
       <div className='game-difficulty-select-wrapper'>
       <label>Select game difficulty: </label>
         <select 
-          value={gameDifficultyLevel}
+          value={gameDifficultySettings.level}
           onChange={onGameDifficultyLevelChanged}
           name="game-difficulty-select" 
           id="game-difficulty-select"
         >
-          <option value="easy">Beginnner</option>
-          <option value="medium">Intermediate</option>
-          <option value="hard">Advance</option>
+          <option value={GameDifficultyLevel.EASY}>Beginnner</option>
+          <option value={GameDifficultyLevel.MEDIUM}>Intermediate</option>
+          <option value={GameDifficultyLevel.HARD}>Advance</option>
         </select>
       </div>
       <div className="board ">
       {board.map((rows, rowIndex) => (
         <div key={rowIndex}>
           {rows.map((col, colIndex) => (
-            <div className="tile" data-row={rowIndex} data-col={colIndex} key={colIndex} onClick={leftClickTile} onContextMenu={rightClickTile}></div>
+            <div className="tile" data-row={rowIndex} data-col={colIndex} key={colIndex} onClick={leftClickTile} onContextMenu={rightClickTile}>
+
+            </div>
           ))}
         </div>
       ))}
