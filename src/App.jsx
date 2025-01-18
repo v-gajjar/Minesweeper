@@ -102,6 +102,22 @@ function App() {
     console.log(cells);
   
   }
+
+  const setTileClasses = (tile) => {
+    let tileClasses = "tile";
+
+    if ( tile.hasMine ){
+      tileClasses = tileClasses + " mine";
+    }
+    if ( tile.isFlagged ){
+      tileClasses = tileClasses + " flagged";
+    }
+    if ( tile.isOpened ){
+      tileClasses = tileClasses + " opened";
+    }
+
+    return tileClasses;
+  }
  
   return (
 
@@ -125,8 +141,13 @@ function App() {
       {board.map((rows, rowIndex) => (
         <div key={rowIndex}>
           {rows.map((col, colIndex) => (
-            <div className="tile" data-row={rowIndex} data-col={colIndex} key={colIndex} onClick={leftClickTile} onContextMenu={rightClickTile}>
-
+            <div 
+              className={setTileClasses(board[rowIndex][colIndex])} 
+              data-row={rowIndex} 
+              data-col={colIndex} 
+              key={colIndex} 
+              onClick={leftClickTile} 
+              onContextMenu={rightClickTile}>
             </div>
           ))}
         </div>
