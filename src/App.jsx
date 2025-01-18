@@ -91,8 +91,8 @@ function App() {
           x: i,
           y: j,
           hasMine: false,
-          opened: false,
-          flagged: false
+          isOpened: true,
+          isFlagged: false
         })
       }
     }
