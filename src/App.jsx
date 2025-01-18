@@ -48,9 +48,9 @@ function App() {
 
   const assignMines = (grid, numberOfMines) => {
     
-    let allowocatedMines = 0;
+    let allocatedMines = 0;
 
-    while ( allowocatedMines < numberOfMines ){
+    while ( allocatedMines < numberOfMines ){
       let boardSize = gameDifficultySettings.boardSize;
 ;
 
@@ -60,7 +60,7 @@ function App() {
 
       if ( ! tile.hasMine){
         tile.hasMine = true;
-        allowocatedMines++;
+        allocatedMines++;
       }
     }
   }
