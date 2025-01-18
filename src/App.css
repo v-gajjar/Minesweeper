@@ -1,3 +1,7 @@
+.game-title {
+    margin: auto;
+}
+
 
 .wrapper{
    display: flex;
@@ -7,13 +11,13 @@
 
 .game-difficulty-select-wrapper{
     padding: 10px;
+    margin: auto;
 }
 
 .board{
     display: flex;
     justify-content: center;
     flex-shrink: 1;
-    width: 450px;
 }
 
 .board.easy{
@@ -22,8 +26,8 @@
 
 .tile {
     flex: 0 0 33%;
-    height: 49px;
-    width: 49px;
+    height: 39px;
+    width: 39px;
     background: lightgray;
     border: 1px solid black;
     align-content: center;

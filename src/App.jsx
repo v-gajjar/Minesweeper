@@ -5,15 +5,53 @@ function App() {
 
   const [board, setBoard] = useState([]);
   const [gameDifficultyLevel, setGameDifficultyLevel] = useState("easy");
+  const [gridSize, setGridSize] = useState(9);
+  const [numberOfMines, setNumberOfMines] = useState(10)
 
   useEffect(() => {
-    console.log("started up...");
     generateBoard();
-  }, []);
+  }, [gridSize]);
 
   const onGameDifficultyLevelChanged = (event) => {
-    console.log("game difficulty level changed to: " + event.target.value);
-    setGameDifficultyLevel(event.target.value);
+    const value = event.target.value;
+    console.log("game difficulty level changed to: " + value);
+    setGameDifficultyLevel(value);
+
+    switch(value){
+      case "easy":
+        setGridSize(9);
+        setNumberOfMines(10);
+        assignMines(10);
+        break;
+      case "medium":
+        setGridSize(16);
+        setNumberOfMines(40);
+        assignMines(40);
+        break;
+      case "hard":
+        setGridSize(20);
+        setNumberOfMines(80);
+        assignMines(80);
+        break;
+    }
+  }
+
+  const assignMines = (numberOfMines) => {
+    
+    let allowocatedMines = 0;
+
+    while ( allowocatedMines < numberOfMines ){
+      let cellX = Math.floor(Math.random() * gridSize);
+      let cellY = Math.floor(Math.random() * gridSize);
+
+      let tile = board[cellX][cellY];
+
+      if ( ! tile.hasMine){
+        tile.hasMine = true;
+        console.log(tile);
+        allowocatedMines++;
+      }
+    }
   }
 
   const leftClickTile = (event) => {
@@ -27,11 +65,11 @@ function App() {
   }
 
   const generateBoard = () => {
-    let numRows = 9;
-    let numCols = 9;
+
+    let numRows = gridSize;
+    let numCols = gridSize;
 
     let cells = [];
-
 
     for ( var i = 0; i < numRows; i++ ){
       const row = [];
@@ -40,7 +78,8 @@ function App() {
       for ( var j = 0; j < numCols; j++ ){
         row.push({
           x: i,
-          y: j
+          y: j,
+          hasMine: false,
         })
       }
     }
@@ -52,10 +91,10 @@ function App() {
   return (
 
     <>
-      <h1>React Minesweeper Game</h1>
       <div className="wrapper">
+      <h1 className="game-title">Minesweeper</h1>
       <div className='game-difficulty-select-wrapper'>
-      <label htmlFor="game-difficulty-select">Select game difficulty:</label>
+      <label>Select game difficulty: </label>
         <select 
           value={gameDifficultyLevel}
           onChange={onGameDifficultyLevelChanged}
@@ -67,11 +106,11 @@ function App() {
           <option value="hard">Advance</option>
         </select>
       </div>
-      <div className="board easy">
+      <div className="board ">
       {board.map((rows, rowIndex) => (
         <div key={rowIndex}>
           {rows.map((col, colIndex) => (
-            <div className="tile" key={colIndex} onClick={leftClickTile} onContextMenu={rightClickTile}></div>
+            <div className="tile" data-row={rowIndex} data-col={colIndex} key={colIndex} onClick={leftClickTile} onContextMenu={rightClickTile}></div>
           ))}
         </div>
       ))}
