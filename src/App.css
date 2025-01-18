@@ -47,7 +47,13 @@
     border-radius: 50%;
 }
 
-.tile.flagged {
+.tile.flagged::before {
     background: yellow;
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "";
+    height: 100%;
+    width: 100%;
 }
 
