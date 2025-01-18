@@ -33,5 +33,17 @@
     align-content: center;
     text-align: center;
     vertical-align: middle;
+    position: relative;
+}
+
+.tile.opened.mine::before {
+    background: black;
+    position: absolute;
+    left: 0;
+    top: 0;
+    content: "";
+    height: 100%;
+    width: 100%;
+    border-radius: 50%;
 }
 
