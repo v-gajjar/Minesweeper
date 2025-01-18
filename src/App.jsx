@@ -72,7 +72,20 @@ function App() {
   const rightClickTile = (event) => {
     event.preventDefault();
 
-    console.log("right clicked on tile...")
+    let target = event.target;
+    let rowIndex = parseInt(target.dataset.row);
+    let colIndex = parseInt(target.dataset.col);
+
+    let updatedBoard = board.map((row) => {
+      return row.map((tile) => {
+
+        if ( tile.x === rowIndex && tile.y === colIndex){
+          tile.isFlagged = true;
+        }
+        return tile;
+      });
+    });
+    setBoard(updatedBoard);
   }
 
   const generateBoard = () => {
