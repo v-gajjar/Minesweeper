@@ -66,7 +66,20 @@ function App() {
   }
 
   const leftClickTile = (event) => {
-    console.log("left clicked on tile...")
+    let target = event.target;
+    let rowIndex = parseInt(target.dataset.row);
+    let colIndex = parseInt(target.dataset.col);
+
+    let updatedBoard = board.map((row) => {
+      return row.map((tile) => {
+
+        if ( tile.x === rowIndex && tile.y === colIndex){
+          tile.isOpened = true;
+        }
+        return tile;
+      });
+    });
+    setBoard(updatedBoard);
   }
 
   const rightClickTile = (event) => {
@@ -104,7 +117,7 @@ function App() {
           x: i,
           y: j,
           hasMine: false,
-          isOpened: true,
+          isOpened: false,
           isFlagged: false
         })
       }
