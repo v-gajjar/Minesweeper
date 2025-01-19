@@ -81,17 +81,50 @@ function App() {
       return;
     }
 
+    let adjacentTiles = findAdjacentTiles(selectedTile.x, selectedTile.y);
+    let numberOfMines = adjacentTiles.filter(tile => tile.hasMine && ! tile.isOpened).length;
+
+    console.log("number of mines");
+    console.log(numberOfMines);
 
     let updatedBoard = board.map((row) => {
       return row.map((tile) => {
 
         if ( tile.x === rowIndex && tile.y === colIndex){
           tile.isOpened = true;
+
+          if ( numberOfMines > 0 ){
+            tile.adjacentTiles = numberOfMines;
+          }
         }
         return tile;
       });
     });
+
     setBoard(updatedBoard);
+  }
+
+
+  const findAdjacentTiles = (x, y) => {
+    console.log("findAjdacentTiles");
+    const boardSize = gameDifficultySettings.boardSize;
+    let adjacentTiles = [];
+
+    for( var i = -1; i <= 1; i++){
+      for( var j = -1; j <= 1; j++ ){
+
+        let xPos = x+i;
+        let yPos = y+j;
+
+        if ( xPos < 0 || xPos >= boardSize || yPos < 0 || yPos >= boardSize ){
+          continue;
+        } 
+        let tile = board[xPos][yPos];
+
+        adjacentTiles.push(tile);
+      }
+    }
+    return adjacentTiles;
   }
 
   const rightClickTile = (event) => {
@@ -193,6 +226,9 @@ function App() {
               key={colIndex} 
               onClick={leftClickTile} 
               onContextMenu={rightClickTile}>
+                { board[rowIndex][colIndex].adjacentTiles &&
+                    <span>{board[rowIndex][colIndex].adjacentTiles}</span> 
+                }
             </div>
           ))}
         </div>
