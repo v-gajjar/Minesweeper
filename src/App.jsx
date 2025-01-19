@@ -70,6 +70,18 @@ function App() {
     let rowIndex = parseInt(target.dataset.row);
     let colIndex = parseInt(target.dataset.col);
 
+    let selectedTile = board[rowIndex][colIndex];
+
+    if ( selectedTile.isOpened  ){
+      return;
+    }
+
+    if ( selectedTile.hasMine ){
+      alert("game over!");
+      return;
+    }
+
+
     let updatedBoard = board.map((row) => {
       return row.map((tile) => {
 
@@ -89,10 +101,16 @@ function App() {
     let rowIndex = parseInt(target.dataset.row);
     let colIndex = parseInt(target.dataset.col);
 
+    let selectedTile = board[rowIndex][colIndex];
+
+    if ( selectedTile.isOpened ){
+      return;
+    }
+
     let updatedBoard = board.map((row) => {
       return row.map((tile) => {
 
-        if ( tile.x === rowIndex && tile.y === colIndex && ! tile.isOpened ){
+        if ( tile.x === rowIndex && tile.y === colIndex ){
           tile.isFlagged = ! tile.isFlagged;
         }
         return tile;
