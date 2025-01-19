@@ -78,11 +78,10 @@ function App() {
 
     if ( selectedTile.hasMine ){
       alert("game over!");
-      return;
     }
 
     let adjacentTiles = findAdjacentTiles(selectedTile.x, selectedTile.y);
-    let numberOfMines = adjacentTiles.filter(tile => tile.hasMine && ! tile.isOpened).length;
+    let numberOfMines = adjacentTiles.filter(tile => tile.hasMine ).length;
 
     console.log("number of mines");
     console.log(numberOfMines);
