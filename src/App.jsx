@@ -92,8 +92,8 @@ function App() {
     let updatedBoard = board.map((row) => {
       return row.map((tile) => {
 
-        if ( tile.x === rowIndex && tile.y === colIndex){
-          tile.isFlagged = true;
+        if ( tile.x === rowIndex && tile.y === colIndex && ! tile.isOpened ){
+          tile.isFlagged = ! tile.isFlagged;
         }
         return tile;
       });
@@ -118,7 +118,8 @@ function App() {
           y: j,
           hasMine: false,
           isOpened: false,
-          isFlagged: false
+          isFlagged: false,
+          numberOfAdjacentTiles: null
         })
       }
     }
