@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import GameDifficultyLevel from './GameDifficultyLevel';
+import GameDifficultyLevel from './enum/GameDifficultyLevel';
 import './App.css'
 
 function App() {
