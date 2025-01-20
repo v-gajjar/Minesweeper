@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import GameDifficultyLevel from './enum/GameDifficultyLevel';
 import GameDifficultySelector from './components/GameDifficultySelector';
-import Modal from './components/Modal';
 import './App.css'
 import GameBoard from './components/GameBoard';
 import MinesLeftIndicator from './components/MinesLeftIndicator';
+import GameResultModal from './components/GameResultModal';
 
 function App() {
 
@@ -311,23 +311,15 @@ function App() {
       <MinesLeftIndicator minesLeft={minesLeft}></MinesLeftIndicator>
       <div>
         { gameOver && 
-          <Modal
-            modalId={"gameOverModal"}
-            message={"Game Over!"} 
-            buttonId={"closeGameWonModal"} 
-            buttonText={"Play again"}
+          <GameResultModal gameWon={false}
             onClick={onGameOverModalClosed}>
-          </Modal>
+          </GameResultModal>
         }
         {
           gameWon && 
-          <Modal
-            	modalId={"gameWonModal"}
-              message={"Congratulations, you won!"} 
-              buttonId={"closeGameWonModal"} 
-              buttonText={"Play again"}
+          <GameResultModal gameWon={true}
               onClick={onGameWonModalClosed}>
-          </Modal>
+          </GameResultModal>
         }
       </div>
       <GameBoard 
