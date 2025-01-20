@@ -143,6 +143,23 @@ function App() {
       }
   }
 
+  const openAllMines = (gameBoard) => {
+    const boardSize = gameDifficultySettings.boardSize;
+
+    let updatedBoard = gameBoard.map((row) => {
+      return row.map((tile) => {
+
+        if ( tile.hasMine ){
+          tile.isFlagged = false;
+          tile.isOpened = true;
+        }
+        return tile;
+      });
+    });
+
+    return updatedBoard;
+  }
+
   const openTile = (x, y, currentBoard) => {
     console.log("openTile");
     const boardSize = gameDifficultySettings.boardSize;
@@ -156,6 +173,7 @@ function App() {
 
     if (currentBoard[x][y].hasMine) {
       setGameOver(true);
+      const updatedBoard = openAllMines(currentBoard);
       return currentBoard;
     } 
     else if ( currentBoard[x][y].adjacementMinesCount === 0 ) {
