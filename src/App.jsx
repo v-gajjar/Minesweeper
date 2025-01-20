@@ -6,6 +6,7 @@ function App() {
 
   const [board, setBoard] = useState([]);
   const [gameOver, setGameOver] = useState(false);
+  const [gameWon, setGameWon] = useState(false);
   const [minesLeft, setMinesLeft] = useState(0);
  
   const [gameDifficultySettings, setGameDifficultySettings] = useState({
@@ -173,6 +174,9 @@ function App() {
       }
     }
     console.log( "game won: " + gameWon);
+    if ( gameWon){
+      setGameWon(tue);
+    }
   }
 
   const leftClickTile = (event) => {
