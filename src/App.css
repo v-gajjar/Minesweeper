@@ -3,6 +3,11 @@
 }
 
 
+dialog{
+    margin-top: 0px;
+}
+
+
 .wrapper{
    display: flex;
    justify-content: center;
