@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import GameDifficultyLevel from './enum/GameDifficultyLevel';
 import GameDifficultySelector from './components/GameDifficultySelector';
+import Modal from './components/Modal';
 import './App.css'
 import GameBoard from './components/GameBoard';
 
@@ -309,25 +310,29 @@ function App() {
       <div id="minesLeftIndicator">mines left: {minesLeft}</div>
       <div>
         { gameOver && 
-          <dialog id="gameOverModal">
-            <h1>Game Over!</h1>
-            <button id="closeGameOverModal" onClick={onGameOverModalClosed}>Play again</button>
-          </dialog>
+          <Modal
+            modalId={"gameOverModal"}
+            message={"Game Over!"} 
+            buttonId={"closeGameWonModal"} 
+            buttonText={"Play again"}
+            onClick={onGameOverModalClosed}>
+          </Modal>
         }
         {
           gameWon && 
-          <dialog id="gameWonModal">
-          <h1>Congratulations, you won!</h1>
-          <button id="closeGameWonModal" onClick={onGameWonModalClosed}>Play again</button>
-        </dialog>
+          <Modal
+            	modalId={"gameWonModal"}
+              message={"Congratulations, you won!"} 
+              buttonId={"closeGameWonModal"} 
+              buttonText={"Play again"}
+              onClick={onGameWonModalClosed}>
+          </Modal>
         }
       </div>
       <GameBoard 
         board={board} onClick={leftClickTile} 
         onContextMenu={rightClickTile}>
       </GameBoard>
-
-
     </div>
     </>
   )
