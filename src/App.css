@@ -17,11 +17,19 @@
 .board{
     display: flex;
     justify-content: center;
-    flex-shrink: 1;
+    align-content: center;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .board.easy{
     width: 450px;
+}
+
+#minesLeftIndicator{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
 }
 
 .tile {

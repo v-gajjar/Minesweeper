@@ -5,8 +5,8 @@ import './App.css'
 function App() {
 
   const [board, setBoard] = useState([]);
-
   const [gameOver, setGameOver] = useState(false);
+  const [minesLeft, setMinesLeft] = useState(0);
  
   const [gameDifficultySettings, setGameDifficultySettings] = useState({
     level: GameDifficultyLevel.EASY,
@@ -213,6 +213,7 @@ function App() {
     }
     assignMines(cells, gameDifficultySettings.numberOfMines);
     calculateAdjacementMinesForEachTile(cells);
+    setMinesLeft(gameDifficultySettings.numberOfMines);
     setBoard(cells);
 
     console.log(cells);
@@ -252,6 +253,7 @@ function App() {
           <option value={GameDifficultyLevel.HARD}>Advance</option>
         </select>
       </div>
+      <div id="minesLeftIndicator">mines left: {minesLeft}</div>
       <div>
         { gameOver && 
           <dialog id="modal">
