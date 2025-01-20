@@ -146,6 +146,29 @@ function App() {
     return currentBoard;
   }
 
+  const checkIfGameWon = (gameBoard) => {
+    const boardSize = gameDifficultySettings.boardSize;
+
+    console.log("check if game won...")
+    let  gameWon = true;
+
+    for ( var i = 0; i < boardSize; i++ ){
+      for (var j = 0; j < boardSize; j++ ){
+        let tile = gameBoard[i][j];
+
+        if ( ! tile.isOpened && ! tile.isFlagged){
+          gameWon = false;
+          break;
+        }
+        if ( tile.isOpened && tile.hasMine){
+          gameWon = false;
+          break;
+        }
+      }
+    }
+    console.log( "game won: " + gameWon);
+  }
+
   const leftClickTile = (event) => {
     let target = event.target;
     let rowIndex = parseInt(target.dataset.row);
@@ -162,6 +185,7 @@ function App() {
     const updatedBoard = openTile(selectedTile.x, selectedTile.y, currentBoard);
 
     setBoard(updatedBoard);
+    checkIfGameWon(updatedBoard);
   }
 
   const rightClickTile = (event) => {
@@ -194,6 +218,7 @@ function App() {
       });
     });
     setBoard(updatedBoard);
+    checkIfGameWon(updatedBoard);
   }
 
   const generateBoard = () => {
