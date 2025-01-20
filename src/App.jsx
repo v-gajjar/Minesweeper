@@ -17,10 +17,9 @@ function App() {
   useEffect(() => {
     
     if ( gameOver ){
-      const modal = document.getElementById("modal");
-      modal.showModal();
+      const gameOverModal = document.getElementById("gameOverModal");
+      gameOverModal.showModal();
     }
-
 
   }, [gameOver])
 
@@ -56,6 +55,13 @@ function App() {
         });
         break;
     }
+  }
+
+  const onGameOverModalClosed = () => {
+    const gameOverModal = document.getElementById("gameOverModal");
+    gameOverModal.close();
+    setGameOver(false);
+    generateBoard();
   }
 
   const assignMines = (grid, numberOfMines) => {
@@ -288,9 +294,9 @@ function App() {
       <div id="minesLeftIndicator">mines left: {minesLeft}</div>
       <div>
         { gameOver && 
-          <dialog id="modal">
+          <dialog id="gameOverModal">
             <h1>Game Over!</h1>
-            <button id="closeModal">Try again</button>
+            <button id="closeGameOverModal" onClick={onGameOverModalClosed}>Try again</button>
           </dialog>
         }
       </div>
