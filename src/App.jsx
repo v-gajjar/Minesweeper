@@ -182,10 +182,8 @@ function App() {
 
         if ( tile.x === rowIndex && tile.y === colIndex ){
           if ( ! tile.isFlagged ){
-            if ( minesLeft > 0 ){
               tile.isFlagged = true;
               setMinesLeft(minesLeft - 1);
-            }
           }
           else {
             tile.isFlagged = false;
