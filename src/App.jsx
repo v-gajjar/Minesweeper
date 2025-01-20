@@ -5,6 +5,8 @@ import './App.css'
 function App() {
 
   const [board, setBoard] = useState([]);
+
+  const [gameOver, setGameOver] = useState(false);
  
   const [gameDifficultySettings, setGameDifficultySettings] = useState({
     level: GameDifficultyLevel.EASY,
@@ -122,6 +124,7 @@ function App() {
     console.log(currentBoard[x][y].adjacementMinesCount);
 
     if (currentBoard[x][y].hasMine) {
+      setGameOver(true);
       return currentBoard;
     } 
     else if ( currentBoard[x][y].adjacementMinesCount === 0 ) {
@@ -147,12 +150,14 @@ function App() {
     }
 
     let currentBoard = [...board];
-    console.log(currentBoard);
 
     const updatedBoard = openTile(selectedTile.x, selectedTile.y, currentBoard);
-    console.log(updatedBoard);
 
     setBoard(updatedBoard);
+
+    console.log("hello...");
+
+    const boardSize = gameDifficultySettings.boardSize;
   }
 
   const rightClickTile = (event) => {
@@ -242,6 +247,9 @@ function App() {
           <option value={GameDifficultyLevel.MEDIUM}>Intermediate</option>
           <option value={GameDifficultyLevel.HARD}>Advance</option>
         </select>
+      </div>
+      <div>
+        { gameOver && <span id="winOrLose">game over!</span>}
       </div>
       <div className="board ">
       {board.map((rows, rowIndex) => (
