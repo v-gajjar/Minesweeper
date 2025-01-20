@@ -16,6 +16,15 @@ function App() {
   })
 
   useEffect(() => {
+
+    if ( gameWon ){
+      const gameWonModal = document.getElementById("gameWonModal");
+      gameWonModal.showModal();
+    }
+
+  }, [gameWon])
+
+  useEffect(() => {
     
     if ( gameOver ){
       const gameOverModal = document.getElementById("gameOverModal");
@@ -56,6 +65,13 @@ function App() {
         });
         break;
     }
+  }
+
+  const onGameWonModalClosed = () => {
+    const gameWonModal = document.getElementById("gameWonModal");
+    gameWonModal.close();
+    setGameWon(false);
+    generateBoard();
   }
 
   const onGameOverModalClosed = () => {
@@ -175,7 +191,7 @@ function App() {
     }
     console.log( "game won: " + gameWon);
     if ( gameWon){
-      setGameWon(tue);
+      setGameWon(true);
     }
   }
 
@@ -300,8 +316,15 @@ function App() {
         { gameOver && 
           <dialog id="gameOverModal">
             <h1>Game Over!</h1>
-            <button id="closeGameOverModal" onClick={onGameOverModalClosed}>Try again</button>
+            <button id="closeGameOverModal" onClick={onGameOverModalClosed}>Play again</button>
           </dialog>
+        }
+        {
+          gameWon && 
+          <dialog id="gameWonModal">
+          <h1>Congratulations, you won!</h1>
+          <button id="closeGameWonModal" onClick={onGameWonModalClosed}>Play again</button>
+        </dialog>
         }
       </div>
       <div className="board ">
