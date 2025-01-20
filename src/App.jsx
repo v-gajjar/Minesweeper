@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import GameDifficultyLevel from './enum/GameDifficultyLevel';
 import GameDifficultySelector from './components/GameDifficultySelector';
 import './App.css'
+import GameBoard from './components/GameBoard';
 
 function App() {
 
@@ -295,22 +296,6 @@ function App() {
 
     console.log(cells);
   }
-
-  const setTileClasses = (tile) => {
-    let tileClasses = "tile";
-
-    if ( tile.hasMine ){
-      tileClasses = tileClasses + " mine";
-    }
-    if ( tile.isFlagged ){
-      tileClasses = tileClasses + " flagged";
-    }
-    if ( tile.isOpened ){
-      tileClasses = tileClasses + " opened";
-    }
-
-    return tileClasses;
-  }
  
   return (
 
@@ -337,27 +322,12 @@ function App() {
         </dialog>
         }
       </div>
-      <div className="board ">
-      {board.map((rows, rowIndex) => (
-        <div key={rowIndex}>
-          {rows.map((col, colIndex) => (
-            <div 
-              className={setTileClasses(board[rowIndex][colIndex])} 
-              data-row={rowIndex} 
-              data-col={colIndex} 
-              key={colIndex} 
-              onClick={leftClickTile} 
-              onContextMenu={rightClickTile}>
-                { 
-                  board[rowIndex][colIndex].isOpened && 
-                  board[rowIndex][colIndex].adjacementMinesCount > 0 &&
-                    <span>{board[rowIndex][colIndex].adjacementMinesCount}</span> 
-                }
-            </div>
-          ))}
-        </div>
-      ))}
-    </div>
+      <GameBoard 
+        board={board} onClick={leftClickTile} 
+        onContextMenu={rightClickTile}>
+      </GameBoard>
+
+
     </div>
     </>
   )
