@@ -2,11 +2,9 @@
     margin: auto;
 }
 
-
 dialog{
     margin-top: 0px;
 }
-
 
 .wrapper{
    display: flex;
@@ -25,10 +23,6 @@ dialog{
     align-content: center;
     text-align: center;
     vertical-align: middle;
-}
-
-.board.easy{
-    width: 450px;
 }
 
 #minesLeftIndicator{

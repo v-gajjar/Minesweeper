@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
+
 import GameDifficultyLevel from './enum/GameDifficultyLevel';
 import GameDifficultySelector from './components/GameDifficultySelector';
-import './App.css'
 import GameBoard from './components/GameBoard';
-import MinesLeftIndicator from './components/MinesLeftIndicator';
 import GameResultModal from './components/GameResultModal';
+import MinesLeftIndicator from './components/MinesLeftIndicator';
+
+import './App.css'
 
 function App() {
 
@@ -20,7 +22,6 @@ function App() {
   })
 
   useEffect(() => {
-
     if ( gameWon ){
       const gameWonModal = document.getElementById("gameWonModal");
       gameWonModal.showModal();
@@ -29,7 +30,6 @@ function App() {
   }, [gameWon])
 
   useEffect(() => {
-    
     if ( gameOver ){
       const gameOverModal = document.getElementById("gameOverModal");
       gameOverModal.showModal();
@@ -44,7 +44,6 @@ function App() {
 
   const onGameDifficultyLevelChanged = (event) => {
     const value = event.target.value;
-    console.log("game difficulty level changed to: " + value);
 
     switch(value){
       case GameDifficultyLevel.EASY:
@@ -85,14 +84,10 @@ function App() {
     generateBoard();
   }
 
-  const assignMines = (grid, numberOfMines) => {
-    
+  const assignMines = (grid, numberOfMines, boardSize) => {
     let allocatedMines = 0;
 
     while ( allocatedMines < numberOfMines ){
-      let boardSize = gameDifficultySettings.boardSize;
-;
-
       let cellX = Math.floor(Math.random() * boardSize);
       let cellY = Math.floor(Math.random() * boardSize);
       let tile = grid[cellX][cellY];
@@ -104,8 +99,7 @@ function App() {
     }
   }
 
-  const countAdjacentMines = (selectedTile, tiles) => {
-    const boardSize = gameDifficultySettings.boardSize;
+  const countAdjacentMines = (selectedTile, tiles, boardSize) => {
     let adjacentMinesCount = 0;
     
     let x = selectedTile.x;
@@ -132,14 +126,12 @@ function App() {
     return adjacentMinesCount;
   }
 
-  const calculateAdjacementMinesForEachTile = (tiles) => {
-      const boardSize = gameDifficultySettings.boardSize;
-
+  const calculateAdjacementMinesForEachTile = (tiles, boardSize) => {
       for( var i = 0; i < boardSize; i++ ){
         for (var j = 0; j < boardSize; j++ ){
           let currentTile = tiles[i][j];
           if (! currentTile.hasMine ){
-            const numberOfMines = countAdjacentMines(currentTile, tiles);
+            const numberOfMines = countAdjacentMines(currentTile, tiles, boardSize);
 
             currentTile.adjacementMinesCount = numberOfMines;
           }
@@ -148,8 +140,6 @@ function App() {
   }
 
   const openAllMines = (gameBoard) => {
-    const boardSize = gameDifficultySettings.boardSize;
-
     let updatedBoard = gameBoard.map((row) => {
       return row.map((tile) => {
 
@@ -165,12 +155,9 @@ function App() {
   }
 
   const openTile = (x, y, currentBoard) => {
-    console.log("openTile");
     const boardSize = gameDifficultySettings.boardSize;
 
     if ( x < 0 || x >= boardSize || y < 0 || y >= boardSize || currentBoard[x][y].isOpened ) {
-        
-        console.log(currentBoard);
         return;
     }
     currentBoard[x][y].isOpened = true;
@@ -194,7 +181,6 @@ function App() {
   const checkIfGameWon = (gameBoard) => {
     const boardSize = gameDifficultySettings.boardSize;
 
-    console.log("check if game won...")
     let  gameWon = true;
 
     for ( var i = 0; i < boardSize; i++ ){
@@ -211,7 +197,6 @@ function App() {
         }
       }
     }
-    console.log( "game won: " + gameWon);
     if ( gameWon){
       setGameWon(true);
     }
@@ -274,11 +259,11 @@ function App() {
     let numRows = gameDifficultySettings.boardSize;
     let numCols = gameDifficultySettings.boardSize;
 
-    let cells = [];
+    let tiles = [];
 
     for ( var i = 0; i < numRows; i++ ){
       const row = [];
-      cells.push(row);
+      tiles.push(row);
 
       for ( var j = 0; j < numCols; j++ ){
         row.push({
@@ -291,16 +276,13 @@ function App() {
         })
       }
     }
-    assignMines(cells, gameDifficultySettings.numberOfMines);
-    calculateAdjacementMinesForEachTile(cells);
+    assignMines(tiles, gameDifficultySettings.numberOfMines, gameDifficultySettings.boardSize);
+    calculateAdjacementMinesForEachTile(tiles, gameDifficultySettings.boardSize);
     setMinesLeft(gameDifficultySettings.numberOfMines);
-    setBoard(cells);
-
-    console.log(cells);
+    setBoard(tiles);
   }
  
   return (
-
     <>
       <div className="wrapper">
       <h1 className="game-title">Minesweeper</h1>
