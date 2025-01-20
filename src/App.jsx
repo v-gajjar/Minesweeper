@@ -181,7 +181,16 @@ function App() {
       return row.map((tile) => {
 
         if ( tile.x === rowIndex && tile.y === colIndex ){
-          tile.isFlagged = ! tile.isFlagged;
+          if ( ! tile.isFlagged ){
+            if ( minesLeft > 0 ){
+              tile.isFlagged = true;
+              setMinesLeft(minesLeft - 1);
+            }
+          }
+          else {
+            tile.isFlagged = false;
+            setMinesLeft(minesLeft + 1);
+          }
         }
         return tile;
       });
