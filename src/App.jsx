@@ -14,6 +14,16 @@ function App() {
     numberOfMines: 10
   })
 
+  useEffect(() => {
+    
+    if ( gameOver ){
+      const modal = document.getElementById("modal");
+      modal.showModal();
+    }
+
+
+  }, [gameOver])
+
 
   useEffect(() => {
     generateBoard();
@@ -121,8 +131,6 @@ function App() {
     }
     currentBoard[x][y].isOpened = true;
 
-    console.log(currentBoard[x][y].adjacementMinesCount);
-
     if (currentBoard[x][y].hasMine) {
       setGameOver(true);
       return currentBoard;
@@ -154,10 +162,6 @@ function App() {
     const updatedBoard = openTile(selectedTile.x, selectedTile.y, currentBoard);
 
     setBoard(updatedBoard);
-
-    console.log("hello...");
-
-    const boardSize = gameDifficultySettings.boardSize;
   }
 
   const rightClickTile = (event) => {
@@ -249,7 +253,12 @@ function App() {
         </select>
       </div>
       <div>
-        { gameOver && <span id="winOrLose">game over!</span>}
+        { gameOver && 
+          <dialog id="modal">
+            <h1>Game Over!</h1>
+            <button id="closeModal">Try again</button>
+          </dialog>
+        }
       </div>
       <div className="board ">
       {board.map((rows, rowIndex) => (
