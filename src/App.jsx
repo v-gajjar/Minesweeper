@@ -117,25 +117,22 @@ function App() {
         console.log(currentBoard);
         return;
     }
-    const newBoard = [...currentBoard]
-    
-    newBoard[x][y].isOpened = true;
+    currentBoard[x][y].isOpened = true;
 
-    console.log(newBoard[x][y].adjacementMinesCount);
+    console.log(currentBoard[x][y].adjacementMinesCount);
 
-    if (newBoard[x][y].hasMine) {
-		  // deal with error case?
-      return newBoard;
+    if (currentBoard[x][y].hasMine) {
+      return currentBoard;
     } 
-    else if ( newBoard[x][y].adjacementMinesCount === 0 ) {
+    else if ( currentBoard[x][y].adjacementMinesCount === 0 ) {
         for ( let i = -1; i <= 1; i++ ) {
         	for ( let j = -1; j <= 1; j++ ) {
-                openTile( x+i, y+j, newBoard);
+                openTile( x+i, y+j, currentBoard);
             }
         }
     }
 
-    return newBoard;
+    return currentBoard;
   }
 
   const leftClickTile = (event) => {
@@ -147,10 +144,6 @@ function App() {
 
     if ( selectedTile.isOpened  ){
       return;
-    }
-
-    if ( selectedTile.hasMine ){
-      alert("game over!");
     }
 
     let currentBoard = [...board];
