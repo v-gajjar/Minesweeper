@@ -202,7 +202,7 @@ function App() {
     }
   }
 
-  const leftClickTile = (event) => {
+  const onTileLeftClicked = (event) => {
     let target = event.target;
     let rowIndex = parseInt(target.dataset.row);
     let colIndex = parseInt(target.dataset.col);
@@ -221,7 +221,7 @@ function App() {
     checkIfGameWon(updatedBoard);
   }
 
-  const rightClickTile = (event) => {
+  const onTileRightClicked = (event) => {
     event.preventDefault();
 
     let target = event.target;
@@ -293,20 +293,23 @@ function App() {
       <MinesLeftIndicator minesLeft={minesLeft}></MinesLeftIndicator>
       <div>
         { gameOver && 
-          <GameResultModal gameWon={false}
+          <GameResultModal 
+            gameWon={false}
             onClick={onGameOverModalClosed}>
           </GameResultModal>
         }
         {
           gameWon && 
-          <GameResultModal gameWon={true}
-              onClick={onGameWonModalClosed}>
+          <GameResultModal 
+            gameWon={true}
+            onClick={onGameWonModalClosed}>
           </GameResultModal>
         }
       </div>
       <GameBoard 
-        board={board} onClick={leftClickTile} 
-        onContextMenu={rightClickTile}>
+        board={board} 
+        onClick={onTileLeftClicked} 
+        onContextMenu={onTileRightClicked}>
       </GameBoard>
     </div>
     </>
