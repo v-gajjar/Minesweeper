@@ -4,6 +4,7 @@ import GameDifficultySelector from './components/GameDifficultySelector';
 import Modal from './components/Modal';
 import './App.css'
 import GameBoard from './components/GameBoard';
+import MinesLeftIndicator from './components/MinesLeftIndicator';
 
 function App() {
 
@@ -307,7 +308,7 @@ function App() {
         gameDifficultySettings={gameDifficultySettings} 
         onChange={onGameDifficultyLevelChanged}
       ></GameDifficultySelector>
-      <div id="minesLeftIndicator">mines left: {minesLeft}</div>
+      <MinesLeftIndicator minesLeft={minesLeft}></MinesLeftIndicator>
       <div>
         { gameOver && 
           <Modal
