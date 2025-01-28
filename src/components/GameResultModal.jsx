@@ -1,8 +1,8 @@
 function GameResultModal({ gameWon, onClick }){
     return (
-        <dialog id={gameWon ? "gameWonModal" : "gameOverModal"} >
+        <dialog id="gameResultModal" >
         <h1>{gameWon ? "Congratulations, you won!" : "Game Over!"}</h1>
-        <button id={gameWon ?  "gameWonModal" : "gameOverModal"} onClick={onClick}>Play again</button>
+        <button id="gameResultModalCloseButton" onClick={onClick}>Play again</button>
       </dialog>
     );
 }

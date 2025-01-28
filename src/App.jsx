@@ -1,42 +1,31 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 
-import GameDifficultyLevel from './enum/GameDifficultyLevel';
-import GameDifficultySelector from './components/GameDifficultySelector';
-import GameBoard from './components/GameBoard';
-import GameResultModal from './components/GameResultModal';
-import MinesLeftIndicator from './components/MinesLeftIndicator';
+import GameDifficultyLevel from "./enum/GameDifficultyLevel";
+import GameStatus from "./enum/GameStatus";
+import GameDifficultySelector from "./components/GameDifficultySelector";
+import GameBoard from "./components/GameBoard";
+import GameResultModal from "./components/GameResultModal";
+import MinesLeftIndicator from "./components/MinesLeftIndicator";
 
-import './App.css'
+import "./App.css";
 
 function App() {
-
   const [board, setBoard] = useState([]);
-  const [gameOver, setGameOver] = useState(false);
-  const [gameWon, setGameWon] = useState(false);
+  const [gameStatus, setGameStatus] = useState(GameStatus.GAME_NOT_STARTED);
   const [minesLeft, setMinesLeft] = useState(0);
- 
+
   const [gameDifficultySettings, setGameDifficultySettings] = useState({
     level: GameDifficultyLevel.EASY,
     boardSize: 9,
-    numberOfMines: 10
-  })
+    numberOfMines: 10,
+  });
 
   useEffect(() => {
-    if ( gameWon ){
-      const gameWonModal = document.getElementById("gameWonModal");
-      gameWonModal.showModal();
+    if (gameHasEnded()) {
+      const gameResultModal = document.getElementById("gameResultModal");
+      gameResultModal.showModal();
     }
-
-  }, [gameWon])
-
-  useEffect(() => {
-    if ( gameOver ){
-      const gameOverModal = document.getElementById("gameOverModal");
-      gameOverModal.showModal();
-    }
-
-  }, [gameOver])
-
+  }, [gameStatus]);
 
   useEffect(() => {
     generateBoard();
@@ -45,7 +34,9 @@ function App() {
   const onGameDifficultyLevelChanged = (event) => {
     const value = event.target.value;
 
-    switch(value){
+    setGameStatus(GameStatus.GAME_NOT_STARTED);
+
+    switch (value) {
       case GameDifficultyLevel.EASY:
         setGameDifficultySettings({
           level: GameDifficultyLevel.EASY,
@@ -68,82 +59,77 @@ function App() {
         });
         break;
     }
-  }
+  };
 
-  const onGameWonModalClosed = () => {
-    const gameWonModal = document.getElementById("gameWonModal");
-    gameWonModal.close();
-    setGameWon(false);
+  const onGameResultModalClosed = () => {
+    const gameResultModal = document.getElementById("gameResultModal");
+    gameResultModal.close();
+    setGameStatus(GameStatus.GAME_NOT_STARTED);
     generateBoard();
-  }
-
-  const onGameOverModalClosed = () => {
-    const gameOverModal = document.getElementById("gameOverModal");
-    gameOverModal.close();
-    setGameOver(false);
-    generateBoard();
-  }
+  };
 
   const assignMines = (grid, numberOfMines, boardSize) => {
     let allocatedMines = 0;
 
-    while ( allocatedMines < numberOfMines ){
+    while (allocatedMines < numberOfMines) {
       let cellX = Math.floor(Math.random() * boardSize);
       let cellY = Math.floor(Math.random() * boardSize);
       let tile = grid[cellX][cellY];
 
-      if ( ! tile.hasMine){
+      if (!tile.hasMine) {
         tile.hasMine = true;
         allocatedMines++;
       }
     }
-  }
+  };
 
   const countAdjacentMines = (selectedTile, tiles, boardSize) => {
     let adjacentMinesCount = 0;
-    
+
     let x = selectedTile.x;
     let y = selectedTile.y;
 
-    for( var i = -1; i <= 1; i++){
-      for( var j = -1; j <= 1; j++ ){
+    for (var i = -1; i <= 1; i++) {
+      for (var j = -1; j <= 1; j++) {
+        let xPos = x + i;
+        let yPos = y + j;
 
-        let xPos = x+i;
-        let yPos = y+j;
-
-        if ( xPos < 0 || xPos >= boardSize || yPos < 0 || yPos >= boardSize ){
+        if (xPos < 0 || xPos >= boardSize || yPos < 0 || yPos >= boardSize) {
           continue;
-        } 
+        }
         let neighbourTile = tiles[xPos][yPos];
 
-        if ( ! neighbourTile.hasMine){
+        if (!neighbourTile.hasMine) {
           continue;
         }
 
-        adjacentMinesCount++
+        adjacentMinesCount++;
       }
     }
     return adjacentMinesCount;
-  }
+  };
 
   const calculateAdjacementMinesForEachTile = (tiles, boardSize) => {
-      for( var i = 0; i < boardSize; i++ ){
-        for (var j = 0; j < boardSize; j++ ){
-          let currentTile = tiles[i][j];
-          if (! currentTile.hasMine ){
-            const numberOfMines = countAdjacentMines(currentTile, tiles, boardSize);
+    for (var i = 0; i < boardSize; i++) {
+      for (var j = 0; j < boardSize; j++) {
+        let currentTile = tiles[i][j];
+        if (!currentTile.hasMine) {
+          const numberOfMines = countAdjacentMines(
+            currentTile,
+            tiles,
+            boardSize
+          );
 
-            currentTile.adjacementMinesCount = numberOfMines;
-          }
+          currentTile.adjacementMinesCount = numberOfMines;
         }
       }
-  }
+    }
+  };
 
   const openAllMines = (gameBoard) => {
     let updatedBoard = gameBoard.map((row) => {
       return row.map((tile) => {
-
-        if ( tile.hasMine ){
+        if (tile.hasMine) {
           tile.isFlagged = false;
           tile.isOpened = true;
         }
@@ -152,55 +138,61 @@ function App() {
     });
 
     return updatedBoard;
-  }
+  };
 
   const openTile = (x, y, currentBoard) => {
     const boardSize = gameDifficultySettings.boardSize;
 
-    if ( x < 0 || x >= boardSize || y < 0 || y >= boardSize || currentBoard[x][y].isOpened ) {
-        return;
+    if (
+      x < 0 ||
+      x >= boardSize ||
+      y < 0 ||
+      y >= boardSize ||
+      currentBoard[x][y].isOpened
+    ) {
+      return;
     }
     currentBoard[x][y].isOpened = true;
 
     if (currentBoard[x][y].hasMine) {
-      setGameOver(true);
       const updatedBoard = openAllMines(currentBoard);
       return currentBoard;
-    } 
-    else if ( currentBoard[x][y].adjacementMinesCount === 0 ) {
-        for ( let i = -1; i <= 1; i++ ) {
-        	for ( let j = -1; j <= 1; j++ ) {
-                openTile( x+i, y+j, currentBoard);
-            }
+    } else if (currentBoard[x][y].adjacementMinesCount === 0) {
+      for (let i = -1; i <= 1; i++) {
+        for (let j = -1; j <= 1; j++) {
+          openTile(x + i, y + j, currentBoard);
         }
+      }
     }
 
     return currentBoard;
-  }
+  };
 
   const checkIfGameWon = (gameBoard) => {
     const boardSize = gameDifficultySettings.boardSize;
 
-    let  gameWon = true;
+    let gameWon = true;
 
-    for ( var i = 0; i < boardSize; i++ ){
-      for (var j = 0; j < boardSize; j++ ){
+    for (var i = 0; i < boardSize; i++) {
+      for (var j = 0; j < boardSize; j++) {
         let tile = gameBoard[i][j];
 
-        if ( ! tile.isOpened && ! tile.isFlagged){
+        if (!tile.isOpened && !tile.isFlagged) {
           gameWon = false;
           break;
         }
-        if ( tile.isOpened && tile.hasMine){
+        if (tile.isOpened && tile.hasMine) {
           gameWon = false;
           break;
         }
       }
     }
-    if ( gameWon){
-      setGameWon(true);
+    if (gameWon) {
+      setGameStatus(GameStatus.GAME_WON);
+    } else {
+      setGameStatus(GameStatus.GAME_IN_PROGRESS);
     }
-  }
+  };
 
   const onTileLeftClicked = (event) => {
     let target = event.target;
@@ -209,7 +201,7 @@ function App() {
 
     let selectedTile = board[rowIndex][colIndex];
 
-    if ( selectedTile.isOpened  ){
+    if (selectedTile.isOpened) {
       return;
     }
 
@@ -218,8 +210,13 @@ function App() {
     const updatedBoard = openTile(selectedTile.x, selectedTile.y, currentBoard);
 
     setBoard(updatedBoard);
-    checkIfGameWon(updatedBoard);
-  }
+
+    if (selectedTile.hasMine) {
+      setGameStatus(GameStatus.GAME_LOST);
+    } else {
+      checkIfGameWon(updatedBoard);
+    }
+  };
 
   const onTileRightClicked = (event) => {
     event.preventDefault();
@@ -230,19 +227,17 @@ function App() {
 
     let selectedTile = board[rowIndex][colIndex];
 
-    if ( selectedTile.isOpened ){
+    if (selectedTile.isOpened) {
       return;
     }
 
     let updatedBoard = board.map((row) => {
       return row.map((tile) => {
-
-        if ( tile.x === rowIndex && tile.y === colIndex ){
-          if ( ! tile.isFlagged ){
-              tile.isFlagged = true;
-              setMinesLeft(minesLeft - 1);
-          }
-          else {
+        if (tile.x === rowIndex && tile.y === colIndex) {
+          if (!tile.isFlagged) {
+            tile.isFlagged = true;
+            setMinesLeft(minesLeft - 1);
+          } else {
             tile.isFlagged = false;
             setMinesLeft(minesLeft + 1);
           }
@@ -252,68 +247,85 @@ function App() {
     });
     setBoard(updatedBoard);
     checkIfGameWon(updatedBoard);
-  }
+  };
 
   const generateBoard = () => {
-
     let numRows = gameDifficultySettings.boardSize;
     let numCols = gameDifficultySettings.boardSize;
 
     let tiles = [];
 
-    for ( var i = 0; i < numRows; i++ ){
+    for (var i = 0; i < numRows; i++) {
       const row = [];
       tiles.push(row);
 
-      for ( var j = 0; j < numCols; j++ ){
+      for (var j = 0; j < numCols; j++) {
         row.push({
           x: i,
           y: j,
           hasMine: false,
           isOpened: false,
           isFlagged: false,
-          adjacementMinesCount: null
-        })
+          adjacementMinesCount: null,
+        });
       }
     }
-    assignMines(tiles, gameDifficultySettings.numberOfMines, gameDifficultySettings.boardSize);
-    calculateAdjacementMinesForEachTile(tiles, gameDifficultySettings.boardSize);
+    assignMines(
+      tiles,
+      gameDifficultySettings.numberOfMines,
+      gameDifficultySettings.boardSize
+    );
+    calculateAdjacementMinesForEachTile(
+      tiles,
+      gameDifficultySettings.boardSize
+    );
     setMinesLeft(gameDifficultySettings.numberOfMines);
     setBoard(tiles);
-  }
- 
+  };
+
+  const gameHasEnded = () => {
+    switch (gameStatus) {
+      case GameStatus.GAME_LOST:
+        return true;
+      case GameStatus.GAME_WON:
+        return true;
+      default:
+        return false;
+    }
+  };
+
+  const userWonGame = () => {
+    if (gameStatus === GameStatus.GAME_WON) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <>
       <div className="wrapper">
-      <h1 className="game-title">Minesweeper</h1>
-      <GameDifficultySelector 
-        gameDifficultySettings={gameDifficultySettings} 
-        onChange={onGameDifficultyLevelChanged}
-      ></GameDifficultySelector>
-      <MinesLeftIndicator minesLeft={minesLeft}></MinesLeftIndicator>
-      <div>
-        { gameOver && 
-          <GameResultModal 
-            gameWon={false}
-            onClick={onGameOverModalClosed}>
-          </GameResultModal>
-        }
-        {
-          gameWon && 
-          <GameResultModal 
-            gameWon={true}
-            onClick={onGameWonModalClosed}>
-          </GameResultModal>
-        }
+        <h1 className="game-title">Minesweeper</h1>
+        <GameDifficultySelector
+          gameDifficultySettings={gameDifficultySettings}
+          onChange={onGameDifficultyLevelChanged}
+        ></GameDifficultySelector>
+        <MinesLeftIndicator minesLeft={minesLeft}></MinesLeftIndicator>
+        <>
+          {gameHasEnded() && (
+            <GameResultModal
+              gameWon={userWonGame()}
+              onClick={onGameResultModalClosed}
+            ></GameResultModal>
+          )}
+        </>
+        <GameBoard
+          board={board}
+          onClick={onTileLeftClicked}
+          onContextMenu={onTileRightClicked}
+        ></GameBoard>
       </div>
-      <GameBoard 
-        board={board} 
-        onClick={onTileLeftClicked} 
-        onContextMenu={onTileRightClicked}>
-      </GameBoard>
-    </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
