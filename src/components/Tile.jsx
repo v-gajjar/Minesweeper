@@ -18,8 +18,8 @@ function Tile({ tile, onClick, onContextMenu }) {
       onClick={onClick}
       onContextMenu={onContextMenu}
     >
-      {tile.isOpened && tile.adjacementMinesCount > 0 && (
-        <span>{tile.adjacementMinesCount}</span>
+      {tile.isOpened && tile.adjacentMinesCount > 0 && (
+        <span>{tile.adjacentMinesCount}</span>
       )}
     </div>
   );

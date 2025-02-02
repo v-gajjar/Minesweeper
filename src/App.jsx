@@ -120,7 +120,7 @@ function App() {
             boardSize
           );
 
-          currentTile.adjacementMinesCount = numberOfMines;
+          currentTile.adjacentMinesCount = numberOfMines;
         }
       }
     }
@@ -157,7 +157,7 @@ function App() {
     if (currentBoard[x][y].hasMine) {
       const updatedBoard = openAllMines(currentBoard);
       return currentBoard;
-    } else if (currentBoard[x][y].adjacementMinesCount === 0) {
+    } else if (currentBoard[x][y].adjacentMinesCount === 0) {
       for (let i = -1; i <= 1; i++) {
         for (let j = -1; j <= 1; j++) {
           openTile(x + i, y + j, currentBoard);
@@ -266,7 +266,7 @@ function App() {
           hasMine: false,
           isOpened: false,
           isFlagged: false,
-          adjacementMinesCount: null,
+          adjacentMinesCount: null,
         });
       }
     }
