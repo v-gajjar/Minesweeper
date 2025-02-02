@@ -109,7 +109,7 @@ function App() {
     return adjacentMinesCount;
   };
 
-  const calculateAdjacementMinesForEachTile = (tiles, boardSize) => {
+  const calculateAdjacentMinesForEachTile = (tiles, boardSize) => {
     for (var i = 0; i < boardSize; i++) {
       for (var j = 0; j < boardSize; j++) {
         let currentTile = tiles[i][j];
@@ -275,7 +275,7 @@ function App() {
       gameDifficultySettings.numberOfMines,
       gameDifficultySettings.boardSize
     );
-    calculateAdjacementMinesForEachTile(
+    calculateAdjacentMinesForEachTile(
       tiles,
       gameDifficultySettings.boardSize
     );
