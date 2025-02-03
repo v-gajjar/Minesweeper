@@ -148,7 +148,8 @@ function App() {
       x >= boardSize ||
       y < 0 ||
       y >= boardSize ||
-      currentBoard[x][y].isOpened
+      currentBoard[x][y].isOpened ||
+      currentBoard[x][y].isFlagged
     ) {
       return;
     }
