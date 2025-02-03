@@ -47,7 +47,7 @@ dialog{
     background: darkgray;
 }
 
-.tile.opened.mine::before {
+/* .tile.opened.mine::before {
     background: black;
     position: absolute;
     left: 25%;
@@ -66,5 +66,5 @@ dialog{
     content: "";
     height: 100%;
     width: 100%;
-}
+} */
 
