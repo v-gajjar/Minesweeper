@@ -22,7 +22,7 @@ By default, all tiles are closed. A number of mines will be randomly distributed
 
 The objective of the game is to open all tiles (excluding flagged tiles) without opening a mine. 
 
-If you suspect a tile has a mine, you can "flag" the tile using right click. This will highlight the tile in yellow. 
+If you suspect a tile has a mine, you can "flag" the tile using right click. This will display a flag on the tile. 
 
 You can flag as many tiles as you want. 
 
