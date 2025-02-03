@@ -47,24 +47,3 @@ dialog{
     background: darkgray;
 }
 
-/* .tile.opened.mine::before {
-    background: black;
-    position: absolute;
-    left: 25%;
-    top: 25%;
-    content: "";
-    height: 50%;
-    width: 50%;
-    border-radius: 50%;
-}
-
-.tile.flagged::before {
-    background: yellow;
-    position: absolute;
-    left: 0;
-    top: 0;
-    content: "";
-    height: 100%;
-    width: 100%;
-} */
-
