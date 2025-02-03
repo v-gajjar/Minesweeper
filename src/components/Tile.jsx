@@ -13,18 +13,18 @@ function Tile({ tile, onClick, onContextMenu }) {
   const renderTileContents = () => {
   
     if ( tile.isFlagged) {
-      return <span>&#127987;</span>;
+      return <>&#127987;</>;
     }
     if (tile.isOpened ) {
       if ( tile.hasMine ){
-        return  <span>&#128163;</span>;
+        return  <>&#128163;</>;
       }
       if ( tile.adjacentMinesCount > 0 ){
          return <span>{tile.adjacentMinesCount}</span>;
       }
     }
 
-    return <span></span>;
+    return null;
   }
 
   return (
