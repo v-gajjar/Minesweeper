@@ -5,14 +5,15 @@ import GameStatus from "./enum/GameStatus";
 import GameDifficultySelector from "./components/GameDifficultySelector";
 import GameBoard from "./components/GameBoard";
 import GameResultModal from "./components/GameResultModal";
-import MinesLeftIndicator from "./components/MinesLeftIndicator";
+
 
 import "./App.css";
+import RemainingFlagsIndicator from "./components/RemainingFlagsIndicator";
 
 function App() {
   const [board, setBoard] = useState([]);
   const [gameStatus, setGameStatus] = useState(GameStatus.GAME_NOT_STARTED);
-  const [minesLeft, setMinesLeft] = useState(0);
+  const [remainingFlags, setRemainingFlags] = useState(0);
 
   const [gameDifficultySettings, setGameDifficultySettings] = useState({
     level: GameDifficultyLevel.EASY,
@@ -227,7 +228,7 @@ function App() {
 
     const updatedBoard = openTile(selectedTile.x, selectedTile.y, currentBoard);
     let remainingFlags = countRemainingFlags(updatedBoard);
-    setMinesLeft(remainingFlags);
+    setRemainingFlags(remainingFlags);
     setBoard(updatedBoard);
    
 
@@ -256,10 +257,10 @@ function App() {
         if (tile.x === rowIndex && tile.y === colIndex) {
           if (!tile.isFlagged) {
             tile.isFlagged = true;
-            setMinesLeft(minesLeft - 1);
+            setRemainingFlags(remainingFlags - 1);
           } else {
             tile.isFlagged = false;
-            setMinesLeft(minesLeft + 1);
+            setRemainingFlags(remainingFlags + 1);
           }
         }
         return tile;
@@ -299,7 +300,7 @@ function App() {
       tiles,
       gameDifficultySettings.boardSize
     );
-    setMinesLeft(gameDifficultySettings.numberOfMines);
+    setRemainingFlags(gameDifficultySettings.numberOfMines);
     setBoard(tiles);
   };
 
@@ -329,7 +330,7 @@ function App() {
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
         ></GameDifficultySelector>
-        <MinesLeftIndicator minesLeft={minesLeft}></MinesLeftIndicator>
+        <RemainingFlagsIndicator remainingFlags={remainingFlags}></RemainingFlagsIndicator>
         <>
           {gameHasEnded() && (
             <GameResultModal
