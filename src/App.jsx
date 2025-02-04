@@ -5,10 +5,10 @@ import GameStatus from "./enum/GameStatus";
 import GameDifficultySelector from "./components/GameDifficultySelector";
 import GameBoard from "./components/GameBoard";
 import GameResultModal from "./components/GameResultModal";
-
+import RemainingFlagsIndicator from "./components/RemainingFlagsIndicator";
 
 import "./App.css";
-import RemainingFlagsIndicator from "./components/RemainingFlagsIndicator";
+
 
 function App() {
   const [board, setBoard] = useState([]);
