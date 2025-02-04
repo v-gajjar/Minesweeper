@@ -148,10 +148,12 @@ function App() {
       x >= boardSize ||
       y < 0 ||
       y >= boardSize ||
-      currentBoard[x][y].isOpened ||
-      currentBoard[x][y].isFlagged
+      currentBoard[x][y].isOpened 
     ) {
       return;
+    }
+    if ( currentBoard[x][y].isFlagged ){
+      currentBoard[x][y].isFlagged = false;
     }
     currentBoard[x][y].isOpened = true;
 
@@ -195,6 +197,21 @@ function App() {
     }
   };
 
+  const countRemainingFlags = (currentBoard) => {
+      let remainingFlags = gameDifficultySettings.numberOfMines;
+
+      for( var i = 0; i < currentBoard.length; i++ ){
+        for( var j = 0; j < currentBoard[i].length; j++ ){
+          let selectedTile = currentBoard[i][j];
+          
+          if ( selectedTile.isFlagged ){
+            remainingFlags--;
+          }
+        }
+      }
+      return remainingFlags;
+  }
+
   const onTileLeftClicked = (event) => {
     let target = event.target;
     let rowIndex = parseInt(target.dataset.row);
@@ -209,8 +226,10 @@ function App() {
     let currentBoard = [...board];
 
     const updatedBoard = openTile(selectedTile.x, selectedTile.y, currentBoard);
-
+    let remainingFlags = countRemainingFlags(updatedBoard);
+    setMinesLeft(remainingFlags);
     setBoard(updatedBoard);
+   
 
     if (selectedTile.hasMine) {
       setGameStatus(GameStatus.GAME_LOST);
