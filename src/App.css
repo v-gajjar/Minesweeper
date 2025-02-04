@@ -48,6 +48,11 @@ dialog{
 }
 
 .tile.opened {
-    background: darkgray;
+    background: #B3B3B3;
+}
+
+.tile:not(.opened):hover {
+    cursor: pointer;
+    background: lightgray;
 }
 
