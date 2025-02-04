@@ -5,14 +5,15 @@ import GameStatus from "./enum/GameStatus";
 import GameDifficultySelector from "./components/GameDifficultySelector";
 import GameBoard from "./components/GameBoard";
 import GameResultModal from "./components/GameResultModal";
-import MinesLeftIndicator from "./components/MinesLeftIndicator";
+import RemainingFlagsIndicator from "./components/RemainingFlagsIndicator";
 
 import "./App.css";
+
 
 function App() {
   const [board, setBoard] = useState([]);
   const [gameStatus, setGameStatus] = useState(GameStatus.GAME_NOT_STARTED);
-  const [minesLeft, setMinesLeft] = useState(0);
+  const [remainingFlags, setRemainingFlags] = useState(0);
 
   const [gameDifficultySettings, setGameDifficultySettings] = useState({
     level: GameDifficultyLevel.EASY,
@@ -148,10 +149,12 @@ function App() {
       x >= boardSize ||
       y < 0 ||
       y >= boardSize ||
-      currentBoard[x][y].isOpened ||
-      currentBoard[x][y].isFlagged
+      currentBoard[x][y].isOpened 
     ) {
       return;
+    }
+    if ( currentBoard[x][y].isFlagged ){
+      currentBoard[x][y].isFlagged = false;
     }
     currentBoard[x][y].isOpened = true;
 
@@ -195,6 +198,21 @@ function App() {
     }
   };
 
+  const countRemainingFlags = (currentBoard) => {
+      let remainingFlags = gameDifficultySettings.numberOfMines;
+
+      for( var i = 0; i < currentBoard.length; i++ ){
+        for( var j = 0; j < currentBoard[i].length; j++ ){
+          let selectedTile = currentBoard[i][j];
+          
+          if ( selectedTile.isFlagged ){
+            remainingFlags--;
+          }
+        }
+      }
+      return remainingFlags;
+  }
+
   const onTileLeftClicked = (event) => {
     let target = event.target;
     let rowIndex = parseInt(target.dataset.row);
@@ -209,8 +227,10 @@ function App() {
     let currentBoard = [...board];
 
     const updatedBoard = openTile(selectedTile.x, selectedTile.y, currentBoard);
-
+    let remainingFlags = countRemainingFlags(updatedBoard);
+    setRemainingFlags(remainingFlags);
     setBoard(updatedBoard);
+   
 
     if (selectedTile.hasMine) {
       setGameStatus(GameStatus.GAME_LOST);
@@ -237,10 +257,10 @@ function App() {
         if (tile.x === rowIndex && tile.y === colIndex) {
           if (!tile.isFlagged) {
             tile.isFlagged = true;
-            setMinesLeft(minesLeft - 1);
+            setRemainingFlags(remainingFlags - 1);
           } else {
             tile.isFlagged = false;
-            setMinesLeft(minesLeft + 1);
+            setRemainingFlags(remainingFlags + 1);
           }
         }
         return tile;
@@ -280,7 +300,7 @@ function App() {
       tiles,
       gameDifficultySettings.boardSize
     );
-    setMinesLeft(gameDifficultySettings.numberOfMines);
+    setRemainingFlags(gameDifficultySettings.numberOfMines);
     setBoard(tiles);
   };
 
@@ -310,7 +330,7 @@ function App() {
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
         ></GameDifficultySelector>
-        <MinesLeftIndicator minesLeft={minesLeft}></MinesLeftIndicator>
+        <RemainingFlagsIndicator remainingFlags={remainingFlags}></RemainingFlagsIndicator>
         <>
           {gameHasEnded() && (
             <GameResultModal
