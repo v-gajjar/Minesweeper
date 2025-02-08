@@ -108,23 +108,6 @@ function App() {
     return adjacentMinesCount;
   };
 
-  const calculateAdjacentMinesForEachTile = (tiles, boardSize) => {
-    for (var i = 0; i < boardSize; i++) {
-      for (var j = 0; j < boardSize; j++) {
-        let currentTile = tiles[i][j];
-        if (!currentTile.hasMine) {
-          const numberOfMines = countAdjacentMines(
-            currentTile,
-            tiles,
-            boardSize
-          );
-
-          currentTile.adjacentMinesCount = numberOfMines;
-        }
-      }
-    }
-  };
-
   const openAllMines = (gameBoard) => {
     let updatedBoard = gameBoard.map((row) => {
       return row.map((tile) => {
@@ -160,8 +143,14 @@ function App() {
 
     if (currentTile.hasMine) {
       const updatedBoard = openAllMines(currentBoard);
-      return currentBoard;
+      return updatedBoard;
     } 
+    currentTile.adjacentMinesCount = countAdjacentMines(
+      currentTile,
+      currentBoard,
+      boardSize
+    );
+
     if (currentTile.adjacentMinesCount === 0) {
       for (let i = -1; i <= 1; i++) {
         for (let j = -1; j <= 1; j++) {
@@ -295,10 +284,6 @@ function App() {
     assignMines(
       tiles,
       gameDifficultySettings.numberOfMines,
-      gameDifficultySettings.boardSize
-    );
-    calculateAdjacentMinesForEachTile(
-      tiles,
       gameDifficultySettings.boardSize
     );
     setRemainingFlags(gameDifficultySettings.numberOfMines);
