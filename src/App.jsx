@@ -151,15 +151,18 @@ function App() {
     ) {
       return;
     }
-    if ( currentBoard[x][y].isFlagged ){
-      currentBoard[x][y].isFlagged = false;
-    }
-    currentBoard[x][y].isOpened = true;
+    let currentTile = currentBoard[x][y];
 
-    if (currentBoard[x][y].hasMine) {
+    if ( currentTile.isFlagged ){
+      currentTile.isFlagged = false;
+    }
+    currentTile.isOpened = true;
+
+    if (currentTile.hasMine) {
       const updatedBoard = openAllMines(currentBoard);
       return currentBoard;
-    } else if (currentBoard[x][y].adjacentMinesCount === 0) {
+    } 
+    if (currentTile.adjacentMinesCount === 0) {
       for (let i = -1; i <= 1; i++) {
         for (let j = -1; j <= 1; j++) {
           openTile(x + i, y + j, currentBoard);
