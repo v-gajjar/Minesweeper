@@ -100,11 +100,9 @@ function App() {
         }
         let neighbourTile = tiles[xPos][yPos];
 
-        if (!neighbourTile.hasMine) {
-          continue;
+        if ( neighbourTile.hasMine ) {
+          adjacentMinesCount++;
         }
-
-        adjacentMinesCount++;
       }
     }
     return adjacentMinesCount;
