@@ -15,6 +15,7 @@ function App() {
   const [gameStatus, setGameStatus] = useState(GameStatus.GAME_NOT_STARTED);
   const [remainingFlags, setRemainingFlags] = useState(0);
   const [minesHaveBeenAssigned, setMinesHaveBeenAssigned] = useState(false);
+  const [numberOfRemainingSafeTiles, setNumberOfRemainingSafeTiles] = useState(0);
 
   const [gameDifficultySettings, setGameDifficultySettings] = useState({
     level: GameDifficultyLevel.EASY,
@@ -131,7 +132,7 @@ function App() {
     return updatedBoard;
   };
 
-  const openTile = (x, y, currentBoard) => {
+  const openTile = (x, y, currentBoard, tilesOpenedOnClick) => {
     const boardSize = gameDifficultySettings.boardSize;
 
     if (
@@ -153,49 +154,24 @@ function App() {
 
     if (currentTile.hasMine) {
       const updatedBoard = openAllMines(currentBoard);
-      return updatedBoard;
+      return [updatedBoard, tilesOpenedOnClick];
     } 
     currentTile.adjacentMinesCount = countAdjacentMines(
       currentTile,
       currentBoard,
       boardSize
     );
+    tilesOpenedOnClick.push(currentTile);
 
     if (currentTile.adjacentMinesCount === 0) {
       for (let i = -1; i <= 1; i++) {
         for (let j = -1; j <= 1; j++) {
-          openTile(x + i, y + j, currentBoard);
+          openTile(x + i, y + j, currentBoard, tilesOpenedOnClick);
         }
       }
     }
 
-    return currentBoard;
-  };
-
-  const checkIfGameWon = (gameBoard) => {
-    const boardSize = gameDifficultySettings.boardSize;
-
-    let gameWon = true;
-
-    for (var i = 0; i < boardSize; i++) {
-      for (var j = 0; j < boardSize; j++) {
-        let tile = gameBoard[i][j];
-
-        if (!tile.isOpened && !tile.isFlagged) {
-          gameWon = false;
-          break;
-        }
-        if (tile.isOpened && tile.hasMine) {
-          gameWon = false;
-          break;
-        }
-      }
-    }
-    if (gameWon) {
-      setGameStatus(GameStatus.GAME_WON);
-    } else {
-      setGameStatus(GameStatus.GAME_IN_PROGRESS);
-    }
+    return [currentBoard, tilesOpenedOnClick];
   };
 
   const countRemainingFlags = (currentBoard) => {
@@ -236,16 +212,29 @@ function App() {
       setMinesHaveBeenAssigned(true);
     }
 
-    const updatedBoard = openTile(selectedTile.x, selectedTile.y, currentBoard);
+    const [updatedBoard, tilesOpenedOnClick] = openTile(
+      selectedTile.x, 
+      selectedTile.y, 
+      currentBoard, 
+      [/* tiles opened on click*/]
+    );
+    let numberOfTilesOpenedOnClick = tilesOpenedOnClick.length;
+    console.log( "number of tiles opened on click: " + numberOfTilesOpenedOnClick);
+
     let remainingFlags = countRemainingFlags(updatedBoard);
+
     setRemainingFlags(remainingFlags);
     setBoard(updatedBoard);
-   
 
     if (selectedTile.hasMine) {
       setGameStatus(GameStatus.GAME_LOST);
-    } else {
-      checkIfGameWon(updatedBoard);
+    } 
+    else if ( numberOfRemainingSafeTiles - numberOfTilesOpenedOnClick === 0 ){
+      setGameStatus(GameStatus.GAME_WON);
+    }
+    else{
+      setNumberOfRemainingSafeTiles(numberOfRemainingSafeTiles - numberOfTilesOpenedOnClick);
+      setGameStatus(GameStatus.GAME_IN_PROGRESS);
     }
   };
 
@@ -277,20 +266,20 @@ function App() {
       });
     });
     setBoard(updatedBoard);
-    checkIfGameWon(updatedBoard);
   };
 
   const generateBoard = () => {
-    let numRows = gameDifficultySettings.boardSize;
-    let numCols = gameDifficultySettings.boardSize;
+    let numberOfRows = gameDifficultySettings.boardSize;
+    let numberOfCols = gameDifficultySettings.boardSize;
+    let numberOfMines = gameDifficultySettings.numberOfMines;
 
     let tiles = [];
 
-    for (var i = 0; i < numRows; i++) {
+    for (var i = 0; i < numberOfRows; i++) {
       const row = [];
       tiles.push(row);
 
-      for (var j = 0; j < numCols; j++) {
+      for (var j = 0; j < numberOfCols; j++) {
         row.push({
           x: i,
           y: j,
@@ -304,6 +293,7 @@ function App() {
     setMinesHaveBeenAssigned(false);
     setGameStatus(GameStatus.GAME_NOT_STARTED);
     setRemainingFlags(gameDifficultySettings.numberOfMines);
+    setNumberOfRemainingSafeTiles(numberOfRows * numberOfCols - numberOfMines);
     setBoard(tiles);
   };
 
