@@ -219,8 +219,6 @@ function App() {
       [/* tiles opened on click*/]
     );
     let numberOfTilesOpenedOnClick = tilesOpenedOnClick.length;
-    console.log( "number of tiles opened on click: " + numberOfTilesOpenedOnClick);
-
     let remainingFlags = countRemainingFlags(updatedBoard);
 
     setRemainingFlags(remainingFlags);
