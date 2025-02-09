@@ -225,13 +225,14 @@ function App() {
     );
     
     updateGameState(
-      tilesOpenedOnClick,
       updatedBoard,
       selectedTile,
+      tilesOpenedOnClick,
+    
     );
   };
 
-  const updateGameState = ( tilesOpenedOnClick, updatedBoard, selectedTile ) => {
+  const updateGameState = ( updatedBoard, selectedTile, tilesOpenedOnClick ) => {
 
     let numberOfTilesOpenedOnClick = tilesOpenedOnClick.length;
     let remainingFlags = countRemainingFlags(updatedBoard);
