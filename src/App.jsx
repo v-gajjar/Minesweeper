@@ -80,6 +80,9 @@ function App() {
       let tile = grid[cellX][cellY];
 
       if ( tile.x == currentTile.x && tile.y == currentTile.y ){
+        // The first tile that is subjected to a left click should be ignored when placing a mine
+        // to make the game a bit easier/fairer - the user cannot lose on the 
+        // the first left click
         continue;
       }
 
