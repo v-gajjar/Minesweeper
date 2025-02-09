@@ -105,7 +105,7 @@ function App() {
         let xPos = x + i;
         let yPos = y + j;
 
-        if (xPos < 0 || xPos >= boardSize || yPos < 0 || yPos >= boardSize) {
+        if (isOffBoard(xPos, yPos, boardSize, boardSize)) {
           continue;
         }
         let neighbourTile = tiles[xPos][yPos];
@@ -132,16 +132,21 @@ function App() {
     return updatedBoard;
   };
 
+  const isOffBoard = (x, y, numberOfRows, numberOfCols) => {
+    if (
+      x < 0 || x >= numberOfRows || y < 0 || y >= numberOfCols 
+    ) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
   const openTile = (x, y, currentBoard, tilesOpenedOnClick) => {
     const boardSize = gameDifficultySettings.boardSize;
 
-    if (
-      x < 0 ||
-      x >= boardSize ||
-      y < 0 ||
-      y >= boardSize ||
-      currentBoard[x][y].isOpened 
-    ) {
+    if ( isOffBoard(x, y, boardSize, boardSize) || currentBoard[x][y].isOpened ) {
       return;
     }
 
