@@ -267,20 +267,22 @@ function App() {
       return;
     }
 
-    let updatedBoard = board.map((row) => {
-      return row.map((tile) => {
-        if (tile.x === rowIndex && tile.y === colIndex) {
-          if (!tile.isFlagged) {
-            tile.isFlagged = true;
-            setRemainingFlags(remainingFlags - 1);
-          } else {
-            tile.isFlagged = false;
-            setRemainingFlags(remainingFlags + 1);
-          }
-        }
-        return tile;
-      });
-    });
+    let updatedBoard = [...board];
+    
+    const isFlagged = selectedTile.isFlagged ? false : true;
+
+    let updatedTile = {
+      ...selectedTile,
+      isFlagged: isFlagged
+    }
+    updatedBoard[rowIndex][colIndex] = updatedTile;
+
+    if ( isFlagged ){
+      setRemainingFlags(remainingFlags - 1)
+    }
+    else {
+      setRemainingFlags(remainingFlags + 1);
+    }
     setBoard(updatedBoard);
   };
 
