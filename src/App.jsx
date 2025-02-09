@@ -14,6 +14,7 @@ function App() {
   const [board, setBoard] = useState([]);
   const [gameStatus, setGameStatus] = useState(GameStatus.GAME_NOT_STARTED);
   const [remainingFlags, setRemainingFlags] = useState(0);
+  const [minesHaveBeenAssigned, setMinesHaveBeenAssigned] = useState(false);
 
   const [gameDifficultySettings, setGameDifficultySettings] = useState({
     level: GameDifficultyLevel.EASY,
@@ -65,19 +66,24 @@ function App() {
   const onGameResultModalClosed = () => {
     const gameResultModal = document.getElementById("gameResultModal");
     gameResultModal.close();
-    setGameStatus(GameStatus.GAME_NOT_STARTED);
+    
     generateBoard();
   };
 
-  const assignMines = (grid, numberOfMines, boardSize) => {
+  const assignMines = (currentTile, grid, numberOfMines, boardSize) => {
     let allocatedMines = 0;
 
     while (allocatedMines < numberOfMines) {
       let cellX = Math.floor(Math.random() * boardSize);
       let cellY = Math.floor(Math.random() * boardSize);
+
       let tile = grid[cellX][cellY];
 
-      if (!tile.hasMine) {
+      if ( tile.x == currentTile.x && tile.y == currentTile.y ){
+        continue;
+      }
+
+      if (!tile.hasMine ) {
         tile.hasMine = true;
         allocatedMines++;
       }
@@ -134,6 +140,7 @@ function App() {
     ) {
       return;
     }
+
     let currentTile = currentBoard[x][y];
 
     if ( currentTile.isFlagged ){
@@ -216,6 +223,16 @@ function App() {
 
     let currentBoard = [...board];
 
+    if ( ! minesHaveBeenAssigned ){
+      assignMines(
+        selectedTile,
+        currentBoard,
+        gameDifficultySettings.numberOfMines,
+        gameDifficultySettings.boardSize
+      );
+      setMinesHaveBeenAssigned(true);
+    }
+
     const updatedBoard = openTile(selectedTile.x, selectedTile.y, currentBoard);
     let remainingFlags = countRemainingFlags(updatedBoard);
     setRemainingFlags(remainingFlags);
@@ -281,11 +298,8 @@ function App() {
         });
       }
     }
-    assignMines(
-      tiles,
-      gameDifficultySettings.numberOfMines,
-      gameDifficultySettings.boardSize
-    );
+    setMinesHaveBeenAssigned(false);
+    setGameStatus(GameStatus.GAME_NOT_STARTED);
     setRemainingFlags(gameDifficultySettings.numberOfMines);
     setBoard(tiles);
   };
