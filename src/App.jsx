@@ -223,6 +223,16 @@ function App() {
       currentBoard, 
       [/* tiles opened on click*/]
     );
+    
+    updateGameState(
+      tilesOpenedOnClick,
+      updatedBoard,
+      selectedTile,
+    );
+  };
+
+  const updateGameState = ( tilesOpenedOnClick, updatedBoard, selectedTile ) => {
+
     let numberOfTilesOpenedOnClick = tilesOpenedOnClick.length;
     let remainingFlags = countRemainingFlags(updatedBoard);
 
@@ -232,11 +242,13 @@ function App() {
     if (selectedTile.hasMine) {
       setGameStatus(GameStatus.GAME_LOST);
     } 
-    else if ( numberOfRemainingSafeTiles - numberOfTilesOpenedOnClick === 0 ){
+    else if (numberOfRemainingSafeTiles - numberOfTilesOpenedOnClick === 0) {
       setGameStatus(GameStatus.GAME_WON);
-    }
-    else{
-      setNumberOfRemainingSafeTiles(numberOfRemainingSafeTiles - numberOfTilesOpenedOnClick);
+    } 
+    else {
+      setNumberOfRemainingSafeTiles(
+        numberOfRemainingSafeTiles - numberOfTilesOpenedOnClick
+      );
       setGameStatus(GameStatus.GAME_IN_PROGRESS);
     }
   };
