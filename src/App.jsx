@@ -121,9 +121,16 @@ function App() {
   const openAllMines = (gameBoard) => {
     let updatedBoard = gameBoard.map((row) => {
       return row.map((tile) => {
-        if (tile.hasMine) {
-          tile.isFlagged = false;
-          tile.isOpened = true;
+        if (tile.hasMine ) {
+          if ( tile.isFlagged ){
+            tile.isCorrectlyFlagged = true;
+          }
+          else {
+            tile.isOpened = true;
+          }
+        }
+        else if ( tile.isFlagged ){
+          tile.isCorrectlyFlagged = false
         }
         return tile;
       });

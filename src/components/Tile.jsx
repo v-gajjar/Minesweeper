@@ -12,6 +12,9 @@ function Tile({ tile, onClick, onContextMenu }) {
 
   const renderTileContents = () => {
   
+    if ( tile.isCorrectlyFlagged === false ){
+      return <>&#10060;</>
+    }
     if ( tile.isFlagged) {
       return <>&#127987;</>;
     }
