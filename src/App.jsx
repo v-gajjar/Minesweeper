@@ -122,15 +122,12 @@ function App() {
     let updatedBoard = gameBoard.map((row) => {
       return row.map((tile) => {
         if (tile.hasMine ) {
-          if ( tile.isFlagged ){
-            tile.isCorrectlyFlagged = true;
-          }
-          else {
+          if ( ! tile.isFlagged ){
             tile.isOpened = true;
           }
         }
         else if ( tile.isFlagged ){
-          tile.isCorrectlyFlagged = false
+          tile.isIncorrectlyFlagged = true
         }
         return tile;
       });
