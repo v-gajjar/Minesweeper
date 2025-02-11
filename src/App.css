@@ -40,7 +40,7 @@ dialog{
     flex: 0 0 33%;
     height: 39px;
     width: 39px;
-    background: gray;
+    background: lightgray;
     border: 1px solid whitesmoke;
     align-content: center;
     text-align: center;
@@ -50,11 +50,11 @@ dialog{
 }
 
 .tile.opened {
-    background: #B3B3B3;
+    background: #E8E8E8;
 }
 
 .tile:not(.opened):hover {
     cursor: pointer;
-    background: lightgray;
+    background: gray;
 }
 
