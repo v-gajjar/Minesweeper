@@ -16,7 +16,7 @@ function Tile({ tile, onClick, onContextMenu }) {
       return <>&#10060;</>
     }
     if ( tile.isFlagged) {
-      return <>&#127987;</>;
+      return <>&#x1F6A9;</>;
     }
     if (tile.isOpened ) {
       if ( tile.hasMine ){
