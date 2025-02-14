@@ -10,6 +10,20 @@ function Tile({ tile, onClick, onContextMenu }) {
     'opened' : tile.isOpened
   })
 
+  const getNumberedTileColour = (number) => {
+    switch(number){
+      case 1: return {color: "blue"};
+      case 2: return {color: "green"};
+      case 3: return {color: "red"};
+      case 4: return {color: "darkblue"};
+      case 5: return {color: "brown"};
+      case 6: return {color: "lightblue"};
+      case 7: return {color: "purple"};
+      case 8: return {color: "pink"};
+      default: return {color: "black"}
+    }
+  }
+
   const renderTileContents = () => {
   
     if ( tile.isIncorrectlyFlagged ){
@@ -23,7 +37,9 @@ function Tile({ tile, onClick, onContextMenu }) {
         return  <>&#128163;</>;
       }
       if ( tile.adjacentMinesCount > 0 ){
-         return <span>{tile.adjacentMinesCount}</span>;
+          const number = tile.adjacentMinesCount;
+
+         return <span style={getNumberedTileColour(number)}>{number}</span>;
       }
     }
 
