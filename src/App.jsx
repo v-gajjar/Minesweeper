@@ -19,7 +19,10 @@ function App() {
 
   const [gameDifficultySettings, setGameDifficultySettings] = useState({
     level: GameDifficultyLevel.EASY,
-    boardSize: 9,
+    boardSize: {
+      numberOfRows: 9,
+      numberOfColumns: 9
+    },
     numberOfMines: 10,
   });
 
@@ -43,21 +46,30 @@ function App() {
       case GameDifficultyLevel.EASY:
         setGameDifficultySettings({
           level: GameDifficultyLevel.EASY,
-          boardSize: 9,
+          boardSize:  {
+            numberOfRows: 9,
+            numberOfColumns: 9
+          },
           numberOfMines: 10,
         });
         break;
       case GameDifficultyLevel.MEDIUM:
         setGameDifficultySettings({
           level: GameDifficultyLevel.MEDIUM,
-          boardSize: 16,
+          boardSize:  {
+            numberOfRows: 16,
+            numberOfColumns: 16
+          },
           numberOfMines: 40,
         });
         break;
       case GameDifficultyLevel.HARD:
         setGameDifficultySettings({
           level: GameDifficultyLevel.HARD,
-          boardSize: 20,
+          boardSize:  {
+            numberOfRows: 20,
+            numberOfColumns: 20
+          },
           numberOfMines: 80,
         });
         break;
@@ -72,11 +84,14 @@ function App() {
   };
 
   const assignMines = (currentTile, grid, numberOfMines, boardSize) => {
-    let allocatedMines = 0;
+    const numberOfRows = boardSize.numberOfRows;
+    const numberOfColumns = boardSize.numberOfColumns;
 
+    let allocatedMines = 0;
+    
     while (allocatedMines < numberOfMines) {
-      let cellX = Math.floor(Math.random() * boardSize);
-      let cellY = Math.floor(Math.random() * boardSize);
+      let cellX = Math.floor(Math.random() * numberOfRows);
+      let cellY = Math.floor(Math.random() * numberOfColumns);
 
       let tile = grid[cellX][cellY];
 
@@ -105,7 +120,7 @@ function App() {
         let xPos = x + i;
         let yPos = y + j;
 
-        if (isOffBoard(xPos, yPos, boardSize, boardSize)) {
+        if (isOffBoard(xPos, yPos, boardSize)) {
           continue;
         }
         let neighbourTile = tiles[xPos][yPos];
@@ -136,9 +151,12 @@ function App() {
     return updatedBoard;
   };
 
-  const isOffBoard = (x, y, numberOfRows, numberOfCols) => {
+  const isOffBoard = (x, y, boardSize) => {
+    const numberOfRows = boardSize.numberOfRows;
+    const numberOfColumns = boardSize.numberOfColumns;
+
     if (
-      x < 0 || x >= numberOfRows || y < 0 || y >= numberOfCols 
+      x < 0 || x >= numberOfRows || y < 0 || y >= numberOfColumns 
     ) {
       return true;
     }
@@ -150,7 +168,7 @@ function App() {
   const openTile = (x, y, currentBoard, tilesOpenedOnClick) => {
     const boardSize = gameDifficultySettings.boardSize;
 
-    if ( isOffBoard(x, y, boardSize, boardSize) || currentBoard[x][y].isOpened ) {
+    if ( isOffBoard(x, y, boardSize) || currentBoard[x][y].isOpened ) {
       return;
     }
 
@@ -291,8 +309,10 @@ function App() {
   };
 
   const generateBoard = () => {
-    let numberOfRows = gameDifficultySettings.boardSize;
-    let numberOfCols = gameDifficultySettings.boardSize;
+    const boardSize = gameDifficultySettings.boardSize;
+
+    let numberOfRows = boardSize.numberOfRows;
+    let numberOfColumns = boardSize.numberOfColumns;
     let numberOfMines = gameDifficultySettings.numberOfMines;
 
     let tiles = [];
@@ -301,7 +321,7 @@ function App() {
       const row = [];
       tiles.push(row);
 
-      for (var j = 0; j < numberOfCols; j++) {
+      for (var j = 0; j < numberOfColumns; j++) {
         row.push({
           x: i,
           y: j,
@@ -312,10 +332,12 @@ function App() {
         });
       }
     }
+    console.log( tiles );
+
     setMinesHaveBeenAssigned(false);
     setGameStatus(GameStatus.GAME_NOT_STARTED);
     setRemainingFlags(gameDifficultySettings.numberOfMines);
-    setNumberOfRemainingSafeTiles(numberOfRows * numberOfCols - numberOfMines);
+    setNumberOfRemainingSafeTiles(numberOfRows * numberOfColumns - numberOfMines);
     setBoard(tiles);
   };
 
