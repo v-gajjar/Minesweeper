@@ -6,7 +6,7 @@ import { GAME_DIFFICULTY_LEVEL_SETTINGS } from "./config/gameDifficultyLevelSett
 import GameDifficultySelector from "./components/GameDifficultySelector";
 import GameBoard from "./components/GameBoard";
 import GameResultModal from "./components/GameResultModal";
-import RemainingFlagsIndicator from "./components/RemainingFlagsIndicator";
+import RemainingFlagsCounter from "./components/RemainingFlagsCounter";
 
 import "./App.css";
 
@@ -337,7 +337,7 @@ function App() {
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
         ></GameDifficultySelector>
-        <RemainingFlagsIndicator remainingFlagsCount={remainingFlagsCount}></RemainingFlagsIndicator>
+        <RemainingFlagsCounter remainingFlagsCount={remainingFlagsCount}></RemainingFlagsCounter>
         <>
           {gameHasEnded() && (
             <GameResultModal

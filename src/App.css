@@ -30,7 +30,7 @@ dialog{
     margin: auto;
 }
 
-#minesLeftIndicator{
+#remainingFlagsCounter{
     display: flex;
     justify-content: center;
     padding: 10px;
