@@ -54,17 +54,17 @@ function App() {
     generateBoard();
   };
 
-  const assignMines = (currentTile, grid, mineCount, boardSize) => {
+  const assignMines = (currentTile, gameBoard, mineCount, boardSize) => {
     const rowCount = boardSize.rowCount;
     const columnCount = boardSize.columnCount;
 
     let allocatedMines = 0;
     
     while (allocatedMines < mineCount) {
-      let cellX = Math.floor(Math.random() * rowCount);
-      let cellY = Math.floor(Math.random() * columnCount);
+      let x = Math.floor(Math.random() * rowCount);
+      let y = Math.floor(Math.random() * columnCount);
 
-      let tile = grid[cellX][cellY];
+      let tile = gameBoard[x][y];
 
       if ( tile.x == currentTile.x && tile.y == currentTile.y ){
         // The first tile that is subjected to a left click should be ignored when placing a mine
