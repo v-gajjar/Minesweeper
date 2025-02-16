@@ -227,7 +227,7 @@ function App() {
 
   const updateGameState = ( updatedBoard, selectedTile, tilesOpenedOnClick ) => {
 
-    let tilesCount = tilesOpenedOnClick.length;
+    let openedTilesCount = tilesOpenedOnClick.length;
     let remainingFlagsCount = countRemainingFlags(updatedBoard);
 
     setRemainingFlagsCount(remainingFlagsCount);
@@ -236,7 +236,7 @@ function App() {
     if (selectedTile.hasMine) {
       setGameStatus(GameStatus.GAME_LOST);
     } 
-    else if (safeTilesCount - tilesCount === 0) {
+    else if (safeTilesCount - openedTilesCount === 0) {
       setGameStatus(GameStatus.GAME_WON);
     } 
     else {
