@@ -1,4 +1,4 @@
-import GameDifficultyLevel from "../enum/GameDifficultyLevel";
+import { GAME_DIFFICULTY_LEVEL_SETTINGS } from "../config/gameDifficultyLevelSettings";
 
 function GameDifficultySelector({gameDifficultySettings, onChange}) {
 
@@ -11,9 +11,12 @@ function GameDifficultySelector({gameDifficultySettings, onChange}) {
             name="game-difficulty-select" 
             id="game-difficulty-select"
         > 
-        <option value={GameDifficultyLevel.EASY}>Beginnner</option>
-        <option value={GameDifficultyLevel.MEDIUM}>Intermediate</option>
-        <option value={GameDifficultyLevel.HARD}>Advance</option>
+        {Object.keys(GAME_DIFFICULTY_LEVEL_SETTINGS).map((setting, i) => (
+            <option 
+                key={i}
+                value={GAME_DIFFICULTY_LEVEL_SETTINGS[setting].level}
+            >{GAME_DIFFICULTY_LEVEL_SETTINGS[setting].label}</option>
+        ))}
       </select>
     </div>
     );

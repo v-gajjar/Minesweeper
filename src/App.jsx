@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 
 import GameDifficultyLevel from "./enum/GameDifficultyLevel";
 import GameStatus from "./enum/GameStatus";
+import { GAME_DIFFICULTY_LEVEL_SETTINGS } from "./config/gameDifficultyLevelSettings";
+
 import GameDifficultySelector from "./components/GameDifficultySelector";
 import GameBoard from "./components/GameBoard";
 import GameResultModal from "./components/GameResultModal";
@@ -17,14 +19,7 @@ function App() {
   const [minesHaveBeenAssigned, setMinesHaveBeenAssigned] = useState(false);
   const [numberOfRemainingSafeTiles, setNumberOfRemainingSafeTiles] = useState(0);
 
-  const [gameDifficultySettings, setGameDifficultySettings] = useState({
-    level: GameDifficultyLevel.EASY,
-    boardSize: {
-      numberOfRows: 9,
-      numberOfColumns: 9
-    },
-    numberOfMines: 10,
-  });
+  const [gameDifficultySettings, setGameDifficultySettings] = useState(GAME_DIFFICULTY_LEVEL_SETTINGS.EASY);
 
   useEffect(() => {
     if (gameHasEnded()) {
@@ -34,46 +29,23 @@ function App() {
   }, [gameStatus]);
 
   useEffect(() => {
+
     generateBoard();
   }, [gameDifficultySettings]);
 
   const onGameDifficultyLevelChanged = (event) => {
-    const value = event.target.value;
+    const selectedLevel = event.target.value;
+
+    const difficultyLevel = Object.values(GAME_DIFFICULTY_LEVEL_SETTINGS).find(
+      (difficultySetting) => selectedLevel === difficultySetting.level
+    );
+
+    if (! difficultyLevel) {
+      return;
+    }
 
     setGameStatus(GameStatus.GAME_NOT_STARTED);
-
-    switch (value) {
-      case GameDifficultyLevel.EASY:
-        setGameDifficultySettings({
-          level: GameDifficultyLevel.EASY,
-          boardSize:  {
-            numberOfRows: 9,
-            numberOfColumns: 9
-          },
-          numberOfMines: 10,
-        });
-        break;
-      case GameDifficultyLevel.MEDIUM:
-        setGameDifficultySettings({
-          level: GameDifficultyLevel.MEDIUM,
-          boardSize:  {
-            numberOfRows: 16,
-            numberOfColumns: 16
-          },
-          numberOfMines: 40,
-        });
-        break;
-      case GameDifficultyLevel.HARD:
-        setGameDifficultySettings({
-          level: GameDifficultyLevel.HARD,
-          boardSize:  {
-            numberOfRows: 20,
-            numberOfColumns: 20
-          },
-          numberOfMines: 80,
-        });
-        break;
-    }
+    setGameDifficultySettings(difficultyLevel)
   };
 
   const onGameResultModalClosed = () => {
@@ -332,7 +304,6 @@ function App() {
         });
       }
     }
-    console.log( tiles );
 
     setMinesHaveBeenAssigned(false);
     setGameStatus(GameStatus.GAME_NOT_STARTED);
