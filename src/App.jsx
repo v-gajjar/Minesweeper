@@ -241,7 +241,7 @@ function App() {
     } 
     else {
       setSafeTilesCount(
-        safeTilesCount - tilesCount
+        safeTilesCount - openedTilesCount
       );
       setGameStatus(GameStatus.GAME_IN_PROGRESS);
     }
