@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 
-import GameDifficultyLevel from "./enum/GameDifficultyLevel";
 import GameStatus from "./enum/GameStatus";
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from "./config/gameDifficultyLevelSettings";
 
