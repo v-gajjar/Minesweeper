@@ -1,6 +1,6 @@
-function RemainingFlagsIndicator({ remainingFlags }){
+function RemainingFlagsIndicator({ remainingFlagsCount }){
     return (
-        <div id="minesLeftIndicator">Remaining Flags: {remainingFlags}</div>
+        <div id="minesLeftIndicator">Remaining Flags: {remainingFlagsCount}</div>
     );
 }
 

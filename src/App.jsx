@@ -14,9 +14,9 @@ import "./App.css";
 function App() {
   const [board, setBoard] = useState([]);
   const [gameStatus, setGameStatus] = useState(GameStatus.GAME_NOT_STARTED);
-  const [remainingFlags, setRemainingFlags] = useState(0);
+  const [remainingFlagsCount, setRemainingFlagsCount] = useState(0);
   const [minesHaveBeenAssigned, setMinesHaveBeenAssigned] = useState(false);
-  const [numberOfRemainingSafeTiles, setNumberOfRemainingSafeTiles] = useState(0);
+  const [safeTilesCount, setSafeTilesCount] = useState(0);
 
   const [gameDifficultySettings, setGameDifficultySettings] = useState(GAME_DIFFICULTY_LEVEL_SETTINGS.EASY);
 
@@ -173,18 +173,18 @@ function App() {
   };
 
   const countRemainingFlags = (currentBoard) => {
-      let remainingFlags = gameDifficultySettings.mineCount;
+      let remainingFlagsCount = gameDifficultySettings.mineCount;
 
       for( var i = 0; i < currentBoard.length; i++ ){
         for( var j = 0; j < currentBoard[i].length; j++ ){
           let selectedTile = currentBoard[i][j];
           
           if ( selectedTile.isFlagged ){
-            remainingFlags--;
+            remainingFlagsCount--;
           }
         }
       }
-      return remainingFlags;
+      return remainingFlagsCount;
   }
 
   const onTileLeftClicked = (event) => {
@@ -227,21 +227,21 @@ function App() {
 
   const updateGameState = ( updatedBoard, selectedTile, tilesOpenedOnClick ) => {
 
-    let numberOfTilesOpenedOnClick = tilesOpenedOnClick.length;
-    let remainingFlags = countRemainingFlags(updatedBoard);
+    let tilesCount = tilesOpenedOnClick.length;
+    let remainingFlagsCount = countRemainingFlags(updatedBoard);
 
-    setRemainingFlags(remainingFlags);
+    setRemainingFlagsCount(remainingFlagsCount);
     setBoard(updatedBoard);
 
     if (selectedTile.hasMine) {
       setGameStatus(GameStatus.GAME_LOST);
     } 
-    else if (numberOfRemainingSafeTiles - numberOfTilesOpenedOnClick === 0) {
+    else if (safeTilesCount - tilesCount === 0) {
       setGameStatus(GameStatus.GAME_WON);
     } 
     else {
-      setNumberOfRemainingSafeTiles(
-        numberOfRemainingSafeTiles - numberOfTilesOpenedOnClick
+      setSafeTilesCount(
+        safeTilesCount - tilesCount
       );
       setGameStatus(GameStatus.GAME_IN_PROGRESS);
     }
@@ -271,10 +271,10 @@ function App() {
     updatedBoard[rowIndex][colIndex] = updatedTile;
 
     if ( isFlagged ){
-      setRemainingFlags(remainingFlags - 1)
+      setRemainingFlagsCount(remainingFlagsCount - 1)
     }
     else {
-      setRemainingFlags(remainingFlags + 1);
+      setRemainingFlagsCount(remainingFlagsCount + 1);
     }
     setBoard(updatedBoard);
   };
@@ -306,8 +306,8 @@ function App() {
 
     setMinesHaveBeenAssigned(false);
     setGameStatus(GameStatus.GAME_NOT_STARTED);
-    setRemainingFlags(gameDifficultySettings.mineCount);
-    setNumberOfRemainingSafeTiles(rowCount * columnCount - mineCount);
+    setRemainingFlagsCount(gameDifficultySettings.mineCount);
+    setSafeTilesCount(rowCount * columnCount - mineCount);
     setBoard(tiles);
   };
 
@@ -337,7 +337,7 @@ function App() {
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
         ></GameDifficultySelector>
-        <RemainingFlagsIndicator remainingFlags={remainingFlags}></RemainingFlagsIndicator>
+        <RemainingFlagsIndicator remainingFlagsCount={remainingFlagsCount}></RemainingFlagsIndicator>
         <>
           {gameHasEnded() && (
             <GameResultModal
