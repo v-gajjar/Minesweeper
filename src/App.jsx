@@ -54,15 +54,15 @@ function App() {
     generateBoard();
   };
 
-  const assignMines = (currentTile, grid, numberOfMines, boardSize) => {
-    const numberOfRows = boardSize.numberOfRows;
-    const numberOfColumns = boardSize.numberOfColumns;
+  const assignMines = (currentTile, grid, mineCount, boardSize) => {
+    const rowCount = boardSize.rowCount;
+    const columnCount = boardSize.columnCount;
 
     let allocatedMines = 0;
     
-    while (allocatedMines < numberOfMines) {
-      let cellX = Math.floor(Math.random() * numberOfRows);
-      let cellY = Math.floor(Math.random() * numberOfColumns);
+    while (allocatedMines < mineCount) {
+      let cellX = Math.floor(Math.random() * rowCount);
+      let cellY = Math.floor(Math.random() * columnCount);
 
       let tile = grid[cellX][cellY];
 
@@ -123,11 +123,11 @@ function App() {
   };
 
   const isOffBoard = (x, y, boardSize) => {
-    const numberOfRows = boardSize.numberOfRows;
-    const numberOfColumns = boardSize.numberOfColumns;
+    const rowCount = boardSize.rowCount;
+    const columnCount = boardSize.columnCount;
 
     if (
-      x < 0 || x >= numberOfRows || y < 0 || y >= numberOfColumns 
+      x < 0 || x >= rowCount || y < 0 || y >= columnCount 
     ) {
       return true;
     }
@@ -173,7 +173,7 @@ function App() {
   };
 
   const countRemainingFlags = (currentBoard) => {
-      let remainingFlags = gameDifficultySettings.numberOfMines;
+      let remainingFlags = gameDifficultySettings.mineCount;
 
       for( var i = 0; i < currentBoard.length; i++ ){
         for( var j = 0; j < currentBoard[i].length; j++ ){
@@ -204,7 +204,7 @@ function App() {
       assignMines(
         selectedTile,
         currentBoard,
-        gameDifficultySettings.numberOfMines,
+        gameDifficultySettings.mineCount,
         gameDifficultySettings.boardSize
       );
       setMinesHaveBeenAssigned(true);
@@ -282,17 +282,17 @@ function App() {
   const generateBoard = () => {
     const boardSize = gameDifficultySettings.boardSize;
 
-    let numberOfRows = boardSize.numberOfRows;
-    let numberOfColumns = boardSize.numberOfColumns;
-    let numberOfMines = gameDifficultySettings.numberOfMines;
+    let rowCount = boardSize.rowCount;
+    let columnCount = boardSize.columnCount;
+    let mineCount = gameDifficultySettings.mineCount;
 
     let tiles = [];
 
-    for (var i = 0; i < numberOfRows; i++) {
+    for (var i = 0; i < rowCount; i++) {
       const row = [];
       tiles.push(row);
 
-      for (var j = 0; j < numberOfColumns; j++) {
+      for (var j = 0; j < columnCount; j++) {
         row.push({
           x: i,
           y: j,
@@ -306,8 +306,8 @@ function App() {
 
     setMinesHaveBeenAssigned(false);
     setGameStatus(GameStatus.GAME_NOT_STARTED);
-    setRemainingFlags(gameDifficultySettings.numberOfMines);
-    setNumberOfRemainingSafeTiles(numberOfRows * numberOfColumns - numberOfMines);
+    setRemainingFlags(gameDifficultySettings.mineCount);
+    setNumberOfRemainingSafeTiles(rowCount * columnCount - mineCount);
     setBoard(tiles);
   };
 
