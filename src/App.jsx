@@ -348,6 +348,7 @@ function App() {
         </>
         <GameBoard
           board={board}
+          boardSize={gameDifficultySettings.boardSize}
           onClick={onTileLeftClicked}
           onContextMenu={onTileRightClicked}
         ></GameBoard>

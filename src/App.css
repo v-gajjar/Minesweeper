@@ -11,9 +11,9 @@ dialog{
 }
 
 .wrapper{
-   display: flex;
-   justify-content: center;
-   flex-direction: column;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .game-difficulty-select-wrapper{
@@ -22,22 +22,21 @@ dialog{
 }
 
 .board{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-    vertical-align: middle;
-    margin: auto;
-}
+    display: grid;
+    grid-template-columns: repeat(var(--columns), 39px);
+    grid-template-rows: repeat(var(--rows), 39px);
+    gap: 0;
+    width: fit-content;
+    margin:auto;
+}   
 
-#remainingFlagsCounter{
+#remainingFlagsCounter{ 
     display: flex;
     justify-content: center;
     padding: 10px;
 }
 
 .tile {
-    flex: 0 0 33%;
     height: 39px;
     width: 39px;
     background: lightgray;
@@ -46,7 +45,7 @@ dialog{
     text-align: center;
     vertical-align: middle;
     position: relative;
-    border-radius: 3px;
+    border-radius: 5px;
 }
 
 .tile.opened {
