@@ -1,3 +1,5 @@
+
+ ![preview](https://github.com/v-gajjar/React-Minesweeper/blob/main/src/assets/Minesweeper.gif)
 # Getting Started:
 
 1. Clone the repository:
