@@ -37,7 +37,7 @@ There are currently three difficulty settings
 | :--- | :--- | :--- |
 | easy | 9 rows by 9 columns | 10
 | medium | 16 rows by 16 columns | 40
-| hard | 16 columns by 30 columns | 80
+| hard | 16 rows by 30 columns | 80
 
 
 
