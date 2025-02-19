@@ -22,8 +22,8 @@ export const GAME_DIFFICULTY_LEVEL_SETTINGS = {
   HARD: {
     level: GameDifficultyLevel.HARD,
     boardSize: {
-      rowCount: 20,
-      columnCount: 20,
+      rowCount: 16,
+      columnCount: 30,
     },
     mineCount: 80,
     label: "Advance"
