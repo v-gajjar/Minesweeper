@@ -2,6 +2,8 @@ import Tile from "./Tile";
 
 function GameBoard({ board, boardSize, onClick, onContextMenu }) {
 
+  // --rows is a CSS variable used set grid-template-rows 
+  // --columns is a CSS variable used set grid-template-columns
   const style = {
     "--rows": `${boardSize.rowCount}`,
     "--columns": `${boardSize.columnCount}`,
@@ -13,7 +15,7 @@ function GameBoard({ board, boardSize, onClick, onContextMenu }) {
         rows.map((col, colIndex) => (
           <Tile
             tile={board[rowIndex][colIndex]}
-            key={(1 + colIndex) * (1 + rowIndex)}
+            key={`tile-${rowIndex}-${colIndex}`}
             onClick={onClick}
             onContextMenu={onContextMenu}
           ></Tile>
