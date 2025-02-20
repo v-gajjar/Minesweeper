@@ -337,14 +337,12 @@ function App() {
           onChange={onGameDifficultyLevelChanged}
         ></GameDifficultySelector>
         <RemainingFlagsCounter remainingFlagsCount={remainingFlagsCount}></RemainingFlagsCounter>
-        <>
-          {gameHasEnded() && (
+        { gameHasEnded() && 
             <GameResultModal
               gameWon={userWonGame()}
               onClick={onGameResultModalClosed}
             ></GameResultModal>
-          )}
-        </>
+        }
         <GameBoard
           board={board}
           boardSize={gameDifficultySettings.boardSize}
