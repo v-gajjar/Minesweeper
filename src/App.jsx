@@ -330,7 +330,6 @@ function App() {
   };
 
   return (
-    <>
       <div className="wrapper">
         <h1 className="game-title">Minesweeper</h1>
         <GameDifficultySelector
@@ -353,7 +352,6 @@ function App() {
           onContextMenu={onTileRightClicked}
         ></GameBoard>
       </div>
-    </>
   );
 }
 
