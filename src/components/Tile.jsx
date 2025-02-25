@@ -1,5 +1,6 @@
 
 import classNames from "classnames";
+import { Bomb, X, Flag } from "@phosphor-icons/react";
 
 function Tile({ tile, onClick, onContextMenu }) {
 
@@ -27,14 +28,14 @@ function Tile({ tile, onClick, onContextMenu }) {
   const renderTileContents = () => {
   
     if ( tile.isIncorrectlyFlagged ){
-      return <>&#10060;</>
+      return <X size={20} color="#c01c28" weight="bold" />
     }
     if ( tile.isFlagged) {
-      return <>&#x1F6A9;</>;
+      return <Flag size={20} color="#c01c28" weight="fill" />
     }
     if (tile.isOpened ) {
       if ( tile.hasMine ){
-        return  <>&#128163;</>;
+        return <Bomb size={20} weight="fill" />
       }
       if ( tile.adjacentMinesCount > 0 ){
           const number = tile.adjacentMinesCount;
