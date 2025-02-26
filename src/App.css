@@ -52,6 +52,10 @@ dialog{
     background: #E8E8E8;
 }
 
+.tile.opened.exploded {
+    background: orange;
+}
+
 .tile:not(.opened):hover {
     cursor: pointer;
     background: gray;

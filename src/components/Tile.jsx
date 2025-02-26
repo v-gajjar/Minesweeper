@@ -7,6 +7,7 @@ function Tile({ tile, onClick, onContextMenu }) {
   const tileClass = classNames({
     'tile' : true,
     'mine' : tile.hasMine,
+    'exploded' : tile.hasExplodedMine,
     'flagged' : tile.isFlagged,
     'opened' : tile.isOpened
   })

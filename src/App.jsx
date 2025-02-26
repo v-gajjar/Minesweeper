@@ -151,6 +151,8 @@ function App() {
     currentTile.isOpened = true;
 
     if (currentTile.hasMine) {
+      currentTile.hasExplodedMine = true;
+      
       const updatedBoard = openAllMines(currentBoard);
       return [updatedBoard, tilesOpenedOnClick];
     } 
