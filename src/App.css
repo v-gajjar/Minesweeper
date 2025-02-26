@@ -41,9 +41,9 @@ dialog{
     width: 39px;
     background: lightgray;
     border: 1px solid whitesmoke;
-    align-content: center;
-    text-align: center;
-    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: relative;
     border-radius: 5px;
 }
