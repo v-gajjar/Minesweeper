@@ -52,7 +52,7 @@ dialog{
     background: #E8E8E8;
 }
 
-.tile.opened.exploded {
+.tile.mine.exploded {
     background: orange;
 }
 
