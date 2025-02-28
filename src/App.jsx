@@ -252,7 +252,7 @@ function App() {
   const onTileRightClicked = (event) => {
     event.preventDefault();
 
-    let target = event.target;
+    let target = event.currentTarget;
     let rowIndex = parseInt(target.dataset.row);
     let colIndex = parseInt(target.dataset.col);
 
