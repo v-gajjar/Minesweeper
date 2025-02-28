@@ -27,6 +27,8 @@ function Tile({ tile, onClick, onContextMenu }) {
   }
 
   const renderTileContents = () => {
+    
+    if ( !tile.isOpened && !tile.isFlagged ) return null;
   
     if ( tile.isIncorrectlyFlagged ){
       return <X size={20} color="#c01c28" weight="bold" />
@@ -34,18 +36,13 @@ function Tile({ tile, onClick, onContextMenu }) {
     if ( tile.isFlagged) {
       return <Flag size={20} color="#c01c28" weight="fill" />
     }
-    if (tile.isOpened ) {
-      if ( tile.hasMine ){
-        return <Bomb size={20} weight="fill" />
-      }
-      if ( tile.adjacentMinesCount > 0 ){
-          const number = tile.adjacentMinesCount;
-
-         return <span style={getNumberedTileColour(number)}>{number}</span>;
-      }
+    if ( tile.hasMine ){
+      return <Bomb size={20} weight="fill" />
     }
-
-    return null;
+    if ( tile.adjacentMinesCount > 0 ){
+      const number = tile.adjacentMinesCount;
+      return <span style={getNumberedTileColour(number)}>{number}</span>;
+    }
   }
 
   return (
