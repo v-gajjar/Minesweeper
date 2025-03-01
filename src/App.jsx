@@ -17,7 +17,9 @@ function App() {
   const [remainingFlagsCount, setRemainingFlagsCount] = useState(0);
   const [minesHaveBeenAssigned, setMinesHaveBeenAssigned] = useState(false);
   const [safeTilesCount, setSafeTilesCount] = useState(0);
-
+  const [mineLocations, setMineLocations] = useState([]);
+  const [flagLocations, setFlagLocations] = useState([]);
+ 
   const [gameDifficultySettings, setGameDifficultySettings] = useState(GAME_DIFFICULTY_LEVEL_SETTINGS.EASY);
 
   useEffect(() => {
@@ -59,12 +61,14 @@ function App() {
     const columnCount = boardSize.columnCount;
 
     let allocatedMines = 0;
+
+    const locationOfMines = [];
     
     while (allocatedMines < mineCount) {
-      let x = Math.floor(Math.random() * rowCount);
-      let y = Math.floor(Math.random() * columnCount);
+      let row = Math.floor(Math.random() * rowCount);
+      let col = Math.floor(Math.random() * columnCount);
 
-      let tile = gameBoard[x][y];
+      let tile = gameBoard[row][col];
 
       if ( tile.x == currentTile.x && tile.y == currentTile.y ){
         // The first tile that is subjected to a left click should be ignored when placing a mine
@@ -74,10 +78,12 @@ function App() {
       }
 
       if (!tile.hasMine ) {
+        locationOfMines.push({x: tile.x, y: tile.y})
         tile.hasMine = true;
         allocatedMines++;
       }
     }
+    return locationOfMines;
   };
 
   const countAdjacentMines = (selectedTile, tiles, boardSize) => {
@@ -104,23 +110,30 @@ function App() {
     return adjacentMinesCount;
   };
 
-  const openAllMines = (gameBoard) => {
-    let updatedBoard = gameBoard.map((row) => {
-      return row.map((tile) => {
-        if (tile.hasMine ) {
-          if ( ! tile.isFlagged ){
-            tile.isOpened = true;
-          }
-        }
-        else if ( tile.isFlagged ){
-          tile.isIncorrectlyFlagged = true
-        }
-        return tile;
-      });
-    });
+  const markIncorrectlyPlacedFlags = (gameBoard) => {
+    for ( const flagLocation of flagLocations ){
+      let tile = gameBoard[flagLocation.x][flagLocation.y];
 
-    return updatedBoard;
-  };
+      if ( ! tile.hasMine ){
+        tile.isIncorrectlyFlagged = true;
+      }
+    }
+
+    return gameBoard;
+  }
+
+  const revealUnflaggedMines = (gameBoard) => {
+    
+    for( const mineLocation of mineLocations ){
+      let tile = gameBoard[mineLocation.x][mineLocation.y];
+
+      if ( ! tile.isFlagged){
+        tile.isOpened = true;
+      }
+    }
+
+    return gameBoard;
+  }
 
   const isOffBoard = (x, y, boardSize) => {
     const rowCount = boardSize.rowCount;
@@ -152,8 +165,13 @@ function App() {
 
     if (currentTile.hasMine) {
       currentTile.hasExplodedMine = true;
+
+      let updatedBoard = [...currentBoard]
       
-      const updatedBoard = openAllMines(currentBoard);
+      updatedBoard = revealUnflaggedMines(updatedBoard);
+      updatedBoard = markIncorrectlyPlacedFlags(updatedBoard);
+
+
       return [updatedBoard, tilesOpenedOnClick];
     } 
     currentTile.adjacentMinesCount = countAdjacentMines(
@@ -203,12 +221,13 @@ function App() {
     let currentBoard = [...board];
 
     if ( ! minesHaveBeenAssigned ){
-      assignMines(
+      const locationOfMines = assignMines(
         selectedTile,
         currentBoard,
         gameDifficultySettings.mineCount,
         gameDifficultySettings.boardSize
       );
+      setMineLocations(locationOfMines);
       setMinesHaveBeenAssigned(true);
     }
 
@@ -263,6 +282,7 @@ function App() {
     }
 
     let updatedBoard = [...board];
+    let flagCount = remainingFlagsCount;
     
     const isFlagged = selectedTile.isFlagged ? false : true;
 
@@ -272,12 +292,21 @@ function App() {
     }
     updatedBoard[rowIndex][colIndex] = updatedTile;
 
+    let locationOfFlags = [];
+
     if ( isFlagged ){
-      setRemainingFlagsCount(remainingFlagsCount - 1)
+      flagCount  = flagCount - 1;
+      locationOfFlags = flagLocations.filter(
+        (flagLocation) =>
+          flagLocation.x !== selectedTile.x && flagLocation.y !== selectedTile.y
+      );
     }
     else {
-      setRemainingFlagsCount(remainingFlagsCount + 1);
+      flagCount = flagCount + 1;
+      locationOfFlags = [...flagLocations, {x: selectedTile.x, y: selectedTile.y}]
     }
+    setRemainingFlagsCount(flagCount);
+    setFlagLocations(locationOfFlags);
     setBoard(updatedBoard);
   };
 
