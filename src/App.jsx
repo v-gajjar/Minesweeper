@@ -170,8 +170,7 @@ function App() {
       
       updatedBoard = revealUnflaggedMines(updatedBoard);
       updatedBoard = markIncorrectlyPlacedFlags(updatedBoard);
-
-
+      
       return [updatedBoard, tilesOpenedOnClick];
     } 
     currentTile.adjacentMinesCount = countAdjacentMines(
@@ -296,14 +295,14 @@ function App() {
 
     if ( isFlagged ){
       flagCount  = flagCount - 1;
+      locationOfFlags = [...flagLocations, {x: selectedTile.x, y: selectedTile.y}];
+    }
+    else {
+      flagCount = flagCount + 1;
       locationOfFlags = flagLocations.filter(
         (flagLocation) =>
           flagLocation.x !== selectedTile.x && flagLocation.y !== selectedTile.y
       );
-    }
-    else {
-      flagCount = flagCount + 1;
-      locationOfFlags = [...flagLocations, {x: selectedTile.x, y: selectedTile.y}]
     }
     setRemainingFlagsCount(flagCount);
     setFlagLocations(locationOfFlags);
