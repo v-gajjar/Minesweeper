@@ -62,7 +62,7 @@ function App() {
 
     let allocatedMines = 0;
 
-    const locationOfMines = [];
+    const newMineLocations = [];
     
     while (allocatedMines < mineCount) {
       let row = Math.floor(Math.random() * rowCount);
@@ -78,12 +78,12 @@ function App() {
       }
 
       if (!tile.hasMine ) {
-        locationOfMines.push({x: tile.x, y: tile.y})
+        newMineLocations.push({x: tile.x, y: tile.y})
         tile.hasMine = true;
         allocatedMines++;
       }
     }
-    return locationOfMines;
+    return newMineLocations;
   };
 
   const countAdjacentMines = (selectedTile, tiles, boardSize) => {
@@ -170,7 +170,6 @@ function App() {
       
       updatedBoard = revealUnflaggedMines(updatedBoard);
       updatedBoard = markIncorrectlyPlacedFlags(updatedBoard);
-      
       return [updatedBoard, tilesOpenedOnClick];
     } 
     currentTile.adjacentMinesCount = countAdjacentMines(
@@ -220,13 +219,13 @@ function App() {
     let currentBoard = [...board];
 
     if ( ! minesHaveBeenAssigned ){
-      const locationOfMines = assignMines(
+      const newMineLocations = assignMines(
         selectedTile,
         currentBoard,
         gameDifficultySettings.mineCount,
         gameDifficultySettings.boardSize
       );
-      setMineLocations(locationOfMines);
+      setMineLocations(newMineLocations);
       setMinesHaveBeenAssigned(true);
     }
 
@@ -291,21 +290,21 @@ function App() {
     }
     updatedBoard[rowIndex][colIndex] = updatedTile;
 
-    let locationOfFlags = [];
+    let updatedFlagLocations = [];
 
     if ( isFlagged ){
       flagCount  = flagCount - 1;
-      locationOfFlags = [...flagLocations, {x: selectedTile.x, y: selectedTile.y}];
+      updatedFlagLocations = [...flagLocations, {x: selectedTile.x, y: selectedTile.y}];
     }
     else {
       flagCount = flagCount + 1;
-      locationOfFlags = flagLocations.filter(
+      updatedFlagLocations = flagLocations.filter(
         (flagLocation) =>
           flagLocation.x !== selectedTile.x && flagLocation.y !== selectedTile.y
       );
     }
     setRemainingFlagsCount(flagCount);
-    setFlagLocations(locationOfFlags);
+    setFlagLocations(updatedFlagLocations);
     setBoard(updatedBoard);
   };
 
