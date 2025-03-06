@@ -110,30 +110,41 @@ function App() {
     return adjacentMinesCount;
   };
 
-  const markIncorrectlyPlacedFlags = (gameBoard) => {
-    for ( const flagLocation of flagLocations ){
+  const markIncorrectlyPlacedFlags = (gameBoard, currentFlagLocations) => {
+    const updatedTiles = [];
+
+    for (const flagLocation of currentFlagLocations) {
       let tile = gameBoard[flagLocation.x][flagLocation.y];
 
-      if ( ! tile.hasMine ){
-        tile.isIncorrectlyFlagged = true;
-      }
+      if (tile.hasMine) continue;
+
+      const updatedTile = {
+        ...tile,
+        isIncorrectlyFlagged: true,
+      };
+      updatedTiles.push(updatedTile);
     }
 
-    return gameBoard;
-  }
+    return updatedTiles;
+  };
 
-  const revealUnflaggedMines = (gameBoard) => {
-    
-    for( const mineLocation of mineLocations ){
+  const revealUnflaggedMines = (gameBoard, currentMineLocations) => {
+    const updatedTiles = [];
+
+    for (const mineLocation of currentMineLocations) {
       let tile = gameBoard[mineLocation.x][mineLocation.y];
 
-      if ( ! tile.isFlagged){
-        tile.isOpened = true;
-      }
+      if (tile.isFlagged) continue;
+
+      const updatedTile = {
+        ...tile,
+        isOpened: true,
+      };
+      updatedTiles.push(updatedTile);
     }
 
-    return gameBoard;
-  }
+    return updatedTiles;
+  };
 
   const isOffBoard = (x, y, boardSize) => {
     const rowCount = boardSize.rowCount;
@@ -148,6 +159,16 @@ function App() {
       return false;
     }
   }
+
+  const updateBoard = (currentBoard, updatedTiles) => {
+    const updatedBoard = [...currentBoard];
+
+    for ( const tile of updatedTiles ){
+      const updatedTile = { ...tile };
+      updatedBoard[tile.x][tile.y] = updatedTile;
+    }
+    return updatedBoard;
+  };
 
   const openTile = (x, y, currentBoard, tilesOpenedOnClick) => {
     const boardSize = gameDifficultySettings.boardSize;
@@ -166,11 +187,16 @@ function App() {
     if (currentTile.hasMine) {
       currentTile.hasExplodedMine = true;
 
-      let updatedBoard = [...currentBoard]
+      const updatedBoard = [...currentBoard];
       
-      updatedBoard = revealUnflaggedMines(updatedBoard);
-      updatedBoard = markIncorrectlyPlacedFlags(updatedBoard);
-      return [updatedBoard, tilesOpenedOnClick];
+      const revealedMineTiles = revealUnflaggedMines(updatedBoard, mineLocations);
+      const incorrectlyFlaggedTiles = markIncorrectlyPlacedFlags(updatedBoard, flagLocations);
+
+      const updatedTiles = [...revealedMineTiles,...incorrectlyFlaggedTiles ];
+
+      const gameLostBoard = updateBoard(updatedBoard, updatedTiles);
+
+      return [gameLostBoard, tilesOpenedOnClick];
     } 
     currentTile.adjacentMinesCount = countAdjacentMines(
       currentTile,
