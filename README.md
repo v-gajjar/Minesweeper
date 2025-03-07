@@ -1,5 +1,20 @@
 
  ![preview](https://github.com/v-gajjar/React-Minesweeper/blob/main/src/assets/Minesweeper-image.png)
+
+
+# Dependencies
+
+| Name | License | 
+| :--- | :--- | 
+| React | MIT |
+| Vite | MIT |
+| classnames | MIT | 
+| Phosphor Icons | MIT | 
+
+
+# Attributions
+* Inter font by Rasmus Andersson - SIL Open Font License 1.1
+
 # Getting Started:
 
 1. Clone the repository:
