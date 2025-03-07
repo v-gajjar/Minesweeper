@@ -110,7 +110,7 @@ function App() {
     return adjacentMinesCount;
   };
 
-  const markIncorrectlyPlacedFlags = (gameBoard, currentFlagLocations) => {
+  const getIncorrectlyFlaggedTiles = (gameBoard, currentFlagLocations) => {
     const updatedTiles = [];
 
     for (const flagLocation of currentFlagLocations) {
@@ -128,7 +128,7 @@ function App() {
     return updatedTiles;
   };
 
-  const revealUnflaggedMines = (gameBoard, currentMineLocations) => {
+  const getRevealedMineTiles = (gameBoard, currentMineLocations) => {
     const updatedTiles = [];
 
     for (const mineLocation of currentMineLocations) {
@@ -189,8 +189,8 @@ function App() {
 
       const updatedBoard = [...currentBoard];
       
-      const revealedMineTiles = revealUnflaggedMines(updatedBoard, mineLocations);
-      const incorrectlyFlaggedTiles = markIncorrectlyPlacedFlags(updatedBoard, flagLocations);
+      const revealedMineTiles = getRevealedMineTiles(updatedBoard, mineLocations);
+      const incorrectlyFlaggedTiles = getIncorrectlyFlaggedTiles(updatedBoard, flagLocations);
 
       const updatedTiles = [...revealedMineTiles,...incorrectlyFlaggedTiles ];
 
