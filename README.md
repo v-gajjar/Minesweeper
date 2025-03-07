@@ -8,7 +8,7 @@
 | :--- | :--- | 
 | React | MIT |
 | Vite | MIT |
-| classnames | MIT | 
+| Classnames | MIT | 
 | Phosphor Icons | MIT | 
 
 
