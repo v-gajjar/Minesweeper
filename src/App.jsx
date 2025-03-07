@@ -256,7 +256,7 @@ function App() {
       return;
     }
 
-    let currentBoard = [...board];
+    const currentBoard = [...board];
 
     if ( ! minesHaveBeenAssigned ){
       const newMineLocations = randomlyDistrubuteMines(
