@@ -70,20 +70,22 @@ function App() {
 
       let tile = currentBoard[row][col];
 
-      if ( tile.x == currentTile.x && tile.y == currentTile.y ){
+      if ( tile.x === currentTile.x && tile.y === currentTile.y ){
         // The first tile that is subjected to a left click should be ignored when placing a mine
         // to make the game a bit easier/fairer - the user cannot lose on the 
         // the first left click
         continue;
       }
+      // check for a duplication location in the newMineLocations array and skip if found
+      if ( newMineLocations.some((location) => location.x === tile.x && location.y === tile.y) ){
+        continue;
+      }
 
       if (!tile.hasMine ) {
-        newMineLocations.push({x: tile.x, y: tile.y})
+        newMineLocations.push({x: tile.x, y: tile.y});
         allocatedMines++;
       }
     }
-
-    console.log(allocatedMines)
 
     return newMineLocations;
   };
@@ -269,7 +271,6 @@ function App() {
         gameDifficultySettings.boardSize,
       );
 
-      console.log( newMineLocations.length )
       const tilesWithMines = getTilesWithMines(newMineLocations, currentBoard);
       const boardWithMines = updateBoard(currentBoard, tilesWithMines);
       
