@@ -56,7 +56,7 @@ function App() {
     generateBoard();
   };
 
-  const randomlyDistrubuteMines = (currentTile, currentBoard, mineCount, boardSize) => {
+  const getRandomlyPlacedMineLocations = (currentTile, currentBoard, mineCount, boardSize) => {
     const rowCount = boardSize.rowCount;
     const columnCount = boardSize.columnCount;
 
@@ -82,6 +82,9 @@ function App() {
         allocatedMines++;
       }
     }
+
+    console.log(allocatedMines)
+
     return newMineLocations;
   };
 
@@ -259,12 +262,14 @@ function App() {
     const currentBoard = [...board];
 
     if ( ! minesHaveBeenAssigned ){
-      const newMineLocations = randomlyDistrubuteMines(
+      const newMineLocations = getRandomlyPlacedMineLocations(
         selectedTile,
         currentBoard,
         gameDifficultySettings.mineCount,
         gameDifficultySettings.boardSize,
       );
+
+      console.log( newMineLocations.length )
       const tilesWithMines = getTilesWithMines(newMineLocations, currentBoard);
       const boardWithMines = updateBoard(currentBoard, tilesWithMines);
       
