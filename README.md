@@ -15,14 +15,14 @@
 # Attributions
 * Inter font by Rasmus Andersson - SIL Open Font License 1.1
 
-# Development Roadmap:
+# Development Roadmap
 Current focus; refactoring the logic to extract core gameplay related functionality to seperate concerns into pure functions
 
 Next step: refactoring to replace the usage of term "Tile" with the more standard term "Cell"
 
 See full ![roadmap](https://github.com/v-gajjar/React-Minesweeper/blob/main/ROADMAP.md)
 
-# Getting Started:
+# Getting Started
 
 1. Clone the repository:
    ```
@@ -52,7 +52,7 @@ See full ![roadmap](https://github.com/v-gajjar/React-Minesweeper/blob/main/ROAD
 
 - You can open a tile using left click, however if you open a mine, the game is over.
   
-- If you lose the game, incorrectly placed flags will be replaced with a cross, correctly place flags will remain, and mines hidden in any other tiles will be revealed. 
+- If you lose the game, incorrectly placed flags will be replaced with a cross, correctly placed flags will remain, and mines hidden in any other tiles will be revealed. 
 
 - The number on a tile is the number of mines hidden within the 8 tiles that surround it. 
 
