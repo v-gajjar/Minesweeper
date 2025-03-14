@@ -56,7 +56,7 @@ function App() {
     generateBoard();
   };
 
-  const assignMines = (currentTile, gameBoard, mineCount, boardSize) => {
+  const getRandomlyPlacedMineLocations = (currentTile, currentBoard, mineCount, boardSize) => {
     const rowCount = boardSize.rowCount;
     const columnCount = boardSize.columnCount;
 
@@ -68,23 +68,42 @@ function App() {
       let row = Math.floor(Math.random() * rowCount);
       let col = Math.floor(Math.random() * columnCount);
 
-      let tile = gameBoard[row][col];
+      let tile = currentBoard[row][col];
 
-      if ( tile.x == currentTile.x && tile.y == currentTile.y ){
+      if ( tile.x === currentTile.x && tile.y === currentTile.y ){
         // The first tile that is subjected to a left click should be ignored when placing a mine
         // to make the game a bit easier/fairer - the user cannot lose on the 
         // the first left click
         continue;
       }
+      // check for a duplication location in the newMineLocations array and skip if found
+      if ( newMineLocations.some((location) => location.x === tile.x && location.y === tile.y) ){
+        continue;
+      }
 
       if (!tile.hasMine ) {
-        newMineLocations.push({x: tile.x, y: tile.y})
-        tile.hasMine = true;
+        newMineLocations.push({x: tile.x, y: tile.y});
         allocatedMines++;
       }
     }
+
     return newMineLocations;
   };
+
+  const getTilesWithMines = (newMineLocations, currentBoard) => {
+    const tilesWithMines = [];
+
+    for( const location of newMineLocations){
+      const currentTile = currentBoard[location.x][location.y];
+
+      const updatedTile = {
+        ...currentTile,
+        hasMine: true
+      }
+      tilesWithMines.push( updatedTile );
+    }
+    return tilesWithMines;
+  }
 
   const countAdjacentMines = (selectedTile, tiles, boardSize) => {
     let adjacentMinesCount = 0;
@@ -242,17 +261,22 @@ function App() {
       return;
     }
 
-    let currentBoard = [...board];
+    const currentBoard = [...board];
 
     if ( ! minesHaveBeenAssigned ){
-      const newMineLocations = assignMines(
+      const newMineLocations = getRandomlyPlacedMineLocations(
         selectedTile,
         currentBoard,
         gameDifficultySettings.mineCount,
-        gameDifficultySettings.boardSize
+        gameDifficultySettings.boardSize,
       );
+
+      const tilesWithMines = getTilesWithMines(newMineLocations, currentBoard);
+      const boardWithMines = updateBoard(currentBoard, tilesWithMines);
+      
       setMineLocations(newMineLocations);
       setMinesHaveBeenAssigned(true);
+      setBoard(prevBoard => boardWithMines);
     }
 
     const [updatedBoard, tilesOpenedOnClick] = openTile(
