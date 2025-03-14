@@ -16,11 +16,15 @@
 * Inter font by Rasmus Andersson - SIL Open Font License 1.1
 
 # Development Roadmap
-Current focus; refactoring the logic to extract core gameplay related functionality to seperate concerns into pure functions
+### Current focus
+Refactoring the logic to extract core gameplay related functionality to seperate concerns into pure functions
 
-Next step: refactoring to replace the usage of term "Tile" with the more standard term "Cell"
 
-See full ![roadmap](https://github.com/v-gajjar/React-Minesweeper/blob/main/ROADMAP.md)
+### Next step
+Refactoring to replace the usage of term "Tile" with the more standard term "Cell"
+
+### Further steps
+See full [roadmap](https://github.com/v-gajjar/React-Minesweeper/blob/main/ROADMAP.md)
 
 # Getting Started
 
