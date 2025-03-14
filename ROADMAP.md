@@ -4,7 +4,7 @@ Refactoring the logic to extract core gameplay related functionality to seperate
 ### Next step: 
 refactoring to replace the usage of term "Tile" with the more standard term "Cell"
 
-### Future steps:
+### Further steps:
 - Explore using Zustand to improve state management
 - Add Unit Tests
 - Look at ensuring CSS styling is consistent on different browsers and devices
