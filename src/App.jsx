@@ -31,7 +31,7 @@ function App() {
 
   useEffect(() => {
 
-    generateBoard();
+    setupNewGame();
   }, [gameDifficultySettings]);
 
   const onGameDifficultyLevelChanged = (event) => {
@@ -53,7 +53,7 @@ function App() {
     const gameResultModal = document.getElementById("gameResultModal");
     gameResultModal.close();
     
-    generateBoard();
+    setupNewGame();
   };
 
   const getRandomlyPlacedMineLocations = (currentTile, currentBoard, mineCount, boardSize) => {
@@ -358,18 +358,15 @@ function App() {
     setBoard(updatedBoard);
   };
 
-  const generateBoard = () => {
-    const boardSize = gameDifficultySettings.boardSize;
+  const getBoard = (boardSize) => {
 
-    let rowCount = boardSize.rowCount;
-    let columnCount = boardSize.columnCount;
-    let mineCount = gameDifficultySettings.mineCount;
-
-    let tiles = [];
+    const rowCount = boardSize.rowCount;
+    const columnCount = boardSize.columnCount;
+    const newBoard = [];
 
     for (var i = 0; i < rowCount; i++) {
       const row = [];
-      tiles.push(row);
+      newBoard.push(row);
 
       for (var j = 0; j < columnCount; j++) {
         row.push({
@@ -383,11 +380,25 @@ function App() {
       }
     }
 
+    return newBoard;
+  }
+
+  const setupNewGame = () => {
+
+    const boardSize = gameDifficultySettings.boardSize;
+    const rowCount = boardSize.rowCount;
+    const columnCount = boardSize.columnCount;
+    const mineCount = gameDifficultySettings.mineCount;
+
+    const newBoard = getBoard(boardSize);
+
+    setMineLocations([]);
+    setFlagLocations([]);
     setMinesHaveBeenAssigned(false);
     setGameStatus(GameStatus.GAME_NOT_STARTED);
     setRemainingFlagsCount(gameDifficultySettings.mineCount);
     setSafeTilesCount(rowCount * columnCount - mineCount);
-    setBoard(tiles);
+    setBoard(newBoard);
   };
 
   const gameHasEnded = () => {
