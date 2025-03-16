@@ -235,19 +235,24 @@ function App() {
     return [currentBoard, tilesOpenedOnClick];
   };
 
-  const countRemainingFlags = (currentBoard) => {
-      let remainingFlagsCount = gameDifficultySettings.mineCount;
+  const removeFlagLocations = (currentFlagLocations, tiles) => {
 
-      for( var i = 0; i < currentBoard.length; i++ ){
-        for( var j = 0; j < currentBoard[i].length; j++ ){
-          let selectedTile = currentBoard[i][j];
-          
-          if ( selectedTile.isFlagged ){
-            remainingFlagsCount--;
-          }
-        }
+    console.log( "current flag locations: ");
+    console.log(currentFlagLocations);
+
+    const updatedFlagLocations = [];
+
+    for( const flagLocation of currentFlagLocations ){
+      if ( tiles.some((tile) => flagLocation.x === tile.x && flagLocation.y === tile.y) ){
+        continue;
       }
-      return remainingFlagsCount;
+      updatedFlagLocations.push(flagLocation);
+    }
+
+    console.log( "updated flag locations: ");
+    console.log(updatedFlagLocations);
+
+    return updatedFlagLocations;
   }
 
   const onTileLeftClicked = (event) => {
@@ -285,20 +290,27 @@ function App() {
       currentBoard, 
       [/* tiles opened on click*/]
     );
+    const updatedFlagLocations = removeFlagLocations(flagLocations, tilesOpenedOnClick);
+
+    setFlagLocations(updatedFlagLocations);
     
     updateGameState(
       updatedBoard,
       selectedTile,
       tilesOpenedOnClick,
-    
+      updatedFlagLocations
     );
   };
 
-  const updateGameState = ( updatedBoard, selectedTile, tilesOpenedOnClick ) => {
+  const updateGameState = ( updatedBoard, selectedTile, tilesOpenedOnClick, updatedFlagLocations ) => {
 
     let openedTilesCount = tilesOpenedOnClick.length;
-    let remainingFlagsCount = countRemainingFlags(updatedBoard);
+    const flagsCount = updatedFlagLocations.length;
+    const mineCount = gameDifficultySettings.mineCount;
 
+    let remainingFlagsCount = mineCount - flagsCount;
+
+    setFlagLocations(updatedFlagLocations);
     setRemainingFlagsCount(remainingFlagsCount);
     setBoard(updatedBoard);
 
