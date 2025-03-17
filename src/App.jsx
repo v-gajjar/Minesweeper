@@ -235,6 +235,10 @@ function App() {
     return [currentBoard, tilesOpenedOnClick];
   };
 
+  const coordinatesMatch = ({x: x1, y: y1}, {x: x2, y: y2}) => {
+      return x1 === x2 && y1 === y2
+  }
+
   const removeFlagLocations = (currentFlagLocations, tiles) => {
 
     console.log( "current flag locations: ");
@@ -243,7 +247,7 @@ function App() {
     console.log( tiles );
 
     const updatedFlagLocations = currentFlagLocations.filter(location => 
-      !tiles.some(tile => location.x === tile.x && location.y === tile.y)
+      !tiles.some(tile => coordinatesMatch(location, tile))
     );
 
     console.log( "updated flag locations: ");
@@ -362,8 +366,7 @@ function App() {
     else {
       flagCount = flagCount + 1;
       updatedFlagLocations = flagLocations.filter(
-        (flagLocation) =>
-          !(flagLocation.x === selectedTile.x && flagLocation.y === selectedTile.y)
+        (flagLocation) => !coordinatesMatch(flagLocation, selectedTile)
       );
       console.log("updated flag locations: ");
       console.log( updatedFlagLocations );
