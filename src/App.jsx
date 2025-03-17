@@ -239,6 +239,8 @@ function App() {
 
     console.log( "current flag locations: ");
     console.log(currentFlagLocations);
+    console.log( "tiles: ");
+    console.log( tiles );
 
     const updatedFlagLocations = [];
 
