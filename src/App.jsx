@@ -288,8 +288,6 @@ function App() {
       [/* tiles opened on click*/]
     );
     const updatedFlagLocations = removeFlagLocations(flagLocations, tilesOpenedOnClick);
-
-    setFlagLocations(updatedFlagLocations);
     
     updateGameState(
       updatedBoard,
@@ -351,16 +349,24 @@ function App() {
 
     let updatedFlagLocations = [];
 
+    console.log( "current flag locations: ");
+    console.log( flagLocations );
+
     if ( isFlagged ){
       flagCount  = flagCount - 1;
       updatedFlagLocations = [...flagLocations, {x: selectedTile.x, y: selectedTile.y}];
+
+      console.log("updated flag locations: ");
+      console.log( updatedFlagLocations );
     }
     else {
       flagCount = flagCount + 1;
       updatedFlagLocations = flagLocations.filter(
         (flagLocation) =>
-          flagLocation.x !== selectedTile.x && flagLocation.y !== selectedTile.y
+          !(flagLocation.x === selectedTile.x && flagLocation.y === selectedTile.y)
       );
+      console.log("updated flag locations: ");
+      console.log( updatedFlagLocations );
     }
     setRemainingFlagsCount(flagCount);
     setFlagLocations(updatedFlagLocations);
