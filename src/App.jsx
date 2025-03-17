@@ -242,14 +242,9 @@ function App() {
     console.log( "tiles: ");
     console.log( tiles );
 
-    const updatedFlagLocations = [];
-
-    for( const flagLocation of currentFlagLocations ){
-      if ( tiles.some((tile) => flagLocation.x === tile.x && flagLocation.y === tile.y) ){
-        continue;
-      }
-      updatedFlagLocations.push(flagLocation);
-    }
+    const updatedFlagLocations = currentFlagLocations.filter(location => 
+      !tiles.some(tile => location.x === tile.x && location.y === tile.y)
+    );
 
     console.log( "updated flag locations: ");
     console.log(updatedFlagLocations);
