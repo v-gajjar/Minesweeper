@@ -239,7 +239,7 @@ function App() {
       return x1 === x2 && y1 === y2
   }
 
-  const removeFlagLocations = (currentFlagLocations, tiles) => {
+  const getFilteredFlagLocations = (currentFlagLocations, tiles) => {
 
     const updatedFlagLocations = currentFlagLocations.filter(location => 
       !tiles.some(tile => coordinatesMatch(location, tile))
@@ -283,7 +283,7 @@ function App() {
       currentBoard, 
       [/* tiles opened on click*/]
     );
-    const updatedFlagLocations = removeFlagLocations(flagLocations, tilesOpenedOnClick);
+    const updatedFlagLocations = getFilteredFlagLocations(flagLocations, tilesOpenedOnClick);
     
     updateGameState(
       updatedBoard,
