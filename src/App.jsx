@@ -241,17 +241,9 @@ function App() {
 
   const removeFlagLocations = (currentFlagLocations, tiles) => {
 
-    console.log( "current flag locations: ");
-    console.log(currentFlagLocations);
-    console.log( "tiles: ");
-    console.log( tiles );
-
     const updatedFlagLocations = currentFlagLocations.filter(location => 
       !tiles.some(tile => coordinatesMatch(location, tile))
     );
-
-    console.log( "updated flag locations: ");
-    console.log(updatedFlagLocations);
 
     return updatedFlagLocations;
   }
@@ -353,23 +345,15 @@ function App() {
 
     let updatedFlagLocations = [];
 
-    console.log( "current flag locations: ");
-    console.log( flagLocations );
-
     if ( isFlagged ){
       flagCount  = flagCount - 1;
       updatedFlagLocations = [...flagLocations, {x: selectedTile.x, y: selectedTile.y}];
-
-      console.log("updated flag locations: ");
-      console.log( updatedFlagLocations );
     }
     else {
       flagCount = flagCount + 1;
       updatedFlagLocations = flagLocations.filter(
         (flagLocation) => !coordinatesMatch(flagLocation, selectedTile)
       );
-      console.log("updated flag locations: ");
-      console.log( updatedFlagLocations );
     }
     setRemainingFlagsCount(flagCount);
     setFlagLocations(updatedFlagLocations);
