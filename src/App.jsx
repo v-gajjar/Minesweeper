@@ -189,7 +189,7 @@ function App() {
     return updatedBoard;
   };
 
-  const openTile = (x, y, currentBoard, boardSize, tilesOpenedOnClick) => {
+  const openTile = (x, y, currentBoard, boardSize, openedTiles) => {
 
     if ( isOffBoard(x, y, boardSize) || currentBoard[x][y].isOpened ) {
       return;
@@ -214,24 +214,24 @@ function App() {
 
       const gameLostBoard = updateBoard(updatedBoard, updatedTiles);
 
-      return [gameLostBoard, tilesOpenedOnClick];
+      return [gameLostBoard, openedTiles];
     } 
     currentTile.adjacentMinesCount = getAjdacentMinesCount(
       currentTile,
       currentBoard,
       boardSize
     );
-    tilesOpenedOnClick.push(currentTile);
+    openedTiles.push(currentTile);
 
     if (currentTile.adjacentMinesCount === 0) {
       for (let i = -1; i <= 1; i++) {
         for (let j = -1; j <= 1; j++) {
-          openTile(x + i, y + j, currentBoard, boardSize, tilesOpenedOnClick);
+          openTile(x + i, y + j, currentBoard, boardSize, openedTiles);
         }
       }
     }
 
-    return [currentBoard, tilesOpenedOnClick];
+    return [currentBoard, openedTiles];
   };
 
   const coordinatesMatch = ({x: x1, y: y1}, {x: x2, y: y2}) => {
@@ -276,26 +276,26 @@ function App() {
       setBoard(prevBoard => boardWithMines);
     }
 
-    const [updatedBoard, tilesOpenedOnClick] = openTile(
+    const [updatedBoard, openedTiles] = openTile(
       selectedTile.x, 
       selectedTile.y, 
       currentBoard, 
       gameDifficultySettings.boardSize,
       [/* tiles opened on click*/]
     );
-    const updatedFlagLocations = getFilteredFlagLocations(flagLocations, tilesOpenedOnClick);
+    const updatedFlagLocations = getFilteredFlagLocations(flagLocations, openedTiles);
     
     updateGameState(
       updatedBoard,
       selectedTile,
-      tilesOpenedOnClick,
+      openedTiles,
       updatedFlagLocations
     );
   };
 
-  const updateGameState = ( updatedBoard, selectedTile, tilesOpenedOnClick, updatedFlagLocations ) => {
+  const updateGameState = ( updatedBoard, selectedTile, openedTiles, updatedFlagLocations ) => {
 
-    let openedTilesCount = tilesOpenedOnClick.length;
+    let openedTilesCount = openedTiles.length;
     const flagsCount = updatedFlagLocations.length;
     const mineCount = gameDifficultySettings.mineCount;
 
