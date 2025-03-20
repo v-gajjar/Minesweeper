@@ -189,8 +189,7 @@ function App() {
     return updatedBoard;
   };
 
-  const openTile = (x, y, currentBoard, tilesOpenedOnClick) => {
-    const boardSize = gameDifficultySettings.boardSize;
+  const openTile = (x, y, currentBoard, boardSize, tilesOpenedOnClick) => {
 
     if ( isOffBoard(x, y, boardSize) || currentBoard[x][y].isOpened ) {
       return;
@@ -227,7 +226,7 @@ function App() {
     if (currentTile.adjacentMinesCount === 0) {
       for (let i = -1; i <= 1; i++) {
         for (let j = -1; j <= 1; j++) {
-          openTile(x + i, y + j, currentBoard, tilesOpenedOnClick);
+          openTile(x + i, y + j, currentBoard, boardSize, tilesOpenedOnClick);
         }
       }
     }
@@ -281,6 +280,7 @@ function App() {
       selectedTile.x, 
       selectedTile.y, 
       currentBoard, 
+      gameDifficultySettings.boardSize,
       [/* tiles opened on click*/]
     );
     const updatedFlagLocations = getFilteredFlagLocations(flagLocations, tilesOpenedOnClick);
