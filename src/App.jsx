@@ -189,49 +189,43 @@ function App() {
     return updatedBoard;
   };
 
+  const hasTile = (x, y, tiles) => {
+    return tiles.some((tile) => tile.x === x && tile.y === y)
+  }
+
   const openTile = (x, y, currentBoard, boardSize, openedTiles) => {
 
     if ( isOffBoard(x, y, boardSize) || currentBoard[x][y].isOpened ) {
       return;
     }
 
-    let currentTile = currentBoard[x][y];
+    const updatedBoard = [...currentBoard];
+    const tile = updatedBoard[x][y];
 
-    if ( currentTile.isFlagged ){
-      currentTile.isFlagged = false;
-    }
-    currentTile.isOpened = true;
+    tile.isFlagged = false;
+    tile.isOpened = true;
 
-    if (currentTile.hasMine) {
-      currentTile.hasExplodedMine = true;
-
-      const updatedBoard = [...currentBoard];
-      
-      const revealedMineTiles = getRevealedMineTiles(updatedBoard, mineLocations);
-      const incorrectlyFlaggedTiles = getIncorrectlyFlaggedTiles(updatedBoard, flagLocations);
-
-      const updatedTiles = [...revealedMineTiles,...incorrectlyFlaggedTiles ];
-
-      const gameLostBoard = updateBoard(updatedBoard, updatedTiles);
-
-      return [gameLostBoard, openedTiles];
+    if (tile.hasMine) {
+      tile.hasExplodedMine = true;
+      openedTiles.push(tile);
+      return [updatedBoard, openedTiles];
     } 
-    currentTile.adjacentMinesCount = getAjdacentMinesCount(
-      currentTile,
+    tile.adjacentMinesCount = getAjdacentMinesCount(
+      tile,
       currentBoard,
       boardSize
     );
-    openedTiles.push(currentTile);
+    openedTiles.push(tile);
 
-    if (currentTile.adjacentMinesCount === 0) {
+    if (tile.adjacentMinesCount === 0) {
       for (let i = -1; i <= 1; i++) {
         for (let j = -1; j <= 1; j++) {
-          openTile(x + i, y + j, currentBoard, boardSize, openedTiles);
+          openTile(x + i, y + j, updatedBoard, boardSize, openedTiles);
         }
       }
     }
 
-    return [currentBoard, openedTiles];
+    return [updatedBoard, openedTiles];
   };
 
   const coordinatesMatch = ({x: x1, y: y1}, {x: x2, y: y2}) => {
@@ -283,6 +277,26 @@ function App() {
       gameDifficultySettings.boardSize,
       [/* tiles opened on click*/]
     );
+    if (selectedTile.hasMine ){
+
+      const revealedMineTiles = getRevealedMineTiles(updatedBoard, mineLocations);
+      const incorrectlyFlaggedTiles = getIncorrectlyFlaggedTiles(updatedBoard, flagLocations);
+
+      const updatedTiles = [...revealedMineTiles,...incorrectlyFlaggedTiles ];
+
+      const gameLostBoard = updateBoard(updatedBoard, updatedTiles);
+
+      updateGameState(
+        gameLostBoard,
+        selectedTile,
+        openedTiles,
+        []
+      );
+      return;
+
+    }
+
+
     const updatedFlagLocations = getFilteredFlagLocations(flagLocations, openedTiles);
     
     updateGameState(
