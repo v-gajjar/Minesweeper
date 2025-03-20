@@ -195,7 +195,7 @@ function App() {
 
   const openTile = (x, y, currentBoard, boardSize, openedTiles) => {
 
-    if ( isOffBoard(x, y, boardSize) || currentBoard[x][y].isOpened ) {
+    if ( isOffBoard(x, y, boardSize) || hasTile(x, y, openedTiles) ) {
       return;
     }
 
