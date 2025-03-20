@@ -15,7 +15,7 @@ function App() {
   const [board, setBoard] = useState([]);
   const [gameStatus, setGameStatus] = useState(GameStatus.GAME_NOT_STARTED);
   const [remainingFlagsCount, setRemainingFlagsCount] = useState(0);
-  const [minesHaveBeenAssigned, setMinesHaveBeenAssigned] = useState(false);
+  const [minesNeedPlacing, setMinesNeedPlacing] = useState(true);
   const [safeTilesCount, setSafeTilesCount] = useState(0);
   const [mineLocations, setMineLocations] = useState([]);
   const [flagLocations, setFlagLocations] = useState([]);
@@ -105,7 +105,7 @@ function App() {
     return tilesWithMines;
   }
 
-  const countAdjacentMines = (selectedTile, tiles, boardSize) => {
+  const getAjdacentMinesCount = (selectedTile, tiles, boardSize) => {
     let adjacentMinesCount = 0;
 
     let x = selectedTile.x;
@@ -217,7 +217,7 @@ function App() {
 
       return [gameLostBoard, tilesOpenedOnClick];
     } 
-    currentTile.adjacentMinesCount = countAdjacentMines(
+    currentTile.adjacentMinesCount = getAjdacentMinesCount(
       currentTile,
       currentBoard,
       boardSize
@@ -261,7 +261,7 @@ function App() {
 
     const currentBoard = [...board];
 
-    if ( ! minesHaveBeenAssigned ){
+    if ( minesNeedPlacing ){
       const newMineLocations = getRandomlyPlacedMineLocations(
         selectedTile,
         currentBoard,
@@ -273,7 +273,7 @@ function App() {
       const boardWithMines = updateBoard(currentBoard, tilesWithMines);
       
       setMineLocations(newMineLocations);
-      setMinesHaveBeenAssigned(true);
+      setMinesNeedPlacing(false);
       setBoard(prevBoard => boardWithMines);
     }
 
@@ -396,7 +396,7 @@ function App() {
 
     setMineLocations([]);
     setFlagLocations([]);
-    setMinesHaveBeenAssigned(false);
+    setMinesNeedPlacing(true);
     setGameStatus(GameStatus.GAME_NOT_STARTED);
     setRemainingFlagsCount(gameDifficultySettings.mineCount);
     setSafeTilesCount(rowCount * columnCount - mineCount);
