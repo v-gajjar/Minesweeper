@@ -199,33 +199,35 @@ function App() {
       return;
     }
 
-    const updatedBoard = [...currentBoard];
-    const tile = updatedBoard[x][y];
+    const tile = currentBoard[x][y];
+    
+    const updatedTile = {
+      ...tile,
+      isFlagged: false,
+      isOpened: true
+    }
 
-    tile.isFlagged = false;
-    tile.isOpened = true;
-
-    if (tile.hasMine) {
-      tile.hasExplodedMine = true;
-      openedTiles.push(tile);
-      return [updatedBoard, openedTiles];
+    if (updatedTile.hasMine) {
+      updatedTile.hasExplodedMine = true;
+      openedTiles.push(updatedTile);
+      return openedTiles;
     } 
-    tile.adjacentMinesCount = getAjdacentMinesCount(
-      tile,
+    updatedTile.adjacentMinesCount = getAjdacentMinesCount(
+      updatedTile,
       currentBoard,
       boardSize
     );
-    openedTiles.push(tile);
+    openedTiles.push(updatedTile);
 
-    if (tile.adjacentMinesCount === 0) {
+    if (updatedTile.adjacentMinesCount === 0) {
       for (let i = -1; i <= 1; i++) {
         for (let j = -1; j <= 1; j++) {
-          openTile(x + i, y + j, updatedBoard, boardSize, openedTiles);
+          openTile(x + i, y + j, currentBoard, boardSize, openedTiles);
         }
       }
     }
 
-    return [updatedBoard, openedTiles];
+    return openedTiles;
   };
 
   const coordinatesMatch = ({x: x1, y: y1}, {x: x2, y: y2}) => {
@@ -270,21 +272,26 @@ function App() {
       setBoard(prevBoard => boardWithMines);
     }
 
-    const [updatedBoard, openedTiles] = openTile(
+    const openedTiles = openTile(
       selectedTile.x, 
       selectedTile.y, 
       currentBoard, 
       gameDifficultySettings.boardSize,
       [/* tiles opened on click*/]
     );
+    console.log( "opened tiles: ");
+    console.log( JSON.stringify(openedTiles) );
+
+    const updatedBoard = updateBoard(currentBoard, openedTiles);
+
     if (selectedTile.hasMine ){
 
-      const revealedMineTiles = getRevealedMineTiles(updatedBoard, mineLocations);
-      const incorrectlyFlaggedTiles = getIncorrectlyFlaggedTiles(updatedBoard, flagLocations);
+      const revealedMineTiles = getRevealedMineTiles(currentBoard, mineLocations);
+      const incorrectlyFlaggedTiles = getIncorrectlyFlaggedTiles(currentBoard, flagLocations);
 
       const updatedTiles = [...revealedMineTiles,...incorrectlyFlaggedTiles ];
 
-      const gameLostBoard = updateBoard(updatedBoard, updatedTiles);
+      const gameLostBoard = updateBoard(currentBoard, updatedTiles);
 
       updateGameState(
         gameLostBoard,
@@ -300,7 +307,7 @@ function App() {
     const updatedFlagLocations = getFilteredFlagLocations(flagLocations, openedTiles);
     
     updateGameState(
-      updatedBoard,
+      currentBoard,
       selectedTile,
       openedTiles,
       updatedFlagLocations
