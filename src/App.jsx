@@ -278,9 +278,7 @@ function App() {
       currentBoard, 
       gameDifficultySettings.boardSize
     );
-    console.log( "opened tiles: ");
-    console.log( JSON.stringify(openedTiles) );
-
+    
     const updatedBoard = updateBoard(currentBoard, openedTiles);
 
     if (selectedTile.hasMine ){
