@@ -193,7 +193,7 @@ function App() {
     return tiles.some((tile) => tile.x === x && tile.y === y)
   }
 
-  const openTile = (x, y, currentBoard, boardSize, openedTiles) => {
+  const openTile = (x, y, currentBoard, boardSize, openedTiles = []) => {
 
     if ( isOffBoard(x, y, boardSize) || hasTile(x, y, openedTiles) ) {
       return;
@@ -276,8 +276,7 @@ function App() {
       selectedTile.x, 
       selectedTile.y, 
       currentBoard, 
-      gameDifficultySettings.boardSize,
-      [/* tiles opened on click*/]
+      gameDifficultySettings.boardSize
     );
     console.log( "opened tiles: ");
     console.log( JSON.stringify(openedTiles) );
