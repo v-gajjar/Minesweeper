@@ -281,58 +281,62 @@ function App() {
     
     const updatedBoard = updateBoard(currentBoard, openedTiles);
 
-    if (selectedTile.hasMine ){
-
-      const revealedMineTiles = getRevealedMineTiles(currentBoard, mineLocations);
-      const incorrectlyFlaggedTiles = getIncorrectlyFlaggedTiles(currentBoard, flagLocations);
-
-      const updatedTiles = [...revealedMineTiles,...incorrectlyFlaggedTiles ];
-
-      const gameLostBoard = updateBoard(currentBoard, updatedTiles);
-
-      updateGameState(
-        gameLostBoard,
-        selectedTile,
-        openedTiles,
-        []
-      );
-      return;
-
-    }
-
-
-    const updatedFlagLocations = getFilteredFlagLocations(flagLocations, openedTiles);
-    
     updateGameState(
       currentBoard,
       selectedTile,
       openedTiles,
-      updatedFlagLocations
+      flagLocations,
+      mineLocations
     );
   };
 
-  const updateGameState = ( updatedBoard, selectedTile, openedTiles, updatedFlagLocations ) => {
+  const updateGameState = (
+    currentBoard,
+    selectedTile,
+    openedTiles,
+    currentFlagLocations,
+    currentMineLocations
+  ) => {
 
-    let openedTilesCount = openedTiles.length;
+    if (selectedTile.hasMine) {
+      const revealedMineTiles = getRevealedMineTiles(
+        currentBoard,
+        currentMineLocations
+      );
+      const incorrectlyFlaggedTiles = getIncorrectlyFlaggedTiles(
+        currentBoard,
+        currentFlagLocations
+      );
+
+      const updatedTiles = [...revealedMineTiles, ...incorrectlyFlaggedTiles];
+      const gameLostBoard = updateBoard(currentBoard, updatedTiles);
+
+      setBoard(gameLostBoard);
+      setGameStatus(GameStatus.GAME_LOST);
+
+      return;
+    }
+
+    const updatedFlagLocations = getFilteredFlagLocations(
+      currentFlagLocations,
+      openedTiles
+    );
+
+    const openedTilesCount = openedTiles.length;
     const flagsCount = updatedFlagLocations.length;
     const mineCount = gameDifficultySettings.mineCount;
 
-    let remainingFlagsCount = mineCount - flagsCount;
+    const updatedFlagsCount = mineCount - flagsCount;
+    const updatedSafeTilesCount = safeTilesCount - openedTilesCount;
 
     setFlagLocations(updatedFlagLocations);
-    setRemainingFlagsCount(remainingFlagsCount);
-    setBoard(updatedBoard);
+    setRemainingFlagsCount(updatedFlagsCount);
+    setBoard(currentBoard);
 
-    if (selectedTile.hasMine) {
-      setGameStatus(GameStatus.GAME_LOST);
-    } 
-    else if (safeTilesCount - openedTilesCount === 0) {
+    if (updatedSafeTilesCount === 0) {
       setGameStatus(GameStatus.GAME_WON);
-    } 
-    else {
-      setSafeTilesCount(
-        safeTilesCount - openedTilesCount
-      );
+    } else {
+      setSafeTilesCount(updatedSafeTilesCount);
       setGameStatus(GameStatus.GAME_IN_PROGRESS);
     }
   };
