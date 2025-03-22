@@ -299,18 +299,9 @@ function App() {
   ) => {
 
     if (selectedTile.hasMine) {
-      const revealedMineTiles = getRevealedMineTiles(
-        currentBoard,
-        currentMineLocations
-      );
-      const incorrectlyFlaggedTiles = getIncorrectlyFlaggedTiles(
-        currentBoard,
-        currentFlagLocations
-      );
 
-      const updatedTiles = [...revealedMineTiles, ...incorrectlyFlaggedTiles];
-      const gameLostBoard = updateBoard(currentBoard, updatedTiles);
-
+      const gameLostBoard = getGameLostBoard(currentBoard, currentMineLocations, currentFlagLocations);
+      
       setBoard(gameLostBoard);
       setGameStatus(GameStatus.GAME_LOST);
 
@@ -340,6 +331,22 @@ function App() {
       setGameStatus(GameStatus.GAME_IN_PROGRESS);
     }
   };
+
+  const getGameLostBoard = (currentBoard, currentMineLocations, currentFlagLocations) => {
+    const revealedMineTiles = getRevealedMineTiles(
+      currentBoard,
+      currentMineLocations
+    );
+    const incorrectlyFlaggedTiles = getIncorrectlyFlaggedTiles(
+      currentBoard,
+      currentFlagLocations
+    );
+
+    const updatedTiles = [...revealedMineTiles, ...incorrectlyFlaggedTiles];
+    const gameLostBoard = updateBoard(currentBoard, updatedTiles);
+
+    return gameLostBoard;
+  }
 
   const onTileRightClicked = (event) => {
     event.preventDefault();
