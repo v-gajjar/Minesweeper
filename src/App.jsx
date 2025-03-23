@@ -282,7 +282,7 @@ function App() {
     const updatedBoard = updateBoard(currentBoard, openedTiles);
 
     updateGameState(
-      currentBoard,
+      updatedBoard,
       selectedTile,
       openedTiles,
       flagLocations,
