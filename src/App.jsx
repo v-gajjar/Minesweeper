@@ -244,11 +244,11 @@ function App() {
   }
 
   const onTileLeftClicked = (event) => {
-    let target = event.target;
-    let rowIndex = parseInt(target.dataset.row);
-    let colIndex = parseInt(target.dataset.col);
+    const target = event.target;
+    const rowIndex = parseInt(target.dataset.row);
+    const colIndex = parseInt(target.dataset.col);
 
-    let selectedTile = board[rowIndex][colIndex];
+    const selectedTile = board[rowIndex][colIndex];
 
     if (selectedTile.isOpened) {
       return;
