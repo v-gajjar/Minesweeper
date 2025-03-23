@@ -1,4 +1,4 @@
-import Tile from "./Tile";
+import Cell from "./Cell";
 
 function GameBoard({ board, boardSize, onClick, onContextMenu }) {
 
@@ -13,12 +13,12 @@ function GameBoard({ board, boardSize, onClick, onContextMenu }) {
     <div style={style} className="board ">
       {board.map((rows, rowIndex) =>
         rows.map((col, colIndex) => (
-          <Tile
-            tile={board[rowIndex][colIndex]}
-            key={`tile-${rowIndex}-${colIndex}`}
+          <Cell
+            cell={board[rowIndex][colIndex]}
+            key={`cell-${rowIndex}-${colIndex}`}
             onClick={onClick}
             onContextMenu={onContextMenu}
-          ></Tile>
+          ></Cell>
         ))
       )}
     </div>

@@ -2,17 +2,17 @@
 import classNames from "classnames";
 import { Bomb, X, Flag } from "@phosphor-icons/react";
 
-function Tile({ tile, onClick, onContextMenu }) {
+function Cell({ cell, onClick, onContextMenu }) {
 
-  const tileClass = classNames({
-    'tile' : true,
-    'mine' : tile.hasMine,
-    'exploded' : tile.hasExplodedMine,
-    'flagged' : tile.isFlagged,
-    'revealed' : tile.isRevealed
+  const cellClass = classNames({
+    'cell' : true,
+    'mine' : cell.hasMine,
+    'exploded' : cell.hasExplodedMine,
+    'flagged' : cell.isFlagged,
+    'revealed' : cell.isRevealed
   })
 
-  const getNumberedTileColour = (number) => {
+  const getNumberedCellColour = (number) => {
     switch(number){
       case 1: return {color: "blue"};
       case 2: return {color: "green"};
@@ -26,36 +26,36 @@ function Tile({ tile, onClick, onContextMenu }) {
     }
   }
 
-  const renderTileContents = () => {
+  const renderCellContents = () => {
     
-    if ( !tile.isRevealed && !tile.isFlagged ) return null;
+    if ( !cell.isRevealed && !cell.isFlagged ) return null;
   
-    if ( tile.isIncorrectlyFlagged ){
+    if ( cell.isIncorrectlyFlagged ){
       return <X size={20} color="#c01c28" weight="bold" />
     }
-    if ( tile.isFlagged) {
+    if ( cell.isFlagged) {
       return <Flag size={20} color="#c01c28" weight="fill" />
     }
-    if ( tile.hasMine ){
+    if ( cell.hasMine ){
       return <Bomb size={20} weight="fill" />
     }
-    if ( tile.adjacentMinesCount > 0 ){
-      const number = tile.adjacentMinesCount;
-      return <span style={getNumberedTileColour(number)}>{number}</span>;
+    if ( cell.adjacentMinesCount > 0 ){
+      const number = cell.adjacentMinesCount;
+      return <span style={getNumberedCellColour(number)}>{number}</span>;
     }
   }
 
   return (
     <div
-      className={tileClass}
-      data-row={tile.x}
-      data-col={tile.y}
+      className={cellClass}
+      data-row={cell.x}
+      data-col={cell.y}
       onClick={onClick}
       onContextMenu={onContextMenu}
     >
-      {renderTileContents()}
+      {renderCellContents()}
     </div>
   );
 }
 
-export default Tile;
+export default Cell;

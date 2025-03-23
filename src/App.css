@@ -37,7 +37,7 @@ dialog{
     padding: 10px;
 }
 
-.tile {
+.cell {
     height: 39px;
     width: 39px;
     background: lightgray;
@@ -49,15 +49,15 @@ dialog{
     border-radius: 5px;
 }
 
-.tile.revealed {
+.cell.revealed {
     background: #E8E8E8;
 }
 
-.tile.mine.exploded {
+.cell.mine.exploded {
     background: orange;
 }
 
-.tile:not(.revealed):hover {
+.cell:not(.revealed):hover {
     cursor: pointer;
     background: gray;
 }
