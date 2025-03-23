@@ -56,7 +56,7 @@ function App() {
     setupNewGame();
   };
 
-  const getRandomlyPlacedMineLocations = (currentTile, currentBoard, mineCount, boardSize) => {
+  const getMineLocations = (currentTile, currentBoard, mineCount, boardSize) => {
     const rowCount = boardSize.rowCount;
     const columnCount = boardSize.columnCount;
 
@@ -257,7 +257,7 @@ function App() {
     const currentBoard = [...board];
 
     if ( shouldPlaceMines ){
-      const newMineLocations = getRandomlyPlacedMineLocations(
+      const newMineLocations = getMineLocations(
         selectedTile,
         currentBoard,
         gameDifficultySettings.mineCount,
