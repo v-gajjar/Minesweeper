@@ -7,7 +7,6 @@ Add Unit Tests
 ### Further steps:
 - Look at migrating from JavaScript to TypeScript
 - Explore using Zustand to improve state management
-- Add Unit Tests
 - Look at ensuring CSS styling is consistent on different browsers and devices
 - Look at adding accessibility
 - Create a custom reusable Modal component
