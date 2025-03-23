@@ -45,7 +45,7 @@ See full [roadmap](https://github.com/v-gajjar/React-Minesweeper/blob/main/ROADM
    ```
 # Gameplay
 
-- By default, all tiles are closed. A number of mines will be randomly distributed across the cells. 
+- By default, all cells are closed. A number of mines will be randomly distributed across the cells. 
 
 - The objective of the game is to open all cells that don't contain a mine.
 
