@@ -15,7 +15,7 @@ function App() {
   const [board, setBoard] = useState([]);
   const [gameStatus, setGameStatus] = useState(GameStatus.GAME_NOT_STARTED);
   const [remainingFlagsCount, setRemainingFlagsCount] = useState(0);
-  const [minesNeedPlacing, setMinesNeedPlacing] = useState(true);
+  const [shouldPlaceMines, setShouldPlaceMines] = useState(true);
   const [safeTilesCount, setSafeTilesCount] = useState(0);
   const [mineLocations, setMineLocations] = useState([]);
   const [flagLocations, setFlagLocations] = useState([]);
@@ -49,7 +49,7 @@ function App() {
     setGameDifficultySettings(difficultyLevel)
   };
 
-  const onGameResultModalClosed = () => {
+  const onCloseGameResultModal = () => {
     const gameResultModal = document.getElementById("gameResultModal");
     gameResultModal.close();
     
@@ -243,7 +243,7 @@ function App() {
     return updatedFlagLocations;
   }
 
-  const onTileLeftClicked = (event) => {
+  const onRevealTile = (event) => {
     const target = event.target;
     const rowIndex = parseInt(target.dataset.row);
     const colIndex = parseInt(target.dataset.col);
@@ -256,7 +256,7 @@ function App() {
 
     const currentBoard = [...board];
 
-    if ( minesNeedPlacing ){
+    if ( shouldPlaceMines ){
       const newMineLocations = getRandomlyPlacedMineLocations(
         selectedTile,
         currentBoard,
@@ -268,7 +268,7 @@ function App() {
       const boardWithMines = updateBoard(currentBoard, tilesWithMines);
       
       setMineLocations(newMineLocations);
-      setMinesNeedPlacing(false);
+      setShouldPlaceMines(false);
       setBoard(prevBoard => boardWithMines);
     }
 
@@ -346,7 +346,7 @@ function App() {
     return gameLostBoard;
   }
 
-  const onTileRightClicked = (event) => {
+  const onToggleFlag = (event) => {
     event.preventDefault();
 
     let target = event.currentTarget;
@@ -423,7 +423,7 @@ function App() {
 
     setMineLocations([]);
     setFlagLocations([]);
-    setMinesNeedPlacing(true);
+    setShouldPlaceMines(true);
     setGameStatus(GameStatus.GAME_NOT_STARTED);
     setRemainingFlagsCount(gameDifficultySettings.mineCount);
     setSafeTilesCount(rowCount * columnCount - mineCount);
@@ -459,14 +459,14 @@ function App() {
         { gameHasEnded() && 
             <GameResultModal
               gameWon={userWonGame()}
-              onClick={onGameResultModalClosed}
+              onClick={onCloseGameResultModal}
             ></GameResultModal>
         }
         <GameBoard
           board={board}
           boardSize={gameDifficultySettings.boardSize}
-          onClick={onTileLeftClicked}
-          onContextMenu={onTileRightClicked}
+          onClick={onRevealTile}
+          onContextMenu={onToggleFlag}
         ></GameBoard>
       </div>
   );
