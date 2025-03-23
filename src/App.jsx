@@ -323,13 +323,11 @@ function App() {
     setFlagLocations(updatedFlagLocations);
     setRemainingFlagsCount(updatedFlagsCount);
     setBoard(currentBoard);
+    setSafeTilesCount(updatedSafeTilesCount);
 
-    if (updatedSafeTilesCount === 0) {
-      setGameStatus(GameStatus.GAME_WON);
-    } else {
-      setSafeTilesCount(updatedSafeTilesCount);
-      setGameStatus(GameStatus.GAME_IN_PROGRESS);
-    }
+    updatedSafeTilesCount === 0
+      ? setGameStatus(GameStatus.GAME_WON)
+      : setGameStatus(GameStatus.GAME_IN_PROGRESS);
   };
 
   const getGameLostBoard = (currentBoard, currentMineLocations, currentFlagLocations) => {
