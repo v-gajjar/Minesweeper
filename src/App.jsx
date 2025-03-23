@@ -105,7 +105,7 @@ function App() {
     return tilesWithMines;
   }
 
-  const getAjdacentMinesCount = (selectedTile, tiles, boardSize) => {
+  const getAdjacentMinesCount = (selectedTile, currentBoard, boardSize) => {
     let adjacentMinesCount = 0;
 
     let x = selectedTile.x;
@@ -119,7 +119,7 @@ function App() {
         if (isOffBoard(xPos, yPos, boardSize)) {
           continue;
         }
-        let neighbourTile = tiles[xPos][yPos];
+        let neighbourTile = currentBoard[xPos][yPos];
 
         if ( neighbourTile.hasMine ) {
           adjacentMinesCount++;
@@ -212,7 +212,7 @@ function App() {
       openedTiles.push(updatedTile);
       return openedTiles;
     } 
-    updatedTile.adjacentMinesCount = getAjdacentMinesCount(
+    updatedTile.adjacentMinesCount = getAdjacentMinesCount(
       updatedTile,
       currentBoard,
       boardSize
