@@ -16,7 +16,7 @@ function App() {
   const [gameStatus, setGameStatus] = useState(GameStatus.GAME_NOT_STARTED);
   const [remainingFlagsCount, setRemainingFlagsCount] = useState(0);
   const [shouldPlaceMines, setShouldPlaceMines] = useState(true);
-  const [safeTilesCount, setSafeTilesCount] = useState(0);
+  const [safeCellsCount, setSafeCellsCount] = useState(0);
   const [mineLocations, setMineLocations] = useState([]);
   const [flagLocations, setFlagLocations] = useState([]);
  
@@ -56,7 +56,7 @@ function App() {
     setupNewGame();
   };
 
-  const getMineLocations = (currentTile, currentBoard, mineCount, boardSize) => {
+  const getMineLocations = (currentCell, currentBoard, mineCount, boardSize) => {
     const rowCount = boardSize.rowCount;
     const columnCount = boardSize.columnCount;
 
@@ -68,21 +68,21 @@ function App() {
       let row = Math.floor(Math.random() * rowCount);
       let col = Math.floor(Math.random() * columnCount);
 
-      let tile = currentBoard[row][col];
+      let cell = currentBoard[row][col];
 
-      if ( tile.x === currentTile.x && tile.y === currentTile.y ){
-        // The first tile that is subjected to a left click should be ignored when placing a mine
+      if ( cell.x === currentCell.x && cell.y === currentCell.y ){
+        // The first cell that is subjected to a left click should be ignored when placing a mine
         // to make the game a bit easier/fairer - the user cannot lose on the 
         // the first left click
         continue;
       }
       // check for a duplication location in the newMineLocations array and skip if found
-      if ( newMineLocations.some((location) => location.x === tile.x && location.y === tile.y) ){
+      if ( newMineLocations.some((location) => location.x === cell.x && location.y === cell.y) ){
         continue;
       }
 
-      if (!tile.hasMine ) {
-        newMineLocations.push({x: tile.x, y: tile.y});
+      if (!cell.hasMine ) {
+        newMineLocations.push({x: cell.x, y: cell.y});
         allocatedMines++;
       }
     }
@@ -90,26 +90,26 @@ function App() {
     return newMineLocations;
   };
 
-  const getTilesWithMines = (newMineLocations, currentBoard) => {
-    const tilesWithMines = [];
+  const getCellsWithMines = (newMineLocations, currentBoard) => {
+    const cellsWithMines = [];
 
     for( const location of newMineLocations){
-      const currentTile = currentBoard[location.x][location.y];
+      const currentCell = currentBoard[location.x][location.y];
 
-      const updatedTile = {
-        ...currentTile,
+      const updatedCell = {
+        ...currentCell,
         hasMine: true
       }
-      tilesWithMines.push( updatedTile );
+      cellsWithMines.push( updatedCell );
     }
-    return tilesWithMines;
+    return cellsWithMines;
   }
 
-  const getAdjacentMinesCount = (selectedTile, currentBoard, boardSize) => {
+  const getAdjacentMinesCount = (selectedCell, currentBoard, boardSize) => {
     let adjacentMinesCount = 0;
 
-    let x = selectedTile.x;
-    let y = selectedTile.y;
+    let x = selectedCell.x;
+    let y = selectedCell.y;
 
     for (var i = -1; i <= 1; i++) {
       for (var j = -1; j <= 1; j++) {
@@ -119,9 +119,9 @@ function App() {
         if (isOffBoard(xPos, yPos, boardSize)) {
           continue;
         }
-        let neighbourTile = currentBoard[xPos][yPos];
+        let neighbourCell = currentBoard[xPos][yPos];
 
-        if ( neighbourTile.hasMine ) {
+        if ( neighbourCell.hasMine ) {
           adjacentMinesCount++;
         }
       }
@@ -129,40 +129,40 @@ function App() {
     return adjacentMinesCount;
   };
 
-  const getIncorrectlyFlaggedTiles = (gameBoard, currentFlagLocations) => {
-    const updatedTiles = [];
+  const getIncorrectlyFlaggedCells = (gameBoard, currentFlagLocations) => {
+    const updatedCells = [];
 
     for (const flagLocation of currentFlagLocations) {
-      let tile = gameBoard[flagLocation.x][flagLocation.y];
+      let cell = gameBoard[flagLocation.x][flagLocation.y];
 
-      if (tile.hasMine) continue;
+      if (cell.hasMine) continue;
 
-      const updatedTile = {
-        ...tile,
+      const updatedCell = {
+        ...cell,
         isIncorrectlyFlagged: true,
       };
-      updatedTiles.push(updatedTile);
+      updatedCells.push(updatedCell);
     }
 
-    return updatedTiles;
+    return updatedCells;
   };
 
-  const getRevealedMineTiles = (gameBoard, currentMineLocations) => {
-    const updatedTiles = [];
+  const getRevealedMineCells = (gameBoard, currentMineLocations) => {
+    const updatedCells = [];
 
     for (const mineLocation of currentMineLocations) {
-      let tile = gameBoard[mineLocation.x][mineLocation.y];
+      let cell = gameBoard[mineLocation.x][mineLocation.y];
 
-      if (tile.isFlagged) continue;
+      if (cell.isFlagged) continue;
 
-      const updatedTile = {
-        ...tile,
+      const updatedCell = {
+        ...cell,
         isRevealed: true,
       };
-      updatedTiles.push(updatedTile);
+      updatedCells.push(updatedCell);
     }
 
-    return updatedTiles;
+    return updatedCells;
   };
 
   const isOffBoard = (x, y, boardSize) => {
@@ -179,78 +179,78 @@ function App() {
     }
   }
 
-  const updateBoard = (currentBoard, updatedTiles) => {
+  const updateBoard = (currentBoard, updatedCells) => {
     const updatedBoard = [...currentBoard];
 
-    for ( const tile of updatedTiles ){
-      const updatedTile = { ...tile };
-      updatedBoard[tile.x][tile.y] = updatedTile;
+    for ( const cell of updatedCells ){
+      const updatedCell = { ...cell };
+      updatedBoard[cell.x][cell.y] = updatedCell;
     }
     return updatedBoard;
   };
 
-  const hasTile = (x, y, tiles) => {
-    return tiles.some((tile) => tile.x === x && tile.y === y)
+  const hasCell = (x, y, cells) => {
+    return cells.some((cell) => cell.x === x && cell.y === y)
   }
 
-  const revealTile = (x, y, currentBoard, boardSize, revealedTiles = []) => {
+  const revealCell = (x, y, currentBoard, boardSize, revealedCells = []) => {
 
-    if ( isOffBoard(x, y, boardSize) || hasTile(x, y, revealedTiles) ) {
+    if ( isOffBoard(x, y, boardSize) || hasCell(x, y, revealedCells) ) {
       return;
     }
 
-    const tile = currentBoard[x][y];
+    const cell = currentBoard[x][y];
     
-    const updatedTile = {
-      ...tile,
+    const updatedCell = {
+      ...cell,
       isFlagged: false,
       isRevealed: true
     }
 
-    if (updatedTile.hasMine) {
-      updatedTile.hasExplodedMine = true;
-      revealedTiles.push(updatedTile);
-      return revealedTiles;
+    if (updatedCell.hasMine) {
+      updatedCell.hasExplodedMine = true;
+      revealedCells.push(updatedCell);
+      return revealedCells;
     } 
-    updatedTile.adjacentMinesCount = getAdjacentMinesCount(
-      updatedTile,
+    updatedCell.adjacentMinesCount = getAdjacentMinesCount(
+      updatedCell,
       currentBoard,
       boardSize
     );
-    revealedTiles.push(updatedTile);
+    revealedCells.push(updatedCell);
 
-    if (updatedTile.adjacentMinesCount === 0) {
+    if (updatedCell.adjacentMinesCount === 0) {
       for (let i = -1; i <= 1; i++) {
         for (let j = -1; j <= 1; j++) {
-          revealTile(x + i, y + j, currentBoard, boardSize, revealedTiles);
+          revealCell(x + i, y + j, currentBoard, boardSize, revealedCells);
         }
       }
     }
 
-    return revealedTiles;
+    return revealedCells;
   };
 
   const coordinatesMatch = ({x: x1, y: y1}, {x: x2, y: y2}) => {
       return x1 === x2 && y1 === y2
   }
 
-  const getFilteredFlagLocations = (currentFlagLocations, tiles) => {
+  const getFilteredFlagLocations = (currentFlagLocations, cells) => {
 
     const updatedFlagLocations = currentFlagLocations.filter(location => 
-      !tiles.some(tile => coordinatesMatch(location, tile))
+      !cells.some(cell => coordinatesMatch(location, cell))
     );
 
     return updatedFlagLocations;
   }
 
-  const onRevealTile = (event) => {
+  const onRevealCell = (event) => {
     const target = event.target;
     const rowIndex = parseInt(target.dataset.row);
     const colIndex = parseInt(target.dataset.col);
 
-    const selectedTile = board[rowIndex][colIndex];
+    const selectedCell = board[rowIndex][colIndex];
 
-    if (selectedTile.isRevealed) {
+    if (selectedCell.isRevealed) {
       return;
     }
 
@@ -258,33 +258,33 @@ function App() {
 
     if ( shouldPlaceMines ){
       const newMineLocations = getMineLocations(
-        selectedTile,
+        selectedCell,
         currentBoard,
         gameDifficultySettings.mineCount,
         gameDifficultySettings.boardSize,
       );
 
-      const tilesWithMines = getTilesWithMines(newMineLocations, currentBoard);
-      const boardWithMines = updateBoard(currentBoard, tilesWithMines);
+      const cellsWithMines = getCellsWithMines(newMineLocations, currentBoard);
+      const boardWithMines = updateBoard(currentBoard, cellsWithMines);
       
       setMineLocations(newMineLocations);
       setShouldPlaceMines(false);
       setBoard(prevBoard => boardWithMines);
     }
 
-    const revealedTiles = revealTile(
-      selectedTile.x, 
-      selectedTile.y, 
+    const revealedCells = revealCell(
+      selectedCell.x, 
+      selectedCell.y, 
       currentBoard, 
       gameDifficultySettings.boardSize
     );
     
-    const updatedBoard = updateBoard(currentBoard, revealedTiles);
+    const updatedBoard = updateBoard(currentBoard, revealedCells);
 
     updateGameState(
       updatedBoard,
-      selectedTile,
-      revealedTiles,
+      selectedCell,
+      revealedCells,
       flagLocations,
       mineLocations
     );
@@ -292,13 +292,13 @@ function App() {
 
   const updateGameState = (
     currentBoard,
-    selectedTile,
-    revealedTiles,
+    selectedCell,
+    revealedCells,
     currentFlagLocations,
     currentMineLocations
   ) => {
 
-    if (selectedTile.hasMine) {
+    if (selectedCell.hasMine) {
 
       const gameLostBoard = getGameLostBoard(currentBoard, currentMineLocations, currentFlagLocations);
       
@@ -310,38 +310,38 @@ function App() {
 
     const updatedFlagLocations = getFilteredFlagLocations(
       currentFlagLocations,
-      revealedTiles
+      revealedCells
     );
 
-    const revealedTilesCount = revealedTiles.length;
+    const revealedCellsCount = revealedCells.length;
     const flagsCount = updatedFlagLocations.length;
     const mineCount = gameDifficultySettings.mineCount;
 
     const updatedFlagsCount = mineCount - flagsCount;
-    const updatedSafeTilesCount = safeTilesCount - revealedTilesCount;
+    const updatedSafeCellsCount = safeCellsCount - revealedCellsCount;
 
     setFlagLocations(updatedFlagLocations);
     setRemainingFlagsCount(updatedFlagsCount);
     setBoard(currentBoard);
-    setSafeTilesCount(updatedSafeTilesCount);
+    setSafeCellsCount(updatedSafeCellsCount);
 
-    updatedSafeTilesCount === 0
+    updatedSafeCellsCount === 0
       ? setGameStatus(GameStatus.GAME_WON)
       : setGameStatus(GameStatus.GAME_IN_PROGRESS);
   };
 
   const getGameLostBoard = (currentBoard, currentMineLocations, currentFlagLocations) => {
-    const revealedMineTiles = getRevealedMineTiles(
+    const revealedMineCells = getRevealedMineCells(
       currentBoard,
       currentMineLocations
     );
-    const incorrectlyFlaggedTiles = getIncorrectlyFlaggedTiles(
+    const incorrectlyFlaggedCells = getIncorrectlyFlaggedCells(
       currentBoard,
       currentFlagLocations
     );
 
-    const updatedTiles = [...revealedMineTiles, ...incorrectlyFlaggedTiles];
-    const gameLostBoard = updateBoard(currentBoard, updatedTiles);
+    const updatedCells = [...revealedMineCells, ...incorrectlyFlaggedCells];
+    const gameLostBoard = updateBoard(currentBoard, updatedCells);
 
     return gameLostBoard;
   }
@@ -353,33 +353,33 @@ function App() {
     let rowIndex = parseInt(target.dataset.row);
     let colIndex = parseInt(target.dataset.col);
 
-    let selectedTile = board[rowIndex][colIndex];
+    let selectedCell = board[rowIndex][colIndex];
 
-    if (selectedTile.isRevealed) {
+    if (selectedCell.isRevealed) {
       return;
     }
 
     let updatedBoard = [...board];
     let flagCount = remainingFlagsCount;
     
-    const isFlagged = selectedTile.isFlagged ? false : true;
+    const isFlagged = selectedCell.isFlagged ? false : true;
 
-    let updatedTile = {
-      ...selectedTile,
+    let updatedCell = {
+      ...selectedCell,
       isFlagged: isFlagged
     }
-    updatedBoard[rowIndex][colIndex] = updatedTile;
+    updatedBoard[rowIndex][colIndex] = updatedCell;
 
     let updatedFlagLocations = [];
 
     if ( isFlagged ){
       flagCount  = flagCount - 1;
-      updatedFlagLocations = [...flagLocations, {x: selectedTile.x, y: selectedTile.y}];
+      updatedFlagLocations = [...flagLocations, {x: selectedCell.x, y: selectedCell.y}];
     }
     else {
       flagCount = flagCount + 1;
       updatedFlagLocations = flagLocations.filter(
-        (flagLocation) => !coordinatesMatch(flagLocation, selectedTile)
+        (flagLocation) => !coordinatesMatch(flagLocation, selectedCell)
       );
     }
     setRemainingFlagsCount(flagCount);
@@ -426,7 +426,7 @@ function App() {
     setShouldPlaceMines(true);
     setGameStatus(GameStatus.GAME_NOT_STARTED);
     setRemainingFlagsCount(gameDifficultySettings.mineCount);
-    setSafeTilesCount(rowCount * columnCount - mineCount);
+    setSafeCellsCount(rowCount * columnCount - mineCount);
     setBoard(newBoard);
   };
 
@@ -465,7 +465,7 @@ function App() {
         <GameBoard
           board={board}
           boardSize={gameDifficultySettings.boardSize}
-          onClick={onRevealTile}
+          onClick={onRevealCell}
           onContextMenu={onToggleFlag}
         ></GameBoard>
       </div>
