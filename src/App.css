@@ -49,7 +49,7 @@ dialog{
     border-radius: 5px;
 }
 
-.tile.opened {
+.tile.revealed {
     background: #E8E8E8;
 }
 
@@ -57,7 +57,7 @@ dialog{
     background: orange;
 }
 
-.tile:not(.opened):hover {
+.tile:not(.revealed):hover {
     cursor: pointer;
     background: gray;
 }

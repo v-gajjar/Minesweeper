@@ -9,7 +9,7 @@ function Tile({ tile, onClick, onContextMenu }) {
     'mine' : tile.hasMine,
     'exploded' : tile.hasExplodedMine,
     'flagged' : tile.isFlagged,
-    'opened' : tile.isOpened
+    'revealed' : tile.isRevealed
   })
 
   const getNumberedTileColour = (number) => {
@@ -28,7 +28,7 @@ function Tile({ tile, onClick, onContextMenu }) {
 
   const renderTileContents = () => {
     
-    if ( !tile.isOpened && !tile.isFlagged ) return null;
+    if ( !tile.isRevealed && !tile.isFlagged ) return null;
   
     if ( tile.isIncorrectlyFlagged ){
       return <X size={20} color="#c01c28" weight="bold" />
