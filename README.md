@@ -19,9 +19,8 @@
 ### Current focus
 Refactoring the logic to extract core gameplay related functionality to seperate concerns into pure functions
 
-
-### Next step
-Refactoring to replace the usage of term "Tile" with the more standard term "Cell"
+### Next step: 
+Add Unit Tests
 
 ### Further steps
 See full [roadmap](https://github.com/v-gajjar/React-Minesweeper/blob/main/ROADMAP.md)
@@ -46,21 +45,21 @@ See full [roadmap](https://github.com/v-gajjar/React-Minesweeper/blob/main/ROADM
    ```
 # Gameplay
 
-- By default, all tiles are closed. A number of mines will be randomly distributed across the tiles. 
+- By default, all tiles are closed. A number of mines will be randomly distributed across the cells. 
 
-- The objective of the game is to open all tiles that don't contain a mine.
+- The objective of the game is to open all cells that don't contain a mine.
 
-- If you suspect a tile has a mine, you can "flag" the tile using right click. This will display a flag on the tile. 
+- If you suspect a cell has a mine, you can "flag" the cell using right click. This will display a flag on the cell. 
 
-- You can flag as many tiles as you want. 
+- You can flag as many cells as you want. 
 
-- You can open a tile using left click, however if you open a mine, the game is over.
+- You can open a cell using left click, however if you open a mine, the game is over.
   
-- If you lose the game, incorrectly placed flags will be replaced with a cross, correctly placed flags will remain, and mines hidden in any other tiles will be revealed. 
+- If you lose the game, incorrectly placed flags will be replaced with a cross, correctly placed flags will remain, and mines hidden in any other cells will be revealed. 
 
-- The number on a tile is the number of mines hidden within the 8 tiles that surround it. 
+- The number on a cell is the number of mines hidden within the 8 cells that surround it. 
 
-- To make the game fairer, mines will not be distrubuted until the first left-click and won't be placed on the first tile that you open. 
+- To make the game fairer, mines will not be distrubuted until the first left-click and won't be placed on the first cell that you open. 
 
 ## Game Difficulty Settings
 
