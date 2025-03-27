@@ -1,5 +1,5 @@
 
- ![preview](https://github.com/v-gajjar/React-Minesweeper/blob/main/src/assets/Minesweeper-14-03-2025.gif)
+ ![preview](https://github.com/v-gajjar/React-Minesweeper/blob/main/src/assets/Minesweeper-26-03-2025.gif)
 
 
 # Dependencies
