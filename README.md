@@ -54,6 +54,7 @@ docker build -t react-minesweeper:v1 .
 ```
 docker run -itd -p 8083:80 --name minesweeper react-minesweeper:v1
 ```
+
 ## Accessing on browser (Docker)
 
 The above docker run command maps port 80 of docker container to port 8083 of the host. The host port can be changed as per the user's need. The application will be accessible on browser at http://localhost:8083 in the above case.
