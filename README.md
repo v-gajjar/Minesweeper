@@ -43,6 +43,21 @@ See full [roadmap](https://github.com/v-gajjar/React-Minesweeper/blob/main/ROADM
    ```
    npm run dev
    ```
+## Docker Image
+
+```
+docker build -t react-minesweeper:v1 .
+```
+
+## Run Docker Image
+
+```
+docker run -itd -p 8083:80 --name minesweeper react-minesweeper:v1
+```
+## Accessing on browser (Docker)
+
+The above docker run command maps port 80 of docker container to port 8083 of the host. The host port can be changed as per the user's need. The application will be accessible on browser at http://localhost:8083 in the above case.
+
 # Gameplay
 
 - By default, all cells are closed. A number of mines will be randomly distributed across the cells. 
@@ -69,21 +84,6 @@ There are currently three difficulty settings
 | easy | 9 rows by 9 columns | 10
 | medium | 16 rows by 16 columns | 40
 | hard | 16 rows by 30 columns | 80
-
-## Docker Image
-
-```
-docker build -t react-minesweeper:v1 .
-```
-
-## Run Docker Image
-
-```
-docker run -itd -p 8083:80 --name minesweeper react-minesweeper:v1
-```
-## Accessing on browser
-
-The above docker run command maps port 80 of docker container to port 8083 of the host. The host port can be changed as per the user's need. The application will be accessible on browser at http://localhost:8083 in the above case.
 
 
 
