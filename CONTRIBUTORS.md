@@ -6,11 +6,10 @@
   - Provided feedback on issues and helped with testing and approving a PR.
 
 - **BJ Rutledge** [LinkedIn](https://www.linkedin.com/in/bj-rutledge/)
+  - Made suggestions that improved code cleanliness and separation of concerns.
 
 - **James Baskett** [LinkedIn](https://www.linkedin.com/in/james-blaskett/)
   - Provided suggestions that helped improve performance and architecture.
-  
-  - Made suggestions that improved code cleanliness and separation of concerns.
 
 - **Umer Farooq Mala** [GitHub](https://github.com/umermala)
   - Created a Dockerfile and updated the README with Docker-related instructions.
