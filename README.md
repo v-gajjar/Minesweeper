@@ -16,7 +16,7 @@
 * Inter font by Rasmus Andersson - SIL Open Font License 1.1
 
 # Acknowledgements
-Thanks to the kind contributions of developers who have helped improve the project. See the list of [contributors](https://github.com/v-gajjar/React-Minesweeper/blob/main/CONTRIBUTORS.md)
+A big thanks to the kind contributions of developers who have helped improve the project! See the list of [contributors](https://github.com/v-gajjar/React-Minesweeper/blob/main/CONTRIBUTORS.md)
 
 # Development Roadmap
 ### Current focus
