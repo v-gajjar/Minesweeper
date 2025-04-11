@@ -29,40 +29,48 @@ Add Unit Tests
 See full [roadmap](https://github.com/v-gajjar/React-Minesweeper/blob/main/ROADMAP.md)
 
 # Getting Started
+Clone the repository:
+```
+git clone https://github.com/v-gajjar/React-Minesweeper.git
+```
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/v-gajjar/React-Minesweeper.git
-   ```
-2. Navigate to the project directory:
+## Running locally via NPM
+1. Navigate to the project directory:
    ```
    cd React-Minesweeper
    ```
-3. Install dependencies
+2. Install dependencies
    ```
    npm install
    ```
-4. Run
+3. Start the dev server
    ```
    npm run dev
    ```
-## Docker Image
+4. Accessing on a browser (The localhost port will usually be 5173, but it should be logged to the console)
+   ```
+   http://localhost:5173/
+   ```
+   
+
+## Running via Docker
+1. Docker Image
 
 ```
 docker build -t react-minesweeper:v1 .
 ```
 
-## Run Docker Image
+2. Running via Docker
 
 ```
 docker run -itd -p 8083:80 --name minesweeper react-minesweeper:v1
 ```
 
-## Accessing on browser (Docker)
+3. Accessing on browser
 
 The above docker run command maps port 80 of docker container to port 8083 of the host. The host port can be changed as per the user's need. The application will be accessible on browser at http://localhost:8083 in the above case.
 
-# Gameplay
+# How to Play
 
 - By default, all cells are closed. A number of mines will be randomly distributed across the cells. 
 
@@ -78,9 +86,9 @@ The above docker run command maps port 80 of docker container to port 8083 of th
 
 - The number on a cell is the number of mines hidden within the 8 cells that surround it. 
 
-- To make the game fairer, mines will not be distrubuted until the first left-click and won't be placed on the first cell that you open. 
+- To make the game fairer, mines will not be distributed until the first left-click and won't be placed on the first cell that you open. 
 
-## Game Difficulty Settings
+## Difficulty Levels
 
 There are currently three difficulty settings
 | level | board size | number of mines |
