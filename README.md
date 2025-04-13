@@ -21,7 +21,7 @@ A big thanks to the kind contributions of developers who have helped improve the
 
 # Development Roadmap
 ### Current focus
-Refactoring the logic to extract core gameplay related functionality to seperate concerns into pure functions
+Look at migrating from JavaScript to TypeScript
 
 ### Next step: 
 Add Unit Tests
