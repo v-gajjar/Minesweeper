@@ -1,6 +1,10 @@
+# Description
+A fresh take on the classic Minesweeper experience, enhanced with clean UX and built with modern tech including React and Docker.
 
  ![preview](https://github.com/v-gajjar/React-Minesweeper/blob/main/src/assets/Minesweeper-26-03-2025.gif)
 
+# Acknowledgements
+A big thanks to the kind contributions of developers who have helped improve the project! See the list of [contributors](https://github.com/v-gajjar/React-Minesweeper/blob/main/CONTRIBUTORS.md)
 
 # Dependencies
 
@@ -14,9 +18,6 @@
 
 # Attributions
 * Inter font by Rasmus Andersson - SIL Open Font License 1.1
-
-# Acknowledgements
-A big thanks to the kind contributions of developers who have helped improve the project! See the list of [contributors](https://github.com/v-gajjar/React-Minesweeper/blob/main/CONTRIBUTORS.md)
 
 # Development Roadmap
 ### Current focus
