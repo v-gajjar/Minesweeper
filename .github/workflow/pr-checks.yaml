@@ -1,0 +1,26 @@
+name: PR Checks
+
+on:
+  pull_request:
+
+jobs:
+  build-lint-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🟢 Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🧪 Run Unit Tests (Vitest)
+        run: npm run test
+
+      - name: 🔧 Build App (Vite)
+        run: npm run build
