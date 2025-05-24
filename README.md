@@ -1,3 +1,6 @@
+**Note:** This repository was renamed from `React-Minesweeper` to `Minesweeper` on May 24, 2025.  
+Please update your remote repository URL if you have cloned the old repo.
+
 # Description
 A fresh take on the classic Minesweeper experience, enhanced with clean UX and built with modern tech including React and Docker.
 
