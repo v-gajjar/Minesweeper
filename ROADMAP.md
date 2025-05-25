@@ -1,10 +1,12 @@
-### Current focus
-Look at migrating from JavaScript to TypeScript
+### Current focus (updated 25th May 2025)
+Investigating a bug related to game win logic. 
 
 ### Next step: 
-Add Unit Tests
+Look at deploying using a service such as GitHub Pages
 
-### Further steps:
+### Further steps (Subject to change):
+- Migrate from JavaScript to TypeScript
+- Add Unit Tests 
 - Explore using Zustand to improve state management
 - Look at ensuring CSS styling is consistent on different browsers and devices
 - Look at adding accessibility
