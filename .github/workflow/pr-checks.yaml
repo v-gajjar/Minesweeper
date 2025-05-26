@@ -3,9 +3,7 @@ name: 🧪 PR Checks
 on:
   push:
     branches:
-      - feature/*
-      - bugfix/*
-      - main
+      - '**'  # Matches any branch
   pull_request:
 
 permissions:
