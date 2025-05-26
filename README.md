@@ -4,10 +4,10 @@ Please update your remote repository URL if you have cloned the old repo.
 # Description
 A fresh take on the classic Minesweeper experience, enhanced with clean UX and built with modern tech including React and Docker.
 
- ![preview](https://github.com/v-gajjar/React-Minesweeper/blob/main/src/assets/Minesweeper-26-03-2025.gif)
+ ![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-26-03-2025.gif)
 
 # Acknowledgements
-A big thanks to the kind contributions of developers who have helped improve the project! See the list of [contributors](https://github.com/v-gajjar/React-Minesweeper/blob/main/CONTRIBUTORS.md)
+A big thanks to the kind contributions of developers who have helped improve the project! See the list of [contributors](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
 
 # Dependencies
 
@@ -30,18 +30,18 @@ Investigating a bug related to game win logic.
 Look at deploying using a service such as GitHub Pages
 
 ### Further steps
-See full [roadmap](https://github.com/v-gajjar/React-Minesweeper/blob/main/ROADMAP.md)
+See full [roadmap](https://github.com/v-gajjar/Minesweeper/blob/main/ROADMAP.md)
 
 # Getting Started
 Clone the repository:
 ```
-git clone https://github.com/v-gajjar/React-Minesweeper.git
+git clone https://github.com/v-gajjar/Minesweeper.git
 ```
 
 ## Running locally via NPM
 1. Navigate to the project directory:
    ```
-   cd React-Minesweeper
+   cd Minesweeper
    ```
 2. Install dependencies
    ```
@@ -61,13 +61,13 @@ git clone https://github.com/v-gajjar/React-Minesweeper.git
 1. Docker Image
 
 ```
-docker build -t react-minesweeper:v1 .
+docker build -t minesweeper:v1 .
 ```
 
 2. Running via Docker
 
 ```
-docker run -itd -p 8083:80 --name minesweeper react-minesweeper:v1
+docker run -itd -p 8083:80 --name minesweeper minesweeper:v1
 ```
 
 3. Accessing on browser
