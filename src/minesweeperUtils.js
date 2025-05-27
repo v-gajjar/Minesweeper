@@ -145,6 +145,12 @@ export const hasCell = (x, y, cells) => {
   return cells.some((cell) => cell.x === x && cell.y === y);
 };
 
+const isRevealed = (x, y, currentBoard) => {
+  const cell = currentBoard[x][y];
+
+  return cell.isRevealed; 
+}
+
 export const revealCell = (
   x,
   y,
@@ -152,8 +158,8 @@ export const revealCell = (
   boardSize,
   revealedCells = []
 ) => {
-  if (isOffBoard(x, y, boardSize) || hasCell(x, y, revealedCells)) {
-    return;
+  if (isOffBoard(x, y, boardSize) || hasCell(x, y, revealedCells) || isRevealed(x, y, currentBoard)) {
+    return revealedCells;
   }
 
   const cell = currentBoard[x][y];
