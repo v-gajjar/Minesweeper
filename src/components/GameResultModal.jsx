@@ -19,7 +19,7 @@ function GameResultModal({ gameWon, onClick }){
 
   function closeModal() {
     setModalStateClass("modalExit")
-    setTimeout(onClick, 500); // Wait for the transition to finish before calling onClick (Make sure 500ms matches your CSS transition duration)
+    setTimeout(onClick, 300); // Wait for the transition to finish before calling onClick (Make sure 500ms matches your CSS transition duration)
   }
   //useEffect and useState are used to manage the the CSS class state for the modal dialog (initially modalEntrance)
   //The starting class is initially "modalEntrance" and changes to "modalVisible" after the component mounts.

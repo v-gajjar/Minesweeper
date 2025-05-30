@@ -27,17 +27,17 @@ button:hover{
 
 dialog{
     border-radius: 30px;
-    transition: 0.5s ease-in-out;
+    transition: 0.3s ease-in-out;
     display: grid;
     justify-items: center;
     border: none;
     box-shadow: 0 3px 20px black, inset 0 0 3px 1.5px grey;
 }
 .modalEntrance{
-    margin-top: 100vh; /* Starts below bottom of screen */
+    margin-top: -100vh; /* Start above bottom of screen */
 }
 .modalVisible{
-    margin-top: 0px; /* moves to top */
+    margin-top: 0px; /* moves down */
 }
 .modalExit{
     margin-top: -100%; /* moves above top */
