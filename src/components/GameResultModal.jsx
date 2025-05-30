@@ -29,7 +29,7 @@ function GameResultModal({ gameWon, onClick }){
 
   return (
     <dialog id="gameResultModal" className={modalClass}>
-      <h1>{message}</h1>
+      <p>{message}</p>
       <button id="gameResultModalCloseButton" onClick={closeModal}>Play again</button>
     </dialog>
   );

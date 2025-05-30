@@ -34,7 +34,17 @@ dialog{
     padding: 20px;
     border: 1px solid lightgray;
     background: white;
+    width: 350px;
+    gap: 12px;
 }
+
+dialog p {
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 0 10px;
+}
+
 .modalEntrance{
     margin-top: -100vh; /* Start above bottom of screen */
 }
@@ -89,7 +99,6 @@ dialog{
     justify-content: center;
     position: relative;
     border-radius: 5px;
-    transition: background-color 0.2s ease;
 }
 
 .cell:hover { 
