@@ -1,5 +1,5 @@
-### Current focus (updated 25th May 2025)
-Investigating a bug related to game win logic. 
+### Current focus (updated 30th May 2025)
+Looing at enhancing the GameResultModal styling and UX (i.e. with animation)
 
 ### Next step: 
 Look at deploying using a service such as GitHub Pages
