@@ -1,31 +1,36 @@
 import { useEffect, useState } from "react";
+import classNames from "classnames";
 
 function GameResultModal({ gameWon, onClick }){
 
 
-  const [className, setClass] = useState("dialoguePre")
+  const [modalStateClass, setModalStateClass ] = useState("modalEntrance")
   const message = gameWon ? "Congratulations, you won!" : "Game Over!";
-  const className2 = gameWon ? "dialogueWin" : "dialogueLose";
+  const gameResultClass = gameWon ? "gameWonModal" : "gameLostModal";
 
+  // Combine animation + result style into one class
+  const modalClass = classNames(modalStateClass, gameResultClass);
+
+  // Start entrance-to-visible transition after mount
   useEffect(
-    () => setClass("dialogueMid"), 
+    () => setModalStateClass("modalVisible"), 
     []
   );
 
-  function closeDialogue() {
-    setClass("dialoguePost")
+  function closeModal() {
+    setModalStateClass("modalExit")
     setTimeout(onClick, 500); // Wait for the transition to finish before calling onClick (Make sure 500ms matches your CSS transition duration)
   }
-  //useEffect and useState are used to manage the className state for the modal dialog.
-  //The className is initially set to "dialoguePre" and changes to "dialogueMid" after the component mounts.
-  //When the closeDialogue function is called, it sets the className to "dialoguePost" and calls the onClick function passed as a prop.
+  //useEffect and useState are used to manage the the CSS class state for the modal dialog (initially modalEntrance)
+  //The starting class is initially "modalEntrance" and changes to "modalVisible" after the component mounts.
+  //When the closeModal function is called, it sets the class is changed to to "modalExit" and calls the onClick function passed as a prop.
   //This allows for a smooth transition effect when the modal is closed.
 
 
   return (
-    <dialog id="gameResultModal" className={className + " " + className2}>
+    <dialog id="gameResultModal" className={modalClass}>
       <h1>{message}</h1>
-      <button id="gameResultModalCloseButton" onClick={closeDialogue}>Play again</button>
+      <button id="gameResultModalCloseButton" onClick={closeModal}>Play again</button>
     </dialog>
   );
 }

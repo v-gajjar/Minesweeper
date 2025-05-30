@@ -33,20 +33,21 @@ dialog{
     border: none;
     box-shadow: 0 3px 20px black, inset 0 0 3px 1.5px grey;
 }
-.dialoguePre{
+.modalEntrance{
     margin-top: 100vh; /* Starts below bottom of screen */
 }
-.dialogueMid{
+.modalVisible{
     margin-top: 0px; /* moves to top */
 }
-.dialoguePost{
+.modalExit{
     margin-top: -100%; /* moves above top */
 }
 
-.dialogueWin{
-    color:green /* ugly colours, change these to something nicer */
+/* change these to something nicer */
+.gameWonModal{
+    color:green 
 }
-.dialogueLose{
+.gameLostModal{
     color:red
 }
 
