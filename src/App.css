@@ -11,27 +11,29 @@ h1{
     margin-bottom: 10px;
 }
 button{
-    border-radius: 15px;
+    border-radius: 5px;
     border: none;
     background: rgb(211,211,211);
     padding: 5px;
     margin: 0;
-    box-shadow: 0 0 5px grey;
+    box-shadow: 0 0 2px grey;
     outline-color: lightgrey
 }
 button:hover{
     background: rgb(190,190,190);
-    box-shadow: 0 0 10px rgb(100,100,100);
+    box-shadow: 0 0 4px rgb(100,100,100);
     cursor: pointer;
 }
 
 dialog{
-    border-radius: 30px;
+    border-radius: 5px;
     transition: 0.3s ease-in-out;
     display: grid;
     justify-items: center;
-    border: none;
-    box-shadow: 0 3px 20px black, inset 0 0 3px 1.5px grey;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border: 1px solid lightgray;
+    background: white;
 }
 .modalEntrance{
     margin-top: -100vh; /* Start above bottom of screen */
@@ -87,12 +89,9 @@ dialog{
     justify-content: center;
     position: relative;
     border-radius: 5px;
+    transition: background-color 0.2s ease;
 }
 
-/* FYI: ".cell:not(.revealed):hover" is not required.
-classes (.revealed) and psuedo classes (:hover) have equal specificity.
-so by using just .cell:hover and putting it before .cell.revealed, the result is the same.
-.revealed overrides :hover, nullifying the :hover if the cell is revealed */
 .cell:hover { 
     cursor: pointer;
     background: gray;
