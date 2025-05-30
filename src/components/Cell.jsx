@@ -48,6 +48,7 @@ function Cell({ cell, onClick, onContextMenu }) {
   return (
     <div
       className={cellClass}
+      data-testid="cell"
       data-row={cell.x}
       data-col={cell.y}
       onClick={onClick}
