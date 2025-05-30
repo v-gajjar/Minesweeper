@@ -3,9 +3,9 @@ import GameBoard from '../components/GameBoard';
 
 describe('Game Win Condition', () => {
   it('renders board and verifies cell count', () => {
-    const boardSize = { rowCount: 5, columnCount: 5 };
-    const board = Array.from({ length: 5 }, () =>
-      Array.from({ length: 5 }, () => ({
+    const boardSize = { rowCount: 9, columnCount: 9 };
+    const board = Array.from({ length: 9 }, () =>
+      Array.from({ length: 9 }, () => ({
         isOpen: true,
         isMine: false,
         isFlagged: false,
@@ -18,6 +18,6 @@ describe('Game Win Condition', () => {
     );
 
     const cells = container.querySelectorAll('.cell');
-    expect(cells.length).toBe(25);
+    expect(cells.length).toBe(81);
   });
 });
