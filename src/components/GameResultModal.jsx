@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Medal, Warning } from "@phosphor-icons/react";
 
 import classNames from "classnames";
 
@@ -9,7 +8,6 @@ function GameResultModal({ gameWon, onClick }){
 
   const [modalStateClass, setModalStateClass ] = useState("modalEntrance")
   const message = gameWon ? "You Won!" : "Game Over!";
-  const icon = gameWon ? <Medal size={48} weight="fill" color="#f1c40f" /> : <Warning size={48} weight="fill" color="#e67e22" />;
   const gameResultClass = gameWon ? "gameWonModal" : "gameLostModal";
 
   // Combine animation + result style into one class
@@ -33,7 +31,7 @@ function GameResultModal({ gameWon, onClick }){
 
   return (
     <dialog id="gameResultModal" className={modalClass}>
-      <p>{icon}{message}</p>
+      <p>{message}</p>
       <button id="gameResultModalCloseButton" onClick={closeModal}>Play again</button>
     </dialog>
   );
