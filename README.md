@@ -101,10 +101,3 @@ There are currently three difficulty settings
 | medium | 16 rows by 16 columns | 40
 | hard | 16 rows by 30 columns | 80
 
-
-
-
-
-   
-   
-   
