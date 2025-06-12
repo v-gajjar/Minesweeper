@@ -4,8 +4,7 @@ on:
   push:
     branches:
       - '**'
-  pull_request_target:
-    types: [opened, synchronize]
+  pull_request:
 
 permissions:
   contents: read
