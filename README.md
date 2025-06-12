@@ -107,4 +107,3 @@ There are currently three difficulty settings
 
    
    
-   
