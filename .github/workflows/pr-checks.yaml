@@ -3,9 +3,7 @@ name: 🧪 PR Checks
 on:
   push:
     branches:
-      - feature/*
-      - bugfix/*
-      - main
+      - '**'
   pull_request_target:
     types: [opened, synchronize]
 
