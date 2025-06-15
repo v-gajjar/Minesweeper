@@ -105,8 +105,6 @@ function App() {
       gameDifficultySettings.boardSize
     );
 
-    console.log( "revealed cells: " + revealedCells.length ); 
-    
     const updatedBoard = updateBoard(currentBoard, revealedCells);
 
     updateGameState(
@@ -144,15 +142,8 @@ function App() {
     const revealedCellsCount = revealedCells.length;
     const flagsCount = updatedFlagLocations.length;
     const mineCount = gameDifficultySettings.mineCount;
-
-    console.log("safe cells count: " + safeCellsCount );
-    console.log("revealed cells count: " + revealedCellsCount );
-
     const updatedFlagsCount = mineCount - flagsCount;
     const updatedSafeCellsCount = safeCellsCount - revealedCellsCount;
-
-    console.log("updated safe cells count: " + updatedSafeCellsCount); 
-    console.log("---")
 
     setFlagLocations(updatedFlagLocations);
     setRemainingFlagsCount(updatedFlagsCount);
