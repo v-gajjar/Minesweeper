@@ -4,7 +4,7 @@ Please update your remote repository URL if you have cloned the old repo.
 # Description
 A fresh take on the classic Minesweeper experience, enhanced with clean UX and built with modern tech including React and Docker.
 
- ![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-26-03-2025.gif)
+ ![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-15-06-2025.gif)
 
 # Acknowledgements
 A big thanks to the kind contributions of developers who have helped improve the project! See the list of [contributors](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
