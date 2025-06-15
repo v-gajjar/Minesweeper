@@ -6,6 +6,9 @@ A fresh take on the classic Minesweeper experience, enhanced with clean UX and b
 
  ![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-15-06-2025.gif)
 
+# Live Demo
+Try it out in a browser: [https://v-gajjar.github.io/Minesweeper/](https://v-gajjar.github.io/Minesweeper/)
+
 # Acknowledgements
 A big thanks to the kind contributions of developers who have helped improve the project! See the list of [contributors](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
 
