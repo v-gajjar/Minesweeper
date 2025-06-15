@@ -26,11 +26,11 @@ A big thanks to the kind contributions of developers who have helped improve the
 * Inter font by Rasmus Andersson - SIL Open Font License 1.1
 
 # Development Roadmap
-### Current focus (updated 30th May 2025)
-Looing at enhancing the GameResultModal styling and UX (i.e. with animation)
+### Current focus (updated 15th June 2025)
+Migrate from JavaScript to TypeScript
 
 ### Next step: 
-Look at deploying using a service such as GitHub Pages
+Add Unit Tests 
 
 ### Further steps
 See full [roadmap](https://github.com/v-gajjar/Minesweeper/blob/main/ROADMAP.md)

@@ -1,12 +1,10 @@
-### Current focus (updated 30th May 2025)
-Looing at enhancing the GameResultModal styling and UX (i.e. with animation)
+### Current focus (updated 15th June 2025)
+Migrate from JavaScript to TypeScript
 
 ### Next step: 
-Look at deploying using a service such as GitHub Pages
+Add Unit Tests 
 
 ### Further steps (Subject to change):
-- Migrate from JavaScript to TypeScript
-- Add Unit Tests 
 - Explore using Zustand to improve state management
 - Look at ensuring CSS styling is consistent on different browsers and devices
 - Look at adding accessibility
