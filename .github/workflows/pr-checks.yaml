@@ -1,0 +1,47 @@
+name: 🧪 PR Checks
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  build-lint-test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18, 20, 22]
+    outputs:
+      today: ${{ steps.date.outputs.today }}
+      node-version: ${{ steps.set-version.outputs.version }}
+    steps:
+      - name: 🧾 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 📅 Set Today's Date (MM/DD/YYYY)
+        id: date
+        run: echo "today=$(date +'%m/%d/%Y')" >> "$GITHUB_OUTPUT"
+
+      - name: 🟢 Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: 📋 Set Node Version
+        id: set-version
+        run: echo "version='${{ matrix.node-version }}'" >> "$GITHUB_OUTPUT"
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🔧 Build App (Vite)
+        run: npm run build
+
+      - name: 🧪 Run Unit Tests (Vitest)
+        run: npm run test
