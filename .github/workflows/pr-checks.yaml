@@ -3,32 +3,39 @@ name: 🧪 PR Checks
 on:
   push:
     branches:
-      - feature/*
-      - bugfix/*
-      - main
+      - '**'
   pull_request:
 
 permissions:
   contents: read
   pull-requests: write
+  issues: write
 
 jobs:
   build-lint-test:
     runs-on: ubuntu-latest
-    outputs:
-      today: ${{ steps.date.outputs.today }}
-      node-versions: ${{ steps.set-matrix.outputs['node-versions'] }}
     strategy:
       matrix:
         node-version: [18, 20, 22]
+    outputs:
+      today: ${{ steps.date.outputs.today }}
+      node-version: ${{ steps.set-version.outputs.version }}
     steps:
       - name: 🧾 Checkout code
         uses: actions/checkout@v4
+
+      - name: 📅 Set Today's Date (MM/DD/YYYY)
+        id: date
+        run: echo "today=$(date +'%m/%d/%Y')" >> "$GITHUB_OUTPUT"
 
       - name: 🟢 Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+
+      - name: 📋 Set Node Version
+        id: set-version
+        run: echo "version='${{ matrix.node-version }}'" >> "$GITHUB_OUTPUT"
 
       - name: 📦 Install dependencies
         run: npm install
@@ -38,43 +45,3 @@ jobs:
 
       - name: 🧪 Run Unit Tests (Vitest)
         run: npm run test
-
-      - name: 📅 Set Today's Date (MM/DD/YYYY)
-        id: date
-        run: echo "today=$(date +'%m/%d/%Y')" >> "$GITHUB_OUTPUT"
-
-      - name: 📋 Set Node Versions
-        id: set-matrix
-        run: echo "node-versions=${{ matrix.node-version }}" >> "$GITHUB_OUTPUT"
-
-  comment-success:
-    needs: build-lint-test
-    runs-on: ubuntu-latest
-    if: ${{ success() && github.event_name == 'pull_request' }}
-    steps:
-      - name: ✨ Comment Success with Blessing, Date, and Robot GIF
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `✅ All checks passed on Node.js **${{ needs.build-lint-test.outputs['node-versions'] }}**! 🎯\n\n🤖 The bots have blessed your code on **${{ needs.build-lint-test.outputs.today }}** ✨\n\n![Blessed Robot](https://media.tenor.com/2roX3uxz_68AAAAC/cute-robot.gif)`
-            });
-
-  comment-failure:
-    needs: build-lint-test
-    runs-on: ubuntu-latest
-    if: ${{ failure() && github.event_name == 'pull_request' }}
-    steps:
-      - name: 💥 Comment Failure with Sad Robot
-        uses: actions/github-script@v7
-        with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `❌ Tests or build failed on **${{ needs.build-lint-test.outputs.today }}**. 🐛🔥\n\n😢 The bots are sad. Please fix the issues!\n\n![Sad Robot](https://media.tenor.com/oxT1qGgoAjwAAAAC/robot-sad.gif)`
-            });
