@@ -26,6 +26,6 @@ export const GAME_DIFFICULTY_LEVEL_SETTINGS = {
       columnCount: 30,
     },
     mineCount: 80,
-    label: "Advance"
+    label: "Expert"
   },
 };

@@ -4,7 +4,7 @@ function GameDifficultySelector({gameDifficultySettings, onChange}) {
 
     return (
         <div className='game-difficulty-select-wrapper'>
-        <label>Select game difficulty: </label>
+        <label>Difficulty: </label>
         <select 
             value={gameDifficultySettings.level}
             onChange={onChange}
