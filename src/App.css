@@ -39,6 +39,8 @@ dialog{
     position: fixed;
     top: 0;
     margin-top: 0;
+    height: 92px;
+    max-height: 92px;
 }
 
 dialog p {
