@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import Cell from "./Cell";
 
 function GameBoard({ board, boardSize, onClick, onContextMenu }) {
@@ -9,18 +10,28 @@ function GameBoard({ board, boardSize, onClick, onContextMenu }) {
     "--columns": `${boardSize.columnCount}`,
   };
 
+  const myRef = useRef(null);
+
+  useEffect(()=> {
+
+      myRef.current.scrollLeft = 0;
+
+  }, [boardSize])
+
   return (
-    <div style={style} className="board ">
-      {board.map((rows, rowIndex) =>
-        rows.map((col, colIndex) => (
-          <Cell
-            cell={board[rowIndex][colIndex]}
-            key={`cell-${rowIndex}-${colIndex}`}
-            onClick={onClick}
-            onContextMenu={onContextMenu}
-          ></Cell>
-        ))
-      )}
+    <div id="boardWrapper" ref={myRef}>
+      <div style={style} className="board ">
+        {board.map((rows, rowIndex) =>
+          rows.map((col, colIndex) => (
+            <Cell
+              cell={board[rowIndex][colIndex]}
+              key={`cell-${rowIndex}-${colIndex}`}
+              onClick={onClick}
+              onContextMenu={onContextMenu}
+            ></Cell>
+          ))
+        )}
+      </div>
     </div>
   );
 }
