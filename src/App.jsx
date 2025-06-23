@@ -233,26 +233,32 @@ function App() {
   };
 
   return (
-      <div className="wrapper">
+    <>
+      <header>
         <h1 className="game-title">Minesweeper</h1>
+      </header>
+      <main className="wrapper">
         <GameDifficultySelector
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
         ></GameDifficultySelector>
-        <RemainingFlagsCounter remainingFlagsCount={remainingFlagsCount}></RemainingFlagsCounter>
-        { gameHasEnded() && 
+        <RemainingFlagsCounter
+          remainingFlagsCount={remainingFlagsCount}
+        ></RemainingFlagsCounter>
+        {gameHasEnded() && (
             <GameResultModal
               gameWon={userWonGame()}
               onClick={onCloseGameResultModal}
             ></GameResultModal>
-        }
+        )}
         <GameBoard
           board={board}
           boardSize={gameDifficultySettings.boardSize}
           onClick={onRevealCell}
           onContextMenu={onToggleFlag}
         ></GameBoard>
-      </div>
+      </main>
+    </>
   );
 }
 
