@@ -246,10 +246,10 @@ function App() {
           remainingFlagsCount={remainingFlagsCount}
         ></RemainingFlagsCounter>
         {gameHasEnded() && (
-            <GameResultModal
-              gameWon={userWonGame()}
-              onClick={onCloseGameResultModal}
-            ></GameResultModal>
+          <GameResultModal
+            gameWon={userWonGame()}
+            onClick={onCloseGameResultModal}
+          ></GameResultModal>
         )}
         <GameBoard
           board={board}
