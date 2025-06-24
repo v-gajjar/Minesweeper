@@ -10,19 +10,19 @@ function GameBoard({ board, boardSize, onClick, onContextMenu }) {
     "--columns": `${boardSize.columnCount}`,
   };
 
-  const myRef = useRef(null);
+  const boardContainerRef = useRef(null);
 
   useEffect(()=> {
 
       // scroll doesn't automatically reset when board size is changed
       // so reset to 0 for better UX 
-      myRef.current.scrollLeft = 0;
+      boardContainerRef.current.scrollLeft = 0;
 
   }, [boardSize])
 
   return (
-    <div id="boardWrapper" ref={myRef}>
-      <div style={style} className="board ">
+    <div id="boardContainer" ref={boardContainerRef}>
+      <div style={style} id="board ">
         {board.map((rows, rowIndex) =>
           rows.map((col, colIndex) => (
             <Cell
