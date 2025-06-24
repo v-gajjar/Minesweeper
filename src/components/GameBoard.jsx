@@ -22,7 +22,7 @@ function GameBoard({ board, boardSize, onClick, onContextMenu }) {
 
   return (
     <div id="boardContainer" ref={boardContainerRef}>
-      <div style={style} id="board ">
+      <div style={style} id="board">
         {board.map((rows, rowIndex) =>
           rows.map((col, colIndex) => (
             <Cell
