@@ -241,10 +241,12 @@ function App() {
         <GameDifficultySelector
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
-        ></GameDifficultySelector>
+        >
+        </GameDifficultySelector>
         <RemainingFlagsCounter
           remainingFlagsCount={remainingFlagsCount}
-        ></RemainingFlagsCounter>
+        >
+        </RemainingFlagsCounter>  
         {gameHasEnded() && (
           <GameResultModal
             gameWon={userWonGame()}
@@ -256,7 +258,8 @@ function App() {
           boardSize={gameDifficultySettings.boardSize}
           onClick={onRevealCell}
           onContextMenu={onToggleFlag}
-        ></GameBoard>
+        >
+        </GameBoard>
       </main>
     </>
   );
