@@ -102,14 +102,14 @@ dialog p {
 }
 
 
-#boardWrapper {
+#boardContainer {
 	display: flex;
 	overflow-y: hidden;
 	justify-content: flex-start;
     margin: 5px;
 }
 
-.board{
+#board{
     display: grid;
     grid-template-columns: repeat(var(--columns), 39px);
     grid-template-rows: repeat(var(--rows), 39px);
