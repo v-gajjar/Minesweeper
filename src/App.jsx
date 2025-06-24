@@ -59,10 +59,7 @@ function App() {
       return;
     }
 
-    // scroll doesn't automatically reset when board size is changed
-    // so reset to 0 for better UX 
-    boardContainerRef.current.scrollLeft = 0;
-
+    resetBoardContainerScroll();
     setGameStatus(GameStatus.GAME_NOT_STARTED);
     setGameDifficultySettings(difficultyLevel)
   };
@@ -71,12 +68,15 @@ function App() {
     const gameResultModal = document.getElementById("gameResultModal");
     gameResultModal.close();
 
+    resetBoardContainerScroll();
+    setupNewGame();
+  };
+
+  const resetBoardContainerScroll = () => {
     // scroll doesn't automatically reset when board size is changed
     // so reset to 0 for better UX 
     boardContainerRef.current.scrollLeft = 0;
-    
-    setupNewGame();
-  };
+  }
 
   const onRevealCell = (event) => {
     const target = event.target;
