@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 import GameStatus from "./enum/GameStatus";
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from "./config/gameDifficultyLevelSettings";
@@ -34,6 +34,7 @@ function App() {
   const [flagLocations, setFlagLocations] = useState([]);
  
   const [gameDifficultySettings, setGameDifficultySettings] = useState(GAME_DIFFICULTY_LEVEL_SETTINGS.EASY);
+  const boardContainerRef = useRef(null);
 
   useEffect(() => {
     if (gameHasEnded()) {
@@ -58,6 +59,7 @@ function App() {
       return;
     }
 
+    resetBoardContainerScroll();
     setGameStatus(GameStatus.GAME_NOT_STARTED);
     setGameDifficultySettings(difficultyLevel)
   };
@@ -65,9 +67,16 @@ function App() {
   const onCloseGameResultModal = () => {
     const gameResultModal = document.getElementById("gameResultModal");
     gameResultModal.close();
-    
+
+    resetBoardContainerScroll();
     setupNewGame();
   };
+
+  const resetBoardContainerScroll = () => {
+    // scroll doesn't automatically reset when board size is changed
+    // so reset to 0 for better UX 
+    boardContainerRef.current.scrollLeft = 0;
+  }
 
   const onRevealCell = (event) => {
     const target = event.target;
@@ -233,26 +242,34 @@ function App() {
   };
 
   return (
-      <div className="wrapper">
+    <>
+      <header>
         <h1 className="game-title">Minesweeper</h1>
+      </header>
+      <main className="wrapper">
         <GameDifficultySelector
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
         ></GameDifficultySelector>
-        <RemainingFlagsCounter remainingFlagsCount={remainingFlagsCount}></RemainingFlagsCounter>
-        { gameHasEnded() && 
-            <GameResultModal
-              gameWon={userWonGame()}
-              onClick={onCloseGameResultModal}
-            ></GameResultModal>
-        }
-        <GameBoard
-          board={board}
-          boardSize={gameDifficultySettings.boardSize}
-          onClick={onRevealCell}
-          onContextMenu={onToggleFlag}
-        ></GameBoard>
-      </div>
+        <RemainingFlagsCounter
+          remainingFlagsCount={remainingFlagsCount}
+        ></RemainingFlagsCounter>
+        {gameHasEnded() && (
+          <GameResultModal
+            gameWon={userWonGame()}
+            onClick={onCloseGameResultModal}
+          ></GameResultModal>
+        )}
+        <div id="boardContainer" ref={boardContainerRef}>
+          <GameBoard
+            board={board}
+            boardSize={gameDifficultySettings.boardSize}
+            onClick={onRevealCell}
+            onContextMenu={onToggleFlag}
+          ></GameBoard>
+        </div>
+      </main>
+    </>
   );
 }
 

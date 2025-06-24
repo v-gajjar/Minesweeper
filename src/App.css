@@ -3,6 +3,17 @@
     font-optical-sizing: auto;
 }
 
+body {
+    margin: 0;
+    height: 100%;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 .game-title {
     margin: auto;
 }
@@ -10,6 +21,13 @@
 h1{
     margin-bottom: 10px;
 }
+
+header{
+    display: flex;
+    justify-content:center;
+    padding: 10px;
+}
+
 button{
     border-radius: 5px;
     border: none;
@@ -71,18 +89,27 @@ dialog p {
     color: #c01c28;
 }
 
-.wrapper{
+.wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
+    flex-grow: 1;
 }
 
 .game-difficulty-select-wrapper{
     padding: 10px;
-    margin: auto;
+    margin: 0 auto;
 }
 
-.board{
+
+#boardContainer {
+	display: flex;
+	overflow-y: hidden;
+	justify-content: flex-start;
+    margin: 5px;
+}
+
+#board{
     display: grid;
     grid-template-columns: repeat(var(--columns), 39px);
     grid-template-rows: repeat(var(--rows), 39px);
