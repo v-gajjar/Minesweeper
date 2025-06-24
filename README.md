@@ -25,12 +25,11 @@ A big thanks to the kind contributions of developers who have helped improve the
 # Attributions
 * Inter font by Rasmus Andersson - SIL Open Font License 1.1
 
-# Development Roadmap
-### Current focus (updated 15th June 2025)
-Migrate from JavaScript to TypeScript
+### Current focus (updated 24th June 2025)
+Looking at making the design more mobile friendly 
 
 ### Next step: 
-Add Unit Tests 
+A few small but important UX enhacements (i.e. styling the Header section)
 
 ### Further steps
 See full [roadmap](https://github.com/v-gajjar/Minesweeper/blob/main/ROADMAP.md)
