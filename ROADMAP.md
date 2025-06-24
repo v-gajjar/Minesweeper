@@ -2,7 +2,7 @@
 Looking at making the design more mobile friendly 
 
 ### Next step: 
-- A few small but important UX enhacements (i.e. styling the Header section)
+A few small but important UX enhacements (i.e. styling the Header section)
 
 ### Further steps (Subject to change):
 - Add a Gameplay Modal to explain the rules
