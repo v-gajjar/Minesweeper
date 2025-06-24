@@ -14,6 +14,8 @@ function GameBoard({ board, boardSize, onClick, onContextMenu }) {
 
   useEffect(()=> {
 
+      // scroll doesn't automatically reset when board size is changed
+      // so reset to 0 for better UX 
       myRef.current.scrollLeft = 0;
 
   }, [boardSize])
