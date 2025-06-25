@@ -8,7 +8,7 @@ export const GAME_DIFFICULTY_LEVEL_SETTINGS = {
       columnCount: 9,
     },
     mineCount: 10,
-    label: "Beginnner"
+    label: "Beginnner",
   },
   MEDIUM: {
     level: GameDifficultyLevel.MEDIUM,
@@ -17,7 +17,7 @@ export const GAME_DIFFICULTY_LEVEL_SETTINGS = {
       columnCount: 16,
     },
     mineCount: 40,
-    label: "Intermediate"
+    label: "Intermediate",
   },
   HARD: {
     level: GameDifficultyLevel.HARD,
@@ -26,6 +26,6 @@ export const GAME_DIFFICULTY_LEVEL_SETTINGS = {
       columnCount: 30,
     },
     mineCount: 80,
-    label: "Expert"
+    label: "Expert",
   },
 };
