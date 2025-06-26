@@ -32,15 +32,20 @@ export default [
       prettier,
     },
     rules: {
+      // Downgrade react rules from "error" to "warn"
       ...Object.fromEntries(
         Object.entries(react.configs.recommended.rules).map(([rule, value]) => [
           rule,
           value === 'error' ? 'warn' : value,
         ])
       ),
+
+      // ✅ Make Prettier violations show as warnings, not errors
       'prettier/prettier': 'warn',
-      'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'off',
+
+      // Optional relaxations
+      'react/react-in-jsx-scope': 'off', // Not needed for React 17+
+      'react/prop-types': 'off', // If you're not using PropTypes
     },
     settings: {
       react: {

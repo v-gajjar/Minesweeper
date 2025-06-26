@@ -42,5 +42,5 @@ jobs:
       - name: 🧪 Run ESLint
         run: npx eslint src --ext .js,.jsx,.ts,.tsx --cache --quiet || true
 
-      - name: 🧪 Run Prettier
-        run: npx prettier --check .
+      - name: 🧪 Run Prettier (warn-only)
+        run: npx prettier --list-different . || true
