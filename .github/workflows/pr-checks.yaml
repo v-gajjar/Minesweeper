@@ -38,7 +38,9 @@ jobs:
         run: npm run test
 
       - name: 🧪 Run ESLint
-        run: npx eslint . --config ./eslint.config.js --ext .ts,.tsx,.js,.jsx
+        working-directory: ./Minesweeper
+        run: npx eslint . --ext .ts,.tsx,.js,.jsx
 
       - name: 🧪 Run Prettier
+        working-directory: ./Minesweeper
         run: npx prettier --check .
