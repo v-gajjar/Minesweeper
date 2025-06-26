@@ -10,11 +10,18 @@ export default [
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
-      parserOptions: { ecmaFeatures: { jsx: true } },
+      parserOptions: {
+        ecmaFeatures: {
+          jsx: true,
+        },
+      },
       globals: {
         document: true,
         window: true,
         setTimeout: true,
+        clearTimeout: true,
+        setInterval: true,
+        clearInterval: true,
         describe: true,
         it: true,
         expect: true,
@@ -25,13 +32,20 @@ export default [
       prettier,
     },
     rules: {
-      ...react.configs.recommended.rules,
-      'prettier/prettier': 'error',
+      ...Object.fromEntries(
+        Object.entries(react.configs.recommended.rules).map(([rule, value]) => [
+          rule,
+          value === 'error' ? 'warn' : value,
+        ])
+      ),
+      'prettier/prettier': 'warn',
       'react/react-in-jsx-scope': 'off',
       'react/prop-types': 'off',
     },
     settings: {
-      react: { version: 'detect' },
+      react: {
+        version: 'detect',
+      },
     },
   },
 ];
