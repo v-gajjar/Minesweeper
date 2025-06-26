@@ -31,6 +31,7 @@ jobs:
           node-version: 20
 
       - name: 📦 Install dependencies
+        working-directory: Minesweeper
         run: npm ci
 
       - name: 🔧 Build App (Vite)
@@ -40,7 +41,7 @@ jobs:
         run: npm run test
 
       - name: 🧪 Run ESLint
-        run: npx eslint . --config ./eslint.config.js --ext .ts,.tsx,.js,.jsx
+        run: npx eslint . --ext .js,.jsx,.ts,.tsx
 
       - name: 🧪 Run Prettier
         run: npx prettier --check .
