@@ -18,7 +18,9 @@ jobs:
     steps:
       - name: 🧾 Checkout code
         uses: actions/checkout@v4
-
+        with:
+          path: .
+        
       - name: 📅 Set Today's Date (MM/DD/YYYY)
         id: date
         run: echo "today=$(date +'%m/%d/%Y')" >> "$GITHUB_OUTPUT"
@@ -38,9 +40,7 @@ jobs:
         run: npm run test
 
       - name: 🧪 Run ESLint
-        working-directory: ./Minesweeper
         run: npx eslint . --ext .ts,.tsx,.js,.jsx
 
       - name: 🧪 Run Prettier
-        working-directory: ./Minesweeper
         run: npx prettier --check .
