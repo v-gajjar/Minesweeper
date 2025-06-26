@@ -11,7 +11,10 @@
     "test:watch": "vitest",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
