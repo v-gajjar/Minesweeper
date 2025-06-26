@@ -1,8 +1,8 @@
-import { render } from '@testing-library/react';
-import GameBoard from '../components/GameBoard';
+import { render } from "@testing-library/react";
+import GameBoard from "../components/GameBoard";
 
-describe('Game Win Condition', () => {
-  it('renders board and verifies cell count', () => {
+describe("Game Win Condition", () => {
+  it("renders board and verifies cell count", () => {
     const boardSize = { rowCount: 9, columnCount: 9 };
     const board = Array.from({ length: 9 }, () =>
       Array.from({ length: 9 }, () => ({
@@ -10,14 +10,14 @@ describe('Game Win Condition', () => {
         isMine: false,
         isFlagged: false,
         neighborMines: 0,
-      }))
+      })),
     );
 
     const { container } = render(
-      <GameBoard boardSize={boardSize} board={board} />
+      <GameBoard boardSize={boardSize} board={board} />,
     );
 
-    const cells = container.querySelectorAll('.cell');
+    const cells = container.querySelectorAll(".cell");
     expect(cells.length).toBe(81);
   });
 });
