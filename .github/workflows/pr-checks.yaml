@@ -31,7 +31,6 @@ jobs:
           node-version: 20
 
       - name: 📦 Install dependencies
-        working-directory: Minesweeper
         run: npm ci
 
       - name: 🔧 Build App (Vite)
