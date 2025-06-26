@@ -39,6 +39,12 @@ jobs:
       - name: 🧪 Run Unit Tests (Vitest)
         run: npm run test
 
+      - name: 🕵️ Confirm config file exists
+        run: |
+          echo "PWD: $(pwd)"
+          ls -la
+          cat eslint.config.js
+
       - name: 🧪 Run ESLint
         run: npx eslint . --ext .js,.jsx,.ts,.tsx
 
