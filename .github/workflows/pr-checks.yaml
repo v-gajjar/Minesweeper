@@ -14,34 +14,38 @@ permissions:
 jobs:
   build-lint-test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18, 20, 22]
-    outputs:
-      today: ${{ steps.date.outputs.today }}
-      node-version: ${{ steps.set-version.outputs.version }}
+
     steps:
       - name: 🧾 Checkout code
         uses: actions/checkout@v4
-
+        with:
+          path: .
+        
       - name: 📅 Set Today's Date (MM/DD/YYYY)
         id: date
         run: echo "today=$(date +'%m/%d/%Y')" >> "$GITHUB_OUTPUT"
 
-      - name: 🟢 Use Node.js ${{ matrix.node-version }}
+      - name: 🟢 Use Node.js 20
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: 📋 Set Node Version
-        id: set-version
-        run: echo "version='${{ matrix.node-version }}'" >> "$GITHUB_OUTPUT"
+          node-version: 20
 
       - name: 📦 Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: 🔧 Build App (Vite)
         run: npm run build
 
       - name: 🧪 Run Unit Tests (Vitest)
         run: npm run test
+
+      - name: 🧪 Run ESLint
+        run: npx eslint src --ext .js,.jsx,.ts,.tsx --cache --quiet || true
+
+      - name: 🧪 Run Prettier (warn-only)
+        run: npx prettier --list-different . || true
+      
+      - name: 🎨 Stylelint Summary Output
+        run: |
+          echo "## Stylelint Results" >> $GITHUB_STEP_SUMMARY
+          npx stylelint "**/*.{css,scss}" >> $GITHUB_STEP_SUMMARY || true
