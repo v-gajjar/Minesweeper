@@ -44,3 +44,8 @@ jobs:
 
       - name: 🧪 Run Prettier (warn-only)
         run: npx prettier --list-different . || true
+      
+      - name: 🎨 Stylelint Summary Output
+        run: |
+          echo "## Stylelint Results" >> $GITHUB_STEP_SUMMARY
+          npx stylelint "**/*.{css,scss}" >> $GITHUB_STEP_SUMMARY || true
