@@ -1,9 +1,39 @@
-
+//import { useLongPress } from '@use-gesture/react';
+import { useRef, useCallback } from 'react';
 import classNames from "classnames";
 import { Bomb, X, Flag } from "@phosphor-icons/react";
 
-function Cell({ cell, onClick, onContextMenu }) {
+export function useLongPress(callback = () => {}, { threshold = 500 } = {}) {
+  const timerRef = useRef();
 
+  const start = useCallback((event) => {
+    timerRef.current = setTimeout(() => callback(event), threshold);
+  }, [callback, threshold]);
+
+  const clear = useCallback(() => {
+    clearTimeout(timerRef.current);
+  }, []);
+
+  return () => ({
+    onPointerDown: start,
+    onPointerUp: clear,
+    onPointerLeave: clear,
+    onPointerCancel: clear,
+  });
+}
+
+function Cell({ cell, onClick, onContextMenu }) {
+  const bind = useLongPress(onContextMenu, { threshold: 500 });
+  /*const bind = useLongPress(
+    (event) => {
+    // Handle long press as a right-click or flag gesture
+      onContextMenu(event);
+    },
+    {
+      threshold: 500, // Long press threshold in milliseconds
+    }
+  );*/
+  
   const cellClass = classNames({
     'cell' : true,
     'mine' : cell.hasMine,
@@ -53,6 +83,7 @@ function Cell({ cell, onClick, onContextMenu }) {
       data-col={cell.y}
       onClick={onClick}
       onContextMenu={onContextMenu}
+      {...bind()} // Add gesture handling
     >
       {renderCellContents()}
     </div>
