@@ -2,7 +2,7 @@ export const getMineLocations = (
   currentCell,
   currentBoard,
   mineCount,
-  boardSize
+  boardSize,
 ) => {
   const rowCount = boardSize.rowCount;
   const columnCount = boardSize.columnCount;
@@ -26,7 +26,7 @@ export const getMineLocations = (
     // check for a duplication location in the newMineLocations array and skip if found
     if (
       newMineLocations.some(
-        (location) => location.x === cell.x && location.y === cell.y
+        (location) => location.x === cell.x && location.y === cell.y,
       )
     ) {
       continue;
@@ -59,7 +59,7 @@ export const getCellsWithMines = (newMineLocations, currentBoard) => {
 export const getAdjacentMinesCount = (
   selectedCell,
   currentBoard,
-  boardSize
+  boardSize,
 ) => {
   let adjacentMinesCount = 0;
 
@@ -148,17 +148,21 @@ export const hasCell = (x, y, cells) => {
 const isRevealed = (x, y, currentBoard) => {
   const cell = currentBoard[x][y];
 
-  return cell.isRevealed; 
-}
+  return cell.isRevealed;
+};
 
 export const revealCell = (
   x,
   y,
   currentBoard,
   boardSize,
-  revealedCells = []
+  revealedCells = [],
 ) => {
-  if (isOffBoard(x, y, boardSize) || hasCell(x, y, revealedCells) || isRevealed(x, y, currentBoard)) {
+  if (
+    isOffBoard(x, y, boardSize) ||
+    hasCell(x, y, revealedCells) ||
+    isRevealed(x, y, currentBoard)
+  ) {
     return revealedCells;
   }
 
@@ -178,7 +182,7 @@ export const revealCell = (
   updatedCell.adjacentMinesCount = getAdjacentMinesCount(
     updatedCell,
     currentBoard,
-    boardSize
+    boardSize,
   );
   revealedCells.push(updatedCell);
 
@@ -199,7 +203,7 @@ export const coordinatesMatch = ({ x: x1, y: y1 }, { x: x2, y: y2 }) => {
 
 export const getFilteredFlagLocations = (currentFlagLocations, cells) => {
   const updatedFlagLocations = currentFlagLocations.filter(
-    (location) => !cells.some((cell) => coordinatesMatch(location, cell))
+    (location) => !cells.some((cell) => coordinatesMatch(location, cell)),
   );
 
   return updatedFlagLocations;
@@ -208,15 +212,15 @@ export const getFilteredFlagLocations = (currentFlagLocations, cells) => {
 export const getGameLostBoard = (
   currentBoard,
   currentMineLocations,
-  currentFlagLocations
+  currentFlagLocations,
 ) => {
   const revealedMineCells = getRevealedMineCells(
     currentBoard,
-    currentMineLocations
+    currentMineLocations,
   );
   const incorrectlyFlaggedCells = getIncorrectlyFlaggedCells(
     currentBoard,
-    currentFlagLocations
+    currentFlagLocations,
   );
 
   const updatedCells = [...revealedMineCells, ...incorrectlyFlaggedCells];
