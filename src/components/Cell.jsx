@@ -3,28 +3,40 @@ import { useRef, useCallback } from 'react';
 import classNames from "classnames";
 import { Bomb, X, Flag } from "@phosphor-icons/react";
 
-export function useLongPress(callback = () => {}, { threshold = 500 } = {}) {
+
+export function useLongPress(callback = () => {}, threshold = 500) {
   const timerRef = useRef();
+  const startTimeRef = useRef();
 
   const start = useCallback((event) => {
-    timerRef.current = setTimeout(() => callback(event), threshold);
+    event.preventDefault();
+    startTimeRef.current = Date.now();
+    
+    timerRef.current = setTimeout(() => {
+      timerRef.current = null;// Does not sound like making sense.
+      callback(event);//Does do it twice? Or halfway?
+    }, threshold);
   }, [callback, threshold]);
+  
+  const end = useCallback(() => {
+    const duration = Date.now() - startTimeRef.current;
 
-  const clear = useCallback(() => {
-    clearTimeout(timerRef.current);
-  }, []);
+    if (duration < threshold) {
+      clearTimeout(timerRef.current);
+    }
+  }, [threshold]);
 
   return () => ({
-    onPointerDown: start,
-    onPointerUp: clear,
-    onPointerLeave: clear,
-    onPointerCancel: clear,
+    //onPointerDown: start,
+    //onPointerUp: leave,
+    onTouchStart: start,
+    onTouchEnd: end,
+    onTouchCancel: end,
   });
 }
 
 function Cell({ cell, onClick, onContextMenu }) {
-  const bind = useLongPress(onContextMenu, { threshold: 500 });
-  /*const bind = useLongPress(
+  const bind = useLongPress(
     (event) => {
     // Handle long press as a right-click or flag gesture
       onContextMenu(event);
@@ -32,7 +44,7 @@ function Cell({ cell, onClick, onContextMenu }) {
     {
       threshold: 500, // Long press threshold in milliseconds
     }
-  );*/
+  );
   
   const cellClass = classNames({
     'cell' : true,
@@ -77,7 +89,7 @@ function Cell({ cell, onClick, onContextMenu }) {
 
   return (
     <div
-      className={cellClass}
+      className={`no-touch-action ${cellClass}`}
       data-testid="cell"
       data-row={cell.x}
       data-col={cell.y}

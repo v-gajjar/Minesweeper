@@ -149,5 +149,8 @@ dialog p {
     background: orange;
 }
 
-
-
+.no-touch-action {
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
