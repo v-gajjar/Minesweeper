@@ -1,9 +1,70 @@
-
+//import { useLongPress } from '@use-gesture/react';
+import { useRef, useCallback } from 'react';
 import classNames from "classnames";
 import { Bomb, X, Flag } from "@phosphor-icons/react";
 
-function Cell({ cell, onClick, onContextMenu }) {
 
+export function useLongPress(callback, threshold = 500) {
+  const timerRef = useRef();
+  const cellRef = useRef();
+  const longPressTriggeredRef = useRef(false);
+
+  const start = useCallback((event) => {
+    longPressTriggeredRef.current = false;
+    event.preventDefault();
+    if (timerRef.current) clearTimeout(timerRef.current);
+    cellRef.current = event.currentTarget ? event.currentTarget.dataset : {};
+    
+    //
+    timerRef.current = setTimeout(() => {
+      longPressTriggeredRef.current = true;
+      timerRef.current = null;
+      callback(cellRef.current);
+    }, threshold);
+  }, [callback, threshold]);
+  
+  const end = useCallback(() => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
+  return [() => ({
+    //onPointerDown: start,
+    //onPointerUp: leave,
+    // doing this instead of contextMenu for testing on desktop
+    // now you can use long mouse left-click as well as right click.
+    onMouseDown: start,
+    onMouseUp: end,
+    onMouseLeave: end,
+    onTouchStart: start,
+    onTouchEnd: end,
+    onTouchCancel: end,
+  }),
+  longPressTriggeredRef
+  ];
+}
+
+function Cell({ cell, onClick, onContextMenu, onMobileToggleFlag }) {
+  
+  const [bind, longPressTriggeredRef] = useLongPress(
+    ({ row, col }) => {
+      onMobileToggleFlag(row, col);
+    },
+    500
+  );
+  
+  // Handler to prevent onClick if long-press happened
+  const handleClick = (e) => {
+    if (longPressTriggeredRef.current) {
+      // Swallow the click after long-press
+      longPressTriggeredRef.current = false; // reset for next interaction
+      return;
+    }
+    onClick(e);
+  };
+  
   const cellClass = classNames({
     'cell' : true,
     'mine' : cell.hasMine,
@@ -45,14 +106,15 @@ function Cell({ cell, onClick, onContextMenu }) {
     }
   }
 
-  return (
+  return ( 
     <div
-      className={cellClass}
+      className={`no-touch-action ${cellClass}`}
       data-testid="cell"
       data-row={cell.x}
       data-col={cell.y}
-      onClick={onClick}
+      onClick={handleClick}
       onContextMenu={onContextMenu}
+      {...bind()} // Add gesture handling
     >
       {renderCellContents()}
     </div>
