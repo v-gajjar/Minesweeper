@@ -164,6 +164,45 @@ function App() {
       : setGameStatus(GameStatus.GAME_IN_PROGRESS);
   };
 
+  const toggleFlag = (row, col) => {
+    // replacing everything from onToggleFlag after taking the indices.
+    let rowIndex = parseInt(row);
+    let colIndex = parseInt(col);
+
+    let selectedCell = board[rowIndex][colIndex];
+
+    if (selectedCell.isRevealed) {
+      return;
+    }
+
+    let updatedBoard = [...board];
+    let flagCount = remainingFlagsCount;
+    
+    const isFlagged = selectedCell.isFlagged ? false : true;
+
+    let updatedCell = {
+      ...selectedCell,
+      isFlagged: isFlagged
+    }
+    updatedBoard[rowIndex][colIndex] = updatedCell;
+
+    let updatedFlagLocations = [];
+
+    if ( isFlagged ){
+      flagCount  = flagCount - 1;
+      updatedFlagLocations = [...flagLocations, {x: selectedCell.x, y: selectedCell.y}];
+    }
+    else {
+      flagCount = flagCount + 1;
+      updatedFlagLocations = flagLocations.filter(
+        (flagLocation) => !coordinatesMatch(flagLocation, selectedCell)
+      );
+    }
+    setRemainingFlagsCount(flagCount);
+    setFlagLocations(updatedFlagLocations);
+    setBoard(updatedBoard);
+  };
+
   const onToggleFlag = (event) => {
     event.preventDefault();
 
@@ -266,6 +305,7 @@ function App() {
             boardSize={gameDifficultySettings.boardSize}
             onClick={onRevealCell}
             onContextMenu={onToggleFlag}
+            onMobileToggleFlag={toggleFlag}
           ></GameBoard>
         </div>
       </main>

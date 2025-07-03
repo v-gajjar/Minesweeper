@@ -4,47 +4,66 @@ import classNames from "classnames";
 import { Bomb, X, Flag } from "@phosphor-icons/react";
 
 
-export function useLongPress(callback = () => {}, threshold = 500) {
+export function useLongPress(callback, threshold = 500) {
   const timerRef = useRef();
-  const startTimeRef = useRef();
+  const cellRef = useRef();
+  const longPressTriggeredRef = useRef(false);
 
   const start = useCallback((event) => {
+    longPressTriggeredRef.current = false;
     event.preventDefault();
-    startTimeRef.current = Date.now();
+    if (timerRef.current) clearTimeout(timerRef.current);
+    cellRef.current = event.currentTarget ? event.currentTarget.dataset : {};
     
+    //
     timerRef.current = setTimeout(() => {
-      timerRef.current = null;// Does not sound like making sense.
-      callback(event);//Does do it twice? Or halfway?
+      longPressTriggeredRef.current = true;
+      timerRef.current = null;
+      callback(cellRef.current);
     }, threshold);
   }, [callback, threshold]);
   
   const end = useCallback(() => {
-    const duration = Date.now() - startTimeRef.current;
-
-    if (duration < threshold) {
+    if (timerRef.current) {
       clearTimeout(timerRef.current);
+      timerRef.current = null;
     }
-  }, [threshold]);
+  }, []);
 
-  return () => ({
+  return [() => ({
     //onPointerDown: start,
     //onPointerUp: leave,
+    // doing this instead of contextMenu for testing on desktop
+    // now you can use long mouse left-click as well as right click.
+    onMouseDown: start,
+    onMouseUp: end,
+    onMouseLeave: end,
     onTouchStart: start,
     onTouchEnd: end,
     onTouchCancel: end,
-  });
+  }),
+  longPressTriggeredRef
+  ];
 }
 
-function Cell({ cell, onClick, onContextMenu }) {
-  const bind = useLongPress(
-    (event) => {
-    // Handle long press as a right-click or flag gesture
-      onContextMenu(event);
+function Cell({ cell, onClick, onContextMenu, onMobileToggleFlag }) {
+  
+  const [bind, longPressTriggeredRef] = useLongPress(
+    ({ row, col }) => {
+      onMobileToggleFlag(row, col);
     },
-    {
-      threshold: 500, // Long press threshold in milliseconds
-    }
+    500
   );
+  
+  // Handler to prevent onClick if long-press happened
+  const handleClick = (e) => {
+    if (longPressTriggeredRef.current) {
+      // Swallow the click after long-press
+      longPressTriggeredRef.current = false; // reset for next interaction
+      return;
+    }
+    onClick(e);
+  };
   
   const cellClass = classNames({
     'cell' : true,
@@ -87,13 +106,13 @@ function Cell({ cell, onClick, onContextMenu }) {
     }
   }
 
-  return (
+  return ( 
     <div
       className={`no-touch-action ${cellClass}`}
       data-testid="cell"
       data-row={cell.x}
       data-col={cell.y}
-      onClick={onClick}
+      onClick={handleClick}
       onContextMenu={onContextMenu}
       {...bind()} // Add gesture handling
     >

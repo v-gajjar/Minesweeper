@@ -1,6 +1,6 @@
 import Cell from "./Cell";
 
-function GameBoard({ board, boardSize, onClick, onContextMenu }) {
+function GameBoard({ board, boardSize, onClick, onContextMenu, onMobileToggleFlag }) {
 
   // --rows is a CSS variable used set grid-template-rows 
   // --columns is a CSS variable used set grid-template-columns
@@ -18,6 +18,7 @@ function GameBoard({ board, boardSize, onClick, onContextMenu }) {
             key={`cell-${rowIndex}-${colIndex}`}
             onClick={onClick}
             onContextMenu={onContextMenu}
+            onMobileToggleFlag={onMobileToggleFlag}
           ></Cell>
         ))
       )}
