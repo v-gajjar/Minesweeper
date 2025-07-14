@@ -6,6 +6,7 @@ export default defineConfig({
   base: "/Minesweeper/",
   test: {
     environment: "jsdom",
-    globals: true, // <-- THIS LINE is the key
+    globals: true,
+    setupFiles: './vitest.setup.js', // 👈 THIS is what you're missing
   },
 });
