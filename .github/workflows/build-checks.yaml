@@ -1,4 +1,4 @@
-name: 🧪 Build Checks
+name: 🧪 PR Checks
 
 on:
   push:
@@ -40,25 +40,12 @@ jobs:
         run: npm run test
 
       - name: 🧪 Run ESLint
-        run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          npx eslint src --ext .js,.jsx,.ts,.tsx --cache --quiet > eslint-report-$PR_NUMBER.txt || true
+        run: npx eslint src --ext .js,.jsx,.ts,.tsx --cache --quiet || true
 
       - name: 🧪 Run Prettier (warn-only)
-        run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          npx prettier --list-different . > prettier-report-$PR_NUMBER.txt || true
+        run: npx prettier --list-different . || true
       
-      - name: 🎨 Run Stylelint
+      - name: 🎨 Stylelint Summary Output
         run: |
-          PR_NUMBER=${{ github.event.pull_request.number }}
-          npx stylelint "**/*.{css,scss}" > stylelint-report-$PR_NUMBER.txt || true
-
-      - name: 📦 Upload Lint Reports
-        uses: actions/upload-artifact@v4
-        with:
-          name: lint-reports-pr-${{ github.event.pull_request.number }}
-          path: |
-            eslint-report-${{ github.event.pull_request.number }}.txt
-            prettier-report-${{ github.event.pull_request.number }}.txt
-            stylelint-report-${{ github.event.pull_request.number }}.txt
+          echo "## Stylelint Results" >> $GITHUB_STEP_SUMMARY
+          npx stylelint "**/*.{css,scss}" >> $GITHUB_STEP_SUMMARY || true
