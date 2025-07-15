@@ -1,7 +1,7 @@
 // src/tests/Cell.test.jsx
 import { render, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import Cell from '../components/Cell'; // Adjust path if needed
+import Cell from "../../src/components/Cell";
 
 const mockCell = (overrides = {}) => ({
   x: 0,
@@ -20,14 +20,15 @@ describe('Cell Component', () => {
     const cell = mockCell();
     const { getByTestId } = render(<Cell cell={cell} />);
     const cellElement = getByTestId('cell');
-    expect(cellElement).toBeInTheDocument();
+    expect(cellElement).toBeTruthy();
     expect(cellElement.textContent).toBe('');
   });
 
   it('shows a number when revealed and has adjacent mines', () => {
     const cell = mockCell({ isRevealed: true, adjacentMinesCount: 3 });
     const { getByText } = render(<Cell cell={cell} />);
-    expect(getByText('3')).toBeInTheDocument();
+    const numberElement = getByText('3');
+    expect(numberElement).toBeTruthy();
   });
 
   it('shows a bomb icon if revealed and hasMine is true', () => {
@@ -44,10 +45,14 @@ describe('Cell Component', () => {
     expect(flagIcon).toBeTruthy();
   });
 
-  it('shows an X icon if incorrectly flagged', () => {
-    const cell = mockCell({ isIncorrectlyFlagged: true });
-    const { container } = render(<Cell cell={cell} />);
-    const xIcon = container.querySelector('svg');
+  it("shows an X icon if incorrectly flagged", () => {
+    const cell = mockCell({
+      isIncorrectlyFlagged: true,
+      isFlagged: true,
+    });
+
+    const { getByTestId } = render(<Cell cell={cell} />);
+    const xIcon = getByTestId("x-icon");
     expect(xIcon).toBeTruthy();
   });
 
@@ -67,3 +72,27 @@ describe('Cell Component', () => {
     expect(onContextMenu).toHaveBeenCalledOnce();
   });
 });
+
+it('renders an empty cell when revealed and has no adjacent mines', () => {
+  const cell = mockCell({ isRevealed: true, adjacentMinesCount: 0 });
+  const { getByTestId } = render(<Cell cell={cell} />);
+  const cellElement = getByTestId('cell');
+
+  // Should be truthy and have no inner text or icons
+  expect(cellElement).toBeTruthy();
+  expect(cellElement.textContent).toBe('');
+
+  // No SVGs should be rendered
+  const svg = cellElement.querySelector('svg');
+  expect(svg).toBeFalsy();
+});
+
+it('renders an exploded mine with special class', () => {
+  const cell = mockCell({ isRevealed: true, hasMine: true, hasExplodedMine: true });
+  const { getByTestId } = render(<Cell cell={cell} />);
+  const cellElement = getByTestId('cell');
+
+  expect(cellElement.classList.contains('exploded')).toBe(true);
+});
+
+

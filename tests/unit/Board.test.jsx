@@ -1,6 +1,6 @@
 import { render } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
-import GameBoard from "../components/GameBoard";
+import GameBoard from "../../src/components/GameBoard";
 
 describe("Board Component", () => {
   const mockBoardSize = { rowCount: 9, columnCount: 9 };
