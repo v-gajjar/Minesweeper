@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import GameBoard from "../components/GameBoard";
+import GameBoard from "../../src/components/GameBoard";
 
 describe("Game Win Condition", () => {
   it("renders board and verifies cell count", () => {

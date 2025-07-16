@@ -4,7 +4,7 @@ import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
 function RemainingFlagsCounter({ remainingFlagsCount }) {
     return (
 
-        <div id="remainingFlagsCounter">
+        <div id="remainingFlagsCounter" data-testid="flags-remaining">
 
             <AccessibleIcon label="flag icon">
                 <Flag size={50} color="#c01c28" weight="fill" style={{ margin: "0px 10px 0px 0px" }}/>
@@ -12,7 +12,6 @@ function RemainingFlagsCounter({ remainingFlagsCount }) {
             Remaining Flags: {remainingFlagsCount}
 
         </div>
-
     );
 }
 
