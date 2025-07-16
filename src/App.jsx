@@ -8,7 +8,7 @@ import GameBoard from "./components/GameBoard";
 import GameResultModal from "./components/GameResultModal";
 import RemainingFlagsCounter from "./components/RemainingFlagsCounter";
 
-import { 
+import {
   getMineLocations,
   getCellsWithMines,
   updateBoard,
@@ -17,12 +17,9 @@ import {
   getFilteredFlagLocations,
   getGameLostBoard,
   getBoard,
-}
-from "./minesweeperUtils.js"
-  
+} from "./minesweeperUtils.js";
 
 import "./App.css";
-
 
 function App() {
   const [board, setBoard] = useState([]);
@@ -32,8 +29,10 @@ function App() {
   const [safeCellsCount, setSafeCellsCount] = useState(0);
   const [mineLocations, setMineLocations] = useState([]);
   const [flagLocations, setFlagLocations] = useState([]);
- 
-  const [gameDifficultySettings, setGameDifficultySettings] = useState(GAME_DIFFICULTY_LEVEL_SETTINGS.EASY);
+
+  const [gameDifficultySettings, setGameDifficultySettings] = useState(
+    GAME_DIFFICULTY_LEVEL_SETTINGS.EASY,
+  );
   const boardContainerRef = useRef(null);
 
   useEffect(() => {
@@ -44,7 +43,6 @@ function App() {
   }, [gameStatus]);
 
   useEffect(() => {
-
     setupNewGame();
   }, [gameDifficultySettings]);
 
@@ -52,16 +50,16 @@ function App() {
     const selectedLevel = event.target.value;
 
     const difficultyLevel = Object.values(GAME_DIFFICULTY_LEVEL_SETTINGS).find(
-      (difficultySetting) => selectedLevel === difficultySetting.level
+      (difficultySetting) => selectedLevel === difficultySetting.level,
     );
 
-    if (! difficultyLevel) {
+    if (!difficultyLevel) {
       return;
     }
 
     resetBoardContainerScroll();
     setGameStatus(GameStatus.GAME_NOT_STARTED);
-    setGameDifficultySettings(difficultyLevel)
+    setGameDifficultySettings(difficultyLevel);
   };
 
   const onCloseGameResultModal = () => {
@@ -74,9 +72,9 @@ function App() {
 
   const resetBoardContainerScroll = () => {
     // scroll doesn't automatically reset when board size is changed
-    // so reset to 0 for better UX 
+    // so reset to 0 for better UX
     boardContainerRef.current.scrollLeft = 0;
-  }
+  };
 
   const onRevealCell = (event) => {
     const target = event.target;
@@ -91,7 +89,7 @@ function App() {
 
     const currentBoard = [...board];
 
-    if ( shouldPlaceMines ){
+    if (shouldPlaceMines) {
       const newMineLocations = getMineLocations(
         selectedCell,
         currentBoard,
@@ -101,17 +99,17 @@ function App() {
 
       const cellsWithMines = getCellsWithMines(newMineLocations, currentBoard);
       const boardWithMines = updateBoard(currentBoard, cellsWithMines);
-      
+
       setMineLocations(newMineLocations);
       setShouldPlaceMines(false);
-      setBoard(prevBoard => boardWithMines);
+      setBoard((prevBoard) => boardWithMines);
     }
 
     const revealedCells = revealCell(
-      selectedCell.x, 
-      selectedCell.y, 
-      currentBoard, 
-      gameDifficultySettings.boardSize
+      selectedCell.x,
+      selectedCell.y,
+      currentBoard,
+      gameDifficultySettings.boardSize,
     );
 
     const updatedBoard = updateBoard(currentBoard, revealedCells);
@@ -121,7 +119,7 @@ function App() {
       selectedCell,
       revealedCells,
       flagLocations,
-      mineLocations
+      mineLocations,
     );
   };
 
@@ -130,13 +128,15 @@ function App() {
     selectedCell,
     revealedCells,
     currentFlagLocations,
-    currentMineLocations
+    currentMineLocations,
   ) => {
-
     if (selectedCell.hasMine) {
+      const gameLostBoard = getGameLostBoard(
+        currentBoard,
+        currentMineLocations,
+        currentFlagLocations,
+      );
 
-      const gameLostBoard = getGameLostBoard(currentBoard, currentMineLocations, currentFlagLocations);
-      
       setBoard(gameLostBoard);
       setGameStatus(GameStatus.GAME_LOST);
 
@@ -145,7 +145,7 @@ function App() {
 
     const updatedFlagLocations = getFilteredFlagLocations(
       currentFlagLocations,
-      revealedCells
+      revealedCells,
     );
 
     const revealedCellsCount = revealedCells.length;
@@ -179,25 +179,27 @@ function App() {
 
     let updatedBoard = [...board];
     let flagCount = remainingFlagsCount;
-    
+
     const isFlagged = selectedCell.isFlagged ? false : true;
 
     let updatedCell = {
       ...selectedCell,
-      isFlagged: isFlagged
-    }
+      isFlagged: isFlagged,
+    };
     updatedBoard[rowIndex][colIndex] = updatedCell;
 
     let updatedFlagLocations = [];
 
-    if ( isFlagged ){
-      flagCount  = flagCount - 1;
-      updatedFlagLocations = [...flagLocations, {x: selectedCell.x, y: selectedCell.y}];
-    }
-    else {
+    if (isFlagged) {
+      flagCount = flagCount - 1;
+      updatedFlagLocations = [
+        ...flagLocations,
+        { x: selectedCell.x, y: selectedCell.y },
+      ];
+    } else {
       flagCount = flagCount + 1;
       updatedFlagLocations = flagLocations.filter(
-        (flagLocation) => !coordinatesMatch(flagLocation, selectedCell)
+        (flagLocation) => !coordinatesMatch(flagLocation, selectedCell),
       );
     }
     setRemainingFlagsCount(flagCount);
@@ -206,7 +208,6 @@ function App() {
   };
 
   const setupNewGame = () => {
-
     const boardSize = gameDifficultySettings.boardSize;
     const rowCount = boardSize.rowCount;
     const columnCount = boardSize.columnCount;

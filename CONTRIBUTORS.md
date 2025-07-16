@@ -1,8 +1,8 @@
 # Contributors:
 
 - **Heliomar Pena** [LinkedIn](https://www.linkedin.com/in/heliomar/)
-  - Offered various suggestions to write cleaner code. 
-  - Suggested exploring the Phosphor Icons library. 
+  - Offered various suggestions to write cleaner code.
+  - Suggested exploring the Phosphor Icons library.
   - Provided feedback on issues and helped with testing and approving a PR.
 
 - **BJ Rutledge** [LinkedIn](https://www.linkedin.com/in/bj-rutledge/)
@@ -22,4 +22,3 @@
 - **Velimir Đurković** [LinkedIn](https://www.linkedin.com/in/djvelimir/)
   - Reported a critical bug related to the game win logic.
   - Provided a improvement suggestion (automaticaly placing red flags on the remaining mines once all non-mines fields have been revealed).
-

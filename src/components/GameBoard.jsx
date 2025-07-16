@@ -18,7 +18,7 @@ function GameBoard({ board, boardSize, onClick, onContextMenu }) {
             onClick={onClick}
             onContextMenu={onContextMenu}
           />
-        ))
+        )),
       )}
     </div>
   );

@@ -1,10 +1,13 @@
 ### Current focus (updated 24th June 2025)
-Looking at making the design more mobile friendly 
 
-### Next step: 
+Looking at making the design more mobile friendly
+
+### Next step:
+
 A few small but important UX enhacements (i.e. styling the Header section)
 
 ### Further steps (Subject to change):
+
 - Add a Gameplay Modal to explain the rules
 - Look at implementing Linting and Prettier for improved coding quality and consistency
 - Explore the ability to choose a larger or smaller Cell Size to suit different screen sizes
