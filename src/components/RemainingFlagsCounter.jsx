@@ -7,7 +7,7 @@ function RemainingFlagsCounter({ remainingFlagsCount }) {
         <div id="remainingFlagsCounter" data-testid="flags-remaining">
 
             <AccessibleIcon label="flag icon">
-                <Flag size={50} color="#c01c28" weight="fill" style={{ margin: "0px 10px 0px 0px" }}/>
+                <Flag size={25} color="#c01c28" weight="fill" style={{ margin: "0px 10px 0px 0px" }}/>
             </AccessibleIcon>
             Remaining Flags: {remainingFlagsCount}
 
