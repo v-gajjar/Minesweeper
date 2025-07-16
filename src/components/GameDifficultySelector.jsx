@@ -10,6 +10,7 @@ function GameDifficultySelector({gameDifficultySettings, onChange}) {
             onChange={onChange}
             name="game-difficulty-select" 
             id="game-difficulty-select"
+            data-testid="difficulty-select"
         > 
         {Object.keys(GAME_DIFFICULTY_LEVEL_SETTINGS).map((setting, i) => (
             <option 

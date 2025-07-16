@@ -30,9 +30,14 @@ function Cell({ cell, onClick, onContextMenu }) {
     
     if ( !cell.isRevealed && !cell.isFlagged ) return null;
   
-    if ( cell.isIncorrectlyFlagged ){
-      return <X size={20} color="#c01c28" weight="bold" />
+    if (cell.isIncorrectlyFlagged) {
+      return (
+        <span data-testid="x-icon">
+          <X size={20} color="#c01c28" weight="bold" />
+        </span>
+      );
     }
+    
     if ( cell.isFlagged) {
       return <Flag size={20} color="#c01c28" weight="fill" />
     }
