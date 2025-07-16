@@ -30,7 +30,7 @@ function GameResultModal({ gameWon, onClick }){
 
 
   return (
-    <dialog id="gameResultModal" className={modalClass}>
+    <dialog id="gameResultModal" className={modalClass} data-testid="result-modal">
       <p>{message}</p>
       <button id="gameResultModalCloseButton" onClick={closeModal}>Play again</button>
     </dialog>
