@@ -8,7 +8,7 @@ export const GAME_DIFFICULTY_LEVEL_SETTINGS = {
       columnCount: 9,
     },
     mineCount: 10,
-    label: "Beginnner",
+    label: "Beginner",
   },
   MEDIUM: {
     level: GameDifficultyLevel.MEDIUM,
