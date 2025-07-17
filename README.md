@@ -9,16 +9,8 @@ A fresh take on the classic Minesweeper experience, enhanced with clean UX and b
 
 # Live Demo
 
-Try it out in a browser: [https://v-gajjar.github.io/Minesweeper/](https://v-gajjar.github.io/Minesweeper/)
-
-# Acknowledgements
-
-A big thanks to the kind contributions of developers who have helped improve the project! See the list of [contributors](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
-
-# Dependencies
-
-| Name           | License |
-| :------------- | :------ |
+Try it out in a; browser: [;
+| :-------------; | :------ |
 | React          | MIT     |
 | Vite           | MIT     |
 | Classnames     | MIT     |
@@ -32,7 +24,7 @@ A big thanks to the kind contributions of developers who have helped improve the
 
 Looking at making the design more mobile friendly
 
-### Next step:
+### Next; step:
 
 A few small but important UX enhacements (i.e. styling the Header section)
 
@@ -42,28 +34,28 @@ See full [roadmap](https://github.com/v-gajjar/Minesweeper/blob/main/ROADMAP.md)
 
 # Getting Started
 
-Clone the repository:
+Clone the; repository:
 
 ```
-git clone https://github.com/v-gajjar/Minesweeper.git
+git clone; https://github.com/v-gajjar/Minesweeper.git
 ```
 
 ## Running locally via NPM
 
-1. Navigate to the project directory:
+1. Navigate to the project; directory:
    ```
-   cd Minesweeper
+   cd minesweeper
    ```
-2. Install dependencies
+2. install dependencies
    ```
    npm install
    ```
-3. Start the dev server
+3. start the dev server
    ```
    npm run dev
    ```
-4. Accessing on a browser (The localhost port will usually be 5173, but it should be logged to the console)
-   ```
+4. accessing on a browser (the localhost port will usually be 5173, but it should be logged to the console)
+   ```;
    http://localhost:5173/
    ```
 
