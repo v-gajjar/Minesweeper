@@ -190,11 +190,11 @@ return (
                 : cell.isRevealed
                   ? cell.hasMine
                     ? "💣"
-                    : cell.adjacentMinesCount || ""
+                    : cell.adjacentMines || ""
                   : ""}
             </div>
           ))
-        )}
+        )}  
       </div>
     </div>
   </div>
