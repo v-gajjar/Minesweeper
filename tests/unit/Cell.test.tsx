@@ -9,13 +9,13 @@ it("displays 💣 emoji when revealed and has mine", () => {
     isRevealed: true,
     isFlagged: false,
     hasMine: true,
-    isMine: true, 
+    isMine: true,
     hasExplodedMine: false,
     adjacentMines: 0,
   };
 
   const { container } = render(
-    <Cell cell={cell} onClick={() => {}} onRightClick={() => {}} />
+    <Cell cell={cell} onClick={() => {}} onRightClick={() => {}} />,
   );
 
   const emojiSpan = container.querySelector("span");

@@ -7,15 +7,17 @@ describe("Board Component", () => {
   it("renders the correct number of cells", () => {
     const boardSize = { rowCount: 3, columnCount: 3 };
 
-    const board: CellData[][] = Array.from({ length: boardSize.rowCount }, (_, x) =>
-      Array.from({ length: boardSize.columnCount }, (_, y) => ({
-        x,
-        y,
-        hasMine: false,
-        isRevealed: false,
-        isFlagged: false,
-        adjacentMinesCount: 0,
-      }))
+    const board: CellData[][] = Array.from(
+      { length: boardSize.rowCount },
+      (_, x) =>
+        Array.from({ length: boardSize.columnCount }, (_, y) => ({
+          x,
+          y,
+          hasMine: false,
+          isRevealed: false,
+          isFlagged: false,
+          adjacentMinesCount: 0,
+        })),
     );
 
     const { container } = render(
@@ -24,7 +26,7 @@ describe("Board Component", () => {
         boardSize={boardSize}
         onClick={() => {}}
         onContextMenu={() => {}}
-      />
+      />,
     );
 
     const cells = container.querySelectorAll('[data-testid^="cell-"]');
