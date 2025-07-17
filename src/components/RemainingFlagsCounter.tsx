@@ -1,20 +1,15 @@
-import { Flag } from "@phosphor-icons/react";
-import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
+import React from "react";
 
-function RemainingFlagsCounter({ remainingFlagsCount }) {
+type Props = {
+  remainingFlagsCount: number;
+};
+
+const RemainingFlagsCounter: React.FC<Props> = ({ remainingFlagsCount }) => {
   return (
-    <div id="remainingFlagsCounter" data-testid="flags-remaining">
-      <AccessibleIcon label="flag icon">
-        <Flag
-          size={25}
-          color="#c01c28"
-          weight="fill"
-          style={{ margin: "0px 10px 0px 0px" }}
-        />
-      </AccessibleIcon>
+    <div data-testid="remaining-flags">
       Remaining Flags: {remainingFlagsCount}
     </div>
   );
-}
+};
 
 export default RemainingFlagsCounter;

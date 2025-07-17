@@ -1,35 +1,33 @@
+import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
-import Board from "../../src/components/GameBoard";
-import React from "react";
-import { CellData } from "../../src/components/Cell";
+import GameBoard from "../../src/components/GameBoard";
+import { CellData } from "../../src/types";
 
-describe("Board Component", () => {
+describe("GameBoard Component", () => {
   it("renders the correct number of cells", () => {
-    const boardSize = { rowCount: 3, columnCount: 3 };
+    const rows = 5;
+    const cols = 5;
 
-    const board: CellData[][] = Array.from(
-      { length: boardSize.rowCount },
-      (_, x) =>
-        Array.from({ length: boardSize.columnCount }, (_, y) => ({
-          x,
-          y,
-          hasMine: false,
-          isRevealed: false,
-          isFlagged: false,
-          adjacentMinesCount: 0,
-        })),
+    const mockBoard: CellData[][] = Array.from({ length: rows }, (_, x) =>
+      Array.from({ length: cols }, (_, y) => ({
+        x,
+        y,
+        isRevealed: false,
+        hasMine: false,
+        isFlagged: false,
+        adjacentMines: 0,
+      })),
     );
 
     const { container } = render(
-      <Board
-        board={board}
-        boardSize={boardSize}
-        onClick={() => {}}
-        onContextMenu={() => {}}
+      <GameBoard
+        board={mockBoard}
+        onCellClick={() => {}}
+        onCellRightClick={() => {}}
       />,
     );
 
-    const cells = container.querySelectorAll('[data-testid^="cell-"]');
-    expect(cells.length).toBe(boardSize.rowCount * boardSize.columnCount);
+    const cells = container.querySelectorAll('[data-testid="cell"]');
+    expect(cells.length).toBe(rows * cols);
   });
 });

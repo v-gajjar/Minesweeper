@@ -1,41 +1,38 @@
-// GameBoard.tsx
 import React from "react";
 import Cell from "./Cell";
-import type { CellData } from "../types";
+import { CellData } from "../types";
 
-interface Props {
+type Props = {
   board: CellData[][];
-  boardSize: { rowCount: number; columnCount: number };
-  onClick: (e: React.MouseEvent<HTMLDivElement>) => void;
-  onContextMenu: (e: React.MouseEvent<HTMLDivElement>) => void;
-}
+  onCellClick: (x: number, y: number) => void;
+  onCellRightClick: (x: number, y: number) => void;
+};
 
 const GameBoard: React.FC<Props> = ({
   board,
-  boardSize,
-  onClick,
-  onContextMenu,
+  onCellClick,
+  onCellRightClick,
 }) => {
   return (
     <div
-      id="board"
-      style={
-        {
-          "--rows": boardSize.rowCount,
-          "--columns": boardSize.columnCount,
-        } as React.CSSProperties
-      }
       data-testid="game-board"
+      style={{
+        display: "grid",
+        gridTemplateColumns: `repeat(${board[0].length}, 1fr)`,
+      }}
     >
-      {board.flat().map((cell) => (
-        <Cell
-          data-testid="cell"
-          key={`${cell.x}-${cell.y}`}
-          cell={cell}
-          onClick={onClick}
-          onContextMenu={onContextMenu}
-        />
-      ))}
+      {board.map((row, y) =>
+        row.map((cell, x) => (
+          <Cell
+            key={`${x}-${y}`}
+            x={x}
+            y={y}
+            data={cell}
+            onClick={() => onCellClick(x, y)}
+            onRightClick={() => onCellRightClick(x, y)}
+          />
+        )),
+      )}
     </div>
   );
 };

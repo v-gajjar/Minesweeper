@@ -1,6 +1,9 @@
-import { BoardSize, CellData, CoordinateType, GameStatus } from "./types";
+import { CellData, CoordinateType, BoardSize, GameStatus } from "./types";
 
-export const getBoard = (boardSize: BoardSize): CellData[][] => {
+/**
+ * Generates an empty board of CellData objects.
+ */
+export function getBoard(boardSize: BoardSize): CellData[][] {
   const { rowCount, columnCount } = boardSize;
   return Array.from({ length: rowCount }, (_, x) =>
     Array.from({ length: columnCount }, (_, y) => ({
@@ -9,148 +12,158 @@ export const getBoard = (boardSize: BoardSize): CellData[][] => {
       isRevealed: false,
       hasMine: false,
       isFlagged: false,
-      adjacentMinesCount: 0,
+      adjacentMines: 0,
     })),
   );
-};
+}
 
-export const getMineLocations = (
-  exclude: CoordinateType,
+/**
+ * Returns an array of mine coordinates, excluding the initial click.
+ */
+export function getMineLocations(
+  initial: CellData,
   boardSize: BoardSize,
   mineCount: number,
-): CoordinateType[] => {
+): CoordinateType[] {
   const locations: CoordinateType[] = [];
-  const totalCells = boardSize.rowCount * boardSize.columnCount;
-
-  const excludeIndex = exclude.x * boardSize.columnCount + exclude.y;
+  const { rowCount, columnCount } = boardSize;
 
   while (locations.length < mineCount) {
-    const index = Math.floor(Math.random() * totalCells);
-    if (index === excludeIndex) continue;
+    const x = Math.floor(Math.random() * rowCount);
+    const y = Math.floor(Math.random() * columnCount);
 
-    const x = Math.floor(index / boardSize.columnCount);
-    const y = index % boardSize.columnCount;
-
-    if (!locations.some((loc) => loc.x === x && loc.y === y)) {
+    // Avoid duplicate mines and first-click cell
+    if (
+      !(x === initial.x && y === initial.y) &&
+      !locations.some((loc) => loc.x === x && loc.y === y)
+    ) {
       locations.push({ x, y });
     }
   }
 
   return locations;
-};
+}
 
-export const getCellsWithMines = (
+/**
+ * Adds mines and updates adjacent mine counts.
+ */
+export function getCellsWithMines(
   board: CellData[][],
   mineLocations: CoordinateType[],
-): CellData[][] => {
+): CellData[][] {
   const newBoard = board.map((row) => row.map((cell) => ({ ...cell })));
 
   for (const { x, y } of mineLocations) {
     newBoard[x][y].hasMine = true;
-  }
 
-  for (const row of newBoard) {
-    for (const cell of row) {
-      if (!cell.hasMine) {
-        const adjacent = getAdjacentCells(cell.x, cell.y, newBoard);
-        cell.adjacentMinesCount = adjacent.filter((c) => c.hasMine).length;
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        const nx = x + dx;
+        const ny = y + dy;
+
+        if (
+          nx >= 0 &&
+          ny >= 0 &&
+          nx < newBoard.length &&
+          ny < newBoard[0].length &&
+          !(dx === 0 && dy === 0)
+        ) {
+          newBoard[nx][ny].adjacentMines++;
+        }
       }
     }
   }
 
   return newBoard;
-};
+}
 
-export const revealCell = (
+/**
+ * Reveals a cell and its neighbors recursively.
+ */
+export function revealCell(
   x: number,
   y: number,
   board: CellData[][],
-): CellData[] => {
-  const visited = new Set<string>();
+): CellData[] {
   const revealed: CellData[] = [];
+  const visited = new Set<string>();
 
   const dfs = (cx: number, cy: number) => {
     const key = `${cx},${cy}`;
-    if (visited.has(key)) return;
+    if (
+      cx < 0 ||
+      cy < 0 ||
+      cx >= board.length ||
+      cy >= board[0].length ||
+      visited.has(key)
+    )
+      return;
+
     visited.add(key);
 
-    const cell = board[cx]?.[cy];
-    if (!cell || cell.isRevealed || cell.isFlagged) return;
+    const cell = board[cx][cy];
+    if (cell.isRevealed || cell.isFlagged) return;
 
-    const newCell = { ...cell, isRevealed: true };
-    revealed.push(newCell);
+    revealed.push({ ...cell, isRevealed: true });
 
-    if (newCell.adjacentMinesCount === 0 && !newCell.hasMine) {
-      getAdjacentCells(cx, cy, board).forEach((adj) => dfs(adj.x, adj.y));
+    if (cell.adjacentMines === 0 && !cell.hasMine) {
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+          if (!(dx === 0 && dy === 0)) {
+            dfs(cx + dx, cy + dy);
+          }
+        }
+      }
     }
   };
 
   dfs(x, y);
   return revealed;
-};
+}
 
-export const updateBoard = (
+/**
+ * Updates the board with revealed cells.
+ */
+export function updateBoard(
   board: CellData[][],
-  updatedCells: CellData[],
-): CellData[][] => {
+  revealed: CellData[],
+): CellData[][] {
   const newBoard = board.map((row) => row.map((cell) => ({ ...cell })));
-  for (const cell of updatedCells) {
+
+  for (const cell of revealed) {
     newBoard[cell.x][cell.y] = cell;
   }
-  return newBoard;
-};
 
-export const updateGameState = (
+  return newBoard;
+}
+
+/**
+ * Updates game state (win/loss/continue).
+ */
+export function updateGameState(
   updatedBoard: CellData[][],
-  selectedCell: CellData,
-  revealedCells: CellData[],
+  clickedCell: CellData,
+  revealed: CellData[],
   flagLocations: CoordinateType[],
   mineLocations: CoordinateType[],
   setBoard: React.Dispatch<React.SetStateAction<CellData[][]>>,
   setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>,
   setSafeCellsCount: React.Dispatch<React.SetStateAction<number>>,
   setRemainingFlagsCount: React.Dispatch<React.SetStateAction<number>>,
-): { board: CellData[][]; status: GameStatus } => {
-  let newGameStatus = GameStatus.GAME_IN_PROGRESS;
-
-  const totalRevealed = updatedBoard
-    .flat()
-    .filter((cell) => cell.isRevealed).length;
-  const totalCells = updatedBoard.length * updatedBoard[0].length;
-  const safeCells = totalCells - mineLocations.length;
-
-  if (selectedCell.hasMine) {
-    newGameStatus = GameStatus.GAME_LOST;
-  } else if (totalRevealed >= safeCells) {
-    newGameStatus = GameStatus.GAME_WON;
-  }
-
+): void {
   setBoard(updatedBoard);
-  setGameStatus(newGameStatus);
-  setSafeCellsCount(safeCells - totalRevealed);
-  setRemainingFlagsCount(flagLocations.length);
 
-  return {
-    board: updatedBoard,
-    status: newGameStatus,
-  };
-};
-
-const getAdjacentCells = (
-  x: number,
-  y: number,
-  board: CellData[][],
-): CellData[] => {
-  const deltas = [-1, 0, 1];
-  const cells: CellData[] = [];
-
-  for (const dx of deltas) {
-    for (const dy of deltas) {
-      if (dx === 0 && dy === 0) continue;
-      const cell = board[x + dx]?.[y + dy];
-      if (cell) cells.push(cell);
-    }
+  if (clickedCell.hasMine) {
+    setGameStatus(GameStatus.GAME_LOST);
+    return;
   }
 
-  return cells;
-};
+  setSafeCellsCount((prev) => {
+    const newSafeCount = prev - revealed.length;
+    if (newSafeCount === 0) {
+      setGameStatus(GameStatus.GAME_WON);
+      setRemainingFlagsCount(0);
+    }
+    return newSafeCount;
+  });
+}

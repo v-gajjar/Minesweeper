@@ -22,15 +22,13 @@ export enum GameStatus {
   GAME_IN_PROGRESS = "GAME_IN_PROGRESS",
   GAME_WON = "GAME_WON",
   GAME_LOST = "GAME_LOST",
-} 
+}
 
 export type CellData = {
   x: number;
   y: number;
-  isMine: boolean;
   isRevealed: boolean;
+  hasMine: boolean;
   isFlagged: boolean;
   adjacentMines: number;
-  hasExplodedMine?: boolean;
-  hasMine: boolean;
 };
