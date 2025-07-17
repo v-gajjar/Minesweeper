@@ -11,10 +11,10 @@ A fresh take on the classic Minesweeper experience, enhanced with clean UX and b
 
 Try it out in a; browser: [;
 | :-------------; | :------ |
-| React          | MIT     |
-| Vite           | MIT     |
-| Classnames     | MIT     |
-| Phosphor Icons | MIT     |
+| React | MIT |
+| Vite | MIT |
+| Classnames | MIT |
+| Phosphor Icons | MIT |
 
 # Attributions
 
