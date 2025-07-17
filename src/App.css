@@ -123,7 +123,20 @@ dialog p {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 10px;
+    padding: 15px 10px 0px 10px;
+    max-width:fit-content;
+    margin: auto;
+}
+
+#remainingFlagsLabel {
+    display: flex;
+    margin-left: 5px
+}
+
+#remainingFlagsCount {
+    display: flex;
+    width: 23px;
+    margin-left: 5px;
 }
 
 .cell {
