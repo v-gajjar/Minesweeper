@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import { GameDifficultyLevel } from "./enum/GameDifficultyLevel";
 import { difficultySettings } from "./config/gameDifficultyLevelSettings";
+import GameResultModal from "./components/GameResultModal";
+
 import {
   CellData,
   CoordinateType,
@@ -115,85 +117,88 @@ const App = () => {
       .filter((c) => c.isFlagged)
       .map((c) => ({ x: c.x, y: c.y }));
   };
-  return (
-    <div className="wrapper">
-      <header>
-        <h1 className="game-title">Minesweeper</h1>
-      </header>
+return (
+  <div className="wrapper">
+    <header>
+      <h1 className="game-title">Minesweeper</h1>
+    </header>
 
-      <div className="game-difficulty-select-wrapper">
-        <label>
-          Difficulty:
-          <select
-            value={difficultyLevel}
-            onChange={(e) =>
-              setDifficultyLevel(e.target.value as GameDifficultyLevel)
-            }
-          >
-            <option value={GameDifficultyLevel.EASY}>Easy</option>
-            <option value={GameDifficultyLevel.MEDIUM}>Medium</option>
-            <option value={GameDifficultyLevel.HARD}>Hard</option>
-          </select>
-        </label>
-        <button
-          onClick={resetGame}
-          className={
-            gameStatus === GameStatus.GAME_WON
-              ? "btn-win"
-              : gameStatus === GameStatus.GAME_LOST
-                ? "btn-lose"
-                : ""
+    <div className="game-difficulty-select-wrapper">
+      <label>
+        Difficulty:
+        <select
+          value={difficultyLevel}
+          onChange={(e) =>
+            setDifficultyLevel(e.target.value as GameDifficultyLevel)
           }
         >
-          {gameStatus === GameStatus.GAME_LOST ||
-          gameStatus === GameStatus.GAME_WON
-            ? "Play Again?"
-            : "Reset"}
-        </button>
-      </div>
+          <option value={GameDifficultyLevel.EASY}>Easy</option>
+          <option value={GameDifficultyLevel.MEDIUM}>Medium</option>
+          <option value={GameDifficultyLevel.HARD}>Hard</option>
+        </select>
+      </label>
+    </div>
 
-      <div id="remainingFlagsCounter">
-        <p>Remaining Left: {remainingFlagsCount}</p>
-      </div>
+    <div id="remainingFlagsCounter">
+ <div id="remainingFlagsCounter">
+  <div>
+    <span>Remaining Left: {remainingFlagsCount}</span>
+    {gameStatus === GameStatus.GAME_LOST && (
+      <>
+        <br />
+        <p className="gameLostModal">💥 You Lose 💥</p>
+        <button onClick={resetGame}>Play Again?</button>
+      </>
+    )}
+    {gameStatus === GameStatus.GAME_WON && (
+      <>
+        <br />
+        <p className="gameWonModal">🎉 You Win! 🎉</p>
+        <button onClick={resetGame}>Play Again?</button>
+      </>
+    )}
+  </div>
+</div>
+</div>
 
-      <div id="boardContainer">
-        <div
-          id="board"
-          style={
-            {
-              "--columns": board[0]?.length ?? 0,
-              "--rows": board.length ?? 0,
-            } as React.CSSProperties
-          }
-        >
-          {board.map((row, rowIndex) =>
-            row.map((cell) => (
-              <div
-                key={`${cell.x}-${cell.y}`}
-                className={`cell ${cell.isRevealed ? "revealed" : ""} ${
-                  cell.isFlagged ? "flagged" : ""
-                } ${
-                  gameStatus === GameStatus.GAME_LOST && cell.hasMine
-                    ? "mine exploded"
-                    : ""
-                }`}
-                onClick={() => handleCellClick(cell)}
-                onContextMenu={(e) => handleRightClick(e, cell)}
-              >
-                {cell.isFlagged
-                  ? "🚩"
-                  : cell.isRevealed
-                    ? cell.hasMine
-                      ? "💣"
-                      : cell.adjacentMinesCount || ""
-                    : ""}
-              </div>
-            )),
-          )}
-        </div>
+    <div id="boardContainer">
+      <div
+        id="board"
+        style={
+          {
+            "--columns": board[0]?.length ?? 0,
+            "--rows": board.length ?? 0,
+          } as React.CSSProperties
+        }
+      >
+        {board.map((row) =>
+          row.map((cell) => (
+            <div
+              key={`${cell.x}-${cell.y}`}
+              className={`cell ${cell.isRevealed ? "revealed" : ""} ${
+                cell.isFlagged ? "flagged" : ""
+              } ${
+                gameStatus === GameStatus.GAME_LOST && cell.hasMine
+                  ? "mine exploded"
+                  : ""
+              }`}
+              onClick={() => handleCellClick(cell)}
+              onContextMenu={(e) => handleRightClick(e, cell)}
+            >
+              {cell.isFlagged
+                ? "🚩"
+                : cell.isRevealed
+                  ? cell.hasMine
+                    ? "💣"
+                    : cell.adjacentMinesCount || ""
+                  : ""}
+            </div>
+          ))
+        )}
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default App;

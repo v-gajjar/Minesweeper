@@ -1,20 +1,20 @@
-import React, { forwardRef } from "react";
-import type { CoordinateType, CellData } from "../types"; // adjust path if needed
+import React from "react";
 
-interface GameResultModalProps {
+interface Props {
   gameWon: boolean;
   onClick: () => void;
 }
 
-const GameResultModal = forwardRef<HTMLDialogElement, GameResultModalProps>(
-  ({ gameWon, onClick }, ref) => {
-    return (
-      <dialog id="gameResultModal" ref={ref}>
-        <h2>{gameWon ? "You Win!" : "You Lose!"}</h2>
-        <button onClick={onClick}>Close</button>
-      </dialog>
-    );
-  },
-);
+const GameResultModal: React.FC<Props> = ({ gameWon, onClick }) => {
+  return (
+    <div
+      data-testid="result-modal"
+      className={gameWon ? "gameWonModal" : "gameLostModal"}
+    >
+      <p>{gameWon ? "🎉 You Win!" : "💥 You Lose 💥"}</p>
+      <button onClick={onClick}>Play Again?</button>
+    </div>
+  );
+};
 
 export default GameResultModal;

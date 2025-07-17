@@ -29,6 +29,7 @@ const GameBoard: React.FC<Props> = ({
     >
       {board.flat().map((cell) => (
         <Cell
+          data-testid="cell"
           key={`${cell.x}-${cell.y}`}
           cell={cell}
           onClick={onClick}
