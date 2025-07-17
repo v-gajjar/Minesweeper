@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx", 
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": ["src", "tests"]
+}
