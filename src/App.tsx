@@ -36,8 +36,18 @@ const App = () => {
 
   // Update board when difficulty changes
   useEffect(() => {
-    setSettings(difficultySettings[difficultyLevel]);
-    resetGame();
+    const newSettings = difficultySettings[difficultyLevel];
+    setSettings(newSettings);
+
+    const newBoard = getBoard(newSettings.boardSize);
+    setBoard(newBoard);
+    setGameStatus(GameStatus.GAME_NOT_STARTED);
+    setMineLocations([]);
+    setRemainingFlagsCount(newSettings.mineCount);
+    setSafeCellsCount(
+      newSettings.boardSize.rowCount * newSettings.boardSize.columnCount -
+        newSettings.mineCount,
+    );
   }, [difficultyLevel]);
 
   const resetGame = () => {
