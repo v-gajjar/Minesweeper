@@ -7,7 +7,6 @@ import GameResultModal from "../../src/components/GameResultModal";
 import { CellData } from "../../src/components/Cell";
 import { GameDifficultyLevel } from "../../src/enum/GameDifficultyLevel";
 
-
 // ✅ Minimal valid board
 const mockCell: CellData = {
   x: 0,
@@ -19,7 +18,7 @@ const mockCell: CellData = {
 };
 
 const mockBoard: CellData[][] = Array.from({ length: 9 }, (_, row) =>
-  Array.from({ length: 9 }, (_, col) => ({ ...mockCell, x: row, y: col }))
+  Array.from({ length: 9 }, (_, col) => ({ ...mockCell, x: row, y: col })),
 );
 
 const mockBoardSize = { rowCount: 9, columnCount: 9 };
@@ -41,7 +40,7 @@ describe("App Component", () => {
         boardSize={mockBoardSize}
         onClick={() => {}}
         onContextMenu={() => {}}
-      />
+      />,
     );
     expect(getByTestId("game-board")).toBeTruthy();
   });
@@ -51,21 +50,21 @@ describe("App Component", () => {
       <GameDifficultySelector
         gameDifficultySettings={mockDifficulty}
         onChange={() => {}}
-      />
+      />,
     );
     expect(getByTestId("difficulty-select")).toBeTruthy();
   });
 
   it("renders the remaining flags counter", () => {
     const { getByTestId } = render(
-      <RemainingFlagsCounter remainingFlagsCount={mockFlagsRemaining} />
+      <RemainingFlagsCounter remainingFlagsCount={mockFlagsRemaining} />,
     );
     expect(getByTestId("flags-remaining")).toBeTruthy();
   });
 
   it("renders a result modal", () => {
     const { getByTestId } = render(
-      <GameResultModal gameWon={true} onClick={() => {}} />
+      <GameResultModal gameWon={true} onClick={() => {}} />,
     );
     expect(getByTestId("result-modal")).toBeTruthy();
   });

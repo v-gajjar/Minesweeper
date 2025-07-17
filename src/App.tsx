@@ -19,14 +19,14 @@ import {
 
 const App = () => {
   const [difficultyLevel, setDifficultyLevel] = useState<GameDifficultyLevel>(
-    GameDifficultyLevel.EASY
+    GameDifficultyLevel.EASY,
   );
   const [settings, setSettings] = useState<GameDifficultySettings>(
-    difficultySettings[difficultyLevel]
+    difficultySettings[difficultyLevel],
   );
   const [board, setBoard] = useState<CellData[][]>([]);
   const [gameStatus, setGameStatus] = useState<GameStatus>(
-    GameStatus.GAME_NOT_STARTED
+    GameStatus.GAME_NOT_STARTED,
   );
   const [mineLocations, setMineLocations] = useState<CoordinateType[]>([]);
   const [safeCellsCount, setSafeCellsCount] = useState<number>(0);
@@ -46,19 +46,27 @@ const App = () => {
     setRemainingFlagsCount(settings.mineCount);
     setSafeCellsCount(
       settings.boardSize.rowCount * settings.boardSize.columnCount -
-        settings.mineCount
+        settings.mineCount,
     );
   };
 
   const handleCellClick = (cell: CellData) => {
-    if (gameStatus === GameStatus.GAME_WON || gameStatus === GameStatus.GAME_LOST) return;
+    if (
+      gameStatus === GameStatus.GAME_WON ||
+      gameStatus === GameStatus.GAME_LOST
+    )
+      return;
     if (cell.isFlagged || cell.isRevealed) return;
 
     let newBoard = board;
 
     // First click logic
     if (gameStatus === GameStatus.GAME_NOT_STARTED) {
-      const mines = getMineLocations(cell, settings.boardSize, settings.mineCount);
+      const mines = getMineLocations(
+        cell,
+        settings.boardSize,
+        settings.mineCount,
+      );
       const boardWithMines = getCellsWithMines(board, mines);
       setMineLocations(mines);
       setGameStatus(GameStatus.GAME_IN_PROGRESS);
@@ -77,13 +85,13 @@ const App = () => {
       setBoard,
       setGameStatus,
       setSafeCellsCount,
-      setRemainingFlagsCount
+      setRemainingFlagsCount,
     );
   };
 
   const handleRightClick = (
     event: React.MouseEvent<HTMLDivElement, MouseEvent>,
-    cell: CellData
+    cell: CellData,
   ) => {
     event.preventDefault();
     if (cell.isRevealed || gameStatus !== GameStatus.GAME_IN_PROGRESS) return;
@@ -92,8 +100,8 @@ const App = () => {
       row.map((c) =>
         c.x === cell.x && c.y === cell.y
           ? { ...c, isFlagged: !c.isFlagged }
-          : c
-      )
+          : c,
+      ),
     );
     setBoard(newBoard);
 
@@ -108,81 +116,84 @@ const App = () => {
       .map((c) => ({ x: c.x, y: c.y }));
   };
   return (
-  <div className="wrapper">
-    <header>
-      <h1 className="game-title">Minesweeper</h1>
-    </header>
+    <div className="wrapper">
+      <header>
+        <h1 className="game-title">Minesweeper</h1>
+      </header>
 
-    <div className="game-difficulty-select-wrapper">
-      <label>
-        Difficulty:
-        <select
-          value={difficultyLevel}
-          onChange={(e) =>
-            setDifficultyLevel(e.target.value as GameDifficultyLevel)
+      <div className="game-difficulty-select-wrapper">
+        <label>
+          Difficulty:
+          <select
+            value={difficultyLevel}
+            onChange={(e) =>
+              setDifficultyLevel(e.target.value as GameDifficultyLevel)
+            }
+          >
+            <option value={GameDifficultyLevel.EASY}>Easy</option>
+            <option value={GameDifficultyLevel.MEDIUM}>Medium</option>
+            <option value={GameDifficultyLevel.HARD}>Hard</option>
+          </select>
+        </label>
+        <button
+          onClick={resetGame}
+          className={
+            gameStatus === GameStatus.GAME_WON
+              ? "btn-win"
+              : gameStatus === GameStatus.GAME_LOST
+                ? "btn-lose"
+                : ""
           }
         >
-          <option value={GameDifficultyLevel.EASY}>Easy</option>
-          <option value={GameDifficultyLevel.MEDIUM}>Medium</option>
-          <option value={GameDifficultyLevel.HARD}>Hard</option>
-        </select>
-      </label>
-      <button
-        onClick={resetGame}
-        className={
+          {gameStatus === GameStatus.GAME_LOST ||
           gameStatus === GameStatus.GAME_WON
-            ? "btn-win"
-            : gameStatus === GameStatus.GAME_LOST
-            ? "btn-lose"
-            : ""
-  }
->
-  {gameStatus === GameStatus.GAME_LOST || gameStatus === GameStatus.GAME_WON
-    ? "Play Again?"
-    : "Reset"}
-</button>
-    </div>
+            ? "Play Again?"
+            : "Reset"}
+        </button>
+      </div>
 
-    <div id="remainingFlagsCounter">
-      <p>Remaining Left: {remainingFlagsCount}</p>
-    </div>
+      <div id="remainingFlagsCounter">
+        <p>Remaining Left: {remainingFlagsCount}</p>
+      </div>
 
-    <div id="boardContainer">
-      <div
-        id="board"
-        style={{
-          "--columns": board[0]?.length ?? 0,
-          "--rows": board.length ?? 0,
-        } as React.CSSProperties}
-      >
-        {board.map((row, rowIndex) =>
-          row.map((cell) => (
-            <div
-              key={`${cell.x}-${cell.y}`}
-              className={`cell ${cell.isRevealed ? "revealed" : ""} ${
-                cell.isFlagged ? "flagged" : ""
-              } ${
-                gameStatus === GameStatus.GAME_LOST && cell.hasMine
-                  ? "mine exploded"
-                  : ""
-              }`}
-              onClick={() => handleCellClick(cell)}
-              onContextMenu={(e) => handleRightClick(e, cell)}
-            >
-              {cell.isFlagged
-                ? "🚩"
-                : cell.isRevealed
-                ? cell.hasMine
-                  ? "💣"
-                  : cell.adjacentMinesCount || ""
-                : ""}
-            </div>
-          ))
-        )}
+      <div id="boardContainer">
+        <div
+          id="board"
+          style={
+            {
+              "--columns": board[0]?.length ?? 0,
+              "--rows": board.length ?? 0,
+            } as React.CSSProperties
+          }
+        >
+          {board.map((row, rowIndex) =>
+            row.map((cell) => (
+              <div
+                key={`${cell.x}-${cell.y}`}
+                className={`cell ${cell.isRevealed ? "revealed" : ""} ${
+                  cell.isFlagged ? "flagged" : ""
+                } ${
+                  gameStatus === GameStatus.GAME_LOST && cell.hasMine
+                    ? "mine exploded"
+                    : ""
+                }`}
+                onClick={() => handleCellClick(cell)}
+                onContextMenu={(e) => handleRightClick(e, cell)}
+              >
+                {cell.isFlagged
+                  ? "🚩"
+                  : cell.isRevealed
+                    ? cell.hasMine
+                      ? "💣"
+                      : cell.adjacentMinesCount || ""
+                    : ""}
+              </div>
+            )),
+          )}
+        </div>
       </div>
     </div>
-  </div>
-);  
+  );
 };
 
 export default App;

@@ -14,7 +14,7 @@ const GameResultModal = forwardRef<HTMLDialogElement, GameResultModalProps>(
         <button onClick={onClick}>Close</button>
       </dialog>
     );
-  }
+  },
 );
 
 export default GameResultModal;

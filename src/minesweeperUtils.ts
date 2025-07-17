@@ -10,14 +10,14 @@ export const getBoard = (boardSize: BoardSize): CellData[][] => {
       hasMine: false,
       isFlagged: false,
       adjacentMinesCount: 0,
-    }))
+    })),
   );
 };
 
 export const getMineLocations = (
   exclude: CoordinateType,
   boardSize: BoardSize,
-  mineCount: number
+  mineCount: number,
 ): CoordinateType[] => {
   const locations: CoordinateType[] = [];
   const totalCells = boardSize.rowCount * boardSize.columnCount;
@@ -41,7 +41,7 @@ export const getMineLocations = (
 
 export const getCellsWithMines = (
   board: CellData[][],
-  mineLocations: CoordinateType[]
+  mineLocations: CoordinateType[],
 ): CellData[][] => {
   const newBoard = board.map((row) => row.map((cell) => ({ ...cell })));
 
@@ -64,7 +64,7 @@ export const getCellsWithMines = (
 export const revealCell = (
   x: number,
   y: number,
-  board: CellData[][]
+  board: CellData[][],
 ): CellData[] => {
   const visited = new Set<string>();
   const revealed: CellData[] = [];
@@ -91,7 +91,7 @@ export const revealCell = (
 
 export const updateBoard = (
   board: CellData[][],
-  updatedCells: CellData[]
+  updatedCells: CellData[],
 ): CellData[][] => {
   const newBoard = board.map((row) => row.map((cell) => ({ ...cell })));
   for (const cell of updatedCells) {
@@ -109,11 +109,13 @@ export const updateGameState = (
   setBoard: React.Dispatch<React.SetStateAction<CellData[][]>>,
   setGameStatus: React.Dispatch<React.SetStateAction<GameStatus>>,
   setSafeCellsCount: React.Dispatch<React.SetStateAction<number>>,
-  setRemainingFlagsCount: React.Dispatch<React.SetStateAction<number>>
+  setRemainingFlagsCount: React.Dispatch<React.SetStateAction<number>>,
 ): { board: CellData[][]; status: GameStatus } => {
   let newGameStatus = GameStatus.GAME_IN_PROGRESS;
 
-  const totalRevealed = updatedBoard.flat().filter((cell) => cell.isRevealed).length;
+  const totalRevealed = updatedBoard
+    .flat()
+    .filter((cell) => cell.isRevealed).length;
   const totalCells = updatedBoard.length * updatedBoard[0].length;
   const safeCells = totalCells - mineLocations.length;
 
@@ -134,7 +136,11 @@ export const updateGameState = (
   };
 };
 
-const getAdjacentCells = (x: number, y: number, board: CellData[][]): CellData[] => {
+const getAdjacentCells = (
+  x: number,
+  y: number,
+  board: CellData[][],
+): CellData[] => {
   const deltas = [-1, 0, 1];
   const cells: CellData[] = [];
 

@@ -10,14 +10,21 @@ interface Props {
   onContextMenu: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const GameBoard: React.FC<Props> = ({ board, boardSize, onClick, onContextMenu }) => {
+const GameBoard: React.FC<Props> = ({
+  board,
+  boardSize,
+  onClick,
+  onContextMenu,
+}) => {
   return (
     <div
       id="board"
-      style={{
-        "--rows": boardSize.rowCount,
-        "--columns": boardSize.columnCount,
-      } as React.CSSProperties}
+      style={
+        {
+          "--rows": boardSize.rowCount,
+          "--columns": boardSize.columnCount,
+        } as React.CSSProperties
+      }
       data-testid="game-board"
     >
       {board.flat().map((cell) => (

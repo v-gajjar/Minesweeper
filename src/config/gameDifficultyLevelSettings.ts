@@ -1,7 +1,10 @@
 import { GameDifficultyLevel } from "../enum/GameDifficultyLevel";
 import { GameDifficultySettings } from "../types";
 
-export const difficultySettings: Record<GameDifficultyLevel, GameDifficultySettings> = {
+export const difficultySettings: Record<
+  GameDifficultyLevel,
+  GameDifficultySettings
+> = {
   [GameDifficultyLevel.EASY]: {
     level: GameDifficultyLevel.EASY,
     label: "Easy",
