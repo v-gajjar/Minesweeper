@@ -18,8 +18,7 @@ describe("GameResultModal Component", () => {
   it("calls onClick when play again button is clicked", () => {
     const mockClick = vi.fn();
     render(<GameResultModal gameWon={false} onClick={mockClick} />);
-    const button = screen.getByRole("button", { name: /play again/i });
-    fireEvent.click(button);
+    fireEvent.click(screen.getByText("Play Again?"));
     expect(mockClick).toHaveBeenCalled();
   });
 });
