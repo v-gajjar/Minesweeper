@@ -5,8 +5,5 @@
     "selector-id-pattern": null,
     "declaration-block-single-line-max-declarations": null
   },
-  "ignoreFiles": [
-    "dist/**/*",
-    "src/index.css"
-  ]
+  "ignoreFiles": ["dist/**/*", "src/index.css"]
 }

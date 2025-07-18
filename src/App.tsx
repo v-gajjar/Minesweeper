@@ -157,14 +157,18 @@ const App = () => {
               <>
                 <br />
                 <p className="gameLostModal">💥 You Lose 💥</p>
-                <button onClick={resetGame}>Play Again?</button>
+                <div className="play-again-container">
+                  <button onClick={resetGame}>Play Again?</button>
+                </div>
               </>
             )}
             {gameStatus === GameStatus.GAME_WON && (
               <>
                 <br />
                 <p className="gameWonModal">🎉 You Win! 🎉</p>
-                <button onClick={resetGame}>Play Again?</button>
+                <div className="play-again-container">
+                  <button onClick={resetGame}>Play Again?</button>
+                </div>
               </>
             )}
           </div>

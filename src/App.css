@@ -167,3 +167,10 @@ dialog p {
 .cell.mine.exploded {
   background: orange;
 }
+
+/* CSS */
+.play-again-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
