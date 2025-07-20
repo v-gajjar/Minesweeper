@@ -1,12 +1,11 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-import GameStatus from "./enum/GameStatus";
-import { GAME_DIFFICULTY_LEVEL_SETTINGS } from "./config/gameDifficultyLevelSettings";
+import { GAME_DIFFICULTY_LEVEL_SETTINGS } from "./config/gameDifficultyLevelSettings.js";
 
-import GameDifficultySelector from "./components/GameDifficultySelector";
-import GameBoard from "./components/GameBoard";
-import GameResultModal from "./components/GameResultModal";
-import RemainingFlagsCounter from "./components/RemainingFlagsCounter";
+import GameDifficultySelector from "./components/GameDifficultySelector.jsx";
+import GameBoard from "./components/GameBoard.jsx";
+import GameResultModal from "./components/GameResultModal.jsx";
+import RemainingFlagsCounter from "./components/RemainingFlagsCounter.jsx";
 
 import { 
   getMineLocations,
@@ -19,26 +18,32 @@ import {
   getBoard,
 }
 from "./minesweeperUtils.js"
-  
 
+import GameStatus from "./enum/GameStatus.js";
+  
 import "./App.css";
+import type { BoardI, CellI, FlagLocationsI, LocationColRowI, MineLocations } from "./types";
 
 
 function App() {
-  const [board, setBoard] = useState([]);
-  const [gameStatus, setGameStatus] = useState(GameStatus.GAME_NOT_STARTED);
+  const [board, setBoard] = useState<BoardI>([]);
+  const [gameStatus, setGameStatus] = useState<number>(
+    GameStatus.GAME_NOT_STARTED
+  );
   const [remainingFlagsCount, setRemainingFlagsCount] = useState(0);
   const [shouldPlaceMines, setShouldPlaceMines] = useState(true);
   const [safeCellsCount, setSafeCellsCount] = useState(0);
-  const [mineLocations, setMineLocations] = useState([]);
-  const [flagLocations, setFlagLocations] = useState([]);
+  const [mineLocations, setMineLocations] = useState<MineLocations>([]);
+  const [flagLocations, setFlagLocations] = useState<FlagLocationsI>([]);
  
-  const [gameDifficultySettings, setGameDifficultySettings] = useState(GAME_DIFFICULTY_LEVEL_SETTINGS.EASY);
-  const boardContainerRef = useRef(null);
+  const [gameDifficultySettings, setGameDifficultySettings] = useState(
+    GAME_DIFFICULTY_LEVEL_SETTINGS.EASY
+  );
+  const boardContainerRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     if (gameHasEnded()) {
-      const gameResultModal = document.getElementById("gameResultModal");
+      const gameResultModal = document.getElementById("gameResultModal") as unknown as { showModal: () => void }; // TODO: refactor modal
       gameResultModal.showModal();
     }
   }, [gameStatus]);
@@ -48,7 +53,7 @@ function App() {
     setupNewGame();
   }, [gameDifficultySettings]);
 
-  const onGameDifficultyLevelChanged = (event) => {
+  const onGameDifficultyLevelChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedLevel = event.target.value;
 
     const difficultyLevel = Object.values(GAME_DIFFICULTY_LEVEL_SETTINGS).find(
@@ -65,7 +70,7 @@ function App() {
   };
 
   const onCloseGameResultModal = () => {
-    const gameResultModal = document.getElementById("gameResultModal");
+    const gameResultModal = document.getElementById("gameResultModal") as unknown as { close: () => void }; // TODO: refactor modal
     gameResultModal.close();
 
     resetBoardContainerScroll();
@@ -73,13 +78,14 @@ function App() {
   };
 
   const resetBoardContainerScroll = () => {
+    if (!boardContainerRef.current) return;
     // scroll doesn't automatically reset when board size is changed
     // so reset to 0 for better UX 
     boardContainerRef.current.scrollLeft = 0;
   }
 
-  const onRevealCell = (event) => {
-    const target = event.target;
+  const onRevealCell = (event: React.SyntheticEvent<HTMLElement>) => {
+    const target = event.target as unknown as { dataset: { row: string, col: string } };
     const rowIndex = parseInt(target.dataset.row);
     const colIndex = parseInt(target.dataset.col);
 
@@ -104,7 +110,7 @@ function App() {
       
       setMineLocations(newMineLocations);
       setShouldPlaceMines(false);
-      setBoard(prevBoard => boardWithMines);
+      setBoard(boardWithMines);
     }
 
     const revealedCells = revealCell(
@@ -126,11 +132,11 @@ function App() {
   };
 
   const updateGameState = (
-    currentBoard,
-    selectedCell,
-    revealedCells,
-    currentFlagLocations,
-    currentMineLocations
+    currentBoard: BoardI,
+    selectedCell: CellI,
+    revealedCells: CellI[],
+    currentFlagLocations: FlagLocationsI,
+    currentMineLocations: MineLocations
   ) => {
 
     if (selectedCell.hasMine) {
@@ -164,10 +170,10 @@ function App() {
       : setGameStatus(GameStatus.GAME_IN_PROGRESS);
   };
 
-  const onToggleFlag = (event) => {
+  const onToggleFlag = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
 
-    let target = event.currentTarget;
+    let target = event.currentTarget as unknown as { dataset: LocationColRowI };
     let rowIndex = parseInt(target.dataset.row);
     let colIndex = parseInt(target.dataset.col);
 
