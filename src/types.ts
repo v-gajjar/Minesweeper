@@ -11,6 +11,11 @@ export type CellI = {
 
 export type BoardI = CellI[][];
 
+export type BoardSizeI = {
+    rowCount: number,
+    columnCount: number,
+}
+
 export type LocationI = {
     x: number,
     y: number,

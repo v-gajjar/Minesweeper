@@ -1,17 +1,18 @@
-// src/components/GameBoard.jsx
+import type { CSSProperties } from "react";
 import Cell from "./Cell";
+import type { GameBoardProps } from "./GameBoard.interfaces";
 
-function GameBoard({ board, boardSize, onClick, onContextMenu }) {
+function GameBoard({ board, boardSize, onClick, onContextMenu }: GameBoardProps) {
   // CSS custom properties to control the grid layout
   const style = {
     "--rows": `${boardSize.rowCount}`,
     "--columns": `${boardSize.columnCount}`,
-  };
+  } as CSSProperties;
 
   return (
     <div style={style} className="board" id="board" data-testid="game-board">
       {board.map((rows, rowIndex) =>
-        rows.map((col, colIndex) => (
+        rows.map((_, colIndex) => (
           <Cell
             cell={board[rowIndex][colIndex]}
             key={`cell-${rowIndex}-${colIndex}`}
