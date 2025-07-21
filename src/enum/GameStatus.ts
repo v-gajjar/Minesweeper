@@ -1,4 +1,6 @@
-const GameStatus = {
+import type { GameStatusI } from "./GameStatus.interfaces";
+
+const GameStatus: GameStatusI = {
   GAME_NOT_STARTED: 1,
   GAME_IN_PROGRESS: 2,
   GAME_LOST: 3,

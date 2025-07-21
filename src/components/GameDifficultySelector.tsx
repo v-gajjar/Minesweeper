@@ -1,7 +1,10 @@
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from "../config/gameDifficultyLevelSettings";
+import type { GameDifficultyLevelKeysI } from "../enum/GameDifficultyLevel.interfaces";
+import type { GameDifficultySelectorProps } from "./GameDifficultySelector.interfaces";
 
-function GameDifficultySelector({gameDifficultySettings, onChange}) {
+const gameDifficultyLevelKeys = Object.keys(GAME_DIFFICULTY_LEVEL_SETTINGS) as GameDifficultyLevelKeysI[]
 
+function GameDifficultySelector({gameDifficultySettings, onChange}: GameDifficultySelectorProps) {
     return (
         <div className='game-difficulty-select-wrapper'>
         <label>Difficulty: </label>
@@ -12,11 +15,13 @@ function GameDifficultySelector({gameDifficultySettings, onChange}) {
             id="game-difficulty-select"
             data-testid="difficulty-select"
         > 
-        {Object.keys(GAME_DIFFICULTY_LEVEL_SETTINGS).map((setting, i) => (
+        {gameDifficultyLevelKeys.map((setting) => (
             <option 
-                key={i}
+                key={setting}
                 value={GAME_DIFFICULTY_LEVEL_SETTINGS[setting].level}
-            >{GAME_DIFFICULTY_LEVEL_SETTINGS[setting].label}</option>
+            >
+                {GAME_DIFFICULTY_LEVEL_SETTINGS[setting].label}
+            </option>
         ))}
       </select>
     </div>
