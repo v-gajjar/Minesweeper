@@ -10,7 +10,21 @@ A fresh take on the classic Minesweeper experience, enhanced with clean UX and b
 Try it out in a browser: [https://v-gajjar.github.io/Minesweeper/](https://v-gajjar.github.io/Minesweeper/)
 
 # Acknowledgements
-A big thanks to the kind contributions of developers who have helped improve the project! See the list of [contributors](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
+A big thanks to the kind contributions of developers who have helped improve the project!
+
+# Contributors:
+
+ - [Heliomar Pena](https://www.linkedin.com/in/heliomar/)
+ - [BJ Rutledge](https://www.linkedin.com/in/bj-rutledge/)
+ - [James Baskett](https://www.linkedin.com/in/james-blaskett/)
+ - [Umer Farooq Mala](https://github.com/umermala)
+ - [Nick Clark](https://github.com/NickTheDevOpsGuy)
+ - [Daniela Grothe](https://www.linkedin.com/in/daniela-grothe-743ab8235/)
+ - [Velimir Đurković](https://www.linkedin.com/in/djvelimir/)
+ - [Tawheed Ahmed](https://www.linkedin.com/in/tawheed-ahmed-dev/)
+
+
+See a mode detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
 
 # Dependencies
 
@@ -25,8 +39,9 @@ A big thanks to the kind contributions of developers who have helped improve the
 # Attributions
 * Inter font by Rasmus Andersson - SIL Open Font License 1.1
 
-### Current focus (updated 24th June 2025)
-Looking at making the design more mobile friendly 
+### Current focus (updated 24th July 2025)
+- TypeScript Conversion
+- Fixing an issue with longpress on mobile
 
 ### Next step: 
 A few small but important UX enhacements (i.e. styling the Header section)
