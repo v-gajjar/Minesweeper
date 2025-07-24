@@ -12,8 +12,6 @@ Try it out in a browser: [https://v-gajjar.github.io/Minesweeper/](https://v-gaj
 # Acknowledgements
 A big thanks to the kind contributions of developers who have helped improve the project!
 
-# Contributors:
-
  - [Heliomar Pena](https://www.linkedin.com/in/heliomar/)
  - [BJ Rutledge](https://www.linkedin.com/in/bj-rutledge/)
  - [James Baskett](https://www.linkedin.com/in/james-blaskett/)
@@ -24,7 +22,7 @@ A big thanks to the kind contributions of developers who have helped improve the
  - [Tawheed Ahmed](https://www.linkedin.com/in/tawheed-ahmed-dev/)
 
 
-See a mode detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
+See a more detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
 
 # Dependencies
 
