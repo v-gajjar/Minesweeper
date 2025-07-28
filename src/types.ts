@@ -1,4 +1,4 @@
-export type CellI = {
+export type CellData = {
     hasMine: boolean,
     hasExplodedMine: boolean,
     isFlagged: boolean,
@@ -9,22 +9,22 @@ export type CellI = {
     y: number
 }
 
-export type BoardI = CellI[][];
+export type BoardData = CellData[][];
 
-export type BoardSizeI = {
+export type BoardSize = {
     rowCount: number,
     columnCount: number,
 }
 
-export type LocationI = {
+export type Coordinate = {
     x: number,
     y: number,
 }
 
-export type LocationColRowI = {
+export type LocationColRow = {
     col: string,
     row: string,
 }
 
-export type FlagLocationsI = LocationI[];
-export type MineLocations = LocationI[];
+export type FlagLocations = Coordinate[];
+export type MineLocations = Coordinate[];

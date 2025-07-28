@@ -1,7 +1,7 @@
 import GameDifficultyLevel from "../enum/GameDifficultyLevel";
-import type { GameDifficultyLevelSettingsI } from "./gameDifficultyLevelSettings.interfaces";
+import type { GameDifficultyLevelSettings } from "./gameDifficultyLevelSettings.interfaces";
 
-export const GAME_DIFFICULTY_LEVEL_SETTINGS: GameDifficultyLevelSettingsI = {
+export const GAME_DIFFICULTY_LEVEL_SETTINGS: GameDifficultyLevelSettings = {
   EASY: {
     level: GameDifficultyLevel.EASY,
     boardSize: {

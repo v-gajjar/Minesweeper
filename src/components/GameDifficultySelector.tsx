@@ -1,9 +1,9 @@
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from "../config/gameDifficultyLevelSettings";
 import { memo } from "react";
-import type { GameDifficultyLevelKeysI } from "../enum/GameDifficultyLevel.interfaces";
+import type { GameDifficultyLevelKeys } from "../enum/GameDifficultyLevel.interfaces";
 import type { GameDifficultySelectorProps } from "./GameDifficultySelector.interfaces";
 
-const gameDifficultyLevelKeys = Object.keys(GAME_DIFFICULTY_LEVEL_SETTINGS) as GameDifficultyLevelKeysI[]
+const gameDifficultyLevelKeys = Object.keys(GAME_DIFFICULTY_LEVEL_SETTINGS) as GameDifficultyLevelKeys[]
 
 function GameDifficultySelector({gameDifficultySettings, onChange}: GameDifficultySelectorProps) {
     return (

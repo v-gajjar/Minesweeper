@@ -1,9 +1,9 @@
-import type { BoardI, BoardSizeI } from "../types"
+import type { BoardData, BoardSize } from "../types"
 import type { CellProps } from "./Cell.interfaces"
 
 export type GameBoardProps = {
-    board: BoardI,
-    boardSize: BoardSizeI
+    board: BoardData,
+    boardSize: BoardSize
     onClick: CellProps['onClick'],
     onContextMenu: CellProps['onContextMenu'],
 }

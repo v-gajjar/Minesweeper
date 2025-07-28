@@ -23,11 +23,11 @@ import GameStatus from "./enum/GameStatus.js";
 import { useCallback } from "react";
 
 import "./App.css";
-import type { BoardI, CellI, FlagLocationsI, LocationColRowI, MineLocations } from "./types";
+import type { BoardData, CellData, FlagLocations, LocationColRow, MineLocations } from "./types";
 
 
 function App() {
-  const [board, setBoard] = useState<BoardI>([]);
+  const [board, setBoard] = useState<BoardData>([]);
   const [gameStatus, setGameStatus] = useState<number>(
     GameStatus.GAME_NOT_STARTED
   );
@@ -35,7 +35,7 @@ function App() {
   const [shouldPlaceMines, setShouldPlaceMines] = useState(true);
   const [safeCellsCount, setSafeCellsCount] = useState(0);
   const [mineLocations, setMineLocations] = useState<MineLocations>([]);
-  const [flagLocations, setFlagLocations] = useState<FlagLocationsI>([]);
+  const [flagLocations, setFlagLocations] = useState<FlagLocations>([]);
  
   const [gameDifficultySettings, setGameDifficultySettings] = useState(
     GAME_DIFFICULTY_LEVEL_SETTINGS.EASY
@@ -133,10 +133,10 @@ function App() {
   };
 
   const updateGameState = (
-    currentBoard: BoardI,
-    selectedCell: CellI,
-    revealedCells: CellI[],
-    currentFlagLocations: FlagLocationsI,
+    currentBoard: BoardData,
+    selectedCell: CellData,
+    revealedCells: CellData[],
+    currentFlagLocations: FlagLocations,
     currentMineLocations: MineLocations
   ) => {
 
@@ -174,7 +174,7 @@ function App() {
   const onToggleFlag = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
 
-    let target = event.currentTarget as unknown as { dataset: LocationColRowI };
+    let target = event.currentTarget as unknown as { dataset: LocationColRow };
     let rowIndex = parseInt(target.dataset.row);
     let colIndex = parseInt(target.dataset.col);
 

@@ -1,8 +1,8 @@
 import type React from "react"
-import type { CellI } from "../types"
+import type { CellData } from "../types"
 
 export type CellProps = {
-    cell: CellI,
+    cell: CellData,
     onClick: (event: React.MouseEvent<HTMLElement>) => void,
     onContextMenu: (event: React.MouseEvent<HTMLElement>) => void,
 }

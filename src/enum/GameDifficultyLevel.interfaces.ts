@@ -1,3 +1,3 @@
-export type GameDifficultyLevelKeysI = "EASY" | "MEDIUM" | "HARD";
+export type GameDifficultyLevelKeys = "EASY" | "MEDIUM" | "HARD";
 
-export type GameDifficultyLevelI = Record<GameDifficultyLevelKeysI, string>;
+export type GameDifficultyLevel = Record<GameDifficultyLevelKeys, string>;

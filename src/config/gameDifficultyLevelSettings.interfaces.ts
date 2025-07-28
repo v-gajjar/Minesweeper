@@ -1,10 +1,10 @@
-import type { GameDifficultyLevelI, GameDifficultyLevelKeysI } from "../enum/GameDifficultyLevel.interfaces"
-import type { BoardSizeI } from "../types"
+import type { GameDifficultyLevel, GameDifficultyLevelKeys } from "../enum/GameDifficultyLevel.interfaces"
+import type { BoardSize } from "../types"
 
-export type GameDifficultyLevelSettingsI = {
-    [key in GameDifficultyLevelKeysI]: {
-        level: GameDifficultyLevelI[GameDifficultyLevelKeysI],
-        boardSize: BoardSizeI,
+export type GameDifficultyLevelSettings = {
+    [key in GameDifficultyLevelKeys]: {
+        level: GameDifficultyLevel[GameDifficultyLevelKeys],
+        boardSize: BoardSize,
         mineCount: number,
         label: string,
     }

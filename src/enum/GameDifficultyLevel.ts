@@ -1,9 +1,9 @@
-import type { GameDifficultyLevelI } from "./GameDifficultyLevel.interfaces";
+import type { GameDifficultyLevel } from "./GameDifficultyLevel.interfaces";
 
-const GameDifficultyLevel: GameDifficultyLevelI = {
+const GAME_DIFFICULTY_LEVEL: GameDifficultyLevel = {
   EASY: "easy",
   MEDIUM: "medium",
   HARD: "hard",
 };
 
-export default GameDifficultyLevel;
+export default GAME_DIFFICULTY_LEVEL;
