@@ -20,7 +20,8 @@ import {
 from "./minesweeperUtils.js"
 
 import GameStatus from "./enum/GameStatus.js";
-  
+import { useCallback } from "react";
+
 import "./App.css";
 import type { BoardI, CellI, FlagLocationsI, LocationColRowI, MineLocations } from "./types";
 
@@ -53,21 +54,21 @@ function App() {
     setupNewGame();
   }, [gameDifficultySettings]);
 
-  const onGameDifficultyLevelChanged = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const onGameDifficultyLevelChanged = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedLevel = event.target.value;
 
     const difficultyLevel = Object.values(GAME_DIFFICULTY_LEVEL_SETTINGS).find(
       (difficultySetting) => selectedLevel === difficultySetting.level
     );
 
-    if (! difficultyLevel) {
+    if (!difficultyLevel) {
       return;
     }
 
     resetBoardContainerScroll();
     setGameStatus(GameStatus.GAME_NOT_STARTED);
     setGameDifficultySettings(difficultyLevel)
-  };
+  }, []);
 
   const onCloseGameResultModal = () => {
     const gameResultModal = document.getElementById("gameResultModal") as unknown as { close: () => void }; // TODO: refactor modal

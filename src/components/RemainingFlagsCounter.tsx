@@ -1,5 +1,6 @@
-import { Flag } from "@phosphor-icons/react"
+import { Flag } from "@phosphor-icons/react";
 import { AccessibleIcon } from "@radix-ui/react-accessible-icon";
+import { memo } from "react";
 import type { RemainingFlagsCounterProps } from "./RemainingFlagsCounter.interface";
 
 function RemainingFlagsCounter({ remainingFlagsCount }: RemainingFlagsCounterProps) {
@@ -17,4 +18,4 @@ function RemainingFlagsCounter({ remainingFlagsCount }: RemainingFlagsCounterPro
     );
 }
 
-export default RemainingFlagsCounter;
+export default memo(RemainingFlagsCounter);
