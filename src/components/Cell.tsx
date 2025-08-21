@@ -1,8 +1,9 @@
 
 import classNames from "classnames";
 import { Bomb, X, Flag } from "@phosphor-icons/react";
+import type { CellProps } from "./Cell.interfaces";
 
-function Cell({ cell, onClick, onContextMenu }) {
+function Cell({ cell, onClick, onContextMenu }: CellProps) {
 
   const cellClass = classNames({
     'cell' : true,
@@ -12,7 +13,7 @@ function Cell({ cell, onClick, onContextMenu }) {
     'revealed' : cell.isRevealed
   })
 
-  const getNumberedCellColour = (number) => {
+  const getNumberedCellColour = (number: number) => {
     switch(number){
       case 1: return {color: "blue"};
       case 2: return {color: "green"};
