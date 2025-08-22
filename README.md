@@ -2,7 +2,7 @@
 Please update your remote repository URL if you have cloned the old repo.
 
 # Description
-A fresh take on the classic Minesweeper experience, enhanced with clean UX and built with modern tech including React and Docker.
+A community-driven open-source, modern take on the classic Minesweeper experience, enhanced with thoughtful UX and built with modern tech including React and Docker.
 
  ![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif)
 
@@ -26,20 +26,21 @@ See a more detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/mai
 
 # Dependencies
 
-| Name | License | 
-| :--- | :--- | 
-| React | MIT |
-| Vite | MIT |
-| Classnames | MIT | 
-| Phosphor Icons | MIT | 
-
+| Name                                                                  | Version | Description                                                 |
+| :-------------------------------------------------------------------- | :------ | :---------------------------------------------------------- |
+| [React](https://reactjs.org/)                                         | ^18.3.1 | JavaScript library for building component-based UIs.        |
+| [Vite](https://vitejs.dev/)                                           | ^6.0.5  | Fast build tool and development server for modern web apps. |
+| [classnames](https://www.npmjs.com/package/classnames)                | ^2.5.1  | Utility for conditionally joining class names together.     |
+| [Phosphor Icons](https://www.npmjs.com/package/@phosphor-icons/react) | ^2.1.7  | Clean, modern SVG-based icon set.                            |
+        
 
 # Attributions
+
 * Inter font by Rasmus Andersson - SIL Open Font License 1.1
 
-#Development Roadmap
+# Development Roadmap
 
-### Tasks in progress (updated 22st August 2025)
+### Tasks in progress (updated 22nd August 2025)
 - TypeScript Conversion (partially implemented)
 - Fixing an issue with longpress on mobile
 
@@ -108,13 +109,13 @@ The above docker run command maps port 80 of docker container to port 8083 of th
 
 ## Difficulty Levels
 
-There are currently three difficulty settings
-| level | board size | number of mines |
-| :--- | :--- | :--- |
-| easy | 9 rows by 9 columns | 10
-| medium | 16 rows by 16 columns | 40
-| hard | 16 rows by 30 columns | 80
+There are currently three difficulty settings:
 
+| Level        | Board Size            | Number of Mines |
+| :----------- | :-------------------- | :-------------- |
+| Beginner     | 9 rows x 9 columns    | 10              |
+| Intermediate | 16 rows x 16 columns  | 40              |
+| Expert       | 16 rows x 30 columns  | 80              |
 
 
 
