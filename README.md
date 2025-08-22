@@ -2,7 +2,7 @@
 Please update your remote repository URL if you have cloned the old repo.
 
 # Description
-A community-driven open-source, modern take on the classic Minesweeper experience, enhanced with thoughtful UX and built with modern tech including React and Docker.
+A community-driven, open-source, modern take on the classic Minesweeper experience, enhanced with thoughtful UX and built with modern tech including React and Docker.
 
  ![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif)
 
