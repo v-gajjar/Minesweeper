@@ -9,49 +9,23 @@ A community-driven, open-source, modern take on the classic Minesweeper experien
 # Live Demo
 Try it out in a browser: [https://v-gajjar.github.io/Minesweeper/](https://v-gajjar.github.io/Minesweeper/)
 
-# Acknowledgements
-A big thanks to the kind contributions of developers who have helped improve the project!
+# Getting Started
 
- - [Heliomar Pena](https://www.linkedin.com/in/heliomar/)
- - [BJ Rutledge](https://www.linkedin.com/in/bj-rutledge/)
- - [James Baskett](https://www.linkedin.com/in/james-blaskett/)
- - [Umer Farooq Mala](https://github.com/umermala)
- - [Nick Clark](https://github.com/NickTheDevOpsGuy)
- - [Daniela Grothe](https://www.linkedin.com/in/daniela-grothe-743ab8235/)
- - [Velimir Đurković](https://www.linkedin.com/in/djvelimir/)
- - [Tawheed Ahmed](https://www.linkedin.com/in/tawheed-ahmed-dev/)
-
-
-See a more detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
-
-# Dependencies
+## Dependencies
 
 | Name                                                                  | Version | Description                                                 |
 | :-------------------------------------------------------------------- | :------ | :---------------------------------------------------------- |
 | [React](https://reactjs.org/)                                         | ^18.3.1 | JavaScript library for building component-based UIs.        |
 | [Vite](https://vitejs.dev/)                                           | ^6.0.5  | Fast build tool and development server for modern web apps. |
 | [classnames](https://www.npmjs.com/package/classnames)                | ^2.5.1  | Utility for conditionally joining class names together.     |
-| [Phosphor Icons](https://www.npmjs.com/package/@phosphor-icons/react) | ^2.1.7  | Clean, modern SVG-based icon set.                            |
-        
+| [Phosphor Icons](https://www.npmjs.com/package/@phosphor-icons/react) | ^2.1.7  | Clean, modern SVG-based icon set.                           |
 
-# Attributions
+## Clone the project
 
-* Inter font by Rasmus Andersson - SIL Open Font License 1.1
-
-# Development Roadmap
-
-### Tasks in progress (updated 22nd August 2025)
-- TypeScript Conversion (partially implemented)
-- Fixing an issue with longpress on mobile
-
-### Next steps
-See full [roadmap](https://github.com/v-gajjar/Minesweeper/blob/main/ROADMAP.md)
-
-# Getting Started
-Clone the repository:
 ```
 git clone https://github.com/v-gajjar/Minesweeper.git
 ```
+
 
 ## Running locally via NPM
 1. Navigate to the project directory:
@@ -88,6 +62,35 @@ docker run -itd -p 8083:80 --name minesweeper minesweeper:v1
 3. Accessing on browser
 
 The above docker run command maps port 80 of docker container to port 8083 of the host. The host port can be changed as per the user's need. The application will be accessible on browser at http://localhost:8083 in the above case.
+
+
+# Acknowledgements
+A big thanks to the kind contributions of developers who have helped improve the project!
+
+ - [Heliomar Pena](https://www.linkedin.com/in/heliomar/)
+ - [BJ Rutledge](https://www.linkedin.com/in/bj-rutledge/)
+ - [James Blaskett](https://www.linkedin.com/in/james-blaskett/)
+ - [Umer Farooq Mala](https://github.com/umermala)
+ - [Nick Clark](https://github.com/NickTheDevOpsGuy)
+ - [Daniela Grothe](https://www.linkedin.com/in/daniela-grothe-743ab8235/)
+ - [Velimir Đurković](https://www.linkedin.com/in/djvelimir/)
+ - [Tawheed Ahmed](https://www.linkedin.com/in/tawheed-ahmed-dev/)
+
+
+See a more detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
+
+# Attributions
+
+* Inter font by Rasmus Andersson - SIL Open Font License 1.1
+
+# Development Roadmap
+
+### Tasks in progress (updated 22nd August 2025)
+- TypeScript Conversion (partially implemented)
+- Fixing an issue with longpress on mobile
+
+### Next steps
+See full [roadmap](https://github.com/v-gajjar/Minesweeper/blob/main/ROADMAP.md)
 
 # How to Play
 
