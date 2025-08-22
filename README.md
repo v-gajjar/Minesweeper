@@ -37,14 +37,13 @@ See a more detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/mai
 # Attributions
 * Inter font by Rasmus Andersson - SIL Open Font License 1.1
 
-### Current focus (updated 24th July 2025)
-- TypeScript Conversion
+#Development Roadmap
+
+### Tasks in progress (updated 22st August 2025)
+- TypeScript Conversion (partially implemented)
 - Fixing an issue with longpress on mobile
 
-### Next step: 
-A few small but important UX enhacements (i.e. styling the Header section)
-
-### Further steps
+### Next steps
 See full [roadmap](https://github.com/v-gajjar/Minesweeper/blob/main/ROADMAP.md)
 
 # Getting Started

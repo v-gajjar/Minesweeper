@@ -1,7 +1,6 @@
-### Current focus (updated 24th July 2025)
-- TypeScript Conversion
+### Tasks in progress (updated 22st August 2025)
+- TypeScript Conversion (partially implemented)
 - Fixing an issue with longpress on mobile
-
 
 ### Next step: 
 A few small but important UX enhacements (i.e. styling the Header section)
