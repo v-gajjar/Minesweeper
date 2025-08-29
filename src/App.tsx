@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from 'react';
 
-import { GAME_DIFFICULTY_LEVEL_SETTINGS } from "./config/gameDifficultyLevelSettings.js";
+import { GAME_DIFFICULTY_LEVEL_SETTINGS } from './config/gameDifficultyLevelSettings.js';
 
-import GameDifficultySelector from "./components/GameDifficultySelector";
-import GameBoard from "./components/GameBoard";
-import GameResultModal from "./components/GameResultModal";
-import RemainingFlagsCounter from "./components/RemainingFlagsCounter";
+import GameDifficultySelector from './components/GameDifficultySelector';
+import GameBoard from './components/GameBoard';
+import GameResultModal from './components/GameResultModal';
+import RemainingFlagsCounter from './components/RemainingFlagsCounter';
 
-import { 
+import {
   getMineLocations,
   getCellsWithMines,
   updateBoard,
@@ -16,15 +16,19 @@ import {
   getFilteredFlagLocations,
   getGameLostBoard,
   getBoard,
-}
-from "./minesweeperUtils.js"
+} from './minesweeperUtils.js';
 
-import GameStatus from "./enum/GameStatus.js";
-import { useCallback } from "react";
+import GameStatus from './enum/GameStatus.js';
+import { useCallback } from 'react';
 
-import "./App.css";
-import type { BoardData, CellData, FlagLocations, LocationColRow, MineLocations } from "./types";
-
+import './App.css';
+import type {
+  BoardData,
+  CellData,
+  FlagLocations,
+  LocationColRow,
+  MineLocations,
+} from './types';
 
 function App() {
   const [board, setBoard] = useState<BoardData>([]);
@@ -36,7 +40,7 @@ function App() {
   const [safeCellsCount, setSafeCellsCount] = useState(0);
   const [mineLocations, setMineLocations] = useState<MineLocations>([]);
   const [flagLocations, setFlagLocations] = useState<FlagLocations>([]);
- 
+
   const [gameDifficultySettings, setGameDifficultySettings] = useState(
     GAME_DIFFICULTY_LEVEL_SETTINGS.EASY
   );
@@ -44,34 +48,40 @@ function App() {
 
   useEffect(() => {
     if (gameHasEnded()) {
-      const gameResultModal = document.getElementById("gameResultModal") as unknown as { showModal: () => void }; // TODO: refactor modal
+      const gameResultModal = document.getElementById(
+        'gameResultModal'
+      ) as unknown as { showModal: () => void }; // TODO: refactor modal
       gameResultModal.showModal();
     }
   }, [gameStatus]);
 
   useEffect(() => {
-
     setupNewGame();
   }, [gameDifficultySettings]);
 
-  const onGameDifficultyLevelChanged = useCallback((event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedLevel = event.target.value;
+  const onGameDifficultyLevelChanged = useCallback(
+    (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const selectedLevel = event.target.value;
 
-    const difficultyLevel = Object.values(GAME_DIFFICULTY_LEVEL_SETTINGS).find(
-      (difficultySetting) => selectedLevel === difficultySetting.level
-    );
+      const difficultyLevel = Object.values(
+        GAME_DIFFICULTY_LEVEL_SETTINGS
+      ).find((difficultySetting) => selectedLevel === difficultySetting.level);
 
-    if (!difficultyLevel) {
-      return;
-    }
+      if (!difficultyLevel) {
+        return;
+      }
 
-    resetBoardContainerScroll();
-    setGameStatus(GameStatus.GAME_NOT_STARTED);
-    setGameDifficultySettings(difficultyLevel)
-  }, []);
+      resetBoardContainerScroll();
+      setGameStatus(GameStatus.GAME_NOT_STARTED);
+      setGameDifficultySettings(difficultyLevel);
+    },
+    []
+  );
 
   const onCloseGameResultModal = () => {
-    const gameResultModal = document.getElementById("gameResultModal") as unknown as { close: () => void }; // TODO: refactor modal
+    const gameResultModal = document.getElementById(
+      'gameResultModal'
+    ) as unknown as { close: () => void }; // TODO: refactor modal
     gameResultModal.close();
 
     resetBoardContainerScroll();
@@ -81,12 +91,14 @@ function App() {
   const resetBoardContainerScroll = () => {
     if (!boardContainerRef.current) return;
     // scroll doesn't automatically reset when board size is changed
-    // so reset to 0 for better UX 
+    // so reset to 0 for better UX
     boardContainerRef.current.scrollLeft = 0;
-  }
+  };
 
   const onRevealCell = (event: React.SyntheticEvent<HTMLElement>) => {
-    const target = event.target as unknown as { dataset: { row: string, col: string } };
+    const target = event.target as unknown as {
+      dataset: { row: string; col: string };
+    };
     const rowIndex = parseInt(target.dataset.row);
     const colIndex = parseInt(target.dataset.col);
 
@@ -98,26 +110,26 @@ function App() {
 
     const currentBoard = [...board];
 
-    if ( shouldPlaceMines ){
+    if (shouldPlaceMines) {
       const newMineLocations = getMineLocations(
         selectedCell,
         currentBoard,
         gameDifficultySettings.mineCount,
-        gameDifficultySettings.boardSize,
+        gameDifficultySettings.boardSize
       );
 
       const cellsWithMines = getCellsWithMines(newMineLocations, currentBoard);
       const boardWithMines = updateBoard(currentBoard, cellsWithMines);
-      
+
       setMineLocations(newMineLocations);
       setShouldPlaceMines(false);
       setBoard(boardWithMines);
     }
 
     const revealedCells = revealCell(
-      selectedCell.x, 
-      selectedCell.y, 
-      currentBoard, 
+      selectedCell.x,
+      selectedCell.y,
+      currentBoard,
       gameDifficultySettings.boardSize
     );
 
@@ -139,11 +151,13 @@ function App() {
     currentFlagLocations: FlagLocations,
     currentMineLocations: MineLocations
   ) => {
-
     if (selectedCell.hasMine) {
+      const gameLostBoard = getGameLostBoard(
+        currentBoard,
+        currentMineLocations,
+        currentFlagLocations
+      );
 
-      const gameLostBoard = getGameLostBoard(currentBoard, currentMineLocations, currentFlagLocations);
-      
       setBoard(gameLostBoard);
       setGameStatus(GameStatus.GAME_LOST);
 
@@ -174,34 +188,38 @@ function App() {
   const onToggleFlag = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
 
-    let target = event.currentTarget as unknown as { dataset: LocationColRow };
-    let rowIndex = parseInt(target.dataset.row);
-    let colIndex = parseInt(target.dataset.col);
+    const target = event.currentTarget as unknown as {
+      dataset: LocationColRow;
+    };
+    const rowIndex = parseInt(target.dataset.row);
+    const colIndex = parseInt(target.dataset.col);
 
-    let selectedCell = board[rowIndex][colIndex];
+    const selectedCell = board[rowIndex][colIndex];
 
     if (selectedCell.isRevealed) {
       return;
     }
 
-    let updatedBoard = [...board];
+    const updatedBoard = [...board];
     let flagCount = remainingFlagsCount;
-    
+
     const isFlagged = selectedCell.isFlagged ? false : true;
 
-    let updatedCell = {
+    const updatedCell = {
       ...selectedCell,
-      isFlagged: isFlagged
-    }
+      isFlagged: isFlagged,
+    };
     updatedBoard[rowIndex][colIndex] = updatedCell;
 
     let updatedFlagLocations = [];
 
-    if ( isFlagged ){
-      flagCount  = flagCount - 1;
-      updatedFlagLocations = [...flagLocations, {x: selectedCell.x, y: selectedCell.y}];
-    }
-    else {
+    if (isFlagged) {
+      flagCount = flagCount - 1;
+      updatedFlagLocations = [
+        ...flagLocations,
+        { x: selectedCell.x, y: selectedCell.y },
+      ];
+    } else {
       flagCount = flagCount + 1;
       updatedFlagLocations = flagLocations.filter(
         (flagLocation) => !coordinatesMatch(flagLocation, selectedCell)
@@ -213,7 +231,6 @@ function App() {
   };
 
   const setupNewGame = () => {
-
     const boardSize = gameDifficultySettings.boardSize;
     const rowCount = boardSize.rowCount;
     const columnCount = boardSize.columnCount;
@@ -251,9 +268,9 @@ function App() {
   return (
     <>
       <header>
-        <h1 className="game-title">Minesweeper</h1>
+        <h1 className='game-title'>Minesweeper</h1>
       </header>
-      <main className="wrapper">
+      <main className='wrapper'>
         <GameDifficultySelector
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
@@ -267,7 +284,7 @@ function App() {
             onClick={onCloseGameResultModal}
           ></GameResultModal>
         )}
-        <div id="boardContainer" ref={boardContainerRef}>
+        <div id='boardContainer' ref={boardContainerRef}>
           <GameBoard
             board={board}
             boardSize={gameDifficultySettings.boardSize}

@@ -1,45 +1,45 @@
-import { render } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
-import GameBoard from "../../src/components/GameBoard";
-import GameDifficultySelector from "../../src/components/GameDifficultySelector";
-import RemainingFlagsCounter from "../../src/components/RemainingFlagsCounter";
-import GameResultModal from "../../src/components/GameResultModal";
+import { render } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
+import GameBoard from '../../src/components/GameBoard';
+import GameDifficultySelector from '../../src/components/GameDifficultySelector';
+import RemainingFlagsCounter from '../../src/components/RemainingFlagsCounter';
+import GameResultModal from '../../src/components/GameResultModal';
 
 // Minimal mock data
 const mockBoard = Array(9).fill(Array(9).fill({}));
 const mockBoardSize = { rowCount: 9, columnCount: 9 };
-const mockDifficulty = { level: "easy" };
+const mockDifficulty = { level: 'easy' };
 const mockFlagsRemaining = 10;
 
-describe("App Component", () => {
-  it("renders the game board", () => {
+describe('App Component', () => {
+  it('renders the game board', () => {
     const { getByTestId } = render(
       <GameBoard board={mockBoard} boardSize={mockBoardSize} />
     );
-    expect(getByTestId("game-board")).toBeTruthy();
+    expect(getByTestId('game-board')).toBeTruthy();
   });
 
-  it("renders the difficulty selector", () => {
+  it('renders the difficulty selector', () => {
     const { getByTestId } = render(
       <GameDifficultySelector
         gameDifficultySettings={mockDifficulty}
         onChange={() => {}}
       />
     );
-    expect(getByTestId("difficulty-select")).toBeTruthy();
+    expect(getByTestId('difficulty-select')).toBeTruthy();
   });
 
-  it("renders the remaining flags counter", () => {
+  it('renders the remaining flags counter', () => {
     const { getByTestId } = render(
       <RemainingFlagsCounter flagsRemaining={mockFlagsRemaining} />
     );
-    expect(getByTestId("flags-remaining")).toBeTruthy();
+    expect(getByTestId('flags-remaining')).toBeTruthy();
   });
 
-  it("renders a result modal", () => {
+  it('renders a result modal', () => {
     const { getByTestId } = render(
-      <GameResultModal isOpen={true} onClose={() => {}} result="win" />
+      <GameResultModal isOpen={true} onClose={() => {}} result='win' />
     );
-    expect(getByTestId("result-modal")).toBeTruthy();
+    expect(getByTestId('result-modal')).toBeTruthy();
   });
 });

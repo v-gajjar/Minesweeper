@@ -1,11 +1,14 @@
 ### Tasks in progress (updated 22st August 2025)
+
 - TypeScript Conversion (partially implemented)
 - Fixing an issue with longpress on mobile
 
-### Next step: 
+### Next step:
+
 A few small but important UX enhacements (i.e. styling the Header section)
 
 ### Further steps (Subject to change):
+
 - Look at implementing Linting and Prettier for improved coding quality and consistency
 - Add a Gameplay Modal to explain the rules
 - Refactor the GameDifficultySelector to use the Select component from [Radix UI Primitives](https://www.radix-ui.com/primitives/docs/components/select)

@@ -1,5 +1,5 @@
-import GameDifficultyLevel from "../enum/GameDifficultyLevel";
-import type { GameDifficultyLevelSettings } from "./gameDifficultyLevelSettings.interfaces";
+import GameDifficultyLevel from '../enum/GameDifficultyLevel';
+import type { GameDifficultyLevelSettings } from './gameDifficultyLevelSettings.interfaces';
 
 export const GAME_DIFFICULTY_LEVEL_SETTINGS: GameDifficultyLevelSettings = {
   EASY: {
@@ -9,7 +9,7 @@ export const GAME_DIFFICULTY_LEVEL_SETTINGS: GameDifficultyLevelSettings = {
       columnCount: 9,
     },
     mineCount: 10,
-    label: "Beginner",
+    label: 'Beginner',
   },
   MEDIUM: {
     level: GameDifficultyLevel.MEDIUM,
@@ -18,7 +18,7 @@ export const GAME_DIFFICULTY_LEVEL_SETTINGS: GameDifficultyLevelSettings = {
       columnCount: 16,
     },
     mineCount: 40,
-    label: "Intermediate",
+    label: 'Intermediate',
   },
   HARD: {
     level: GameDifficultyLevel.HARD,
@@ -27,6 +27,6 @@ export const GAME_DIFFICULTY_LEVEL_SETTINGS: GameDifficultyLevelSettings = {
       columnCount: 30,
     },
     mineCount: 80,
-    label: "Expert",
+    label: 'Expert',
   },
 };

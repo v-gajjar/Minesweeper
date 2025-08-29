@@ -1,4 +1,4 @@
 export type GameResultModalProps = {
-    gameWon: boolean,
-    onClick: () => void,
-}
+  gameWon: boolean;
+  onClick: () => void;
+};

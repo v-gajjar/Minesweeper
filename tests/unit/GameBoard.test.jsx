@@ -6,12 +6,12 @@ import GameBoard from '../../src/components/GameBoard';
 const mockBoard = [
   [
     { x: 0, y: 0, hasMine: false, isRevealed: false },
-    { x: 1, y: 0, hasMine: false, isRevealed: false }
+    { x: 1, y: 0, hasMine: false, isRevealed: false },
   ],
   [
     { x: 0, y: 1, hasMine: false, isRevealed: false },
-    { x: 1, y: 1, hasMine: false, isRevealed: false }
-  ]
+    { x: 1, y: 1, hasMine: false, isRevealed: false },
+  ],
 ];
 
 const boardSize = { rowCount: 2, columnCount: 2 };
