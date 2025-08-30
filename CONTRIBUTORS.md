@@ -31,5 +31,10 @@
 
 - **Tawheed Ahmed** [LinkedIn](https://www.linkedin.com/in/tawheed-ahmed-dev/)
   - Helping with building UI features
+  - Helping with redesigning the UI and navigation UX
+
+- **Brenda Hensley** [LinkedIn](https://www.linkedin.com/in/brenda-hensley-/)
+  - Helped fix issues in the ESLint configation file
+  - Added automation scripts for ESLint and Prettier checks 
 
 

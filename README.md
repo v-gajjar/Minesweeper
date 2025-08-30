@@ -2,7 +2,7 @@
 Please update your remote repository URL if you have cloned the old repo.
 
 # Description
-A community-driven, open-source reimagining of the classic Minesweeper experience. Built with thoughtful UX, using modern front-end technologies including React and TypeScript. The project is in active development and was last updated on 22nd August 2025. 
+A community-driven, open-source reimagining of the classic Minesweeper experience. Built with thoughtful UX, using modern front-end technologies including React and TypeScript. The project is in active development and was last updated on 30th August 2025. 
 
  ![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif)
 
@@ -13,7 +13,7 @@ Try it out in a browser: [https://v-gajjar.github.io/Minesweeper/](https://v-gaj
 
 # Development Roadmap
 
-### Tasks in progress (updated 22nd August 2025)
+### Tasks in progress (updated 30th August 2025)
 - TypeScript Conversion (partially implemented)
 - Fixing an issue with longpress on mobile
 
@@ -37,6 +37,7 @@ A big thanks to the kind contributions of developers who have helped improve the
  - [Daniela Grothe](https://www.linkedin.com/in/daniela-grothe-743ab8235/)
  - [Velimir Đurković](https://www.linkedin.com/in/djvelimir/)
  - [Tawheed Ahmed](https://www.linkedin.com/in/tawheed-ahmed-dev/)
+ - [Brenda Hensle](https://www.linkedin.com/in/brenda-hensley-/)
 
 
 See a more detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
