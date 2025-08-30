@@ -1,4 +1,4 @@
-import type { GameStatusMap } from "./GameStatus.interfaces";
+import type { GameStatusMap } from './GameStatus.interfaces';
 
 const GameStatus: GameStatusMap = {
   GAME_NOT_STARTED: 1,

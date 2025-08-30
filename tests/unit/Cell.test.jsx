@@ -1,7 +1,7 @@
 // src/tests/Cell.test.jsx
 import { render, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import Cell from "../../src/components/Cell";
+import Cell from '../../src/components/Cell';
 
 const mockCell = (overrides = {}) => ({
   x: 0,
@@ -45,14 +45,14 @@ describe('Cell Component', () => {
     expect(flagIcon).toBeTruthy();
   });
 
-  it("shows an X icon if incorrectly flagged", () => {
+  it('shows an X icon if incorrectly flagged', () => {
     const cell = mockCell({
       isIncorrectlyFlagged: true,
       isFlagged: true,
     });
 
     const { getByTestId } = render(<Cell cell={cell} />);
-    const xIcon = getByTestId("x-icon");
+    const xIcon = getByTestId('x-icon');
     expect(xIcon).toBeTruthy();
   });
 
@@ -67,7 +67,9 @@ describe('Cell Component', () => {
   it('calls onContextMenu when cell is right-clicked', () => {
     const onContextMenu = vi.fn();
     const cell = mockCell();
-    const { getByTestId } = render(<Cell cell={cell} onContextMenu={onContextMenu} />);
+    const { getByTestId } = render(
+      <Cell cell={cell} onContextMenu={onContextMenu} />
+    );
     fireEvent.contextMenu(getByTestId('cell'));
     expect(onContextMenu).toHaveBeenCalledOnce();
   });
@@ -88,11 +90,13 @@ it('renders an empty cell when revealed and has no adjacent mines', () => {
 });
 
 it('renders an exploded mine with special class', () => {
-  const cell = mockCell({ isRevealed: true, hasMine: true, hasExplodedMine: true });
+  const cell = mockCell({
+    isRevealed: true,
+    hasMine: true,
+    hasExplodedMine: true,
+  });
   const { getByTestId } = render(<Cell cell={cell} />);
   const cellElement = getByTestId('cell');
 
   expect(cellElement.classList.contains('exploded')).toBe(true);
 });
-
-

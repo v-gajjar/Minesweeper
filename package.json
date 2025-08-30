@@ -11,12 +11,14 @@
     "test:watch": "vitest",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
+    "lint": "eslint . --ext js,jsx,ts,tsx",
+    "lint:fix": "eslint . --ext js,jsx,ts,tsx --fix",
     "format": "prettier . --write",
     "format:check": "prettier . --check",
     "lint:css": "stylelint \"**/*.{css,scss}\"",
-    "lint:css:fix": "stylelint \"**/*.{css,scss}\" --fix"
+    "lint:css:fix": "stylelint \"**/*.{css,scss}\" --fix",
+    "check": "npm run format && npm run lint",
+    "check:fix": "npm run format && npm run lint:fix"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",

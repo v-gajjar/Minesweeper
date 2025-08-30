@@ -1,0 +1,31 @@
+# Output and caches
+dist
+build
+coverage
+.vite
+.vitest
+.cache
+.tmp
+
+# Dependencies and locks
+node_modules
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Generated snapshots
+*.snap
+
+# Logs
+*.log
+
+# Images and static
+public/**/*.svg
+public/**/*.png
+
+# Markdown is content — if you want Prettier on MD, delete these two lines
+README.md
+CONTRIBUTORS.md
+
+# Leave ESLint config to ESLint
+eslint.config.js

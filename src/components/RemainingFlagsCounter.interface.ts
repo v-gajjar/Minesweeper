@@ -1,3 +1,3 @@
 export type RemainingFlagsCounterProps = {
-    remainingFlagsCount: number,
-}
+  remainingFlagsCount: number;
+};

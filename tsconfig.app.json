@@ -22,9 +22,9 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": false,
-    
+
     /* CUSTOM */
-    "allowJs": true,
+    "allowJs": true
   },
   "include": ["src"]
 }
