@@ -37,7 +37,7 @@ A big thanks to the kind contributions of developers who have helped improve the
  - [Daniela Grothe](https://www.linkedin.com/in/daniela-grothe-743ab8235/)
  - [Velimir Đurković](https://www.linkedin.com/in/djvelimir/)
  - [Tawheed Ahmed](https://www.linkedin.com/in/tawheed-ahmed-dev/)
- - [Brenda Hensle](https://www.linkedin.com/in/brenda-hensley-/)
+ - [Brenda Hensley](https://www.linkedin.com/in/brenda-hensley-/)
 
 
 See a more detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
