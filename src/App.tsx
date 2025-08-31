@@ -30,6 +30,8 @@ import type {
   MineLocations,
 } from './types';
 
+import { useLongPress } from './hooks/use-long-press.js';
+
 function App() {
   const [board, setBoard] = useState<BoardData>([]);
   const [gameStatus, setGameStatus] = useState<number>(
@@ -77,6 +79,20 @@ function App() {
     },
     []
   );
+
+  const handlers = useLongPress({
+    ms: 300,
+    onLongPress: (e) => {
+      console.log('Long press triggered');
+    },
+    onClick: (e) => {
+      console.log('Regular click');
+    },
+    onContextMenu: (e) => {
+      e.preventDefault(); // optional
+      console.log('Context menu triggered');
+    }
+  });
 
   const onCloseGameResultModal = () => {
     const gameResultModal = document.getElementById(
@@ -270,6 +286,7 @@ function App() {
       <header>
         <h1 className='game-title'>Minesweeper</h1>
       </header>
+      <button {...handlers}>hold or press here</button>
       <main className='wrapper'>
         <GameDifficultySelector
           gameDifficultySettings={gameDifficultySettings}
