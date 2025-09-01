@@ -5,8 +5,7 @@ import type { GameBoardProps } from './GameBoard.interfaces';
 function GameBoard({
   board,
   boardSize,
-  onClick,
-  onContextMenu,
+  ...handlers
 }: GameBoardProps) {
   // CSS custom properties to control the grid layout
   const style = {
@@ -21,8 +20,7 @@ function GameBoard({
           <Cell
             cell={board[rowIndex][colIndex]}
             key={`cell-${rowIndex}-${colIndex}`}
-            onClick={onClick}
-            onContextMenu={onContextMenu}
+            {...handlers}
           />
         ))
       )}

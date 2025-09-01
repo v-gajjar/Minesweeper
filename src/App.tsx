@@ -84,13 +84,16 @@ function App() {
     ms: 300,
     onLongPress: (e) => {
       console.log('Long press triggered');
+      onToggleFlag(e);
     },
     onClick: (e) => {
       console.log('Regular click');
+      onRevealCell(e);
     },
     onContextMenu: (e) => {
-      e.preventDefault(); // optional
+      e.preventDefault(); 
       console.log('Context menu triggered');
+      onToggleFlag(e);
     }
   });
 
@@ -286,7 +289,6 @@ function App() {
       <header>
         <h1 className='game-title'>Minesweeper</h1>
       </header>
-      <button {...handlers}>hold or press here</button>
       <main className='wrapper'>
         <GameDifficultySelector
           gameDifficultySettings={gameDifficultySettings}
@@ -305,8 +307,7 @@ function App() {
           <GameBoard
             board={board}
             boardSize={gameDifficultySettings.boardSize}
-            onClick={onRevealCell}
-            onContextMenu={onToggleFlag}
+            {...handlers}
           ></GameBoard>
         </div>
       </main>
