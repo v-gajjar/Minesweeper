@@ -30,6 +30,8 @@ import type {
   MineLocations,
 } from './types';
 
+import { useLongPress } from './hooks/use-long-press.js';
+
 function App() {
   const [board, setBoard] = useState<BoardData>([]);
   const [gameStatus, setGameStatus] = useState<number>(
@@ -77,6 +79,23 @@ function App() {
     },
     []
   );
+
+  const handlers = useLongPress({
+    ms: 300,
+    onLongPress: (e) => {
+      console.log('Long press triggered');
+      onToggleFlag(e);
+    },
+    onClick: (e) => {
+      console.log('Regular click');
+      onRevealCell(e);
+    },
+    onContextMenu: (e) => {
+      e.preventDefault(); 
+      console.log('Context menu triggered');
+      onToggleFlag(e);
+    }
+  });
 
   const onCloseGameResultModal = () => {
     const gameResultModal = document.getElementById(
@@ -288,8 +307,7 @@ function App() {
           <GameBoard
             board={board}
             boardSize={gameDifficultySettings.boardSize}
-            onClick={onRevealCell}
-            onContextMenu={onToggleFlag}
+            {...handlers}
           ></GameBoard>
         </div>
       </main>
