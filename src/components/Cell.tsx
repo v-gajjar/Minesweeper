@@ -58,7 +58,7 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
   };
 
   return (
-    <div
+    <button
       className={cellClass}
       data-testid='cell'
       data-row={cell.x}
@@ -67,7 +67,7 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
       onContextMenu={onContextMenu}
     >
       {renderCellContents()}
-    </div>
+    </button>
   );
 }
 
