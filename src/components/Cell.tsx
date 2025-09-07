@@ -59,11 +59,17 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
 
   return (
     <button
+      type='button'
       className={cellClass}
       data-testid='cell'
       data-row={cell.x}
       data-col={cell.y}
       onClick={onClick}
+      aria-label={
+        cell.isFlagged ? 'Flag' : cell.adjacentMinesCount?.toString() || 'Empty'
+      }
+      aria-pressed={cell.isFlagged || undefined}
+      aria-disabled={cell.isRevealed} 
       onContextMenu={onContextMenu}
     >
       {renderCellContents()}
