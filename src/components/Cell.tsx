@@ -57,6 +57,22 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
     }
   };
 
+  const getAriaLabel = () => {
+    if (cell.isFlagged) {
+      return 'Flagged cell';
+    }
+    if (cell.isRevealed) {
+      if (cell.hasMine) {
+        return cell.hasExplodedMine ? 'Exploded mine' : 'Mine';
+      }
+      if (cell.adjacentMinesCount > 0) {
+        return `Cell with ${cell.adjacentMinesCount} adjacent mine${cell.adjacentMinesCount === 1 ? '' : 's'}`;
+      }
+      return 'Empty revealed cell';
+    }
+    return 'Unrevealed cell';
+  };
+
   return (
     <button
       type='button'
@@ -65,11 +81,10 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
       data-row={cell.x}
       data-col={cell.y}
       onClick={onClick}
-      aria-label={
-        cell.isFlagged ? 'Flag' : cell.adjacentMinesCount?.toString() || 'Empty'
-      }
-      aria-pressed={cell.isFlagged || undefined}
-      aria-disabled={cell.isRevealed} 
+      role='gridcell'
+      aria-label={getAriaLabel()}
+      aria-pressed={cell.isFlagged ? true : false}
+      aria-disabled={cell.isRevealed}
       onContextMenu={onContextMenu}
     >
       {renderCellContents()}
