@@ -1,0 +1,161 @@
+name: Update README on PR (commit for same-repo, comment for forks)
+
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review, edited]
+    branches: [main, develop]
+  workflow_dispatch:
+
+permissions:
+  contents: write       # allow committing to same-repo PR branches
+  pull-requests: write  # allow commenting on PRs
+
+concurrency:
+  group: readme-on-pr-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  update-readme:
+    if: github.actor != 'github-actions[bot]' # avoid loops
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout PR HEAD (contributor branch)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+
+      - name: 📝 Build “What’s New” and patch README (no push yet)
+        id: patch
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { execSync } = require('child_process');
+            const fs = require('fs');
+
+            const START = '<!-- START:WHATS_NEW -->';
+            const END   = '<!-- END:WHATS_NEW -->';
+
+            function sh(cmd) {
+              try { return execSync(cmd, { stdio: ['ignore','pipe','pipe'] }).toString().trim(); }
+              catch { return ''; }
+            }
+
+            // Determine range: from latest tag to HEAD; fallback = last 30 commits
+            const lastTag = sh('git describe --tags --abbrev=0 2>/dev/null') || '';
+            const range = lastTag ? `${lastTag}..HEAD` : 'HEAD~30..HEAD';
+
+            // Collect commits as "hash:::subject", filter noise
+            let log = sh(
+              `git log ${range} --pretty=format:%h:::%s --no-merges | ` +
+              `grep -viE '^(chore|docs|test)(\\(|:|$)' | ` +
+              `grep -viE '(dependabot|renovate|ci)' || true`
+            );
+
+            const rows = log
+              .split('\n')
+              .map(l => {
+                const [hash, subj] = l.split(':::', 2).map(s => (s||'').trim());
+                return { hash, subj };
+              })
+              .filter(r => r.subj);
+
+            // Dedupe by subject, cap to 20 entries
+            const seen = new Set();
+            const commits = [];
+            for (const r of rows) {
+              if (!seen.has(r.subj)) { seen.add(r.subj); commits.push(r); }
+              if (commits.length >= 20) break;
+            }
+
+            const typeEmoji = (s) => {
+              if (/^feat(\(|:)/i.test(s)) return '✨';
+              if (/^fix(\(|:)/i.test(s))  return '🐛';
+              if (/^perf(\(|:)/i.test(s)) return '⚡';
+              if (/^refactor(\(|:)/i.test(s)) return '🧹';
+              if (/^build(\(|:)/i.test(s)) return '🏗️';
+              if (/^style(\(|:)/i.test(s)) return '🎨';
+              return '•';
+            };
+
+            const repoUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}`;
+            const bullets = commits.length
+              ? commits.map(({hash, subj}) => {
+                  const clean = subj.replace(/^[a-z]+(\(.+?\))?:\s*/i, '');
+                  const emoji = typeEmoji(subj);
+                  return `- ${emoji} ${clean} ([${hash}](${repoUrl}/commit/${hash}))`;
+                }).join('\n')
+              : '_No code changes found in the recent range._';
+
+            // Read & patch README
+            const readmePath = 'README.md';
+            if (!fs.existsSync(readmePath)) {
+              core.setFailed('README.md not found at repo root.');
+              return;
+            }
+            let content = fs.readFileSync(readmePath, 'utf8');
+
+            if (!content.includes(START) || !content.includes(END)) {
+              core.setFailed('Markers not found in README.md. Add START/END markers first.');
+              return;
+            }
+
+            // Optional version injection if README contains {{APP_VERSION}}
+            if (fs.existsSync('package.json') && content.includes('{{APP_VERSION}}')) {
+              try {
+                const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+                content = content.replace(/{{APP_VERSION}}/g, pkg.version || '0.0.0');
+              } catch {}
+            }
+
+            const block = `${START}\n${bullets}\n${END}`;
+            const patched = content.replace(new RegExp(`${START}[\\s\\S]*?${END}`, 'm'), block);
+
+            const changed = patched !== content;
+            if (changed) fs.writeFileSync(readmePath, patched);
+
+            core.setOutput('changed', String(changed));
+            core.setOutput('bullets', bullets);
+
+      - name: 🧪 Show diff (debug)
+        if: steps.patch.outputs.changed == 'true'
+        run: git --no-pager diff -- README.md || true
+
+      - name: 🔁 Decide push vs comment
+        id: route
+        run: |
+          if [ "${{ github.event.pull_request.head.repo.fork }}" = "true" ]; then
+            echo "route=comment" >> $GITHUB_OUTPUT
+          else
+            echo "route=push" >> $GITHUB_OUTPUT
+          fi
+
+      - name: ✅ Commit & push to PR branch (same-repo PRs)
+        if: steps.patch.outputs.changed == 'true' && steps.route.outputs.route == 'push'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "🤖 Update README: What’s New (PR) [skip ci]"
+          git push
+
+      - name: 💬 Post/Update sticky PR comment (forked PRs)
+        if: steps.patch.outputs.changed == 'true' && steps.route.outputs.route == 'comment'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: readme-whats-new
+          number: ${{ github.event.pull_request.number }}
+          message: |
+            ### 📝 README “What’s New” (preview)
+            This PR comes from a fork, so I can’t push changes to your branch.
+            Here’s what would be written into the README between the markers:
+
+            ```
+            ${{ steps.patch.outputs.bullets }}
+            ```
+
+            > Maintainers: If you want this committed, run locally on the PR branch or trigger the workflow with write perms.

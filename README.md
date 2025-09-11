@@ -6,6 +6,10 @@ A community-driven, open-source reimagining of the classic Minesweeper experienc
 
  ![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif)
 
+## 🚀 What’s New
+<!-- START:WHATS_NEW -->
+_No recent updates yet._
+<!-- END:WHATS_NEW -->
 
 # Live Demo
 Try it out in a browser: [https://v-gajjar.github.io/Minesweeper/](https://v-gajjar.github.io/Minesweeper/)
