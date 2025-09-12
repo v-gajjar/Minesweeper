@@ -8,14 +8,7 @@ A community-driven, open-source reimagining of the classic Minesweeper experienc
 
 ## 🚀 What’s New
 <!-- START:WHATS_NEW -->
-- • Change cells from divs to buttons ([910422a](https://github.com/v-gajjar/Minesweeper/commit/910422ae92f35d19884f07178f658e6340cd8a5e))
-- • Add labels to the cell buttons ([1d3b3bf](https://github.com/v-gajjar/Minesweeper/commit/1d3b3bfba218f2e58afa8b2655364f7ba5a23ab2))
-- • Fix labels and add function to assign labels for cells ([92070da](https://github.com/v-gajjar/Minesweeper/commit/92070dae8519c4b6733ce3c49d8bb04f7fb19dc1))
-- • Adjust accessibility for difficulty selector ([be9cf34](https://github.com/v-gajjar/Minesweeper/commit/be9cf34228b30ec471c319637900be7048bc4ff0))
-- • Adjust accessibility of the game result modal ([9f1bf1a](https://github.com/v-gajjar/Minesweeper/commit/9f1bf1ae3bd94b01383a0a60bcc20d548cabbbbf))
-- • Adding commit-updates.yaml file for github actions ([3fc4113](https://github.com/v-gajjar/Minesweeper/commit/3fc41135a3c12b3f49580404b82a5c9d2f82e38d))
-- • Making some tweaks to this change to only look at current changes to add to readme.md ([d759bbb](https://github.com/v-gajjar/Minesweeper/commit/d759bbbf23f0d178ffda5b7a53c6c83f7ee71b34))
-- • One more tweak needed ([b95f2c0](https://github.com/v-gajjar/Minesweeper/commit/b95f2c00bb4054ebc2f8176c20c8d06602a50c34))
+- • Fixing some syntanx issues' ([6aa6d6f](https://github.com/v-gajjar/Minesweeper/commit/6aa6d6f5ed8611ac26529013788cfdaf144af695))
 <!-- END:WHATS_NEW -->
 
 # Live Demo
