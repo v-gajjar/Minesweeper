@@ -1,51 +1,164 @@
-name: 🧪 PR Checks
+name: Update README on PR (commit for same-repo, comment for forks)
 
 on:
-  push:
-    branches:
-      - '**'
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review, edited]
+    branches: [main, develop]
+  workflow_dispatch:
 
 permissions:
-  contents: read
-  pull-requests: write
-  issues: write
+  contents: write       # allow committing to same-repo PR branches
+  pull-requests: write  # allow commenting on PRs
+
+concurrency:
+  group: readme-on-pr-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: false
 
 jobs:
-  build-lint-test:
+  update-readme:
+    if: github.actor != 'github-actions[bot]' # avoid loops
     runs-on: ubuntu-latest
 
     steps:
-      - name: 🧾 Checkout code
+      - name: ⬇️ Checkout PR HEAD (contributor branch)
         uses: actions/checkout@v4
         with:
-          path: .
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
-      - name: 📅 Set Today's Date (MM/DD/YYYY)
-        id: date
-        run: echo "today=$(date +'%m/%d/%Y')" >> "$GITHUB_OUTPUT"
-
-      - name: 🟢 Use Node.js 20
-        uses: actions/setup-node@v4
+      - name: 📝 Build “What’s New” from PR commits and patch README (no push yet)
+        id: patch
+        uses: actions/github-script@v7
         with:
-          node-version: 20
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
 
-      - name: 📦 Install dependencies
-        run: npm ci
+            const START = '<!-- START:WHATS_NEW -->';
+            const END   = '<!-- END:WHATS_NEW -->';
 
-      - name: 🔧 Build App (Vite)
-        run: npm run build
+            // --- 1) Pull ONLY the commits that belong to this PR ---
+            const pr = context.payload.pull_request;
+            if (!pr) {
+              core.setFailed('No pull_request found in context.');
+              return;
+            }
 
-      - name: 🧪 Run Unit Tests (Vitest)
-        run: npm run test
+            // Paginate through PR commits
+            const commits = await github.paginate(
+              github.rest.pulls.listCommits,
+              { owner: context.repo.owner, repo: context.repo.repo, pull_number: pr.number, per_page: 100 }
+            );
 
-      - name: 🧪 Run ESLint
-        run: npx eslint src --ext .js,.jsx,.ts,.tsx --cache --quiet || true
+            // --- 2) Prepare bullets (subject line only, first line of message) ---
+            const repoUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}`;
 
-      - name: 🧪 Run Prettier (warn-only)
-        run: npx prettier --list-different . || true
+            // Filter out merges & noise by subject prefixes; then dedupe by subject
+            const noisePrefix = /^(chore|docs|test)(\(|:|$)/i;
+            const noiseMsg    = /(dependabot|renovate|ci)/i;
 
-      - name: 🎨 Stylelint Summary Output
+            const seen = new Set();
+            const items = [];
+
+            for (const c of commits) {
+              const sha = c.sha;
+              const short = sha.slice(0,7);
+              const subject = (c.commit?.message || '').split('\n')[0].trim();
+
+              // Drop merge commits (GitHub marks them via commit message often starting with "Merge")
+              if (/^merge/i.test(subject)) continue;
+              if (noisePrefix.test(subject)) continue;
+              if (noiseMsg.test(subject)) continue;
+              if (!subject) continue;
+
+              const key = subject.toLowerCase();
+              if (seen.has(key)) continue;
+              seen.add(key);
+
+              const typeEmoji = (s) => {
+                if (/^feat(\(|:)/i.test(s)) return '✨';
+                if (/^fix(\(|:)/i.test(s))  return '🐛';
+                if (/^perf(\(|:)/i.test(s)) return '⚡';
+                if (/^refactor(\(|:)/i.test(s)) return '🧹';
+                if (/^build(\(|:)/i.test(s)) return '🏗️';
+                if (/^style(\(|:)/i.test(s)) return '🎨';
+                return '•';
+              };
+
+              const clean = subject.replace(/^[a-z]+(\(.+?\))?:\s*/i, '');
+              items.push(`- ${typeEmoji(subject)} ${clean} ([${short}](${repoUrl}/commit/${sha}))`);
+              if (items.length >= 20) break; // cap
+            }
+
+            const bullets = items.length ? items.join('\n') : '_No PR commits to surface._';
+
+            // --- 3) Patch README between markers ---
+            const readmePath = 'README.md';
+            if (!fs.existsSync(readmePath)) {
+              core.setFailed('README.md not found at repo root.');
+              return;
+            }
+            let content = fs.readFileSync(readmePath, 'utf8');
+
+            if (!content.includes(START) || !content.includes(END)) {
+              core.setFailed('Markers not found in README.md. Add START/END markers first.');
+              return;
+            }
+
+            // Optional version injection if README contains {{APP_VERSION}}
+            if (fs.existsSync('package.json') && content.includes('{{APP_VERSION}}')) {
+              try {
+                const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
+                content = content.replace(/{{APP_VERSION}}/g, pkg.version || '0.0.0');
+              } catch {}
+            }
+
+            const block = `${START}\n${bullets}\n${END}`;
+            const patched = content.replace(new RegExp(`${START}[\\s\\S]*?${END}`, 'm'), block);
+
+            const changed = patched !== content;
+            if (changed) fs.writeFileSync(readmePath, patched);
+
+            core.setOutput('changed', String(changed));
+            core.setOutput('bullets', bullets);
+
+      - name: 🧪 Show diff (debug)
+        if: steps.patch.outputs.changed == 'true'
+        run: git --no-pager diff -- README.md || true
+
+      - name: 🔁 Decide push vs comment
+        id: route
         run: |
-          echo "## Stylelint Results" >> $GITHUB_STEP_SUMMARY
-          npx stylelint "**/*.{css,scss}" >> $GITHUB_STEP_SUMMARY || true
+          if [ "${{ github.event.pull_request.head.repo.fork }}" = "true" ]; then
+            echo "route=comment" >> $GITHUB_OUTPUT
+          else
+            echo "route=push" >> $GITHUB_OUTPUT
+          fi
+
+      - name: ✅ Commit & push to PR branch (same-repo PRs)
+        if: steps.patch.outputs.changed == 'true' && steps.route.outputs.route == 'push'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "🤖 Update README: What’s New (PR) [skip ci]"
+          git push
+
+      - name: 💬 Post/Update sticky PR comment (forked PRs)
+        if: steps.patch.outputs.changed == 'true' && steps.route.outputs.route == 'comment'
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: readme-whats-new
+          number: ${{ github.event.pull_request.number }}
+          message: |
+            ### 📝 README “What’s New” (preview)
+            This PR comes from a fork, so I can’t push changes to your branch.
+            Here’s what would be written into the README between the markers:
+
+            ```
+            ${{ steps.patch.outputs.bullets }}
+            ```
+
+            > Maintainers: If you want this committed, run locally on the PR branch or trigger the workflow with write perms.
