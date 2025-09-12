@@ -1,6 +1,8 @@
 name: Update README on PR (commit for same-repo, comment for forks)
 
 on:
+  push:
+    branches: ['**']
   pull_request_target:
     types: [opened, synchronize, reopened, ready_for_review, edited]
   workflow_dispatch:
