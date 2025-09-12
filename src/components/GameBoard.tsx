@@ -15,7 +15,14 @@ function GameBoard({
   } as CSSProperties;
 
   return (
-    <div style={style} className='board' id='board' data-testid='game-board'>
+    <div
+      style={style}
+      className='board'
+      id='board'
+      data-testid='game-board'
+      role='grid'
+      aria-label={`Minesweeper grid ${boardSize.rowCount} by ${boardSize.columnCount}`}
+    >
       {board.map((rows, rowIndex) =>
         rows.map((_, colIndex) => (
           <Cell
