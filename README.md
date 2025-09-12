@@ -12,7 +12,6 @@ A community-driven, open-source reimagining of the classic Minesweeper experienc
 
 <!-- START:WHATS_NEW -->
 
-- • Fixing some syntanx issues' ([6aa6d6f](https://github.com/v-gajjar/Minesweeper/commit/6aa6d6f5ed8611ac26529013788cfdaf144af695))
 <!-- END:WHATS_NEW -->
 
 ---
