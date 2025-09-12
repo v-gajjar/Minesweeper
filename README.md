@@ -8,7 +8,7 @@ A community-driven, open-source reimagining of the classic Minesweeper experienc
 
 ## 🚀 What’s New
 <!-- START:WHATS_NEW -->
-- • Fixing some syntanx issues' ([6aa6d6f](https://github.com/v-gajjar/Minesweeper/commit/6aa6d6f5ed8611ac26529013788cfdaf144af695))
+- 🔹 Fixing bullet point issue ([f04c8e1](https://github.com/v-gajjar/Minesweeper/commit/f04c8e1cd326721188c7c8c10123999ee160dad9))
 <!-- END:WHATS_NEW -->
 
 # Live Demo
