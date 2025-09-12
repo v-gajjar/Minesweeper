@@ -1,10 +1,10 @@
 name: Update README on PR (commit for same-repo, comment for forks)
 
 on:
-  pull_request_target:
-    types: [opened, synchronize, reopened, ready_for_review, edited]
-    branches: [main, develop]
-  workflow_dispatch:
+  push:
+    branches:
+      - '**'
+  pull_request:
 
 permissions:
   contents: write       # allow committing to same-repo PR branches
