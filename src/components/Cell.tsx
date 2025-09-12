@@ -57,17 +57,38 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
     }
   };
 
+  const getAriaLabel = () => {
+    if (cell.isFlagged) {
+      return 'Flagged cell';
+    }
+    if (cell.isRevealed) {
+      if (cell.hasMine) {
+        return cell.hasExplodedMine ? 'Exploded mine' : 'Mine';
+      }
+      if (cell.adjacentMinesCount > 0) {
+        return `Cell with ${cell.adjacentMinesCount} adjacent mine${cell.adjacentMinesCount === 1 ? '' : 's'}`;
+      }
+      return 'Empty revealed cell';
+    }
+    return 'Unrevealed cell';
+  };
+
   return (
-    <div
+    <button
+      type='button'
       className={cellClass}
       data-testid='cell'
       data-row={cell.x}
       data-col={cell.y}
       onClick={onClick}
+      role='gridcell'
+      aria-label={getAriaLabel()}
+      aria-pressed={cell.isFlagged ? true : false}
+      aria-disabled={cell.isRevealed}
       onContextMenu={onContextMenu}
     >
       {renderCellContents()}
-    </div>
+    </button>
   );
 }
 

@@ -28,9 +28,15 @@ function GameResultModal({ gameWon, onClick }: GameResultModalProps) {
       id='gameResultModal'
       className={modalClass}
       data-testid='result-modal'
+      aria-labelledby='game-result-message'
+      aria-describedby='game-result-description'
     >
-      <p>{message}</p>
-      <button id='gameResultModalCloseButton' onClick={closeModal}>
+      <p id='game-result-message'>{message}</p>
+      <button
+        aria-label='Play again'
+        id='gameResultModalCloseButton'
+        onClick={closeModal}
+      >
         Play again
       </button>
     </dialog>

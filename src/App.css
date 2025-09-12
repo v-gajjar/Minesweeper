@@ -106,6 +106,7 @@ dialog p {
   overflow-y: hidden;
   justify-content: flex-start;
   margin: 5px;
+  padding: 2px 0;
 }
 
 #board {
@@ -149,6 +150,11 @@ dialog p {
   position: relative;
   border-radius: 5px;
   font-size: 16px;
+}
+
+.cell:focus {
+  outline: 2px solid #0066cc;
+  z-index: 1;
 }
 
 .cell:hover {
