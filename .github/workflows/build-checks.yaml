@@ -31,7 +31,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      # Checkout the PR HEAD for PR events (no bash/env trickery)
+      # Checkout the PR HEAD for PR events (fork-safe via pull_request_target)
       - name: ⬇️ Checkout PR head (pull_request_target)
         if: ${{ github.event_name == 'pull_request_target' }}
         uses: actions/checkout@v4
@@ -52,6 +52,7 @@ jobs:
             const START = '<!-- START:WHATS_NEW -->';
             const END   = '<!-- END:WHATS_NEW -->';
 
+            // Emoji mapping (default = blue diamond 🔹)
             const typeEmoji = (s) => {
               if (/^feat(\(|:)/i.test(s)) return '✨';
               if (/^fix(\(|:)/i.test(s))  return '🐛';
@@ -59,7 +60,7 @@ jobs:
               if (/^refactor(\(|:)/i.test(s)) return '🧹';
               if (/^build(\(|:)/i.test(s)) return '🏗️';
               if (/^style(\(|:)/i.test(s)) return '🎨';
-              return '•';
+              return '🔹'; // default
             };
 
             const noisePrefix = /^(chore|docs|test)(\(|:|$)/i;
@@ -108,6 +109,7 @@ jobs:
 
             const rawCommits = await getEventCommits();
 
+            // Filter, dedupe by subject, cap 20
             const seen = new Set();
             const items = [];
             for (const c of rawCommits) {
@@ -129,6 +131,7 @@ jobs:
 
             const bullets = items.length ? items.join('\n') : '_No relevant commits in this event._';
 
+            // Patch README between markers
             const readmePath = 'README.md';
             if (!fs.existsSync(readmePath)) {
               core.setFailed('README.md not found at repo root.');
@@ -140,6 +143,7 @@ jobs:
               return;
             }
 
+            // Optional version injection
             if (fs.existsSync('package.json') && content.includes('{{APP_VERSION}}')) {
               try {
                 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
