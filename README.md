@@ -6,6 +6,19 @@ A community-driven, open-source reimagining of the classic Minesweeper experienc
 
  ![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif)
 
+---
+
+## 🚀 What’s New
+
+<!-- START:WHATS_NEW -->
+- 🔹 Fixing when it fires ([2d78146](https://github.com/v-gajjar/Minesweeper/commit/2d78146))
+- 🔹 Fixing this up a bit ([8b2dd94](https://github.com/v-gajjar/Minesweeper/commit/8b2dd94))
+- 🔹 Making this a blue check mark instead for default ([b3e023a](https://github.com/v-gajjar/Minesweeper/commit/b3e023a))
+- 🔹 forgot the README.md change this adds that in ([d492fbb](https://github.com/v-gajjar/Minesweeper/commit/d492fbb))
+- 🔹 Adding whathaschange github action to branch ([6d7a2b8](https://github.com/v-gajjar/Minesweeper/commit/6d7a2b8))
+<!-- END:WHATS_NEW -->
+
+---
 
 # Live Demo
 Try it out in a browser: [https://v-gajjar.github.io/Minesweeper/](https://v-gajjar.github.io/Minesweeper/)
