@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write       # allow committing to same-repo PR branches
-  pull-requests: write  # allow commenting on PRs
+  contents: write # allow committing to same-repo PR branches
+  pull-requests: write # allow commenting on PRs
 
 concurrency:
   group: readme-on-pr-${{ github.event.pull_request.number || github.run_id }}
@@ -79,7 +79,7 @@ jobs:
               if (/^refactor(\(|:)/i.test(s)) return '🧹';
               if (/^build(\(|:)/i.test(s)) return '🏗️';
               if (/^style(\(|:)/i.test(s)) return '🎨';
-              return '•';
+              return '🔹'; // default = blue diamond;
             };
 
             const repoUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}`;
