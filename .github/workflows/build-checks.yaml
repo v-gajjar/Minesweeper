@@ -8,36 +8,38 @@ on:
     types: [opened, synchronize, reopened, ready_for_review, edited]
 
 permissions:
-  contents: write       # commit/push for same-repo branches
-  pull-requests: write  # comment on PRs (forks)
+  contents: write
+  pull-requests: write
 
 concurrency:
-  group: readme-on-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref || github.run_id }}
+  group: "readme-on-${{ github.event_name }}-${{ github.run_id }}"
   cancel-in-progress: false
 
 jobs:
   update-readme:
-    if: github.actor != 'github-actions[bot]' # avoid loops
+    if: ${{ github.actor != 'github-actions[bot]' }}
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⬇️ Checkout target repo (base)
+      # Checkout for PUSH events
+      - name: ⬇️ Checkout (push)
+        if: ${{ github.event_name == 'push' }}
         uses: actions/checkout@v4
         with:
-          # For push we’re already on the correct repo/ref
           repository: ${{ github.repository }}
           ref: ${{ github.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: 🔄 If PR: fetch PR head to a local branch (so we can patch correct README)
+      # Checkout the PR HEAD for PR events (no bash/env trickery)
+      - name: ⬇️ Checkout PR head (pull_request_target)
         if: ${{ github.event_name == 'pull_request_target' }}
-        run: |
-          PR_REPO="${{ github.event.pull_request.head.repo.full_name }}"
-          PR_REF="${{ github.event.pull_request.head.ref }}"
-          git remote add prhead "https://github.com/${PR_REPO}.git" || true
-          git fetch prhead "${PR_REF}" --depth=0
-          git checkout -B readme-pr-head FETCH_HEAD
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
       - name: 📝 Build “What’s New” from this event’s commits and patch README (no push yet)
         id: patch
@@ -50,7 +52,6 @@ jobs:
             const START = '<!-- START:WHATS_NEW -->';
             const END   = '<!-- END:WHATS_NEW -->';
 
-            // Helpers
             const typeEmoji = (s) => {
               if (/^feat(\(|:)/i.test(s)) return '✨';
               if (/^fix(\(|:)/i.test(s))  return '🐛';
@@ -80,7 +81,6 @@ jobs:
             }
 
             async function commitsFromPush() {
-              // Prefer commits from payload; fallback to compare API (handles bigger pushes)
               const p = context.payload;
               let raw = Array.isArray(p.commits) ? p.commits.map(c => ({
                 sha: c.id,
@@ -101,18 +101,13 @@ jobs:
             }
 
             async function getEventCommits() {
-              if (context.eventName === 'pull_request_target') {
-                return commitsFromPR();
-              }
-              if (context.eventName === 'push') {
-                return commitsFromPush();
-              }
+              if (context.eventName === 'pull_request_target') return commitsFromPR();
+              if (context.eventName === 'push') return commitsFromPush();
               return [];
             }
 
             const rawCommits = await getEventCommits();
 
-            // Filter, dedupe by subject, cap 20
             const seen = new Set();
             const items = [];
             for (const c of rawCommits) {
@@ -134,7 +129,6 @@ jobs:
 
             const bullets = items.length ? items.join('\n') : '_No relevant commits in this event._';
 
-            // Patch README
             const readmePath = 'README.md';
             if (!fs.existsSync(readmePath)) {
               core.setFailed('README.md not found at repo root.');
@@ -146,12 +140,12 @@ jobs:
               return;
             }
 
-            // Optional version injection
             if (fs.existsSync('package.json') && content.includes('{{APP_VERSION}}')) {
               try {
                 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
                 content = content.replace(/{{APP_VERSION}}/g, pkg.version || '0.0.0');
               } catch {}
+
             }
 
             const block = `${START}\n${bullets}\n${END}`;
@@ -160,14 +154,12 @@ jobs:
             const changed = patched !== content;
             if (changed) fs.writeFileSync(readmePath, patched);
 
-            // Outputs
             core.setOutput('changed', String(changed));
             core.setOutput('bullets', bullets);
-            // isFork only relevant on PR events
             core.setOutput('isFork', String(!!context.payload.pull_request?.head?.repo?.fork));
 
       - name: 🧪 Show diff (debug)
-        if: steps.patch.outputs.changed == 'true'
+        if: ${{ steps.patch.outputs.changed == 'true' }}
         run: git --no-pager diff -- README.md || true
 
       - name: 🔁 Decide route (push vs comment) for PRs; pushes always commit
@@ -180,7 +172,7 @@ jobs:
           fi
 
       - name: ✅ Commit & push to branch (push events and same-repo PRs)
-        if: steps.patch.outputs.changed == 'true' && steps.route.outputs.route == 'push'
+        if: ${{ steps.patch.outputs.changed == 'true' && steps.route.outputs.route == 'push' }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -189,11 +181,11 @@ jobs:
           git push || echo "Nothing to push"
 
       - name: 💬 Post/Update sticky PR comment (forked PRs)
-        if: steps.patch.outputs.changed == 'true' && steps.route.outputs.route == 'comment'
+        if: ${{ steps.patch.outputs.changed == 'true' && steps.route.outputs.route == 'comment' }}
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           header: readme-whats-new
-          number: ${{ github.event.pull_request.number }}
+          number: "${{ github.event.pull_request.number }}"
           message: |
             ### 📝 README “What’s New” (preview)
             This PR comes from a fork, so I can’t push changes to your branch.
