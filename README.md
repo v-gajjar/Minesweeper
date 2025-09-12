@@ -16,21 +16,6 @@ A community-driven, open-source reimagining of the classic Minesweeper experienc
 - 🔹 Making this a blue check mark instead for default ([b3e023a](https://github.com/v-gajjar/Minesweeper/commit/b3e023a))
 - 🔹 forgot the README.md change this adds that in ([d492fbb](https://github.com/v-gajjar/Minesweeper/commit/d492fbb))
 - 🔹 Adding whathaschange github action to branch ([6d7a2b8](https://github.com/v-gajjar/Minesweeper/commit/6d7a2b8))
-- 🔹 Create PR template for Minesweeper repo ([39ef519](https://github.com/v-gajjar/Minesweeper/commit/39ef519))
-- 🔹 correct indentation ([d9dea2b](https://github.com/v-gajjar/Minesweeper/commit/d9dea2b))
-- 🔹 correct a spelling typo ([9b987c0](https://github.com/v-gajjar/Minesweeper/commit/9b987c0))
-- 🔹 updates to documentation ([a9ae7fc](https://github.com/v-gajjar/Minesweeper/commit/a9ae7fc))
-- 🔹 Add script for prettier & eslint, ran both with --fix ([aa5c9a2](https://github.com/v-gajjar/Minesweeper/commit/aa5c9a2))
-- 🔹 Fix eslint flat config, create prettier config and ignore ([8922075](https://github.com/v-gajjar/Minesweeper/commit/8922075))
-- 🔹 re-oganised some of the sections, and updated the description ([3f7c9eb](https://github.com/v-gajjar/Minesweeper/commit/3f7c9eb))
-- 🔹 re-organised the Getting Started section and minor fixes ([621b947](https://github.com/v-gajjar/Minesweeper/commit/621b947))
-- 🔹 grammer fix ([f5d8068](https://github.com/v-gajjar/Minesweeper/commit/f5d8068))
-- 🧹 updated names of ts types ([5a9f2ea](https://github.com/v-gajjar/Minesweeper/commit/5a9f2ea))
-- 🔹 a few minor tweaks/corrections ([229ab55](https://github.com/v-gajjar/Minesweeper/commit/229ab55))
-- 🔹 Update the documentation based on recent progrres, changes in priority and contributions ([809df05](https://github.com/v-gajjar/Minesweeper/commit/809df05))
-- 🐛 removed .jsx from renamed files' imports ([eb373e5](https://github.com/v-gajjar/Minesweeper/commit/eb373e5))
-- 🧹 migrated to TS all components, config and enum files ([b34839c](https://github.com/v-gajjar/Minesweeper/commit/b34839c))
-- 🧹 added base changes to support ts ([bf1e199](https://github.com/v-gajjar/Minesweeper/commit/bf1e199))
 <!-- END:WHATS_NEW -->
 
 ---
