@@ -6,6 +6,16 @@ A community-driven, open-source reimagining of the classic Minesweeper experienc
 
  ![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif)
 
+---
+
+## 🚀 What’s New
+
+<!-- START:WHATS_NEW -->
+
+- • Fixing some syntanx issues' ([6aa6d6f](https://github.com/v-gajjar/Minesweeper/commit/6aa6d6f5ed8611ac26529013788cfdaf144af695))
+<!-- END:WHATS_NEW -->
+
+---
 
 # Live Demo
 Try it out in a browser: [https://v-gajjar.github.io/Minesweeper/](https://v-gajjar.github.io/Minesweeper/)
