@@ -1,17 +1,18 @@
-name: Update README on PR (commit for same-repo, comment for forks)
+name: Update README on PR/Push (commit for same-repo, comment for forks)
 
 on:
   push:
     branches:
       - '**'
-  pull_request:
+  pull_request_target:
+    types: [opened, synchronize, reopened, ready_for_review, edited]
 
 permissions:
-  contents: write       # allow committing to same-repo PR branches
-  pull-requests: write  # allow commenting on PRs
+  contents: write       # commit/push for same-repo branches
+  pull-requests: write  # comment on PRs (forks)
 
 concurrency:
-  group: readme-on-pr-${{ github.event.pull_request.number || github.run_id }}
+  group: readme-on-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref || github.run_id }}
   cancel-in-progress: false
 
 jobs:
@@ -20,15 +21,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: ⬇️ Checkout PR HEAD (contributor branch)
+      - name: ⬇️ Checkout target repo (base)
         uses: actions/checkout@v4
         with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
+          # For push we’re already on the correct repo/ref
+          repository: ${{ github.repository }}
+          ref: ${{ github.ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
 
-      - name: 📝 Build “What’s New” from PR commits and patch README (no push yet)
+      - name: 🔄 If PR: fetch PR head to a local branch (so we can patch correct README)
+        if: ${{ github.event_name == 'pull_request_target' }}
+        run: |
+          PR_REPO="${{ github.event.pull_request.head.repo.full_name }}"
+          PR_REF="${{ github.event.pull_request.head.ref }}"
+          git remote add prhead "https://github.com/${PR_REPO}.git" || true
+          git fetch prhead "${PR_REF}" --depth=0
+          git checkout -B readme-pr-head FETCH_HEAD
+
+      - name: 📝 Build “What’s New” from this event’s commits and patch README (no push yet)
         id: patch
         uses: actions/github-script@v7
         with:
@@ -39,75 +50,103 @@ jobs:
             const START = '<!-- START:WHATS_NEW -->';
             const END   = '<!-- END:WHATS_NEW -->';
 
-            // --- 1) Pull ONLY the commits that belong to this PR ---
-            const pr = context.payload.pull_request;
-            if (!pr) {
-              core.setFailed('No pull_request found in context.');
-              return;
-            }
+            // Helpers
+            const typeEmoji = (s) => {
+              if (/^feat(\(|:)/i.test(s)) return '✨';
+              if (/^fix(\(|:)/i.test(s))  return '🐛';
+              if (/^perf(\(|:)/i.test(s)) return '⚡';
+              if (/^refactor(\(|:)/i.test(s)) return '🧹';
+              if (/^build(\(|:)/i.test(s)) return '🏗️';
+              if (/^style(\(|:)/i.test(s)) return '🎨';
+              return '•';
+            };
 
-            // Paginate through PR commits
-            const commits = await github.paginate(
-              github.rest.pulls.listCommits,
-              { owner: context.repo.owner, repo: context.repo.repo, pull_number: pr.number, per_page: 100 }
-            );
-
-            // --- 2) Prepare bullets (subject line only, first line of message) ---
-            const repoUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}`;
-
-            // Filter out merges & noise by subject prefixes; then dedupe by subject
             const noisePrefix = /^(chore|docs|test)(\(|:|$)/i;
             const noiseMsg    = /(dependabot|renovate|ci)/i;
 
+            const repoUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}`;
+
+            async function commitsFromPR() {
+              const prNumber = context.payload.pull_request?.number;
+              if (!prNumber) return [];
+              const list = await github.paginate(
+                github.rest.pulls.listCommits,
+                { owner: context.repo.owner, repo: context.repo.repo, pull_number: prNumber, per_page: 100 }
+              );
+              return list.map(c => ({
+                sha: c.sha,
+                subject: (c.commit?.message || '').split('\n')[0].trim()
+              }));
+            }
+
+            async function commitsFromPush() {
+              // Prefer commits from payload; fallback to compare API (handles bigger pushes)
+              const p = context.payload;
+              let raw = Array.isArray(p.commits) ? p.commits.map(c => ({
+                sha: c.id,
+                subject: (c.message || '').split('\n')[0].trim()
+              })) : [];
+
+              if (!raw.length && p.before && p.after) {
+                const cmp = await github.rest.repos.compareCommits({
+                  owner: context.repo.owner, repo: context.repo.repo,
+                  base: p.before, head: p.after
+                });
+                raw = (cmp.data.commits || []).map(c => ({
+                  sha: c.sha,
+                  subject: (c.commit?.message || '').split('\n')[0].trim()
+                }));
+              }
+              return raw;
+            }
+
+            async function getEventCommits() {
+              if (context.eventName === 'pull_request_target') {
+                return commitsFromPR();
+              }
+              if (context.eventName === 'push') {
+                return commitsFromPush();
+              }
+              return [];
+            }
+
+            const rawCommits = await getEventCommits();
+
+            // Filter, dedupe by subject, cap 20
             const seen = new Set();
             const items = [];
+            for (const c of rawCommits) {
+              const subj = (c.subject || '').trim();
+              if (!subj) continue;
+              if (/^merge/i.test(subj)) continue;
+              if (noisePrefix.test(subj)) continue;
+              if (noiseMsg.test(subj)) continue;
 
-            for (const c of commits) {
-              const sha = c.sha;
-              const short = sha.slice(0,7);
-              const subject = (c.commit?.message || '').split('\n')[0].trim();
-
-              // Drop merge commits (GitHub marks them via commit message often starting with "Merge")
-              if (/^merge/i.test(subject)) continue;
-              if (noisePrefix.test(subject)) continue;
-              if (noiseMsg.test(subject)) continue;
-              if (!subject) continue;
-
-              const key = subject.toLowerCase();
+              const key = subj.toLowerCase();
               if (seen.has(key)) continue;
               seen.add(key);
 
-              const typeEmoji = (s) => {
-                if (/^feat(\(|:)/i.test(s)) return '✨';
-                if (/^fix(\(|:)/i.test(s))  return '🐛';
-                if (/^perf(\(|:)/i.test(s)) return '⚡';
-                if (/^refactor(\(|:)/i.test(s)) return '🧹';
-                if (/^build(\(|:)/i.test(s)) return '🏗️';
-                if (/^style(\(|:)/i.test(s)) return '🎨';
-                return '•';
-              };
-
-              const clean = subject.replace(/^[a-z]+(\(.+?\))?:\s*/i, '');
-              items.push(`- ${typeEmoji(subject)} ${clean} ([${short}](${repoUrl}/commit/${sha}))`);
-              if (items.length >= 20) break; // cap
+              const clean = subj.replace(/^[a-z]+(\(.+?\))?:\s*/i, '');
+              const short = c.sha.slice(0,7);
+              items.push(`- ${typeEmoji(subj)} ${clean} ([${short}](${repoUrl}/commit/${c.sha}))`);
+              if (items.length >= 20) break;
             }
 
-            const bullets = items.length ? items.join('\n') : '_No PR commits to surface._';
+            const bullets = items.length ? items.join('\n') : '_No relevant commits in this event._';
 
-            // --- 3) Patch README between markers ---
+            // Patch README
             const readmePath = 'README.md';
             if (!fs.existsSync(readmePath)) {
               core.setFailed('README.md not found at repo root.');
               return;
             }
             let content = fs.readFileSync(readmePath, 'utf8');
-
             if (!content.includes(START) || !content.includes(END)) {
               core.setFailed('Markers not found in README.md. Add START/END markers first.');
               return;
             }
 
-            // Optional version injection if README contains {{APP_VERSION}}
+            // Optional version injection
             if (fs.existsSync('package.json') && content.includes('{{APP_VERSION}}')) {
               try {
                 const pkg = JSON.parse(fs.readFileSync('package.json', 'utf8'));
@@ -121,30 +160,33 @@ jobs:
             const changed = patched !== content;
             if (changed) fs.writeFileSync(readmePath, patched);
 
+            // Outputs
             core.setOutput('changed', String(changed));
             core.setOutput('bullets', bullets);
+            // isFork only relevant on PR events
+            core.setOutput('isFork', String(!!context.payload.pull_request?.head?.repo?.fork));
 
       - name: 🧪 Show diff (debug)
         if: steps.patch.outputs.changed == 'true'
         run: git --no-pager diff -- README.md || true
 
-      - name: 🔁 Decide push vs comment
+      - name: 🔁 Decide route (push vs comment) for PRs; pushes always commit
         id: route
         run: |
-          if [ "${{ github.event.pull_request.head.repo.fork }}" = "true" ]; then
+          if [ "${{ github.event_name }}" = "pull_request_target" ] && [ "${{ steps.patch.outputs.isFork }}" = "true" ]; then
             echo "route=comment" >> $GITHUB_OUTPUT
           else
             echo "route=push" >> $GITHUB_OUTPUT
           fi
 
-      - name: ✅ Commit & push to PR branch (same-repo PRs)
+      - name: ✅ Commit & push to branch (push events and same-repo PRs)
         if: steps.patch.outputs.changed == 'true' && steps.route.outputs.route == 'push'
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add README.md
-          git commit -m "🤖 Update README: What’s New (PR) [skip ci]"
-          git push
+          git commit -m "🤖 Update README: What’s New [skip ci]" || echo "No changes to commit"
+          git push || echo "Nothing to push"
 
       - name: 💬 Post/Update sticky PR comment (forked PRs)
         if: steps.patch.outputs.changed == 'true' && steps.route.outputs.route == 'comment'
