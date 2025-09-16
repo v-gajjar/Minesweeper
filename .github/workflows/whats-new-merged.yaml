@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🔄 Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4.1.1
         with:
           fetch-depth: 0
 
       - name: 🔄 Get commits since last tag
         id: commits
-        uses: actions/github-script@v7
+        uses: actions/github-script@v7.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
