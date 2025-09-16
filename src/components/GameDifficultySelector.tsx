@@ -13,22 +13,27 @@ function GameDifficultySelector({
 }: GameDifficultySelectorProps) {
   return (
     <div className='game-difficulty-select-wrapper'>
-      <label>Difficulty: </label>
+      <label htmlFor='game-difficulty-select'>Difficulty: </label>
       <select
         value={gameDifficultySettings.level}
         onChange={onChange}
         name='game-difficulty-select'
         id='game-difficulty-select'
         data-testid='difficulty-select'
+        aria-describedby='difficulty-description'
       >
-        {gameDifficultyLevelKeys.map((setting) => (
-          <option
-            key={setting}
-            value={GAME_DIFFICULTY_LEVEL_SETTINGS[setting].level}
-          >
-            {GAME_DIFFICULTY_LEVEL_SETTINGS[setting].label}
-          </option>
-        ))}
+        {gameDifficultyLevelKeys.map((setting) => {
+          const config = GAME_DIFFICULTY_LEVEL_SETTINGS[setting];
+          return (
+            <option
+              key={setting}
+              value={config.level}
+              aria-label={`${config.label} - ${config.boardSize.rowCount}x${config.boardSize.columnCount} board with ${config.mineCount} mines`}
+            >
+              {config.label}
+            </option>
+          );
+        })}
       </select>
     </div>
   );
