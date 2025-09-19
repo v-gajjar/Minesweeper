@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import Cell from './Cell';
+import Cell from '../cell/Cell';
 import type { GameBoardProps } from './GameBoard.interfaces';
 
 function GameBoard({
