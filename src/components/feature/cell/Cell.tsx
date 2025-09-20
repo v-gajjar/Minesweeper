@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { Bomb, X, Flag } from '@phosphor-icons/react';
 import type { CellProps } from './Cell.interfaces';
 
+
 function Cell({ cell, onClick, onContextMenu }: CellProps) {
   const cellClass = classNames({
     cell: true,
