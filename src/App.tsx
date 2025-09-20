@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from './config/gameDifficultyLevelSettings.js';
 
-import GameDifficultySelector from './components/feature/gamedifficulty/GameDifficultySelector';
+import GameDifficultySelector from './components/feature/gamedifficultyselector/GameDifficultySelector.js';
 import GameBoard from './components/feature/gameboard/GameBoard';
 import GameResultModal from './components/feature/gameresultmodal/GameResultModal';
 import RemainingFlagsCounter from './components/feature/remainingflagscounter/RemainingFlagsCounter';
