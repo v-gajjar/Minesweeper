@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { GAME_DIFFICULTY_LEVEL_SETTINGS } from './config/gameDifficultyLevelSettings.js';
+import { GAME_DIFFICULTY_LEVEL_SETTINGS } from './config/gameDifficultyLevelSettings';
 
-import GameDifficultySelector from './components/GameDifficultySelector';
-import GameBoard from './components/GameBoard';
-import GameResultModal from './components/GameResultModal';
-import RemainingFlagsCounter from './components/RemainingFlagsCounter';
+import GameDifficultySelector from './components/feature/GameDifficultySelector/GameDifficultySelector';
+import GameBoard from './components/feature/GameBoard/GameBoard';
+import GameResultModal from './components/feature/GameResultModal/GameResultModal';
+import RemainingFlagsCounter from './components/feature/RemainingFlagsCounter/RemainingFlagsCounter';
 
 import {
   getMineLocations,
