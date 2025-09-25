@@ -1,0 +1,56 @@
+name: PR Preview - What's New
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review, edited]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔄 Compare Commits
+        id: commits
+        uses: actions/github-script@v7.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const base = context.payload.pull_request.base.sha;
+            const head = context.payload.pull_request.head.sha;
+
+            const res = await github.rest.repos.compareCommits({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              base,
+              head,
+            });
+
+            const commits = res.data.commits
+              .map(c => c.commit.message.split('\n')[0])
+              .filter(msg => !/^(chore|docs|test|ci|refactor|style|build)/i.test(msg))
+              .slice(0, 20);
+
+            const bullets = commits.length
+              ? commits.map(msg => `- ${msg.replace(/^[a-z]+(\(.+?\))?:\s*/i, '')}`).join('\n')
+              : '_No code changes found in this PR._';
+
+            core.setOutput('bullets', bullets);
+
+      - name: 💬 Post Preview Comment
+        uses: marocchino/sticky-pull-request-comment@773744901bac0e8cbb5a0dc842800d45e9b2b405
+        with:
+          header: readme-whats-new
+          number: ${{ github.event.pull_request.number }}
+          message: |
+            ### 📝 README “What’s New” Preview
+
+            Here’s what will be added to the README after merge:
+
+            ```
+            ${{ steps.commits.outputs.bullets }}
+            ```
+
+            > This is a preview. The README won’t be updated until the PR is merged.

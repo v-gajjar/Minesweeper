@@ -1,0 +1,59 @@
+name: Update README on Merge
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🔄 Checkout code
+        uses: actions/checkout@v4.1.1
+        with:
+          fetch-depth: 0
+
+      - name: 🔄 Get commits since last tag
+        id: commits
+        uses: actions/github-script@v7.0.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { execSync } = require('child_process');
+            const lastTag = execSync('git describe --tags --abbrev=0').toString().trim();
+            const log = execSync(`git log ${lastTag}..HEAD --pretty=format:%s`).toString().trim();
+
+            const filtered = log
+              .split('\n')
+              .filter(msg => !/^(chore|docs|test|ci|refactor|style|build)/i.test(msg))
+              .slice(0, 20)
+              .map(msg => `- ${msg.replace(/^[a-z]+(\(.+?\))?:\s*/i, '')}`)
+              .join('\n');
+
+            core.setOutput('bullets', filtered || '_No relevant changes since last tag._');
+
+      - name: 📝 Patch README
+        run: |
+          START="<!-- START:WHATS_NEW -->"
+          END="<!-- END:WHATS_NEW -->"
+          bullets="${{ steps.commits.outputs.bullets }}"
+
+          awk -v start="$START" -v end="$END" -v new="$bullets" '
+            BEGIN {found=0}
+            {
+              if ($0 ~ start) {print; print new; found=1; next}
+              if ($0 ~ end) {found=0}
+              if (!found) print
+            }
+          ' README.md > README.tmp && mv README.tmp README.md
+
+      - name: ✅ Commit & Push README
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "🤖 Update README: What's New section after merge"
+          git push
