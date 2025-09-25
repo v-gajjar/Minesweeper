@@ -9,11 +9,22 @@
 
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": false,
-    "verbatimModuleSyntax": false,
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
+
+    /* Path mapping */
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@components/*": ["./src/components/*"],
+      "@features/*": ["./src/components/feature/*"],
+      "@config/*": ["./src/config/*"],
+      "@enum/*": ["./src/enum/*"],
+      "@types/*": ["./src/types/*"]
+    },
 
     /* Linting */
     "strict": true,
