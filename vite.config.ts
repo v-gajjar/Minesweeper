@@ -9,7 +9,7 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, './src'),
       '@components': path.resolve(__dirname, './src/components'),
-      '@features': path.resolve(__dirname, './src/components/feature'),
+      '@feature': path.resolve(__dirname, './src/components/feature'),
       '@config': path.resolve(__dirname, './src/config'),
       '@enum': path.resolve(__dirname, './src/enum'),
       '@types': path.resolve(__dirname, './src/types'),

@@ -1,6 +1,6 @@
 import { Flag } from '@phosphor-icons/react';
 import { memo } from 'react';
-import type { RemainingFlagsCounterProps } from './RemainingFlagsCounter.interface';
+import type { RemainingFlagsCounterProps } from '@feature/RemainingFlagsCounter/RemainingFlagsCounter.interface';
 
 function RemainingFlagsCounter({
   remainingFlagsCount,

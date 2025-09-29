@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-import { GAME_DIFFICULTY_LEVEL_SETTINGS } from './config/gameDifficultyLevelSettings';
+import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
-import GameDifficultySelector from './components/feature/GameDifficultySelector/GameDifficultySelector';
-import GameBoard from './components/feature/GameBoard/GameBoard';
-import GameResultModal from './components/feature/GameResultModal/GameResultModal';
-import RemainingFlagsCounter from './components/feature/RemainingFlagsCounter/RemainingFlagsCounter';
+import GameDifficultySelector from '@feature/GameDifficultySelector/GameDifficultySelector';
+import GameBoard from '@feature/GameBoard/GameBoard';
+import GameResultModal from '@feature/GameResultModal/GameResultModal';
+import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlagsCounter';
 
 import {
   getMineLocations,
@@ -16,19 +16,13 @@ import {
   getFilteredFlagLocations,
   getGameLostBoard,
   getBoard,
-} from './minesweeperUtils.js';
+} from '@/minesweeperUtils.js';
 
-import GameStatus from './enum/GameStatus.js';
+import GameStatus from '@enum/GameStatus.js';
 import { useCallback } from 'react';
 
 import './App.css';
-import type {
-  BoardData,
-  CellData,
-  FlagLocations,
-  LocationColRow,
-  MineLocations,
-} from './types';
+import type { BoardData, CellData, FlagLocations, LocationColRow, MineLocations } from '@/types';
 
 function App() {
   const [board, setBoard] = useState<BoardData>([]);

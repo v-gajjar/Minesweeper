@@ -1,5 +1,5 @@
 import type React from 'react';
-import type { CellData } from '../../../types';
+import type { CellData } from '@/types';
 
 export type CellProps = {
   cell: CellData;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
-import type { GameResultModalProps } from './GameResultModal.interface';
+import type { GameResultModalProps } from '@feature/GameResultModal/GameResultModal.interface';
 
 function GameResultModal({ gameWon, onClick }: GameResultModalProps) {
   const [modalStateClass, setModalStateClass] = useState('modalEntrance');

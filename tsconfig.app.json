@@ -20,7 +20,7 @@
     "paths": {
       "@/*": ["./src/*"],
       "@components/*": ["./src/components/*"],
-      "@features/*": ["./src/components/feature/*"],
+      "@feature/*": ["./src/components/feature/*"],
       "@config/*": ["./src/config/*"],
       "@enum/*": ["./src/enum/*"],
       "@types/*": ["./src/types/*"]
