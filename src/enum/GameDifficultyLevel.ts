@@ -1,4 +1,4 @@
-import type { GameDifficultyLevel } from './GameDifficultyLevel.interfaces';
+import type { GameDifficultyLevel } from '@enum/GameDifficultyLevel.interfaces';
 
 const GAME_DIFFICULTY_LEVEL: GameDifficultyLevel = {
   EASY: 'easy',

@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
-import GameBoard from '../../src/components/feature/GameBoard/GameBoard';
-import GameDifficultySelector from '../../src/components/feature/GameDifficultySelector/GameDifficultySelector';
-import RemainingFlagsCounter from '../../src/components/feature/RemainingFlagsCounter/RemainingFlagsCounter';
-import GameResultModal from '../../src/components/feature/GameResultModal/GameResultModal';
+import GameBoard from '@feature/GameBoard/GameBoard';
+import GameDifficultySelector from '@feature/GameDifficultySelector/GameDifficultySelector';
+import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlagsCounter';
+import GameResultModal from '@feature/GameResultModal/GameResultModal';
 
 // Minimal mock data
 const mockBoard = Array(9).fill(Array(9).fill({}));
