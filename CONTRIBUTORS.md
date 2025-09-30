@@ -18,7 +18,7 @@
   - Created a Dockerfile and updated the README with Docker-related instructions.
 
 - **Nick Clark** [GitHub](https://github.com/NickTheDevOpsGuy)
-  - Provided feedback on the Docker file related PR and assisted with testing and approval.
+  - Help with reviewing and fixing issues on various PRs
   - Added GitHub Actions and some tests.
   - Helping with TypeScript conversion
 
@@ -35,6 +35,14 @@
 
 - **Brenda Hensley** [LinkedIn](https://www.linkedin.com/in/brenda-hensley-/)
   - Helped fix issues in the ESLint configation file
-  - Added automation scripts for ESLint and Prettier checks 
+  - Added automation scripts for ESLint and Prettier checks
+
+- **Gavin Hensley** [LinkedIn](https://www.linkedin.com/in/g-hensley/)
+  - Help with implementing accessibility
+  - Suggestions for improvements
+
+- **Engombe Lokanga** [LinkedIn](https://www.linkedin.com/in/engombelokanga/)
+  - Help with refactoring the compoment organisation
+
 
 
