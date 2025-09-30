@@ -38,6 +38,8 @@ A big thanks to the kind contributions of developers who have helped improve the
  - [Velimir Đurković](https://www.linkedin.com/in/djvelimir/)
  - [Tawheed Ahmed](https://www.linkedin.com/in/tawheed-ahmed-dev/)
  - [Brenda Hensley](https://www.linkedin.com/in/brenda-hensley-/)
+ - [Gavin Hensley](https://www.linkedin.com/in/g-hensley/)
+ - [Engombe Lokanga](https://www.linkedin.com/in/engombelokanga/)
 
 
 See a more detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
