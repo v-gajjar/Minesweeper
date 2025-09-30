@@ -2,7 +2,7 @@
 Please update your remote repository URL if you have cloned the old repo.
 
 # Description
-A community-driven, open-source reimagining of the classic Minesweeper experience. Built with thoughtful UX, using modern front-end technologies including React and TypeScript. The project is in active development and was last updated on 30th August 2025. 
+A community-driven, open-source reimagining of the classic Minesweeper experience. Built with thoughtful UX, using modern front-end technologies including React and TypeScript.
 
  ![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif)
 
