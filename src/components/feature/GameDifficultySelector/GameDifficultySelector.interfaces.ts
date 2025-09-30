@@ -1,4 +1,4 @@
-import type { GameDifficultyLevelSettings } from '../config/gameDifficultyLevelSettings.interfaces';
+import type { GameDifficultyLevelSettings } from '@config/gameDifficultyLevelSettings.interfaces';
 
 export type GameDifficultySelectorProps = {
   gameDifficultySettings: GameDifficultyLevelSettings[keyof GameDifficultyLevelSettings];

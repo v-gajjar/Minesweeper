@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { Bomb, X, Flag } from '@phosphor-icons/react';
-import type { CellProps } from './Cell.interfaces';
+import type { CellProps } from '@feature/Cell/Cell.interfaces';
+
 
 function Cell({ cell, onClick, onContextMenu }: CellProps) {
   const cellClass = classNames({
