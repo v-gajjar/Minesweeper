@@ -13,7 +13,7 @@ Try it out in a browser: [https://v-gajjar.github.io/Minesweeper/](https://v-gaj
 
 # Roadmap
 
-See the [Kanban Board](https://github.com/users/v-gajjar/projects/2) for a detailed view of what is under consideration, 
+See the [Kanban Board](https://github.com/users/v-gajjar/projects/2) for a detailed view of what is under consideration, what is in progress, and what has been recently completed.
 
 
 # Attributions
