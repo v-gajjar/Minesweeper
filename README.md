@@ -11,14 +11,9 @@ A community-driven, open-source reimagining of the classic Minesweeper experienc
 Try it out in a browser: [https://v-gajjar.github.io/Minesweeper/](https://v-gajjar.github.io/Minesweeper/)
 
 
-# Development Roadmap
+# Roadmap
 
-### Tasks in progress (updated 30th August 2025)
-- TypeScript Conversion (partially implemented)
-- Fixing an issue with longpress on mobile
-
-### Next steps
-See full [roadmap](https://github.com/v-gajjar/Minesweeper/blob/main/ROADMAP.md)
+See the [Kanban Board](https://github.com/users/v-gajjar/projects/2) for a detailed view of what is under consideration, what is in progress, and what has been recently completed.
 
 
 # Attributions
