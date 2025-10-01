@@ -51,11 +51,83 @@ See a more detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/mai
 | [classnames](https://www.npmjs.com/package/classnames)                | ^2.5.1  | Utility for conditionally joining class names together.     |
 | [Phosphor Icons](https://www.npmjs.com/package/@phosphor-icons/react) | ^2.1.7  | Clean, modern SVG-based icon set.                           |
 
+
+
 ### Clone the project
 
 ```
 git clone https://github.com/v-gajjar/Minesweeper.git
 ```
+
+---
+
+### 📂 Project Structure
+
+<details>
+<summary>📁 Click to expand file structure</summary>
+
+```plaintext
+.
+├── .github
+│   ├── pull_request_template.md
+│   └── workflows
+│       ├── build-checks.yaml
+│       ├── whats-new-merged.yaml
+│       └── whats-new-preview.yaml
+├── .gitignore
+├── .prettierignore
+├── .prettierrc.yml
+├── .stylelintrc.json
+├── CONTRIBUTORS.md
+├── Dockerfile
+├── eslint.config.js
+├── globals.d.ts
+├── index.html
+├── LICENSE
+├── package-lock.json
+├── package.json
+├── README.md
+├── src
+│   ├── App.css
+│   ├── App.tsx
+│   ├── assets
+│   │   └── Minesweeper-16-06-2025.gif
+│   ├── components
+│   │   └── feature
+│   │       ├── Cell
+│   │       ├── GameBoard
+│   │       ├── GameDifficultySelector
+│   │       ├── GameResultModal
+│   │       └── RemainingFlagsCounter
+│   ├── config
+│   │   ├── gameDifficultyLevelSettings.interfaces.ts
+│   │   └── gameDifficultyLevelSettings.ts
+│   ├── enum
+│   │   ├── GameDifficultyLevel.interfaces.ts
+│   │   ├── GameDifficultyLevel.ts
+│   │   ├── GameStatus.interfaces.ts
+│   │   └── GameStatus.ts
+│   ├── index.css
+│   ├── main.tsx
+│   ├── minesweeperUtils.js
+│   ├── types.ts
+│   └── vite-env.d.ts
+├── tests
+│   └── unit
+│       ├── App.test.jsx
+│       ├── Board.test.jsx
+│       ├── Cell.test.jsx
+│       ├── GameBoard.test.jsx
+│       └── Win.test.jsx
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
+```
+
+</details>
+
+---
 
 
 ### Running locally via NPM
