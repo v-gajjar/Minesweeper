@@ -67,53 +67,53 @@ Uncover all safe cells without clicking on a mine 💣
 
 ### Clone & Run
 
-📥 Clone repo
+1. 📥 Clone repo
 
 ```bash
 git clone https://github.com/v-gajjar/Minesweeper.git
 ```
 
-📂 Enter folder
+2. 📂 Enter folder
 
 ```bash
 cd Minesweeper
 ```
 
-📦 Install dependencies
+3. 4. 📦 Install dependencies
 
 ```bash 
 npm install
 ```
 
-🚀 Start dev server
+5. 🚀 Start dev server
 
 ```bash
 npm run dev
 ```
 
-🧪 Run tests:
+6. 🧪 Run tests:
 
 ```bash
 npm test
 ```
 
-👉 In your browser, visit [http://localhost:5173](http://localhost:5173)
+7/ 👉 In your browser, visit [http://localhost:5173](http://localhost:5173)
 
 ### Docker Run 🐳
 
-🔨 Build image
+1. 🔨 Build image
 
 ```bash
 docker build -t minesweeper:v1 .
 ```
 
-▶️ Run container
+2. ▶️ Run container
 
 ```bash
 docker run -itd -p 8083:80 --name minesweeper minesweeper:v1
 ```  
 
-👉 In your browser, visit [http://localhost:8083](http://localhost:8083)
+3. 👉 In your browser, visit [http://localhost:8083](http://localhost:8083)
 
 ---
 
