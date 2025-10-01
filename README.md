@@ -97,7 +97,7 @@ npm run dev
 npm test
 ```
 
-7/ 👉 In your browser, visit [http://localhost:5173](http://localhost:5173)
+7. 👉 In your browser, visit [http://localhost:5173](http://localhost:5173)
 
 ### Docker Run 🐳
 
