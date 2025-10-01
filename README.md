@@ -64,7 +64,7 @@ git clone https://github.com/v-gajjar/Minesweeper.git
 ### 📂 Project Structure
 
 <details>
-<summary>📁 Click to expand project file structure</summary>
+<summary>📁 Click to expand file structure</summary>
 
 ```plaintext
 .
