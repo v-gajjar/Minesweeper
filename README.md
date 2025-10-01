@@ -154,9 +154,9 @@ docker run -itd -p 8083:80 --name minesweeper minesweeper:v1
 ## Contributing 🤝
 
 We’d love your ideas, bug fixes, and enhancements!
-- Fork & open PRs
-- Add yourself to CONTRIBUTORS.md
-- Join the roadmap discussions
+- Fork & open **PRs**
+- Add yourself to **[Contributors](./CONTRIBUTORS.md)**
+- Join the **roadmap discussions**
 
 ---
 
