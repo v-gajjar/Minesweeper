@@ -32,6 +32,10 @@ We’re actively evolving this game! Some upcoming ideas:
 - 🚀 Smarter stats (spot patterns & key cells)  
 - 🎵 Sounds, timers, and more UX features  
 - 🌍 Accessibility, themes, and language support  
+- 🪄 Upcoming **Home Screen** with quick buttons for:  
+  - 📖 Game rules  
+  - ⚙️ Settings  
+  - ▶️ Play now
 
 👉 See the [Roadmap Board](https://github.com/users/v-gajjar/projects/2) or [open issues](https://github.com/v-gajjar/Minesweeper/issues) for the full list.  
 
