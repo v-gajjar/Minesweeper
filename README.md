@@ -1,6 +1,5 @@
 # Minesweeper 🎉
 
-![Build](https://github.com/v-gajjar/Minesweeper/actions/workflows/build-checks.yaml/badge.svg)
 ![License](https://img.shields.io/github/license/v-gajjar/Minesweeper)
 ![Contributors](https://img.shields.io/github/contributors/v-gajjar/Minesweeper)
 ![Last Commit](https://img.shields.io/github/last-commit/v-gajjar/Minesweeper)
