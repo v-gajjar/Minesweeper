@@ -77,25 +77,25 @@ git clone https://github.com/v-gajjar/Minesweeper.git
 cd Minesweeper
 ```
 
-3. 4. 📦 Install dependencies
+3. 📦 Install dependencies
 
 ```bash 
 npm install
 ```
 
-5. 🚀 Start dev server
+4. 🚀 Start dev server
 
 ```bash
 npm run dev
 ```
 
-6. 🧪 Run tests:
+5. 🧪 Run tests:
 
 ```bash
 npm test
 ```
 
-7. 👉 In your browser, visit [http://localhost:5173](http://localhost:5173)
+6. 👉 In your browser, visit [http://localhost:5173](http://localhost:5173)
 
 ### Docker Run 🐳
 
