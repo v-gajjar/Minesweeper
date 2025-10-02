@@ -16,9 +16,9 @@
 Classic **Minesweeper** — reloaded for the modern web.  
 Built with **React + TypeScript**, styled for today’s UX, and kept alive by a growing community of contributors.
 
-- ✨ Clean interface  
-- 🎨 Thoughtful UX  
-- ⚡ Powered by Vite 
+- Clean interface  
+- Thoughtful UX  
+- Powered by Vite 
 
 ---
 
@@ -31,7 +31,7 @@ We’re actively evolving this game! Some upcoming ideas:
 	- Sounds, timers, and extra UX features for immersion
 	- Accessibility, themes, and multi-language support
 	- Touch controls optimized for mobile & tablets
-	- ⌨Keyboard navigation for power players
+	- Keyboard navigation for power players
 	- New home screen with light/dark themes & quick actions
 
 
@@ -228,10 +228,10 @@ Run with `npm run <script>` (see package.json for full list).
 We ❤️ contributions of all kinds! Whether it’s fixing a bug, suggesting a feature, or polishing docs, your help makes this game better.  
 
 How to join in:  
-- 🍴 Fork & open a PR 
-- 📝 Add yourself to [Contributors](./CONTRIBUTORS.md)
-- 💡 Share ideas in [roadmap discussions](https://github.com/users/v-gajjar/projects/2)  
-- 🐛 Report bugs via [Issues](https://github.com/v-gajjar/Minesweeper/issues)
+- Fork & open a PR 
+- Add yourself to [Contributors](./CONTRIBUTORS.md)
+- Share ideas in [roadmap discussions](https://github.com/users/v-gajjar/projects/2)  
+- Report bugs via [Issues](https://github.com/v-gajjar/Minesweeper/issues)
 
 Every contribution, big or small, helps keep this project alive 🎉
 
