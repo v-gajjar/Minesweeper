@@ -26,15 +26,14 @@ Built with **React + TypeScript**, styled for today’s UX, and kept alive by a 
 
 We’re actively evolving this game! Some upcoming ideas:  
 
-- ✅ Smooth gameplay & difficulty levels  
-- 🚧 Dark mode & UX polish  
-- 🚀 Smarter stats (spot patterns & key cells)  
-- 🎵 Sounds, timers, and more UX features  
-- 🌍 Accessibility, themes, and language support  
-- 🪄 Upcoming **Home Screen** with quick buttons for:  
-  - 📖 Game rules  
-  - ⚙️ Settings  
-  - ▶️ Play now
+	- Smooth gameplay with customizable difficulty levels
+	- Dark mode and ongoing UX polish
+	- Sounds, timers, and extra UX features for immersion
+	- Accessibility, themes, and multi-language support
+	- Touch controls optimized for mobile & tablets
+	- ⌨Keyboard navigation for power players
+	- New home screen with light/dark themes & quick actions
+
 
 👉 See the [Roadmap Board](https://github.com/users/v-gajjar/projects/2) or [open issues](https://github.com/v-gajjar/Minesweeper/issues) for the full list.  
 
