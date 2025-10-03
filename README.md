@@ -35,7 +35,7 @@ We’re actively evolving this game! Some upcoming ideas:
 	- New home screen with light/dark themes & quick actions
 
 
-👉 See the [Roadmap Board](https://github.com/users/v-gajjar/projects/2) or [open issues](https://github.com/v-gajjar/Minesweeper/issues) for the full list.  
+See the [Project Board](https://github.com/users/v-gajjar/projects/2) or [open issues](https://github.com/v-gajjar/Minesweeper/issues) for the full list.  
 
 ---
 
@@ -65,53 +65,53 @@ Uncover all safe cells without clicking on a mine 💣
 
 ### Clone & Run
 
-1. 📥 Clone repo
+1. Clone repo
 
 ```bash
 git clone https://github.com/v-gajjar/Minesweeper.git
 ```
 
-2. 📂 Enter folder
+2. Enter folder
 
 ```bash
 cd Minesweeper
 ```
 
-3. 📦 Install dependencies
+3. Install dependencies
 
 ```bash 
 npm install
 ```
 
-4. 🚀 Start dev server
+4. Start dev server
 
 ```bash
 npm run dev
 ```
 
-5. 🧪 Run tests:
+5. Run tests:
 
 ```bash
 npm test
 ```
 
-6. 👉 In your browser, visit [http://localhost:5173](http://localhost:5173)
+6. In your browser, visit [http://localhost:5173](http://localhost:5173)
 
 ### Docker Run 🐳
 
-1. 🔨 Build image
+1. Build image
 
 ```bash
 docker build -t minesweeper:v1 .
 ```
 
-2. ▶️ Run container
+2. Run container
 
 ```bash
 docker run -itd -p 8083:80 --name minesweeper minesweeper:v1
 ```  
 
-3. 👉 In your browser, visit [http://localhost:8083](http://localhost:8083)
+3. In your browser, visit [http://localhost:8083](http://localhost:8083)
 
 ---
 
@@ -199,27 +199,20 @@ Curious how things are organized? Here’s a quick look:
 
 Run with `npm run <script>` (see package.json for full list).
 
-📦 Dev
-- dev — start dev server
-- build — type-check + production build
-- preview — preview production build
-
-🧪 Test
-- test — run all tests once
-- test:watch — watch mode
-
-🌐 Deploy
-- predeploy — build before deploy
-- deploy — publish to GitHub Pages
-
-🧹 Lint & Format
-- lint / lint:fix — ESLint (JS/TS)
-- lint:css / lint:css:fix — Stylelint (CSS/SCSS)
-- format / format:check — Prettier
-
-✅ Checks
-- check — run Prettier + ESLint
-- check:fix — run Prettier + ESLint (auto-fix)
+| Category       | Script        | Description                               |
+|----------------|---------------|-------------------------------------------|
+| **Dev**        | dev           | Start dev server                          |
+|                | build         | Type-check + production build             |
+|                | preview       | Preview production build                  |
+| **Test**       | test          | Run all tests once                        |
+|                | test:watch    | Run tests in watch mode                   |
+| **Deploy**     | predeploy     | Build before deploy                       |
+|                | deploy        | Publish to GitHub Pages                   |
+| **Lint/Format**| lint / lint:fix       | ESLint (JS/TS)                  |
+|                | lint:css / lint:css:fix | Stylelint (CSS/SCSS)          |
+|                | format / format:check | Prettier                           |
+| **Checks**     | check         | Run Prettier + ESLint                     |
+|                | check:fix     | Run Prettier + ESLint (auto-fix)          |
 
 ---
 
@@ -250,7 +243,7 @@ Every commit, idea, and bug report makes the game better.
 
 [![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper)](./CONTRIBUTORS.md)  
 
-👉 Meet all our amazing [Contributors](./CONTRIBUTORS.md)
+Meet all our amazing [Contributors](./CONTRIBUTORS.md)
 
 ---
 
