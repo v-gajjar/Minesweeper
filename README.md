@@ -34,6 +34,31 @@ See the [Kanban Board](https://github.com/users/v-gajjar/projects/2) or [open is
 
 ---
 
+## Contributing
+
+We love contributions of all kinds! Whether it’s fixing a bug, suggesting a feature, or polishing docs, your help makes this game better.  
+
+How to join in:  
+- Fork & open a PR 
+- Add yourself to [Contributors](./CONTRIBUTORS.md)
+- Share ideas in [roadmap discussions](https://github.com/users/v-gajjar/projects/2)  
+- Report bugs via [Issues](https://github.com/v-gajjar/Minesweeper/issues)
+
+Every contribution, big or small, helps keep this project alive 🎉
+
+---
+
+## Acknowledgements
+
+Minesweeper is a community project, shaped by everyone who’s played, tested, and contributed.  
+Every commit, idea, and bug report makes the game better.  
+
+[![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper)](./CONTRIBUTORS.md)  
+
+Meet all our amazing [Contributors](./CONTRIBUTORS.md)
+
+---
+
 ## How to Play
 
 Uncover all safe cells without clicking on a mine 💣
@@ -211,34 +236,9 @@ Run with `npm run <script>` (see package.json for full list).
 
 ---
 
-## Contributing
-
-We love contributions of all kinds! Whether it’s fixing a bug, suggesting a feature, or polishing docs, your help makes this game better.  
-
-How to join in:  
-- Fork & open a PR 
-- Add yourself to [Contributors](./CONTRIBUTORS.md)
-- Share ideas in [roadmap discussions](https://github.com/users/v-gajjar/projects/2)  
-- Report bugs via [Issues](https://github.com/v-gajjar/Minesweeper/issues)
-
-Every contribution, big or small, helps keep this project alive 🎉
-
----
-
 ## Attributions
 
 - Inter font by Rasmus Andersson (SIL Open Font License 1.1)
-
----
-
-## Acknowledgements
-
-Minesweeper is a community project, shaped by everyone who’s played, tested, and contributed.  
-Every commit, idea, and bug report makes the game better.  
-
-[![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper)](./CONTRIBUTORS.md)  
-
-Meet all our amazing [Contributors](./CONTRIBUTORS.md)
 
 ---
 
