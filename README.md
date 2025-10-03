@@ -1,131 +1,252 @@
-**Note:** This repository was renamed from `React-Minesweeper` to `Minesweeper` on May 24, 2025.  
-Please update your remote repository URL if you have cloned the old repo.
+# Minesweeper
 
-# Description
-A community-driven, open-source reimagining of the classic Minesweeper experience. Built with thoughtful UX, using modern front-end technologies including React and TypeScript.
+![License](https://img.shields.io/github/license/v-gajjar/Minesweeper)
+![Contributors](https://img.shields.io/github/contributors/v-gajjar/Minesweeper)
+![Last Commit](https://img.shields.io/github/last-commit/v-gajjar/Minesweeper)
+![Stars](https://img.shields.io/github/stars/v-gajjar/Minesweeper?style=social)
 
- ![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif)
+![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif)
 
+**Play now:** [Live Demo](https://v-gajjar.github.io/Minesweeper/)  
 
-# Live Demo
-Try it out in a browser: [https://v-gajjar.github.io/Minesweeper/](https://v-gajjar.github.io/Minesweeper/)
+---
 
+## About
 
-# Roadmap
+A community-driven, open-source project that reimagines the timeless Minesweeper with modern tech and UX. 
 
-See the [Kanban Board](https://github.com/users/v-gajjar/projects/2) for a detailed view of what is under consideration, what is in progress, and what has been recently completed.
+---
 
+## Roadmap
 
-# Attributions
+We’re actively evolving this game! Some upcoming ideas:  
 
-* Inter font by Rasmus Andersson - SIL Open Font License 1.1
-
-
-# Acknowledgements
-A big thanks to the kind contributions of developers who have helped improve the project!
-
- - [Heliomar Pena](https://www.linkedin.com/in/heliomar/)
- - [BJ Rutledge](https://www.linkedin.com/in/bj-rutledge/)
- - [James Blaskett](https://www.linkedin.com/in/james-blaskett/)
- - [Umer Farooq Mala](https://github.com/umermala)
- - [Nick Clark](https://github.com/NickTheDevOpsGuy)
- - [Daniela Grothe](https://www.linkedin.com/in/daniela-grothe-743ab8235/)
- - [Velimir Đurković](https://www.linkedin.com/in/djvelimir/)
- - [Tawheed Ahmed](https://www.linkedin.com/in/tawheed-ahmed-dev/)
- - [Brenda Hensley](https://www.linkedin.com/in/brenda-hensley-/)
- - [Gavin Hensley](https://www.linkedin.com/in/g-hensley/)
- - [Engombe Lokanga](https://www.linkedin.com/in/engombelokanga/)
+- Smooth gameplay with customizable difficulty levels
+- Dark mode and ongoing UX polish
+- Sounds, timers, and extra UX features for immersion
+- Accessibility, themes, and multi-language support
+- Touch controls optimized for mobile & tablets
+- Keyboard navigation for power players
+- New home screen with light/dark themes & quick actions
 
 
-See a more detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
+See the [Kanban Board](https://github.com/users/v-gajjar/projects/2) or [open issues](https://github.com/v-gajjar/Minesweeper/issues) for the full list.  
 
+---
 
-# Getting Started
+## Contributing
 
-### Dependencies
+We love contributions of all kinds! Whether it’s fixing a bug, suggesting a feature, or polishing docs, your help makes this game better.  
 
-| Name                                                                  | Version | Description                                                 |
-| :-------------------------------------------------------------------- | :------ | :---------------------------------------------------------- |
-| [React](https://reactjs.org/)                                         | ^18.3.1 | JavaScript library for building component-based UIs.        |
-| [Vite](https://vitejs.dev/)                                           | ^6.0.5  | Fast build tool and development server for modern web apps. |
-| [classnames](https://www.npmjs.com/package/classnames)                | ^2.5.1  | Utility for conditionally joining class names together.     |
-| [Phosphor Icons](https://www.npmjs.com/package/@phosphor-icons/react) | ^2.1.7  | Clean, modern SVG-based icon set.                           |
+How to join in:  
+- Fork & open a PR 
+- Add yourself to [Contributors](./CONTRIBUTORS.md)
+- Share ideas in [roadmap discussions](https://github.com/users/v-gajjar/projects/2)  
+- Report bugs via [Issues](https://github.com/v-gajjar/Minesweeper/issues)
 
-### Clone the project
+Every contribution, big or small, helps keep this project alive 🎉
 
-```
+---
+
+## Acknowledgements
+
+Minesweeper is a community project, shaped by everyone who’s played, tested, and contributed.  
+Every commit, idea, and bug report makes the game better.  
+
+[![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper)](./CONTRIBUTORS.md)  
+
+Meet all our amazing [Contributors](./CONTRIBUTORS.md)
+
+---
+
+## How to Play
+
+Uncover all safe cells without clicking on a mine 💣
+
+- **Flag suspected mines:** Right-click a cell to place a flag (flag as many as you like).
+- **Open cells:** Left-click to reveal a cell. If it’s a mine, the game ends.
+- **After a loss:** Incorrect flags show a ❌, correct flags stay 🚩, and all remaining mines are revealed.
+- **Numbers:** Each number shows how many mines are in the 8 **adjacent** cells.
+- **Fair start:** Mines are placed **after** your first left-click and never on the first cell you open.
+
+**Difficulty Levels:**
+
+| Level        | Board Size           | Mines |
+|--------------|----------------------|-------|
+| Beginner     | 9 × 9                | 10    |
+| Intermediate | 16 × 16              | 40    |
+| Expert       | 16 × 30              | 80    |
+
+---
+
+## Getting Started
+
+**Requirements:** Node 18+ (or Docker)
+
+### Clone & Run
+
+1. Clone repo
+
+```bash
 git clone https://github.com/v-gajjar/Minesweeper.git
 ```
 
+2. Enter folder
 
-### Running locally via NPM
-1. Navigate to the project directory:
-   ```
-   cd Minesweeper
-   ```
-2. Install dependencies
-   ```
-   npm install
-   ```
-3. Start the dev server
-   ```
-   npm run dev
-   ```
-4. Accessing on a browser (The localhost port will usually be 5173, but it should be logged to the console)
-   ```
-   http://localhost:5173/
-   ```
-   
-
-### Running via Docker
-1. Docker Image
-
+```bash
+cd Minesweeper
 ```
+
+3. Install dependencies
+
+```bash 
+npm install
+```
+
+4. Start dev server
+
+```bash
+npm run dev
+```
+
+5. Run tests:
+
+```bash
+npm test
+```
+
+6. In your browser, visit [http://localhost:5173](http://localhost:5173)
+
+### Docker Run
+
+1. Build image
+
+```bash
 docker build -t minesweeper:v1 .
 ```
 
-2. Running via Docker
+2. Run container
 
-```
+```bash
 docker run -itd -p 8083:80 --name minesweeper minesweeper:v1
+```  
+
+3. In your browser, visit [http://localhost:8083](http://localhost:8083)
+
+---
+
+## Project Structure
+
+Curious how things are organized? Here’s a quick look: 
+<details>
+<summary>Click to expand project file structure</summary>
+
+```plaintext
+.
+├── .github
+│   ├── pull_request_template.md
+│   └── workflows
+│       ├── build-checks.yaml
+│       ├── whats-new-merged.yaml
+│       └── whats-new-preview.yaml
+├── .gitignore
+├── .prettierignore
+├── .prettierrc.yml
+├── .stylelintrc.json
+├── CONTRIBUTORS.md
+├── Dockerfile
+├── eslint.config.js
+├── globals.d.ts
+├── index.html
+├── LICENSE
+├── package-lock.json
+├── package.json
+├── README.md
+├── src
+│   ├── App.css
+│   ├── App.tsx
+│   ├── assets
+│   │   └── Minesweeper-16-06-2025.gif
+│   ├── components
+│   │   └── feature
+│   │       ├── Cell
+│   │       ├── GameBoard
+│   │       ├── GameDifficultySelector
+│   │       ├── GameResultModal
+│   │       └── RemainingFlagsCounter
+│   ├── config
+│   │   ├── gameDifficultyLevelSettings.interfaces.ts
+│   │   └── gameDifficultyLevelSettings.ts
+│   ├── enum
+│   │   ├── GameDifficultyLevel.interfaces.ts
+│   │   ├── GameDifficultyLevel.ts
+│   │   ├── GameStatus.interfaces.ts
+│   │   └── GameStatus.ts
+│   ├── index.css
+│   ├── main.tsx
+│   ├── minesweeperUtils.js
+│   ├── types.ts
+│   └── vite-env.d.ts
+├── tests
+│   └── unit
+│       ├── App.test.jsx
+│       ├── Board.test.jsx
+│       ├── Cell.test.jsx
+│       ├── GameBoard.test.jsx
+│       └── Win.test.jsx
+├── tsconfig.app.json
+├── tsconfig.json
+├── tsconfig.node.json
+└── vite.config.ts
 ```
 
-3. Accessing on browser
+</details>
 
-The above docker run command maps port 80 of docker container to port 8083 of the host. The host port can be changed as per the user's need. The application will be accessible on browser at http://localhost:8083 in the above case.
+---
 
+## Tech Stack
 
-# How to Play
+| Name                                                                  | Version | Description                                                 |
+| :-------------------------------------------------------------------- | :------ | :---------------------------------------------------------- |
+| [React](https://react.dev/)                                           | ^18.3.1 | UI library for building components.                         |
+| [Vite](https://vitejs.dev/)                                           | ^6.0.5  | Fast dev server & bundler.                                  |
+| [classnames](https://www.npmjs.com/package/classnames)                | ^2.5.1  | Utility for conditional classNames.                         |
+| [Phosphor Icons](https://www.npmjs.com/package/@phosphor-icons/react) | ^2.1.7  | Flexible icon set for React.                                |
 
-- By default, all cells are closed. A number of mines will be randomly distributed across the cells. 
+---
 
-- The objective of the game is to open all cells that don't contain a mine.
+## Scripts
 
-- If you suspect a cell has a mine, you can "flag" the cell using right click. This will display a flag on the cell. 
+Run with `npm run <script>` (see package.json for full list).
 
-- You can flag as many cells as you want. 
+| Category       | Script        | Description                               |
+|----------------|---------------|-------------------------------------------|
+| **Dev**        | dev           | Start dev server                          |
+|                | build         | Type-check + production build             |
+|                | preview       | Preview production build                  |
+| **Test**       | test          | Run all tests once                        |
+|                | test:watch    | Run tests in watch mode                   |
+| **Deploy**     | predeploy     | Build before deploy                       |
+|                | deploy        | Publish to GitHub Pages                   |
+| **Lint/Format**| lint / lint:fix       | ESLint (JS/TS)                  |
+|                | lint:css / lint:css:fix | Stylelint (CSS/SCSS)          |
+|                | format / format:check | Prettier                           |
+| **Checks**     | check         | Run Prettier + ESLint                     |
+|                | check:fix     | Run Prettier + ESLint (auto-fix)          |
 
-- You can open a cell using left click, however if you open a mine, the game is over.
-  
-- If you lose the game, incorrectly placed flags will be replaced with a cross, correctly placed flags will remain, and mines hidden in any other cells will be revealed. 
+---
 
-- The number on a cell is the number of mines hidden within the 8 cells that surround it. 
+## Attributions
 
-- To make the game fairer, mines will not be distributed until the first left-click and won't be placed on the first cell that you open. 
+- Inter font by Rasmus Andersson (SIL Open Font License 1.1)
 
+---
 
-### Difficulty Levels
+## Repository Notes
 
-There are currently three difficulty settings:
+This repo was renamed from **React-Minesweeper** → **Minesweeper** (May 24, 2025).  
+If you cloned the old repo, update your remote with:
 
-| Level        | Board Size            | Number of Mines |
-| :----------- | :-------------------- | :-------------- |
-| Beginner     | 9 rows x 9 columns    | 10              |
-| Intermediate | 16 rows x 16 columns  | 40              |
-| Expert       | 16 rows x 30 columns  | 80              |
-
-
-
-
-   
-   
+```bash
+git remote set-url origin https://github.com/v-gajjar/Minesweeper.git
+```
