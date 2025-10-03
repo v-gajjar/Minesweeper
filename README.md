@@ -1,4 +1,4 @@
-# Minesweeper 🎉
+# Minesweeper
 
 ![License](https://img.shields.io/github/license/v-gajjar/Minesweeper)
 ![Contributors](https://img.shields.io/github/contributors/v-gajjar/Minesweeper)
@@ -11,7 +11,7 @@
 
 ---
 
-## About ⚡
+## About
 
 Classic **Minesweeper** — reloaded for the modern web.  
 Built with **React + TypeScript**, styled for today’s UX, and kept alive by a growing community of contributors.
@@ -22,7 +22,7 @@ Built with **React + TypeScript**, styled for today’s UX, and kept alive by a 
 
 ---
 
-## Roadmap 🗺️
+## Roadmap
 
 We’re actively evolving this game! Some upcoming ideas:  
 
@@ -39,7 +39,7 @@ See the [Project Board](https://github.com/users/v-gajjar/projects/2) or [open i
 
 ---
 
-## How to Play 🎮
+## How to Play
 
 Uncover all safe cells without clicking on a mine 💣
 
@@ -59,7 +59,7 @@ Uncover all safe cells without clicking on a mine 💣
 
 ---
 
-## Getting Started ⚡
+## Getting Started
 
 **Requirements:** Node 18+ (or Docker)
 
@@ -97,7 +97,7 @@ npm test
 
 6. In your browser, visit [http://localhost:5173](http://localhost:5173)
 
-### Docker Run 🐳
+### Docker Run
 
 1. Build image
 
@@ -115,11 +115,11 @@ docker run -itd -p 8083:80 --name minesweeper minesweeper:v1
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 Curious how things are organized? Here’s a quick look: 
 <details>
-<summary>📁 Click to expand project file structure</summary>
+<summary>Click to expand project file structure</summary>
 
 ```plaintext
 .
@@ -184,7 +184,7 @@ Curious how things are organized? Here’s a quick look:
 
 ---
 
-## Tech Stack 📦
+## Tech Stack
 
 | Name                                                                  | Version | Description                                                 |
 | :-------------------------------------------------------------------- | :------ | :---------------------------------------------------------- |
@@ -195,7 +195,7 @@ Curious how things are organized? Here’s a quick look:
 
 ---
 
-## Scripts 🧰 (at a glance)
+## Scripts
 
 Run with `npm run <script>` (see package.json for full list).
 
@@ -216,9 +216,9 @@ Run with `npm run <script>` (see package.json for full list).
 
 ---
 
-## Contributing 🤝
+## Contributing
 
-We ❤️ contributions of all kinds! Whether it’s fixing a bug, suggesting a feature, or polishing docs, your help makes this game better.  
+We love contributions of all kinds! Whether it’s fixing a bug, suggesting a feature, or polishing docs, your help makes this game better.  
 
 How to join in:  
 - Fork & open a PR 
@@ -230,13 +230,13 @@ Every contribution, big or small, helps keep this project alive 🎉
 
 ---
 
-## Attributions 📚
+## Attributions
 
 - Inter font by Rasmus Andersson (SIL Open Font License 1.1)
 
 ---
 
-## Acknowledgements ❤️
+## Acknowledgements
 
 Minesweeper is a community project, shaped by everyone who’s played, tested, and contributed.  
 Every commit, idea, and bug report makes the game better.  
@@ -247,7 +247,7 @@ Meet all our amazing [Contributors](./CONTRIBUTORS.md)
 
 ---
 
-## Repository Notes 📌
+## Repository Notes
 
 This repo was renamed from **React-Minesweeper** → **Minesweeper** (May 24, 2025).  
 If you cloned the old repo, update your remote with:
