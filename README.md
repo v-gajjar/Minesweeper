@@ -13,7 +13,7 @@
 
 ## About
 
-Classic **Minesweeper** — reloaded for the modern web.  
+A community-driven, open-source project that reimagines the timeless Minesweeper with modern tech and UX. 
 Built with **React + TypeScript**, styled for today’s UX, and kept alive by a growing community of contributors.
 
 - Clean interface  
@@ -26,16 +26,16 @@ Built with **React + TypeScript**, styled for today’s UX, and kept alive by a 
 
 We’re actively evolving this game! Some upcoming ideas:  
 
-	- Smooth gameplay with customizable difficulty levels
-	- Dark mode and ongoing UX polish
-	- Sounds, timers, and extra UX features for immersion
-	- Accessibility, themes, and multi-language support
-	- Touch controls optimized for mobile & tablets
-	- Keyboard navigation for power players
-	- New home screen with light/dark themes & quick actions
+- Smooth gameplay with customizable difficulty levels
+- Dark mode and ongoing UX polish
+- Sounds, timers, and extra UX features for immersion
+- Accessibility, themes, and multi-language support
+- Touch controls optimized for mobile & tablets
+- Keyboard navigation for power players
+- New home screen with light/dark themes & quick actions
 
 
-See the [Project Board](https://github.com/users/v-gajjar/projects/2) or [open issues](https://github.com/v-gajjar/Minesweeper/issues) for the full list.  
+See the [Kanban Board](https://github.com/users/v-gajjar/projects/2) or [open issues](https://github.com/v-gajjar/Minesweeper/issues) for the full list.  
 
 ---
 
