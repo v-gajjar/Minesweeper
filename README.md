@@ -14,11 +14,6 @@
 ## About
 
 A community-driven, open-source project that reimagines the timeless Minesweeper with modern tech and UX. 
-Built with **React + TypeScript**, styled for today’s UX, and kept alive by a growing community of contributors.
-
-- Clean interface  
-- Thoughtful UX  
-- Powered by Vite 
 
 ---
 
