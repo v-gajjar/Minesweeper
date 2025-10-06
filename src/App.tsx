@@ -22,7 +22,13 @@ import GameStatus from '@enum/GameStatus.js';
 import { useCallback } from 'react';
 
 import './App.css';
-import type { BoardData, CellData, FlagLocations, LocationColRow, MineLocations } from '@/types';
+import type {
+  BoardData,
+  CellData,
+  FlagLocations,
+  LocationColRow,
+  MineLocations,
+} from '@/types';
 
 function App() {
   const [board, setBoard] = useState<BoardData>([]);
