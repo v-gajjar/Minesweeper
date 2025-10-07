@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
@@ -6,6 +6,7 @@ import GameDifficultySelector from '@feature/GameDifficultySelector/GameDifficul
 import GameBoard from '@feature/GameBoard/GameBoard';
 import GameResultModal from '@feature/GameResultModal/GameResultModal';
 import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlagsCounter';
+import GameTimer from '@feature/GameTimer/GameTimer';
 
 import {
   getMineLocations,
@@ -19,10 +20,25 @@ import {
 } from '@/minesweeperUtils.js';
 
 import GameStatus from '@enum/GameStatus.js';
-import { useCallback } from 'react';
 
 import './App.css';
-import type { BoardData, CellData, FlagLocations, LocationColRow, MineLocations } from '@/types';
+import type {
+  BoardData,
+  CellData,
+  FlagLocations,
+  LocationColRow,
+  MineLocations,
+} from '@/types';
+
+// ⏱️ Timer store (logic only)
+import {
+  useGameTimer,
+  timerStart,
+  timerStop,
+  timerReset,
+  timerArmAutoStart,
+  timerIsAutoArmed,
+} from '@feature/GameTimer/useGameTimer';
 
 function App() {
   const [board, setBoard] = useState<BoardData>([]);
@@ -40,8 +56,14 @@ function App() {
   );
   const boardContainerRef = useRef<HTMLInputElement>(null);
 
+  // subscribe so first-reveal logic knows if timer is running
+  const { isRunning } = useGameTimer();
+
   useEffect(() => {
     if (gameHasEnded()) {
+      // Stop timer when the game ends
+      timerStop();
+
       const gameResultModal = document.getElementById(
         'gameResultModal'
       ) as unknown as { showModal: () => void }; // TODO: refactor modal
@@ -51,6 +73,7 @@ function App() {
 
   useEffect(() => {
     setupNewGame();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameDifficultySettings]);
 
   const onGameDifficultyLevelChanged = useCallback(
@@ -61,9 +84,7 @@ function App() {
         GAME_DIFFICULTY_LEVEL_SETTINGS
       ).find((difficultySetting) => selectedLevel === difficultySetting.level);
 
-      if (!difficultyLevel) {
-        return;
-      }
+      if (!difficultyLevel) return;
 
       resetBoardContainerScroll();
       setGameStatus(GameStatus.GAME_NOT_STARTED);
@@ -79,14 +100,15 @@ function App() {
     gameResultModal.close();
 
     resetBoardContainerScroll();
+    setGameStatus(GameStatus.GAME_NOT_STARTED);
     setupNewGame();
   };
 
   const resetBoardContainerScroll = () => {
-    if (!boardContainerRef.current) return;
-    // scroll doesn't automatically reset when board size is changed
-    // so reset to 0 for better UX
-    boardContainerRef.current.scrollLeft = 0;
+    if (boardContainerRef.current) {
+      boardContainerRef.current.scrollTop = 0;
+      boardContainerRef.current.scrollLeft = 0;
+    }
   };
 
   const onRevealCell = (event: React.SyntheticEvent<HTMLElement>) => {
@@ -100,6 +122,11 @@ function App() {
 
     if (selectedCell.isRevealed) {
       return;
+    }
+
+    // ⏱️ Auto-start on first reveal if armed and not already running
+    if (!isRunning && timerIsAutoArmed()) {
+      timerStart();
     }
 
     const currentBoard = [...board];
@@ -154,7 +181,6 @@ function App() {
 
       setBoard(gameLostBoard);
       setGameStatus(GameStatus.GAME_LOST);
-
       return;
     }
 
@@ -205,7 +231,7 @@ function App() {
     };
     updatedBoard[rowIndex][colIndex] = updatedCell;
 
-    let updatedFlagLocations = [];
+    let updatedFlagLocations: FlagLocations = [];
 
     if (isFlagged) {
       flagCount = flagCount - 1;
@@ -231,6 +257,10 @@ function App() {
     const mineCount = gameDifficultySettings.mineCount;
 
     const newBoard = getBoard(boardSize);
+
+    // ⏱️ Reset & re-arm timer for a fresh game
+    timerReset();
+    timerArmAutoStart();
 
     setMineLocations([]);
     setFlagLocations([]);
@@ -264,20 +294,36 @@ function App() {
       <header>
         <h1 className='game-title'>Minesweeper</h1>
       </header>
+
+      {/* ⏱️ Timer bar directly under the heading */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          marginTop: 8,
+          marginBottom: 8,
+        }}
+      >
+        <GameTimer showControls disableStart={gameHasEnded()} />
+      </div>
+
       <main className='wrapper'>
         <GameDifficultySelector
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
         ></GameDifficultySelector>
+
         <RemainingFlagsCounter
           remainingFlagsCount={remainingFlagsCount}
         ></RemainingFlagsCounter>
+
         {gameHasEnded() && (
           <GameResultModal
             gameWon={userWonGame()}
             onClick={onCloseGameResultModal}
           ></GameResultModal>
         )}
+
         <div id='boardContainer' ref={boardContainerRef}>
           <GameBoard
             board={board}

@@ -168,3 +168,10 @@ dialog p {
 .cell.mine.exploded {
   background: orange;
 }
+
+.timer {
+  display: inline-block;
+  margin-left: 12px;
+  font-weight: 600;
+  user-select: none;
+}
