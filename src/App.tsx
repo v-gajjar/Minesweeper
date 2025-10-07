@@ -182,6 +182,10 @@ function App() {
   const onToggleFlag = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
 
+    if (remainingFlagsCount === 0) {
+      return;
+    }
+
     const target = event.currentTarget as unknown as {
       dataset: LocationColRow;
     };
