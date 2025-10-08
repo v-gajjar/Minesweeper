@@ -170,14 +170,25 @@ Curious how things are organized? Here’s a quick look:
 │   ├── App.css
 │   ├── App.tsx
 │   ├── assets
-│   │   └── Minesweeper-16-06-2025.gif
+│   │   ├── Minesweeper-16-06-2025.gif
+│   │   └── ui-flow.jpg
 │   ├── components
 │   │   └── feature
 │   │       ├── Cell
+│   │       │   ├── Cell.interfaces.ts
+│   │       │   └── Cell.tsx
 │   │       ├── GameBoard
+│   │       │   ├── GameBoard.interfaces.ts
+│   │       │   └── GameBoard.tsx
 │   │       ├── GameDifficultySelector
+│   │       │   ├── GameDifficultySelector.interfaces.ts
+│   │       │   └── GameDifficultySelector.tsx
 │   │       ├── GameResultModal
+│   │       │   ├── GameResultModal.interface.ts
+│   │       │   └── GameResultModal.tsx
 │   │       └── RemainingFlagsCounter
+│   │           ├── RemainingFlagsCounter.interface.ts
+│   │           └── RemainingFlagsCounter.tsx
 │   ├── config
 │   │   ├── gameDifficultyLevelSettings.interfaces.ts
 │   │   └── gameDifficultyLevelSettings.ts
@@ -189,6 +200,8 @@ Curious how things are organized? Here’s a quick look:
 │   ├── index.css
 │   ├── main.tsx
 │   ├── minesweeperUtils.js
+│   ├── tests
+│   │   └── unit
 │   ├── types.ts
 │   └── vite-env.d.ts
 ├── tests
@@ -201,7 +214,6 @@ Curious how things are organized? Here’s a quick look:
 ├── tsconfig.app.json
 ├── tsconfig.json
 ├── tsconfig.node.json
-└── vite.config.ts
 ```
 
 </details>
