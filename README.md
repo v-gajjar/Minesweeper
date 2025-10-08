@@ -150,9 +150,7 @@ Curious how things are organized? Here’s a quick look:
 ├── .github
 │   ├── pull_request_template.md
 │   └── workflows
-│       ├── build-checks.yaml
-│       ├── whats-new-merged.yaml
-│       └── whats-new-preview.yaml
+│       └── build-checks.yaml
 ├── .gitignore
 ├── .prettierignore
 ├── .prettierrc.yml
@@ -174,21 +172,21 @@ Curious how things are organized? Here’s a quick look:
 │   │   └── ui-flow.jpg
 │   ├── components
 │   │   └── feature
-│   │       ├── Cell
-│   │       │   ├── Cell.interfaces.ts
-│   │       │   └── Cell.tsx
+│   │       ├── DifficultySelect
+│   │       │   ├── DifficultySelect.interfaces.ts
+│   │       │   └── DifficultySelect.tsx
 │   │       ├── GameBoard
+│   │       │   ├── Cell
+│   │       │   │   ├── Cell.interfaces.ts
+│   │       │   │   └── Cell.tsx
 │   │       │   ├── GameBoard.interfaces.ts
 │   │       │   └── GameBoard.tsx
-│   │       ├── GameDifficultySelector
-│   │       │   ├── GameDifficultySelector.interfaces.ts
-│   │       │   └── GameDifficultySelector.tsx
-│   │       ├── GameResultModal
-│   │       │   ├── GameResultModal.interface.ts
-│   │       │   └── GameResultModal.tsx
-│   │       └── RemainingFlagsCounter
-│   │           ├── RemainingFlagsCounter.interface.ts
-│   │           └── RemainingFlagsCounter.tsx
+│   │       ├── RemainingFlagsCounter
+│   │       │   ├── RemainingFlagsCounter.interface.ts
+│   │       │   └── RemainingFlagsCounter.tsx
+│   │       └── ResultModal
+│   │           ├── ResultModal.interface.ts
+│   │           └── ResultModal.tsx
 │   ├── config
 │   │   ├── gameDifficultyLevelSettings.interfaces.ts
 │   │   └── gameDifficultyLevelSettings.ts
@@ -214,6 +212,7 @@ Curious how things are organized? Here’s a quick look:
 ├── tsconfig.app.json
 ├── tsconfig.json
 ├── tsconfig.node.json
+└── vite.config.ts
 ```
 
 </details>
