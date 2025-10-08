@@ -1,7 +1,7 @@
 // src/tests/Cell.test.jsx
 import { render, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
-import Cell from '@feature/Cell/Cell';
+import Cell from '@feature/GameBoard/Cell/Cell';
 
 const mockCell = (overrides = {}) => ({
   x: 0,

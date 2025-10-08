@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 
 import classNames from 'classnames';
-import type { GameResultModalProps } from '@feature/GameResultModal/GameResultModal.interface';
+import type { ResultModalProps } from '@/components/feature/ResultModal/ResultModal.interface';
 
-function GameResultModal({ gameWon, onClick }: GameResultModalProps) {
+function ResultModal({ gameWon, onClick }: ResultModalProps) {
   const [modalStateClass, setModalStateClass] = useState('modalEntrance');
   const message = gameWon ? 'You Won!' : 'Game Over!';
   const gameResultClass = gameWon ? 'gameWonModal' : 'gameLostModal';
@@ -43,4 +43,4 @@ function GameResultModal({ gameWon, onClick }: GameResultModalProps) {
   );
 }
 
-export default GameResultModal;
+export default ResultModal;

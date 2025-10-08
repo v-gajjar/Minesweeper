@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
-import GameDifficultySelector from '@feature/GameDifficultySelector/GameDifficultySelector';
+import DifficultySelect from '@/components/feature/DifficultySelect/DifficultySelect';
 import GameBoard from '@feature/GameBoard/GameBoard';
-import GameResultModal from '@feature/GameResultModal/GameResultModal';
+import ResultModal from '@/components/feature/ResultModal/ResultModal';
 import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlagsCounter';
 
 import {
@@ -265,18 +265,18 @@ function App() {
         <h1 className='game-title'>Minesweeper</h1>
       </header>
       <main className='wrapper'>
-        <GameDifficultySelector
+        <DifficultySelect
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
-        ></GameDifficultySelector>
+        ></DifficultySelect>
         <RemainingFlagsCounter
           remainingFlagsCount={remainingFlagsCount}
         ></RemainingFlagsCounter>
         {gameHasEnded() && (
-          <GameResultModal
+          <ResultModal
             gameWon={userWonGame()}
             onClick={onCloseGameResultModal}
-          ></GameResultModal>
+          ></ResultModal>
         )}
         <div id='boardContainer' ref={boardContainerRef}>
           <GameBoard

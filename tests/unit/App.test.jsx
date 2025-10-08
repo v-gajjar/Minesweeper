@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import GameBoard from '@feature/GameBoard/GameBoard';
-import GameDifficultySelector from '@feature/GameDifficultySelector/GameDifficultySelector';
+import DifficultySelect from '@feature/DifficultySelect/DifficultySelect';
 import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlagsCounter';
-import GameResultModal from '@feature/GameResultModal/GameResultModal';
+import ResultModal from '@feature/ResultModal/ResultModal';
 
 // Minimal mock data
 const mockBoard = Array(9).fill(Array(9).fill({}));
@@ -21,7 +21,7 @@ describe('App Component', () => {
 
   it('renders the difficulty selector', () => {
     const { getByTestId } = render(
-      <GameDifficultySelector
+      <DifficultySelect
         gameDifficultySettings={mockDifficulty}
         onChange={() => {}}
       />
@@ -38,7 +38,7 @@ describe('App Component', () => {
 
   it('renders a result modal', () => {
     const { getByTestId } = render(
-      <GameResultModal isOpen={true} onClose={() => {}} result='win' />
+      <ResultModal isOpen={true} onClose={() => {}} result='win' />
     );
     expect(getByTestId('result-modal')).toBeTruthy();
   });

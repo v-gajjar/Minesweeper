@@ -1,16 +1,16 @@
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 import { memo } from 'react';
 import type { GameDifficultyLevelKeys } from '@enum/GameDifficultyLevel.interfaces';
-import type { GameDifficultySelectorProps } from '@feature/GameDifficultySelector/GameDifficultySelector.interfaces'; 
+import type { DifficultySelectProps } from '@/components/feature/DifficultySelect/DifficultySelect.interfaces'; 
 
 const gameDifficultyLevelKeys = Object.keys(
   GAME_DIFFICULTY_LEVEL_SETTINGS
 ) as GameDifficultyLevelKeys[];
 
-function GameDifficultySelector({
+function DifficultySelect({
   gameDifficultySettings,
   onChange,
-}: GameDifficultySelectorProps) {
+}: DifficultySelectProps) {
   return (
     <div className='game-difficulty-select-wrapper'>
       <label htmlFor='game-difficulty-select'>Difficulty: </label>
@@ -39,4 +39,4 @@ function GameDifficultySelector({
   );
 }
 
-export default memo(GameDifficultySelector);
+export default memo(DifficultySelect);
