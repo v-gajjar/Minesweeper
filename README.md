@@ -21,6 +21,8 @@ We’re not just cloning nostalgia we’re reinventing it. Expect clean design, 
 
 ## Roadmap
 
+![UI Flow Diagram](./assets/ui-flow.jpg)
+
 We’re actively evolving this game! Some upcoming ideas:  
 
 - Smooth gameplay with customizable difficulty levels
