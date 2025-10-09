@@ -11,12 +11,12 @@ import {
   getMineLocations,
   getCellsWithMines,
   updateBoard,
+  getBoard,
+  getGameLostBoard,
   revealCell,
   coordinatesMatch,
   getFilteredFlagLocations,
-  getGameLostBoard,
-  getBoard,
-} from '@/minesweeperUtils';
+} from './utils/index.ts';
 
 import GameStatus from '@enum/GameStatus';
 
@@ -109,6 +109,8 @@ function App() {
       setMineLocations(newMineLocations);
       setShouldPlaceMines(false);
       setBoard(boardWithMines);
+
+      console.log(currentBoard);
     }
 
     const revealedCells = revealCell(
