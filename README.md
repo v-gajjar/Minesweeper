@@ -21,7 +21,7 @@ We’re not just cloning nostalgia we’re reinventing it. Expect clean design, 
 
 ## Roadmap
 
-![UI Flow Diagram](./src/assets/ui-flow.jpg)
+![UI Flow Diagram](./src/assets/ui-flow.png)
 
 We’re actively evolving this game! Some upcoming ideas:  
 
@@ -147,6 +147,7 @@ Curious how things are organized? Here’s a quick look:
 
 ```plaintext
 .
+├── .DS_Store
 ├── .github
 │   ├── pull_request_template.md
 │   └── workflows
@@ -169,7 +170,7 @@ Curious how things are organized? Here’s a quick look:
 │   ├── App.tsx
 │   ├── assets
 │   │   ├── Minesweeper-16-06-2025.gif
-│   │   └── ui-flow.jpg
+│   │   └── ui-flow.png
 │   ├── components
 │   │   └── feature
 │   │       ├── DifficultySelect
