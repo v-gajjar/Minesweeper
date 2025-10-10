@@ -121,6 +121,7 @@ npm test
 
 6. In your browser, visit [http://localhost:5173](http://localhost:5173)
 
+
 ### Docker Run
 
 1. Build image
@@ -136,6 +137,22 @@ docker run -itd -p 8083:80 --name minesweeper minesweeper:v1
 ```  
 
 3. In your browser, visit [http://localhost:8083](http://localhost:8083)
+
+---
+
+## Test Production Build
+
+1. Build the app
+
+```bash
+npm run build
+```
+
+2. Preview the production build locally
+
+```bash
+npm run preview
+```
 
 ---
 
