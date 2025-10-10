@@ -2,11 +2,10 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
-import GameDifficultySelector from '@feature/GameDifficultySelector/GameDifficultySelector';
+import DifficultySelect from '@/components/feature/DifficultySelect/DifficultySelect';
 import GameBoard from '@feature/GameBoard/GameBoard';
-import GameResultModal from '@feature/GameResultModal/GameResultModal';
+import ResultModal from '@/components/feature/ResultModal/ResultModal';
 import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlagsCounter';
-import GameTimer from '@feature/GameTimer/GameTimer';
 
 import {
   getMineLocations,
@@ -17,9 +16,9 @@ import {
   getFilteredFlagLocations,
   getGameLostBoard,
   getBoard,
-} from '@/minesweeperUtils.js';
+} from '@/minesweeperUtils';
 
-import GameStatus from '@enum/GameStatus.js';
+import GameStatus from '@enum/GameStatus'; 
 
 import './App.css';
 import type {
@@ -30,15 +29,6 @@ import type {
   MineLocations,
 } from '@/types';
 
-// ⏱️ Timer store (logic only)
-import {
-  useGameTimer,
-  timerStart,
-  timerStop,
-  timerReset,
-  timerArmAutoStart,
-  timerIsAutoArmed,
-} from '@feature/GameTimer/useGameTimer';
 
 function App() {
   const [board, setBoard] = useState<BoardData>([]);
@@ -56,24 +46,8 @@ function App() {
   );
   const boardContainerRef = useRef<HTMLInputElement>(null);
 
-  // subscribe so first-reveal logic knows if timer is running
-  const { isRunning } = useGameTimer();
-
-  useEffect(() => {
-    if (gameHasEnded()) {
-      // Stop timer when the game ends
-      timerStop();
-
-      const gameResultModal = document.getElementById(
-        'gameResultModal'
-      ) as unknown as { showModal: () => void }; // TODO: refactor modal
-      gameResultModal.showModal();
-    }
-  }, [gameStatus]);
-
   useEffect(() => {
     setupNewGame();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameDifficultySettings]);
 
   const onGameDifficultyLevelChanged = useCallback(
@@ -84,7 +58,9 @@ function App() {
         GAME_DIFFICULTY_LEVEL_SETTINGS
       ).find((difficultySetting) => selectedLevel === difficultySetting.level);
 
-      if (!difficultyLevel) return;
+      if (!difficultyLevel) {
+        return;
+      }
 
       resetBoardContainerScroll();
       setGameStatus(GameStatus.GAME_NOT_STARTED);
@@ -93,40 +69,29 @@ function App() {
     []
   );
 
-  const onCloseGameResultModal = () => {
-    const gameResultModal = document.getElementById(
-      'gameResultModal'
-    ) as unknown as { close: () => void }; // TODO: refactor modal
-    gameResultModal.close();
-
+  const handleGameRestart = () => {
     resetBoardContainerScroll();
-    setGameStatus(GameStatus.GAME_NOT_STARTED);
     setupNewGame();
   };
 
   const resetBoardContainerScroll = () => {
-    if (boardContainerRef.current) {
-      boardContainerRef.current.scrollTop = 0;
-      boardContainerRef.current.scrollLeft = 0;
-    }
+    if (!boardContainerRef.current) return;
+    // scroll doesn't automatically reset when board size is changed
+    // so reset to 0 for better UX
+    boardContainerRef.current.scrollLeft = 0;
   };
 
   const onRevealCell = (event: React.SyntheticEvent<HTMLElement>) => {
     const target = event.target as unknown as {
       dataset: { row: string; col: string };
     };
-    const rowIndex = parseInt(target.dataset.row);
-    const colIndex = parseInt(target.dataset.col);
+    const rowIndex = parseInt(target.dataset.row, 10);
+    const colIndex = parseInt(target.dataset.col, 10);
 
     const selectedCell = board[rowIndex][colIndex];
 
     if (selectedCell.isRevealed) {
       return;
-    }
-
-    // ⏱️ Auto-start on first reveal if armed and not already running
-    if (!isRunning && timerIsAutoArmed()) {
-      timerStart();
     }
 
     const currentBoard = [...board];
@@ -181,6 +146,7 @@ function App() {
 
       setBoard(gameLostBoard);
       setGameStatus(GameStatus.GAME_LOST);
+
       return;
     }
 
@@ -231,7 +197,7 @@ function App() {
     };
     updatedBoard[rowIndex][colIndex] = updatedCell;
 
-    let updatedFlagLocations: FlagLocations = [];
+    let updatedFlagLocations = [];
 
     if (isFlagged) {
       flagCount = flagCount - 1;
@@ -257,10 +223,6 @@ function App() {
     const mineCount = gameDifficultySettings.mineCount;
 
     const newBoard = getBoard(boardSize);
-
-    // ⏱️ Reset & re-arm timer for a fresh game
-    timerReset();
-    timerArmAutoStart();
 
     setMineLocations([]);
     setFlagLocations([]);
@@ -294,36 +256,20 @@ function App() {
       <header>
         <h1 className='game-title'>Minesweeper</h1>
       </header>
-
-      {/* ⏱️ Timer bar directly under the heading */}
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          marginTop: 8,
-          marginBottom: 8,
-        }}
-      >
-        <GameTimer showControls disableStart={gameHasEnded()} />
-      </div>
-
       <main className='wrapper'>
-        <GameDifficultySelector
+        <DifficultySelect
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
-        ></GameDifficultySelector>
-
+        ></DifficultySelect>
         <RemainingFlagsCounter
           remainingFlagsCount={remainingFlagsCount}
         ></RemainingFlagsCounter>
-
         {gameHasEnded() && (
-          <GameResultModal
+          <ResultModal
             gameWon={userWonGame()}
-            onClick={onCloseGameResultModal}
-          ></GameResultModal>
+            onClick={handleGameRestart}
+          ></ResultModal>
         )}
-
         <div id='boardContainer' ref={boardContainerRef}>
           <GameBoard
             board={board}
