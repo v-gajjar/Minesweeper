@@ -35,7 +35,7 @@ A big thanks to the kind contributions of developers who have helped improve the
  - [Brenda Hensley](https://www.linkedin.com/in/brenda-hensley-/)
  - [Gavin Hensley](https://www.linkedin.com/in/g-hensley/)
  - [Engombe Lokanga](https://www.linkedin.com/in/engombelokanga/)
-
+ - [Amber Adamson](https://www.linkedin.com/in/)
 
 See a more detailed list [here](https://github.com/v-gajjar/Minesweeper/blob/main/CONTRIBUTORS.md)
 
