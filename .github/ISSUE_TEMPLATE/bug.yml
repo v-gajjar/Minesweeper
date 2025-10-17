@@ -1,0 +1,61 @@
+name: Bug
+description: Something is broken or not working as expected.
+labels: [bug]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear, concise summary of the bug.
+      placeholder: What’s wrong? When did you notice it?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: Provide a minimal, reliable repro.
+      placeholder: |
+        1. Step one
+        2. Step two
+        3. …
+  - type: input
+    id: expected
+    attributes:
+      label: Expected Behavior
+      placeholder: What should happen?
+  - type: input
+    id: actual
+    attributes:
+      label: Actual Behavior
+      placeholder: What happens instead?
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots / Logs
+      description: Paste logs or drag images here.
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Fill in what applies.
+      placeholder: |
+        | Info        | Details                       |
+        | ----------- | ----------------------------- |
+        | OS          | macOS 14.6 / Windows 11       |
+        | Browser     | Chrome 127 / Firefox 122      |
+        | Device      | Desktop / iPhone 15           |
+        | App Version | v1.2.3 or commit SHA          |
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues for duplicates
+          required: true
+        - label: This issue is reproducible
+        - label: This issue includes enough detail to act on

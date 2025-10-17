@@ -1,7 +1,8 @@
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 import { memo } from 'react';
 import type { GameDifficultyLevelKeys } from '@enum/GameDifficultyLevel.interfaces';
-import type { DifficultySelectProps } from '@/components/feature/DifficultySelect/DifficultySelect.interfaces'; 
+import type { DifficultySelectProps } from '@/components/feature/DifficultySelect/DifficultySelect.interfaces';
+import styles from '@components/feature/DifficultySelect/DifficultySelect.module.css';
 
 const gameDifficultyLevelKeys = Object.keys(
   GAME_DIFFICULTY_LEVEL_SETTINGS
@@ -12,7 +13,7 @@ function DifficultySelect({
   onChange,
 }: DifficultySelectProps) {
   return (
-    <div className='game-difficulty-select-wrapper'>
+    <div className={styles.game_difficulty_select_wrapper}>
       <label htmlFor='game-difficulty-select'>Difficulty: </label>
       <select
         value={gameDifficultySettings.level}

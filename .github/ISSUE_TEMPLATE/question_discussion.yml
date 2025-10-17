@@ -1,0 +1,27 @@
+name: Question / Discussion
+description: Ask a question or start a focused discussion.
+labels: [question]
+body:
+  - type: textarea
+    id: topic
+    attributes:
+      label: Topic / Question
+      description: What would you like to know or discuss?
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      placeholder: Background, examples, links.
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots / Logs (optional)
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and discussions
+          required: true

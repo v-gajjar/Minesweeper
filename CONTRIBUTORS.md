@@ -21,6 +21,8 @@
   - Help with reviewing and fixing issues on various PRs
   - Added GitHub Actions and some tests.
   - Helping with TypeScript conversion
+  - Help with improvements to the README
+  - Help with reviewing, testing and approving PRs
 
 - **Daniela Grothe** [LinkedIn](https://www.linkedin.com/in/daniela-grothe-743ab8235/)
   - Identifed an issue with longpress not working on Safari and helped with finding solut
@@ -40,9 +42,13 @@
 - **Gavin Hensley** [LinkedIn](https://www.linkedin.com/in/g-hensley/)
   - Help with implementing accessibility
   - Suggestions for improvements
+  - Help with refactoring the utils file into TypeScript
 
 - **Engombe Lokanga** [LinkedIn](https://www.linkedin.com/in/engombelokanga/)
-  - Help with refactoring the compoment organisation
+  - Help with refactoring the compoment organisation and naming
 
+- **Amber Adamson** [LinkedIn](https://www.linkedin.com/in/amber-adamson-a33a3860/)
+  - Help with refactoring on App.tsx and utils files
+  - Suggestions for improving other parts of the project so it better follows React conventions
 
 

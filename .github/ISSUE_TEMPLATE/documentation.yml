@@ -1,0 +1,33 @@
+name: Documentation
+description: Request docs updates or additions.
+labels: [documentation]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What doc/page needs work?
+      placeholder: Link or path + what’s missing/incorrect.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Change
+      placeholder: The wording/section you suggest adding or changing.
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots (optional)
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues/PRs for related docs work
+          required: true
+        - label: This issue includes enough detail to act on

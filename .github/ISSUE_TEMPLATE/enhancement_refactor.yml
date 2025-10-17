@@ -1,0 +1,37 @@
+name: Enhancement / Refactor
+description: Improve existing behavior or code health.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What should be improved or cleaned up?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope / Affected Area
+      placeholder: Components, files, or modules impacted.
+  - type: textarea
+    id: approach
+    attributes:
+      label: Proposed Approach
+      placeholder: High-level plan, risks, or alternatives.
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots / Logs (optional)
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues for duplicates
+          required: true
+        - label: This issue includes enough detail to act on

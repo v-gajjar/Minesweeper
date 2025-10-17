@@ -1,0 +1,34 @@
+name: Feature Request
+description: Suggest a new capability or improvement.
+labels: [feature]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What problem will this feature solve?
+      placeholder: A clear, concise summary of the idea.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Solution
+      placeholder: How would this work? Any rough UI/UX or API?
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots / Mockups (optional)
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      placeholder: Related issues/PRs, links, tradeoffs.
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues for duplicates
+          required: true
+        - label: This issue includes enough detail to act on

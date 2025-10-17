@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
@@ -16,13 +16,18 @@ import {
   getFilteredFlagLocations,
   getGameLostBoard,
   getBoard,
-} from '@/minesweeperUtils.js';
+} from '@/minesweeperUtils';
 
-import GameStatus from '@enum/GameStatus.js';
-import { useCallback } from 'react';
+import GameStatus from '@enum/GameStatus';
 
 import './App.css';
-import type { BoardData, CellData, FlagLocations, LocationColRow, MineLocations } from '@/types';
+import type {
+  BoardData,
+  CellData,
+  FlagLocations,
+  LocationColRow,
+  MineLocations,
+} from '@/types';
 
 function App() {
   const [board, setBoard] = useState<BoardData>([]);
@@ -39,15 +44,6 @@ function App() {
     GAME_DIFFICULTY_LEVEL_SETTINGS.EASY
   );
   const boardContainerRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (gameHasEnded()) {
-      const gameResultModal = document.getElementById(
-        'gameResultModal'
-      ) as unknown as { showModal: () => void }; // TODO: refactor modal
-      gameResultModal.showModal();
-    }
-  }, [gameStatus]);
 
   useEffect(() => {
     setupNewGame();
@@ -72,12 +68,7 @@ function App() {
     []
   );
 
-  const onCloseGameResultModal = () => {
-    const gameResultModal = document.getElementById(
-      'gameResultModal'
-    ) as unknown as { close: () => void }; // TODO: refactor modal
-    gameResultModal.close();
-
+  const handleGameRestart = () => {
     resetBoardContainerScroll();
     setupNewGame();
   };
@@ -93,8 +84,8 @@ function App() {
     const target = event.target as unknown as {
       dataset: { row: string; col: string };
     };
-    const rowIndex = parseInt(target.dataset.row);
-    const colIndex = parseInt(target.dataset.col);
+    const rowIndex = parseInt(target.dataset.row, 10);
+    const colIndex = parseInt(target.dataset.col, 10);
 
     const selectedCell = board[rowIndex][colIndex];
 
@@ -275,7 +266,7 @@ function App() {
         {gameHasEnded() && (
           <ResultModal
             gameWon={userWonGame()}
-            onClick={onCloseGameResultModal}
+            onClick={handleGameRestart}
           ></ResultModal>
         )}
         <div id='boardContainer' ref={boardContainerRef}>

@@ -29,7 +29,7 @@ describe('GameBoard Component', () => {
     const { container } = render(
       <GameBoard board={mockBoard} boardSize={boardSize} />
     );
-    const boardDiv = container.querySelector('#board');
+    const boardDiv = container.querySelector('[data-testid="game-board"]');
     expect(boardDiv.style.getPropertyValue('--rows')).toBe('2');
     expect(boardDiv.style.getPropertyValue('--columns')).toBe('2');
   });

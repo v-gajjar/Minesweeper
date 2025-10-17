@@ -1,0 +1,29 @@
+.cell {
+  height: 39px;
+  width: 39px;
+  background: lightgray;
+  border: 1px solid whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.cell:focus {
+  outline: 2px solid #0066cc;
+  z-index: 1;
+}
+
+.cell:hover {
+  cursor: pointer;
+  background: gray;
+}
+.cell.revealed {
+  background: #e8e8e8;
+}
+
+.cell.mine.exploded {
+  background: orange;
+}

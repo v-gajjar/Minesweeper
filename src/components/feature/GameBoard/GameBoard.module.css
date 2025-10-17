@@ -1,0 +1,8 @@
+.board {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 39px);
+  grid-template-rows: repeat(var(--rows), 39px);
+  gap: 0;
+  width: fit-content;
+  margin: auto;
+}

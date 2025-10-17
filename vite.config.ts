@@ -5,6 +5,11 @@ import path from 'path';
 export default defineConfig({
   plugins: [react()],
   base: '/Minesweeper/',
+  css: {
+    modules: {
+      generateScopedName: (name: string) => name, // Preserves original class names
+    },
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

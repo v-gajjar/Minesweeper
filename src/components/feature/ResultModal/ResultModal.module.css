@@ -1,0 +1,60 @@
+.resultModalButton {
+  border-radius: 5px;
+  border: none;
+  background: rgb(211, 211, 211);
+  padding: 5px;
+  margin: 0;
+  box-shadow: 0 0 2px grey;
+  outline-color: lightgrey;
+}
+.resultModalButton:hover {
+  background: rgb(190, 190, 190);
+  box-shadow: 0 0 4px rgb(100, 100, 100);
+  cursor: pointer;
+}
+
+.resultModal {
+  border-radius: 5px;
+  transition: transform 0.3s ease-in-out;
+  display: grid;
+  justify-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  border: 1px solid lightgray;
+  background: white;
+  width: 250px;
+  gap: 12px;
+  position: fixed;
+  top: 0;
+  margin-top: 0;
+  height: 92px;
+  max-height: 92px;
+}
+
+.resultModalMessage {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 10px;
+}
+
+.modalEntrance {
+  transform: translateY(-100vh); /* slide down as appears */
+}
+.modalVisible {
+  transform: translateY(0);
+}
+.modalExit {
+  transform: translateY(-100vh); /* slide up as dissapears */
+}
+
+.gameWonModal {
+  color: #1a7f37;
+}
+.gameLostModal {
+  color: #c01c28;
+}
