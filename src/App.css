@@ -14,15 +14,12 @@ body {
   height: 100%;
 }
 
-.game-title {
+.header-game-title {
   margin: auto;
-}
-
-h1 {
   margin-bottom: 10px;
 }
 
-header {
+.header {
   display: flex;
   justify-content: center;
   padding: 10px;
@@ -35,7 +32,7 @@ header {
   flex-grow: 1;
 }
 
-#boardContainer {
+.boardContainer {
   display: flex;
   overflow-y: hidden;
   justify-content: flex-start;
