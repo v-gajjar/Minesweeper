@@ -1,13 +1,28 @@
 # Minesweeper
 
-![License](https://img.shields.io/github/license/v-gajjar/Minesweeper)
-![Contributors](https://img.shields.io/github/contributors/v-gajjar/Minesweeper)
-![Last Commit](https://img.shields.io/github/last-commit/v-gajjar/Minesweeper)
-![Stars](https://img.shields.io/github/stars/v-gajjar/Minesweeper?style=social)
+<p align="center">
+  <img src="https://img.shields.io/github/contributors/v-gajjar/Minesweeper" alt="Contributors" />
+  <img src="https://img.shields.io/github/last-commit/v-gajjar/Minesweeper" alt="Last Commit" />
+  <img src="https://img.shields.io/github/stars/v-gajjar/Minesweeper?style=social" alt="Stars" />
+  <a href="https://github.com/v-gajjar/Minesweeper/actions/workflows/build-checks.yml">
+    <img src="https://github.com/v-gajjar/Minesweeper/actions/workflows/build-checks.yml/badge.svg" alt="CI Status" />
+  </a>
+</p>
 
-![preview](https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif)
+<p align="center">
+  <img src="https://img.shields.io/badge/Built%20with-React-61dafb?logo=react&logoColor=white" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/github/license/v-gajjar/Minesweeper" alt="License" />
+</p>
 
-**Play now:** [Live Demo](https://v-gajjar.github.io/Minesweeper/)  
+<p align="center">
+  <img src="https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif" alt="Minesweeper Preview" width="600" />
+</p>
+
+<p align="center">
+  <strong>Play now:</strong><br />
+  <a href="https://v-gajjar.github.io/Minesweeper/" target="_blank">Live Demo</a>
+</p>
 
 ---
 
@@ -19,22 +34,32 @@ We’re not just cloning nostalgia we’re reinventing it. Expect clean design, 
 
 ---
 
-## Roadmap
+## 🧩 Architecture Overview
 
 ![UI Flow Diagram](./src/assets/ui-flow.png)
 
-We’re actively evolving this game! Some upcoming ideas:  
+This diagram shows how the app’s components and game logic interact — from user input to board rendering and win/loss conditions.
 
-- Smooth gameplay with customizable difficulty levels
-- Dark mode and ongoing UX polish
-- Sounds, timers, and extra UX features for immersion
-- Accessibility, themes, and multi-language support
-- Touch controls optimized for mobile & tablets
-- Keyboard navigation for power players
-- New home screen with light/dark themes & quick actions
+For deeper technical details, see the [Architecture section in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#architecture).
 
+---
 
-See the [Kanban Board](https://github.com/users/v-gajjar/projects/2) or [open issues](https://github.com/v-gajjar/Minesweeper/issues) for the full list.  
+## How to Play
+
+Learn how to master Minesweeper from basic rules to advanced strategies in the official wiki guide:
+
+👉 [View How to Play in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#how-to-play)
+
+---
+
+## 🗺️ Roadmap
+
+![UI Flow Diagram](./src/assets/ui-flow.png)
+
+The Minesweeper project is continuously evolving with community-driven improvements and new features.  
+You can explore the full development roadmap — including upcoming enhancements and active milestones — directly in the wiki:
+
+👉 [View the Roadmap in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#roadmap)
 
 ---
 
@@ -63,25 +88,6 @@ Meet all our amazing [Contributors](./CONTRIBUTORS.md)
 
 ---
 
-## How to Play
-
-Uncover all safe cells without clicking on a mine 💣
-
-- **Flag suspected mines:** Right-click a cell to place a flag (flag as many as you like).
-- **Open cells:** Left-click to reveal a cell. If it’s a mine, the game ends.
-- **After a loss:** Incorrect flags show a ❌, correct flags stay 🚩, and all remaining mines are revealed.
-- **Numbers:** Each number shows how many mines are in the 8 **adjacent** cells.
-- **Fair start:** Mines are placed **after** your first left-click and never on the first cell you open.
-
-**Difficulty Levels:**
-
-| Level        | Board Size           | Mines |
-|--------------|----------------------|-------|
-| Beginner     | 9 × 9                | 10    |
-| Intermediate | 16 × 16              | 40    |
-| Expert       | 16 × 30              | 80    |
-
----
 
 ## Getting Started
 
@@ -248,25 +254,12 @@ Curious how things are organized? Here’s a quick look:
 
 ---
 
-## Scripts
+## ⚙️ Scripts
 
-Run with `npm run <script>` (see package.json for full list).
+All development, testing, and deployment commands are documented in the wiki.  
+Use this reference to learn how each script works and when to use it.
 
-| Category       | Script        | Description                               |
-|----------------|---------------|-------------------------------------------|
-| **Dev**        | dev           | Start dev server                          |
-|                | build         | Type-check + production build             |
-|                | preview       | Preview production build                  |
-| **Test**       | test          | Run all tests once                        |
-|                | test:watch    | Run tests in watch mode                   |
-| **Deploy**     | predeploy     | Build before deploy                       |
-|                | deploy        | Publish to GitHub Pages                   |
-| **Lint/Format**| lint / lint:fix       | ESLint (JS/TS)                  |
-|                | lint:css / lint:css:fix | Stylelint (CSS/SCSS)          |
-|                | format / format:check | Prettier                           |
-| **Checks**     | check         | Run Prettier + ESLint                     |
-|                | check:fix     | Run Prettier + ESLint (auto-fix)          |
-
+👉 [View Scripts in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#scripts)
 ---
 
 ## Attributions
