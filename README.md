@@ -1,27 +1,33 @@
 # Minesweeper
 
 <p align="center">
-  <img src="https://img.shields.io/github/contributors/v-gajjar/Minesweeper" alt="Contributors" />
-  <img src="https://img.shields.io/github/last-commit/v-gajjar/Minesweeper" alt="Last Commit" />
-  <img src="https://img.shields.io/github/stars/v-gajjar/Minesweeper?style=social" alt="Stars" />
+  <img src="https://img.shields.io/github/contributors/v-gajjar/Minesweeper" alt="Contributors count" />
+  <img src="https://img.shields.io/github/last-commit/v-gajjar/Minesweeper" alt="Date of last commit" />
+  <img src="https://img.shields.io/github/stars/v-gajjar/Minesweeper?style=social" alt="GitHub stars" />
   <a href="https://github.com/v-gajjar/Minesweeper/actions/workflows/build-checks.yaml">
-    <img src="https://github.com/v-gajjar/Minesweeper/actions/workflows/build-checks.yaml/badge.svg" alt="CI Status" />
+    <img src="https://github.com/v-gajjar/Minesweeper/actions/workflows/build-checks.yaml/badge.svg" alt="Build status from GitHub Actions" />
   </a>
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Built%20with-React-61dafb?logo=react&logoColor=white" alt="React" />
-  <img src="https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white" alt="TypeScript" />
-  <img src="https://img.shields.io/github/license/v-gajjar/Minesweeper" alt="License" />
+  <img src="https://img.shields.io/badge/Built%20with-React-61dafb?logo=react&logoColor=white" alt="Built with React" />
+  <img src="https://img.shields.io/badge/TypeScript-3178c6?logo=typescript&logoColor=white" alt="TypeScript logo" />
+  <img src="https://img.shields.io/github/license/v-gajjar/Minesweeper" alt="License: MIT" />
 </p>
 
 <p align="center">
-  <img src="https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif" alt="Minesweeper Preview" width="600" />
+  <img src="https://github.com/v-gajjar/Minesweeper/blob/main/src/assets/Minesweeper-16-06-2025.gif"
+       alt="Gameplay preview of the Minesweeper React app"
+       width="600"
+       style="max-width:100%;" />
 </p>
 
 <p align="center">
   <strong>Play now:</strong><br />
   <a href="https://v-gajjar.github.io/Minesweeper/" target="_blank">Live Demo</a>
+</p>
+
+---href="https://v-gajjar.github.io/Minesweeper/" target="_blank">Live Demo</a>
 </p>
 
 ---
@@ -30,11 +36,11 @@
 
 A modern, open-source remix of the classic Minesweeper, powered by today’s tech and tomorrow’s UX standards.
 
-We’re not just cloning nostalgia we’re reinventing it. Expect clean design, fluid gameplay, and a welcoming home screen that helps new players learn fast and lets veterans dive straight into “Play Now.”
+We’re not just cloning nostalgia, we’re reinventing it. Expect clean design, fluid gameplay, and a welcoming home screen that helps new players learn quickly, and lets veterans dive straight into “Play Now.”
 
 ---
 
-## 🧩 Architecture Overview
+## Architecture Overview
 
 ![UI Flow Diagram](./src/assets/ui-flow.png)
 
@@ -48,16 +54,16 @@ For deeper technical details, see the [Architecture section in the Wiki](https:/
 
 Learn how to master Minesweeper from basic rules to advanced strategies in the official wiki guide:
 
-👉 [View How to Play in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#how-to-play)
+[View How to Play in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#how-to-play)
 
 ---
 
-## 🗺️ Roadmap
+## Roadmap
 
 The Minesweeper project is continuously evolving with community-driven improvements and new features.  
 You can explore the full development roadmap — including upcoming enhancements and active milestones — directly in the wiki:
 
-👉 [View the Roadmap in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#roadmap)
+[View the Roadmap in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#roadmap)
 
 ---
 
@@ -118,7 +124,9 @@ docker run -itd -p 8083:80 --name minesweeper minesweeper:v1
 
 ---
 
-## Test Production Build
+### Production Build
+
+Run a production-optimized build locally to verify everything works before deployment.
 
 1. Build the app
 
@@ -153,12 +161,12 @@ For a full overview of the folder layout, component organization, and key files,
 
 ---
 
-## ⚙️ Scripts
+## Scripts
 
 All development, testing, and deployment commands are documented in the wiki.  
 Use this reference to learn how each script works and when to use it.
 
-👉 [View Scripts in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#scripts)
+[View Scripts in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#scripts)
 
 ---
 
@@ -166,13 +174,14 @@ Use this reference to learn how each script works and when to use it.
 
 We love contributions of all kinds! Whether it’s fixing a bug, suggesting a feature, or polishing docs, your help makes this game better.  
 
-How to join in:  
+How to join in:
+
 - Fork & open a PR 
 - Add yourself to [Contributors](./CONTRIBUTORS.md)
 - Share ideas in [roadmap discussions](https://github.com/users/v-gajjar/projects/2)  
 - Report bugs via [Issues](https://github.com/v-gajjar/Minesweeper/issues)
 
-Every contribution, big or small, helps keep this project alive 🎉
+Every contribution, big or small, helps keep this project alive.
 
 ---
 
@@ -205,4 +214,5 @@ git remote set-url origin https://github.com/v-gajjar/Minesweeper.git
 ---
 
 ## License
+
 Licensed under the [MIT License](./LICENSE).
