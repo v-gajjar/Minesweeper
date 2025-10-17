@@ -252,8 +252,8 @@ function App() {
 
   return (
     <>
-      <header>
-        <h1 className='game-title'>Minesweeper</h1>
+      <header className='header'>
+        <h1 className='header-game-title'>Minesweeper</h1>
       </header>
       <main className='wrapper'>
         <DifficultySelect
@@ -269,7 +269,7 @@ function App() {
             onClick={handleGameRestart}
           ></ResultModal>
         )}
-        <div id='boardContainer' ref={boardContainerRef}>
+        <div className='boardContainer' ref={boardContainerRef}>
           <GameBoard
             board={board}
             boardSize={gameDifficultySettings.boardSize}

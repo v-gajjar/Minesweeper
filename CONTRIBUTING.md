@@ -20,19 +20,27 @@ We are currently not looking for any more contributions to the UI mock-ups, but 
 
 Please read the [Code of Conduct](https://github.com/v-gajjar/Minesweeper/blob/develop/CODE_OF_CONDUCT.md).
 
-## Working with Issues
+## Creating an Issue – To Report Bugs or Suggest Features/Enhancements
 
-Before creating or selecting an issue, please check the [Kanban board](https://github.com/users/v-gajjar/projects/2) to see whether a ticket already exists.  
-This helps avoid duplicates and keeps the project organized.
+Before creating an issue, please first check the [Kanban board](https://github.com/users/v-gajjar/projects/2) to see whether a ticket already exists — this helps avoid duplicates and keeps the project organized.
 
-- **To report a bug or suggest a feature:**  
-  If no issue exists, create one using the relevant issue template. It will be automatically added to the **“Under Consideration”** column.
+If you don't find a matching issue, feel free to create one using the appropriate issue template.  
+Please follow the relevant template rather than submitting in an arbitrary format.
 
-- **To pick up an existing task:**  
-  Look for tickets in the **TODO** column that aren’t already assigned.  
-  Priority tags ([`priority:high`](https://github.com/v-gajjar/Minesweeper/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22priority%3A%20high%22), [`priority:medium`](https://github.com/v-gajjar/Minesweeper/issues?q=is%3Aissue%20state%3Aopen%20label%3Apriority%3Amedium)) indicate the most impactful work.
+Once created, your ticket will automatically appear in the **“Under Consideration”** column of the project's Kanban board.
 
-If you’re unsure whether something is available or appropriate to work on, just leave a comment on the issue to ask!
+---
+
+## Choosing an Existing Issue
+
+If you'd like to contribute to an existing issue, check the [Kanban board](https://github.com/users/v-gajjar/projects/2) for tickets in the **TODO** column that aren’t already assigned.
+
+We’d especially appreciate help on tasks labelled  
+[`priority:high`](https://github.com/v-gajjar/Minesweeper/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22priority%3A%20high%22) or  
+[`priority:medium`](https://github.com/v-gajjar/Minesweeper/issues?q=is%3Aissue%20state%3Aopen%20label%3Apriority%3Amedium),  
+as these are currently the most impactful for the project.
+
+If you're unsure whether a ticket is available or appropriate to work on, feel free to comment on the issue to ask!
 
 ## Submitting a PR
 
