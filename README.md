@@ -27,9 +27,6 @@
   <a href="https://v-gajjar.github.io/Minesweeper/" target="_blank">Live Demo</a>
 </p>
 
----href="https://v-gajjar.github.io/Minesweeper/" target="_blank">Live Demo</a>
-</p>
-
 ---
 
 ## About
