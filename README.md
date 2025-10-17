@@ -4,8 +4,8 @@
   <img src="https://img.shields.io/github/contributors/v-gajjar/Minesweeper" alt="Contributors" />
   <img src="https://img.shields.io/github/last-commit/v-gajjar/Minesweeper" alt="Last Commit" />
   <img src="https://img.shields.io/github/stars/v-gajjar/Minesweeper?style=social" alt="Stars" />
-  <a href="https://github.com/v-gajjar/Minesweeper/actions/workflows/build-checks.yml">
-    <img src="https://github.com/v-gajjar/Minesweeper/actions/workflows/build-checks.yml/badge.svg" alt="CI Status" />
+  <a href="https://github.com/v-gajjar/Minesweeper/actions/workflows/build-checks.yaml">
+    <img src="https://github.com/v-gajjar/Minesweeper/actions/workflows/build-checks.yaml/badge.svg" alt="CI Status" />
   </a>
 </p>
 
