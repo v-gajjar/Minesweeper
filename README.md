@@ -143,7 +143,7 @@ npm run preview
 
 For a full overview of the folder layout, component organization, and key files, see:
 
-[[Project Structure]](https://github.com/v-gajjar/Minesweeper/wiki/Project-Structure)
+[Project Structure](https://github.com/v-gajjar/Minesweeper/wiki#project-structure)
 
 ---
 
