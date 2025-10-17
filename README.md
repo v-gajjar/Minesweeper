@@ -54,40 +54,12 @@ Learn how to master Minesweeper from basic rules to advanced strategies in the o
 
 ## 🗺️ Roadmap
 
-![UI Flow Diagram](./src/assets/ui-flow.png)
-
 The Minesweeper project is continuously evolving with community-driven improvements and new features.  
 You can explore the full development roadmap — including upcoming enhancements and active milestones — directly in the wiki:
 
 👉 [View the Roadmap in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#roadmap)
 
 ---
-
-## Contributing
-
-We love contributions of all kinds! Whether it’s fixing a bug, suggesting a feature, or polishing docs, your help makes this game better.  
-
-How to join in:  
-- Fork & open a PR 
-- Add yourself to [Contributors](./CONTRIBUTORS.md)
-- Share ideas in [roadmap discussions](https://github.com/users/v-gajjar/projects/2)  
-- Report bugs via [Issues](https://github.com/v-gajjar/Minesweeper/issues)
-
-Every contribution, big or small, helps keep this project alive 🎉
-
----
-
-## Acknowledgements
-
-Minesweeper is a community project, shaped by everyone who’s played, tested, and contributed.  
-Every commit, idea, and bug report makes the game better.  
-
-[![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper)](./CONTRIBUTORS.md)  
-
-Meet all our amazing [Contributors](./CONTRIBUTORS.md)
-
----
-
 
 ## Getting Started
 
@@ -164,82 +136,9 @@ npm run preview
 
 ## Project Structure
 
-Curious how things are organized? Here’s a quick look: 
-<details>
-<summary>Click to expand project file structure</summary>
+For a full overview of the folder layout, component organization, and key files, see:
 
-```plaintext
-.
-├── .DS_Store
-├── .github
-│   ├── pull_request_template.md
-│   └── workflows
-│       └── build-checks.yaml
-├── .gitignore
-├── .prettierignore
-├── .prettierrc.yml
-├── .stylelintrc.json
-├── CONTRIBUTORS.md
-├── Dockerfile
-├── eslint.config.js
-├── globals.d.ts
-├── index.html
-├── LICENSE
-├── package-lock.json
-├── package.json
-├── README.md
-├── src
-│   ├── App.css
-│   ├── App.tsx
-│   ├── assets
-│   │   ├── Minesweeper-16-06-2025.gif
-│   │   └── ui-flow.png
-│   ├── components
-│   │   └── feature
-│   │       ├── DifficultySelect
-│   │       │   ├── DifficultySelect.interfaces.ts
-│   │       │   └── DifficultySelect.tsx
-│   │       ├── GameBoard
-│   │       │   ├── Cell
-│   │       │   │   ├── Cell.interfaces.ts
-│   │       │   │   └── Cell.tsx
-│   │       │   ├── GameBoard.interfaces.ts
-│   │       │   └── GameBoard.tsx
-│   │       ├── RemainingFlagsCounter
-│   │       │   ├── RemainingFlagsCounter.interface.ts
-│   │       │   └── RemainingFlagsCounter.tsx
-│   │       └── ResultModal
-│   │           ├── ResultModal.interface.ts
-│   │           └── ResultModal.tsx
-│   ├── config
-│   │   ├── gameDifficultyLevelSettings.interfaces.ts
-│   │   └── gameDifficultyLevelSettings.ts
-│   ├── enum
-│   │   ├── GameDifficultyLevel.interfaces.ts
-│   │   ├── GameDifficultyLevel.ts
-│   │   ├── GameStatus.interfaces.ts
-│   │   └── GameStatus.ts
-│   ├── index.css
-│   ├── main.tsx
-│   ├── minesweeperUtils.js
-│   ├── tests
-│   │   └── unit
-│   ├── types.ts
-│   └── vite-env.d.ts
-├── tests
-│   └── unit
-│       ├── App.test.jsx
-│       ├── Board.test.jsx
-│       ├── Cell.test.jsx
-│       ├── GameBoard.test.jsx
-│       └── Win.test.jsx
-├── tsconfig.app.json
-├── tsconfig.json
-├── tsconfig.node.json
-└── vite.config.ts
-```
-
-</details>
+[[Project Structure]](https://github.com/v-gajjar/Minesweeper/wiki/Project-Structure)
 
 ---
 
@@ -260,6 +159,32 @@ All development, testing, and deployment commands are documented in the wiki.
 Use this reference to learn how each script works and when to use it.
 
 👉 [View Scripts in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#scripts)
+
+---
+
+## Contributing
+
+We love contributions of all kinds! Whether it’s fixing a bug, suggesting a feature, or polishing docs, your help makes this game better.  
+
+How to join in:  
+- Fork & open a PR 
+- Add yourself to [Contributors](./CONTRIBUTORS.md)
+- Share ideas in [roadmap discussions](https://github.com/users/v-gajjar/projects/2)  
+- Report bugs via [Issues](https://github.com/v-gajjar/Minesweeper/issues)
+
+Every contribution, big or small, helps keep this project alive 🎉
+
+---
+
+## Acknowledgements
+
+Minesweeper is a community project, shaped by everyone who’s played, tested, and contributed.  
+Every commit, idea, and bug report makes the game better.  
+
+[![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper)](./CONTRIBUTORS.md)  
+
+Meet all our amazing [Contributors](./CONTRIBUTORS.md)
+
 ---
 
 ## Attributions
@@ -276,3 +201,8 @@ If you cloned the old repo, update your remote with:
 ```bash
 git remote set-url origin https://github.com/v-gajjar/Minesweeper.git
 ```
+
+---
+
+## License
+Licensed under the [MIT License](./LICENSE).
