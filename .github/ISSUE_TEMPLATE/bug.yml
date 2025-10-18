@@ -57,5 +57,7 @@ body:
       options:
         - label: I searched existing issues for duplicates
           required: true
+        - label: This: IMPORTANT!! Before you make any changes, please sync your remote branch of develop with the develop branch for the main repository (if using a fork), and then check-out develop locally and pull these changes. Then create a branch off this. This is part of the Git Flow branching strategy we're using and gives us a safety net in-case anything badly goes wrong - it reduces the chances of corrupted/broken code being merged into the main branch.
+          required: true
         - label: This issue is reproducible
         - label: This issue includes enough detail to act on
