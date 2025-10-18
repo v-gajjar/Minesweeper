@@ -1,29 +1,46 @@
 name: Feature Request
-description: Suggest a new capability or improvement.
+description: Suggest a new feature or improvement.
 labels: [feature]
+
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Description
+        Explain what problem this feature would solve.
+
   - type: textarea
     id: description
     attributes:
       label: Description
-      description: What problem will this feature solve?
-      placeholder: A clear, concise summary of the idea.
+      placeholder: A clear summary of the idea or problem.
     validations:
       required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Proposed Solution
+        Describe how this could work, including any UI/UX or API considerations.
+
   - type: textarea
     id: proposal
     attributes:
       label: Proposed Solution
-      placeholder: How would this work? Any rough UI/UX or API?
+      placeholder: Outline the proposed approach or implementation details.
+
   - type: textarea
     id: screenshots
     attributes:
-      label: Screenshots / Mockups (optional)
+      label: Screenshots or Mockups
+      placeholder: Optional visual examples.
+
   - type: textarea
     id: context
     attributes:
       label: Additional Context
-      placeholder: Related issues/PRs, links, tradeoffs.
+      placeholder: Related issues, tradeoffs, or relevant links.
+
   - type: checkboxes
     id: checklist
     attributes:

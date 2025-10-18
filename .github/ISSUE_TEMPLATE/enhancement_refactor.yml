@@ -1,32 +1,58 @@
-name: Enhancement / Refactor
-description: Improve existing behavior or code health.
+name: Enhancement or Refactor
+description: Improve existing functionality or refactor existing code.
 labels: [enhancement]
+
 body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Description
+        Explain what should be improved or cleaned up.
+
   - type: textarea
     id: description
     attributes:
       label: Description
-      description: What should be improved or cleaned up?
+      placeholder: What area or behavior needs improvement?
     validations:
       required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Scope / Affected Area
+        Specify which components, files, or modules are impacted.
+
   - type: textarea
     id: scope
     attributes:
       label: Scope / Affected Area
-      placeholder: Components, files, or modules impacted.
+      placeholder: Components, files, or modules affected.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Proposed Approach
+        Outline your plan, including risks or alternatives.
+
   - type: textarea
     id: approach
     attributes:
       label: Proposed Approach
-      placeholder: High-level plan, risks, or alternatives.
+      placeholder: High-level steps or refactor plan.
+
   - type: textarea
     id: screenshots
     attributes:
-      label: Screenshots / Logs (optional)
+      label: Screenshots or Logs
+      placeholder: Optional visual references or output.
+
   - type: textarea
     id: context
     attributes:
       label: Additional Context
+      placeholder: Any relevant information or related discussions.
+
   - type: checkboxes
     id: checklist
     attributes:
