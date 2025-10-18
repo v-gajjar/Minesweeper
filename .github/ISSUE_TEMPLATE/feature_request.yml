@@ -49,12 +49,10 @@ body:
         - label: I searched existing issues for duplicates
           required: true
         - label: >-
-            **Important:**  
-            Before making any changes:  
-            1. Sync your remote `develop` branch with the main repository's `develop` branch (if using a fork).  
-            2. Check out `develop` locally and pull the latest changes.  
-            3. Create a new branch from `develop`.  
-
+            **Important:** Before making any changes:<br><br>
+            1. Sync your remote `develop` branch with the main repository's `develop` branch (if using a fork).<br>
+            2. Check out `develop` locally and pull the latest changes.<br>
+            3. Create a new branch from `develop`.<br><br>
             Following this Git Flow process helps prevent corrupted or broken code from being merged into the main branch.
           required: true
         - label: This issue includes enough detail to act on
