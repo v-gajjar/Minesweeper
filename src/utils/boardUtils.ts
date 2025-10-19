@@ -65,7 +65,7 @@ export const getBoard = (boardSize: BoardSize): BoardData => {
         hasMine: false,
         isRevealed: false,
         isFlagged: false,
-        adjacentMinesCount: null,
+        adjacentMinesCount: 0,
       });
     }
   }
