@@ -39,3 +39,12 @@ body {
   margin: 5px;
   padding: 2px 0;
 }
+
+.blurred-background {
+  filter: blur(5px);
+  pointer-events: none;
+  /* prevent clicking */
+  user-select: none;
+  /* stops text selection */
+  transition: filter 0.3s ease;
+}

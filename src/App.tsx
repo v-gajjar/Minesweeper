@@ -110,7 +110,6 @@ function App() {
       setShouldPlaceMines(false);
       setBoard(boardWithMines);
 
-      console.log(currentBoard);
     }
 
     const revealedCells = revealCell(
@@ -271,7 +270,10 @@ function App() {
             onClick={handleGameRestart}
           ></ResultModal>
         )}
-        <div className='boardContainer' ref={boardContainerRef}>
+        <div
+          className={gameHasEnded() ? "blurred-background boardContainer" : "boardContainer"}
+          ref={boardContainerRef}
+        >
           <GameBoard
             board={board}
             boardSize={gameDifficultySettings.boardSize}
