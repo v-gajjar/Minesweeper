@@ -1,7 +1,10 @@
 import type { BoardData, CellData, BoardSize, Coordinate } from '@/types';
 import { isOffBoard } from './boardUtils';
 
-export const getCellsWithMines = (newMineLocations: Coordinate[], currentBoard: BoardData): CellData[] => {
+export const getCellsWithMines = (
+  newMineLocations: Coordinate[],
+  currentBoard: BoardData
+): CellData[] => {
   const cellsWithMines: CellData[] = [];
 
   for (const location of newMineLocations) {
@@ -30,11 +33,11 @@ export const getMineLocations = (
   const newMineLocations: Coordinate[] = [];
 
   while (allocatedMines < mineCount) {
-    let row = Math.floor(Math.random() * rowCount);
-    let col = Math.floor(Math.random() * columnCount);
+    const row = Math.floor(Math.random() * rowCount);
+    const col = Math.floor(Math.random() * columnCount);
 
     allocatedMines++;
-    let cell = currentBoard[row][col];
+    const cell = currentBoard[row][col];
 
     if (cell.x === currentCell.x && cell.y === currentCell.y) {
       // The first cell that is subjected to a left click should be ignored when placing a mine
@@ -82,4 +85,4 @@ export const getAdjacentMinesCount = (
     }
   }
   return adjacentMinesCount;
-}
+};

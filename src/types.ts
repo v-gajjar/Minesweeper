@@ -4,7 +4,7 @@ export type CellData = {
   isFlagged: boolean;
   isRevealed: boolean;
   isIncorrectlyFlagged?: boolean;
-  adjacentMinesCount: number | null;
+  adjacentMinesCount: number;
   x: number;
   y: number;
 };

@@ -45,9 +45,6 @@ function App() {
   );
   const boardContainerRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    setupNewGame();
-  }, [gameDifficultySettings]);
 
   const onGameDifficultyLevelChanged = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -109,7 +106,6 @@ function App() {
       setMineLocations(newMineLocations);
       setShouldPlaceMines(false);
       setBoard(boardWithMines);
-
     }
 
     const revealedCells = revealCell(
@@ -216,7 +212,8 @@ function App() {
     setBoard(updatedBoard);
   };
 
-  const setupNewGame = () => {
+  //memoized to prevent infinite loop --- IGNORE ---
+  const setupNewGame = useCallback(() => {
     const boardSize = gameDifficultySettings.boardSize;
     const rowCount = boardSize.rowCount;
     const columnCount = boardSize.columnCount;
@@ -231,7 +228,12 @@ function App() {
     setRemainingFlagsCount(gameDifficultySettings.mineCount);
     setSafeCellsCount(rowCount * columnCount - mineCount);
     setBoard(newBoard);
-  };
+  }, [gameDifficultySettings]);
+
+  //moved from above to here --- IGNORE ---
+    useEffect(() => {
+      setupNewGame();
+    }, [setupNewGame]);
 
   const gameHasEnded = () => {
     switch (gameStatus) {
@@ -271,7 +273,11 @@ function App() {
           ></ResultModal>
         )}
         <div
-          className={gameHasEnded() ? "blurred-background boardContainer" : "boardContainer"}
+          className={
+            gameHasEnded()
+              ? 'blurred-background boardContainer'
+              : 'boardContainer'
+          }
           ref={boardContainerRef}
         >
           <GameBoard

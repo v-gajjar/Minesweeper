@@ -2,19 +2,23 @@ import type { BoardData, CellData, BoardSize, Coordinate } from '@/types';
 import { getRevealedMineCells, getIncorrectlyFlaggedCells } from './cellUtils';
 
 export const updateBoard = (
-    currentBoard: BoardData,
-    updatedCells: CellData[]
+  currentBoard: BoardData,
+  updatedCells: CellData[]
 ): BoardData => {
-    const updatedBoard = [...currentBoard];
+  const updatedBoard = [...currentBoard];
 
-    for (const cell of updatedCells) {
-        const updatedCell = { ...cell };
-        updatedBoard[cell.x][cell.y] = updatedCell;
-    }
-    return updatedBoard;
+  for (const cell of updatedCells) {
+    const updatedCell = { ...cell };
+    updatedBoard[cell.x][cell.y] = updatedCell;
+  }
+  return updatedBoard;
 };
 
-export const isOffBoard = (x: number, y: number, boardSize: BoardSize): boolean => {
+export const isOffBoard = (
+  x: number,
+  y: number,
+  boardSize: BoardSize
+): boolean => {
   const rowCount = boardSize.rowCount;
   const columnCount = boardSize.columnCount;
 
@@ -28,7 +32,7 @@ export const isOffBoard = (x: number, y: number, boardSize: BoardSize): boolean 
 export const getGameLostBoard = (
   currentBoard: BoardData,
   currentMineLocations: Coordinate[],
-  currentFlagLocations: Coordinate[]  
+  currentFlagLocations: Coordinate[]
 ) => {
   const revealedMineCells = getRevealedMineCells(
     currentBoard,
@@ -50,11 +54,11 @@ export const getBoard = (boardSize: BoardSize): BoardData => {
   const columnCount = boardSize.columnCount;
   const newBoard = [];
 
-  for (var i = 0; i < rowCount; i++) {
+  for (let i = 0; i < rowCount; i++) {
     const row: CellData[] = [];
     newBoard.push(row);
 
-    for (var j = 0; j < columnCount; j++) {
+    for (let j = 0; j < columnCount; j++) {
       row.push({
         x: i,
         y: j,

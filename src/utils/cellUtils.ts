@@ -2,9 +2,17 @@ import type { BoardData, CellData, BoardSize, Coordinate } from '@/types';
 import { isOffBoard } from './boardUtils';
 import { getAdjacentMinesCount } from './mineUtils';
 
-export const coordinatesMatch = ({ x: x1, y: y1 }: Coordinate, { x: x2, y: y2 }: Coordinate): boolean => { return x1 === x2 && y1 === y2; };
+export const coordinatesMatch = (
+  { x: x1, y: y1 }: Coordinate,
+  { x: x2, y: y2 }: Coordinate
+): boolean => {
+  return x1 === x2 && y1 === y2;
+};
 
-export const getFilteredFlagLocations = (currentFlagLocations: Coordinate[], cells: CellData[]): Coordinate[] => {
+export const getFilteredFlagLocations = (
+  currentFlagLocations: Coordinate[],
+  cells: CellData[]
+): Coordinate[] => {
   const updatedFlagLocations = currentFlagLocations.filter(
     (location) => !cells.some((cell) => coordinatesMatch(location, cell))
   );
@@ -12,13 +20,13 @@ export const getFilteredFlagLocations = (currentFlagLocations: Coordinate[], cel
 };
 
 const hasCell = (x: number, y: number, cells: CellData[]): boolean => {
-    return cells.some((cell) => cell.x === x && cell.y === y);
-  };
-  
-  const isRevealed = (x: number, y: number, currentBoard: BoardData): boolean => {
-    const cell = currentBoard[x][y];
-    return cell.isRevealed;
-  };
+  return cells.some((cell) => cell.x === x && cell.y === y);
+};
+
+const isRevealed = (x: number, y: number, currentBoard: BoardData): boolean => {
+  const cell = currentBoard[x][y];
+  return cell.isRevealed;
+};
 
 export const revealCell = (
   x: number,
@@ -34,8 +42,6 @@ export const revealCell = (
   ) {
     return revealedCells;
   }
-
-  
 
   const cell = currentBoard[x][y];
 
@@ -68,11 +74,14 @@ export const revealCell = (
   return revealedCells;
 };
 
-export const getIncorrectlyFlaggedCells = (gameBoard: BoardData, currentFlagLocations: Coordinate[]): CellData[] => {
+export const getIncorrectlyFlaggedCells = (
+  gameBoard: BoardData,
+  currentFlagLocations: Coordinate[]
+): CellData[] => {
   const updatedCells: CellData[] = [];
 
   for (const flagLocation of currentFlagLocations) {
-    let cell = gameBoard[flagLocation.x][flagLocation.y];
+    const cell = gameBoard[flagLocation.x][flagLocation.y];
 
     if (cell.hasMine) continue;
 
@@ -86,11 +95,14 @@ export const getIncorrectlyFlaggedCells = (gameBoard: BoardData, currentFlagLoca
   return updatedCells;
 };
 
-export const getRevealedMineCells = (gameBoard: BoardData, currentMineLocations: Coordinate[]): CellData[] => {
+export const getRevealedMineCells = (
+  gameBoard: BoardData,
+  currentMineLocations: Coordinate[]
+): CellData[] => {
   const updatedCells: CellData[] = [];
 
   for (const mineLocation of currentMineLocations) {
-    let cell = gameBoard[mineLocation.x][mineLocation.y];
+    const cell = gameBoard[mineLocation.x][mineLocation.y];
 
     if (cell.isFlagged) continue;
 
