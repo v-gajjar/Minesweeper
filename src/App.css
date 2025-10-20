@@ -39,3 +39,7 @@ body {
   margin: 5px;
   padding: 2px 0;
 }
+
+.game_difficulty_select_wrapper {
+  margin: auto;
+}

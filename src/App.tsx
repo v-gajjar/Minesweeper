@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
 import DifficultySelect from '@/components/feature/DifficultySelect/DifficultySelect';
+import { DIFFICULTY_SELECT_ID } from '@/components/feature/DifficultySelect/DifficultySelect.interfaces';
 import GameBoard from '@feature/GameBoard/GameBoard';
 import ResultModal from '@/components/feature/ResultModal/ResultModal';
 import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlagsCounter';
@@ -256,10 +257,13 @@ function App() {
         <h1 className='header-game-title'>Minesweeper</h1>
       </header>
       <main className='wrapper'>
-        <DifficultySelect
-          gameDifficultySettings={gameDifficultySettings}
-          onChange={onGameDifficultyLevelChanged}
-        ></DifficultySelect>
+        <div className='game_difficulty_select_wrapper'>
+          <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
+          <DifficultySelect
+            gameDifficultySettings={gameDifficultySettings}
+            onChange={onGameDifficultyLevelChanged}
+          ></DifficultySelect>
+        </div>
         <RemainingFlagsCounter
           remainingFlagsCount={remainingFlagsCount}
         ></RemainingFlagsCounter>
