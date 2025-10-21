@@ -3,7 +3,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
 import DifficultySelect from '@/components/feature/DifficultySelect/DifficultySelect';
-import { DIFFICULTY_SELECT_ID } from '@/components/feature/DifficultySelect/DifficultySelect.interfaces';
+
+const DIFFICULTY_SELECT_ID = 'game-difficulty-select';
 import GameBoard from '@feature/GameBoard/GameBoard';
 import ResultModal from '@/components/feature/ResultModal/ResultModal';
 import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlagsCounter';
@@ -262,6 +263,7 @@ function App() {
           <DifficultySelect
             gameDifficultySettings={gameDifficultySettings}
             onChange={onGameDifficultyLevelChanged}
+            id={DIFFICULTY_SELECT_ID}
           ></DifficultySelect>
         </div>
         <RemainingFlagsCounter

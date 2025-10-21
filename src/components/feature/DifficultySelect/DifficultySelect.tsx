@@ -2,7 +2,6 @@ import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSetti
 import { memo } from 'react';
 import type { GameDifficultyLevelKeys } from '@enum/GameDifficultyLevel.interfaces';
 import type { DifficultySelectProps } from '@/components/feature/DifficultySelect/DifficultySelect.interfaces';
-import { DIFFICULTY_SELECT_ID } from '@/components/feature/DifficultySelect/DifficultySelect.interfaces';
 
 const gameDifficultyLevelKeys = Object.keys(
   GAME_DIFFICULTY_LEVEL_SETTINGS
@@ -11,13 +10,14 @@ const gameDifficultyLevelKeys = Object.keys(
 function DifficultySelect({
   gameDifficultySettings,
   onChange,
+  id,
 }: DifficultySelectProps) {
   return (
     <select
       value={gameDifficultySettings.level}
       onChange={onChange}
       name='game-difficulty-select'
-      id={DIFFICULTY_SELECT_ID}
+      id={id}
       data-testid='difficulty-select'
       aria-describedby='difficulty-description'
     >
