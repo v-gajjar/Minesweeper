@@ -53,7 +53,7 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
       return <Bomb size={20} weight='fill' />;
     }
     if (cell.adjacentMinesCount > 0) {
-      const number = cell.adjacentMinesCount;
+      const number = cell.adjacentMinesCount!;
       return <span style={getNumberedCellColour(number)}>{number}</span>;
     }
   };

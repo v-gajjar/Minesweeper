@@ -123,9 +123,3 @@ There are currently three difficulty settings:
 | Beginner     | 9 rows x 9 columns    | 10              |
 | Intermediate | 16 rows x 16 columns  | 40              |
 | Expert       | 16 rows x 30 columns  | 80              |
-
-
-
-
-   
-   
