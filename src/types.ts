@@ -1,9 +1,9 @@
 export type CellData = {
   hasMine: boolean;
-  hasExplodedMine: boolean;
+  hasExplodedMine?: boolean;
   isFlagged: boolean;
   isRevealed: boolean;
-  isIncorrectlyFlagged: boolean;
+  isIncorrectlyFlagged?: boolean;
   adjacentMinesCount: number;
   x: number;
   y: number;

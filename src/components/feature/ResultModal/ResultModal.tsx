@@ -10,7 +10,11 @@ function ResultModal({ gameWon, onClick }: ResultModalProps) {
   const gameResultClass = gameWon ? styles.gameWonModal : styles.gameLostModal;
 
   // Combine animation + result style into one class
-  const modalClass = classNames(styles.resultModal, modalStateClass, gameResultClass);
+  const modalClass = classNames(
+    styles.resultModal,
+    modalStateClass,
+    gameResultClass
+  );
 
   // Start entrance-to-visible transition after mount
   useEffect(() => setModalStateClass(styles.modalVisible), []);
@@ -32,7 +36,9 @@ function ResultModal({ gameWon, onClick }: ResultModalProps) {
       aria-labelledby='game-result-message'
       aria-describedby='game-result-description'
     >
-      <p id='game-result-message' className={styles.resultModalMessage}>{message}</p>
+      <p id='game-result-message' className={styles.resultModalMessage}>
+        {message}
+      </p>
       <button
         aria-label='Play again'
         id='gameResultModalCloseButton'
