@@ -4,7 +4,6 @@ import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSetti
 
 import DifficultySelect from '@/components/feature/DifficultySelect/DifficultySelect';
 
-const DIFFICULTY_SELECT_ID = 'game-difficulty-select';
 import GameBoard from '@feature/GameBoard/GameBoard';
 import ResultModal from '@/components/feature/ResultModal/ResultModal';
 import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlagsCounter';
@@ -46,6 +45,8 @@ function App() {
     GAME_DIFFICULTY_LEVEL_SETTINGS.EASY
   );
   const boardContainerRef = useRef<HTMLInputElement>(null);
+
+  const DIFFICULTY_SELECT_ID = 'game-difficulty-select';
 
   useEffect(() => {
     setupNewGame();
