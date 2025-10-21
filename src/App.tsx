@@ -273,11 +273,7 @@ function App() {
           ></ResultModal>
         )}
         <div
-          className={
-            gameHasEnded()
-              ? 'blurred-background boardContainer'
-              : 'boardContainer'
-          }
+          className='boardContainer'
           ref={boardContainerRef}
         >
           <GameBoard
