@@ -37,6 +37,17 @@ We’re not just cloning nostalgia, we’re reinventing it. Expect clean design,
 
 ---
 
+## Acknowledgements
+
+Minesweeper is a community project, shaped by everyone who’s played, tested, and contributed.  
+Every commit, idea, and bug report makes the game better.  
+
+[![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper)](./CONTRIBUTORS.md)  
+
+Meet all our amazing [Contributors](./CONTRIBUTORS.md)
+
+---
+
 ## Architecture Overview
 
 ![UI Flow Diagram](./src/assets/ui-flow.png)
@@ -57,10 +68,12 @@ Learn how to master Minesweeper from basic rules to advanced strategies in the o
 
 ## Roadmap
 
-The Minesweeper project is continuously evolving with community-driven improvements and new features.  
-You can explore the full development roadmap — including upcoming enhancements and active milestones — directly in the wiki:
+The Minesweeper project is continuously evolving through community-driven improvements and new features.
 
-[View the Roadmap in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#roadmap)
+To view planned milestones, ideas under discussion, and in-progress updates, check the official wiki:
+
+- [View the Roadmap in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#roadmap)
+- [GitHub Issues](https://github.com/v-gajjar/Minesweeper/issues)
 
 ---
 
@@ -169,27 +182,17 @@ Use this reference to learn how each script works and when to use it.
 
 ## Contributing
 
-We love contributions of all kinds! Whether it’s fixing a bug, suggesting a feature, or polishing docs, your help makes this game better.  
+We love contributions of all kinds — whether it’s fixing a bug, improving documentation, or suggesting a new feature.  
+Your support helps shape the game’s future.
 
-How to join in:
+How to get involved:
 
-- Fork & open a PR 
+- Fork the repo & open a PR
 - Add yourself to [Contributors](./CONTRIBUTORS.md)
-- Share ideas in [roadmap discussions](https://github.com/users/v-gajjar/projects/2)  
-- Report bugs via [Issues](https://github.com/v-gajjar/Minesweeper/issues)
+- Join discussions in the [Roadmap board](https://github.com/users/v-gajjar/projects/2)
+- Report issues or suggest features via [GitHub Issues](https://github.com/v-gajjar/Minesweeper/issues)
 
-Every contribution, big or small, helps keep this project alive.
-
----
-
-## Acknowledgements
-
-Minesweeper is a community project, shaped by everyone who’s played, tested, and contributed.  
-Every commit, idea, and bug report makes the game better.  
-
-[![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper)](./CONTRIBUTORS.md)  
-
-Meet all our amazing [Contributors](./CONTRIBUTORS.md)
+> 💡 Don’t worry if you’re new! We’re happy to help guide you through setup, testing, or PR feedback — the goal is collaboration, not perfection.
 
 ---
 
