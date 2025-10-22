@@ -12,12 +12,12 @@ import {
   getMineLocations,
   getCellsWithMines,
   updateBoard,
+  getBoard,
+  getGameLostBoard,
   revealCell,
   coordinatesMatch,
   getFilteredFlagLocations,
-  getGameLostBoard,
-  getBoard,
-} from '@/minesweeperUtils';
+} from './utils/index.ts';
 
 import GameStatus from '@enum/GameStatus';
 
@@ -218,7 +218,8 @@ function App() {
     setBoard(updatedBoard);
   };
 
-  const setupNewGame = () => {
+  //memoized to prevent infinite loop --- IGNORE ---
+  const setupNewGame = useCallback(() => {
     const boardSize = gameDifficultySettings.boardSize;
     const rowCount = boardSize.rowCount;
     const columnCount = boardSize.columnCount;
@@ -233,7 +234,12 @@ function App() {
     setRemainingFlagsCount(gameDifficultySettings.mineCount);
     setSafeCellsCount(rowCount * columnCount - mineCount);
     setBoard(newBoard);
-  };
+  }, [gameDifficultySettings]);
+
+  //moved from above to here --- IGNORE ---
+    useEffect(() => {
+      setupNewGame();
+    }, [setupNewGame]);
 
   const gameHasEnded = () => {
     switch (gameStatus) {
@@ -276,7 +282,10 @@ function App() {
             onClick={handleGameRestart}
           ></ResultModal>
         )}
-        <div className='boardContainer' ref={boardContainerRef}>
+        <div
+          className='boardContainer'
+          ref={boardContainerRef}
+        >
           <GameBoard
             board={board}
             boardSize={gameDifficultySettings.boardSize}
