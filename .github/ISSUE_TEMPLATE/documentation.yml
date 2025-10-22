@@ -61,3 +61,4 @@ body:
         - label: I searched existing issues or PRs for related docs work
           required: true
         - label: This issue includes enough detail to act on
+          required: true
