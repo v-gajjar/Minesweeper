@@ -48,10 +48,6 @@ function App() {
 
   const DIFFICULTY_SELECT_ID = 'game-difficulty-select';
 
-  useEffect(() => {
-    setupNewGame();
-  }, [gameDifficultySettings]);
-
   const onGameDifficultyLevelChanged = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const selectedLevel = event.target.value;
