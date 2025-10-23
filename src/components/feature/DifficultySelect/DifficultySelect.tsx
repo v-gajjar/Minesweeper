@@ -2,7 +2,6 @@ import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSetti
 import { memo } from 'react';
 import type { GameDifficultyLevelKeys } from '@enum/GameDifficultyLevel.interfaces';
 import type { DifficultySelectProps } from '@/components/feature/DifficultySelect/DifficultySelect.interfaces';
-import styles from '@components/feature/DifficultySelect/DifficultySelect.module.css';
 
 const gameDifficultyLevelKeys = Object.keys(
   GAME_DIFFICULTY_LEVEL_SETTINGS
@@ -11,32 +10,30 @@ const gameDifficultyLevelKeys = Object.keys(
 function DifficultySelect({
   gameDifficultySettings,
   onChange,
+  id,
 }: DifficultySelectProps) {
   return (
-    <div className={styles.game_difficulty_select_wrapper}>
-      <label htmlFor='game-difficulty-select'>Difficulty: </label>
-      <select
-        value={gameDifficultySettings.level}
-        onChange={onChange}
-        name='game-difficulty-select'
-        id='game-difficulty-select'
-        data-testid='difficulty-select'
-        aria-describedby='difficulty-description'
-      >
-        {gameDifficultyLevelKeys.map((setting) => {
-          const config = GAME_DIFFICULTY_LEVEL_SETTINGS[setting];
-          return (
-            <option
-              key={setting}
-              value={config.level}
-              aria-label={`${config.label} - ${config.boardSize.rowCount}x${config.boardSize.columnCount} board with ${config.mineCount} mines`}
-            >
-              {config.label}
-            </option>
-          );
-        })}
-      </select>
-    </div>
+    <select
+      value={gameDifficultySettings.level}
+      onChange={onChange}
+      name='game-difficulty-select'
+      id={id}
+      data-testid='difficulty-select'
+      aria-describedby='difficulty-description'
+    >
+      {gameDifficultyLevelKeys.map((setting) => {
+        const config = GAME_DIFFICULTY_LEVEL_SETTINGS[setting];
+        return (
+          <option
+            key={setting}
+            value={config.level}
+            aria-label={`${config.label} - ${config.boardSize.rowCount}x${config.boardSize.columnCount} board with ${config.mineCount} mines`}
+          >
+            {config.label}
+          </option>
+        );
+      })}
+    </select>
   );
 }
 
