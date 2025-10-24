@@ -29,6 +29,7 @@ import type {
   LocationColRow,
   MineLocations,
 } from '@/types';
+import { installIOSContextMenuBlocker } from '@/lib/iosContextMenuBlocker';
 
 function App() {
   const [board, setBoard] = useState<BoardData>([]);
@@ -233,9 +234,14 @@ function App() {
   }, [gameDifficultySettings]);
 
   //moved from above to here --- IGNORE ---
-    useEffect(() => {
-      setupNewGame();
-    }, [setupNewGame]);
+  useEffect(() => {
+    setupNewGame();
+  }, [setupNewGame]);
+
+  // --- Block iOS native context menu globally (so long-press works properly)
+  useEffect(() => {
+    installIOSContextMenuBlocker();
+  }, []);
 
   const gameHasEnded = () => {
     switch (gameStatus) {

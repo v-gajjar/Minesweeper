@@ -6,3 +6,71 @@
   width: fit-content;
   margin: auto;
 }
+.cell {
+  height: 39px;
+  width: 39px;
+  background: lightgray;
+  border: 1px solid whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.cell:focus {
+  outline: 2px solid #0066cc;
+  z-index: 1;
+}
+
+.cell:hover {
+  cursor: pointer;
+  background: gray;
+}
+
+.cell.revealed {
+  background: #e8e8e8;
+}
+
+.cell.mine.exploded {
+  background: orange;
+}
+
+/* 1) Kill the gray tap flash and selection tint */
+.pressable {
+  -webkit-tap-highlight-color: transparent;
+}
+.pressable ::selection {
+  background: transparent;
+}
+
+/* 2) Make sure presses hit the BUTTON, not inner spans/SVGs (big culprit) */
+.pressable * {
+  pointer-events: none;            /* events bubble to the button */
+}
+
+/* 3) (Optional but helpful) Stop board-level “between-tiles” callouts/scroll quirks */
+.board {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+  overscroll-behavior: contain;    /* no pull-to-refresh bounce inside board */
+  touch-action: pan-x pan-y;       /* allow scrolling the page, but no gestures reserved by UA here */
+}
+
+/* 4) If you can afford it, a stricter variant for tiles that STILL show a menu.
+      Apply in JSX as: className={`${styles.cell} ${styles.pressable} ${styles.pressableStrict}`} */
+.pressableStrict {
+  touch-action: none;              /* strongest: disables UA gesture handling on the tile */
+}
+
+/* 5) Just to be extra safe with icon/text nodes (some iOS builds are stubborn) */
+.pressable span,
+.pressable svg,
+.pressable img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}

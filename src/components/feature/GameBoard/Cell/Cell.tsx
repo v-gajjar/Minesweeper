@@ -2,10 +2,15 @@ import classNames from 'classnames';
 import { Bomb, X, Flag } from '@phosphor-icons/react';
 import type { CellProps } from '@/components/feature/GameBoard/Cell/Cell.interfaces';
 import styles from '@components/feature/GameBoard/Cell/Cell.module.css';
+import { useLongPress } from '@/hooks/useLongPress';
 
 function Cell({ cell, onClick, onContextMenu }: CellProps) {
+  // Long-press will synthesize 'contextmenu' after 600ms for flagging
+  const { ref } = useLongPress<HTMLButtonElement>({ threshold: 600 });
+
   const cellClass = classNames({
     [styles.cell]: true,
+    [styles.pressable]: true,
     [styles.mine]: cell.hasMine,
     [styles.exploded]: cell.hasExplodedMine,
     [styles.flagged]: cell.isFlagged,
@@ -14,24 +19,15 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
 
   const getNumberedCellColour = (number: number) => {
     switch (number) {
-      case 1:
-        return { color: 'blue' };
-      case 2:
-        return { color: 'green' };
-      case 3:
-        return { color: 'red' };
-      case 4:
-        return { color: 'darkblue' };
-      case 5:
-        return { color: 'brown' };
-      case 6:
-        return { color: 'lightblue' };
-      case 7:
-        return { color: 'purple' };
-      case 8:
-        return { color: 'pink' };
-      default:
-        return { color: 'black' };
+      case 1: return { color: 'blue' };
+      case 2: return { color: 'green' };
+      case 3: return { color: 'red' };
+      case 4: return { color: 'darkblue' };
+      case 5: return { color: 'brown' };
+      case 6: return { color: 'lightblue' };
+      case 7: return { color: 'purple' };
+      case 8: return { color: 'pink' };
+      default: return { color: 'black' };
     }
   };
 
@@ -59,13 +55,9 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
   };
 
   const getAriaLabel = () => {
-    if (cell.isFlagged) {
-      return 'Flagged cell';
-    }
+    if (cell.isFlagged) return 'Flagged cell';
     if (cell.isRevealed) {
-      if (cell.hasMine) {
-        return cell.hasExplodedMine ? 'Exploded mine' : 'Mine';
-      }
+      if (cell.hasMine) return cell.hasExplodedMine ? 'Exploded mine' : 'Mine';
       if (cell.adjacentMinesCount > 0) {
         return `Cell with ${cell.adjacentMinesCount} adjacent mine${cell.adjacentMinesCount === 1 ? '' : 's'}`;
       }
@@ -74,8 +66,15 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
     return 'Unrevealed cell';
   };
 
+  // Belt & suspenders: block native menu immediately, then forward to parent
+  const handleContextMenu: React.MouseEventHandler<HTMLElement> = (e) => {
+    e.preventDefault();
+    onContextMenu(e);
+  };
+
   return (
     <button
+      ref={ref}
       type='button'
       className={cellClass}
       data-testid='cell'
@@ -86,7 +85,7 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
       aria-label={getAriaLabel()}
       aria-pressed={cell.isFlagged ? true : false}
       aria-disabled={cell.isRevealed}
-      onContextMenu={onContextMenu}
+      onContextMenu={handleContextMenu}
     >
       {renderCellContents()}
     </button>
