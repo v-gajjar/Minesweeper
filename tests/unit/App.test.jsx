@@ -38,7 +38,7 @@ describe('App Component', () => {
 
   it('renders a result modal', () => {
     const { getByTestId } = render(
-      <ResultModal isOpen={true} onClose={() => {}} result='win' />
+      <ResultModal open={true} onClose={() => {}} result='win' />
     );
     expect(getByTestId('result-modal')).toBeTruthy();
   });
