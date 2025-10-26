@@ -35,7 +35,7 @@ function ResultModal({ open = false, gameWon, onClick }: ResultModalProps) {
   if (!shouldRender) return null;
 
   return (
-    <div className={styles.modalOverlay} data-testid='result-modal'>
+    <div className={styles.modalOverlay} data-testid={`result-modal`}>
       <div
         id='gameResultModal'
         className={modalClass}
