@@ -233,27 +233,16 @@ function App() {
   }, [gameDifficultySettings]);
 
   //moved from above to here --- IGNORE ---
-    useEffect(() => {
-      setupNewGame();
-    }, [setupNewGame]);
+  useEffect(() => {
+    setupNewGame();
+  }, [setupNewGame]);
 
-  const gameHasEnded = () => {
-    switch (gameStatus) {
-      case GameStatus.GAME_LOST:
-        return true;
-      case GameStatus.GAME_WON:
-        return true;
-      default:
-        return false;
-    }
-  };
+  const isResultModalOpen =
+    gameStatus === GameStatus.GAME_WON || gameStatus === GameStatus.GAME_LOST
+      ? true
+      : false;
 
-  const userWonGame = () => {
-    if (gameStatus === GameStatus.GAME_WON) {
-      return true;
-    }
-    return false;
-  };
+  const gameWon = gameStatus === GameStatus.GAME_WON ? true : false;
 
   return (
     <>
@@ -272,16 +261,12 @@ function App() {
         <RemainingFlagsCounter
           remainingFlagsCount={remainingFlagsCount}
         ></RemainingFlagsCounter>
-        {gameHasEnded() && (
-          <ResultModal
-            gameWon={userWonGame()}
-            onClick={handleGameRestart}
-          ></ResultModal>
-        )}
-        <div
-          className='boardContainer'
-          ref={boardContainerRef}
-        >
+        <ResultModal
+          open={isResultModalOpen}
+          gameWon={gameWon}
+          onClick={handleGameRestart}
+        ></ResultModal>
+        <div className='boardContainer' ref={boardContainerRef}>
           <GameBoard
             board={board}
             boardSize={gameDifficultySettings.boardSize}

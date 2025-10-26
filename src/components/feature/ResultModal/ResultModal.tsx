@@ -1,49 +1,56 @@
-import { useEffect, useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import type { ResultModalProps } from '@/components/feature/ResultModal/ResultModal.interface';
 import styles from '@components/feature/ResultModal/ResultModal.module.css';
 
-function ResultModal({ gameWon, onClick }: ResultModalProps) {
-  const [modalStateClass, setModalStateClass] = useState(styles.modalEntrance);
+function ResultModal({ open = false, gameWon, onClick }: ResultModalProps) {
+  const [shouldRender, setShouldRender] = useState(open);
+  const [animationClass, setAnimationClass] = useState('');
+
   const message = gameWon ? 'You Won!' : 'Game Over!';
   const gameResultClass = gameWon ? styles.gameWonModal : styles.gameLostModal;
 
-  // Combine animation + result style into one class
+  useEffect(() => {
+    if (open) {
+      setShouldRender(true);
+      setAnimationClass(styles.modalEnter);
+    } else if (shouldRender) {
+      setAnimationClass(styles.modalExit);
+    }
+  }, [open, shouldRender]);
+
+  // When exit animation ends, unmount the modal
+  const handleAnimationEnd = () => {
+    if (!open) {
+      setShouldRender(false);
+    }
+  };
+
   const modalClass = classNames(
     styles.resultModal,
-    modalStateClass,
+    animationClass,
     gameResultClass
   );
 
-  // Start entrance-to-visible transition after mount
-  useEffect(() => setModalStateClass(styles.modalVisible), []);
-
-  function closeModal() {
-    setModalStateClass(styles.modalExit);
-    setTimeout(onClick, 300); // Wait for the transition to finish before calling onClick (Make sure 300ms matches your CSS transition duration)
-  }
-  //useEffect and useState are used to manage the the CSS class state for the modal dialog (initially modalEntrance)
-  //The starting class is initially "modalEntrance" and changes to "modalVisible" after the component mounts.
-  //When the closeModal function is called, it sets the class is changed to to "modalExit" and calls the onClick function passed as a prop.
-  //This allows for a smooth transition effect when the modal is closed.
+  if (!shouldRender) return null;
 
   return (
-    <div className={styles.modalOverlay} data-testid={`result-modal`}>
+    <div className={styles.modalOverlay} data-testid='result-modal'>
       <div
         id='gameResultModal'
         className={modalClass}
-        role={`dialog`}
-        aria-labelledby={`game-result-message`}
-        aria-describedby={`game-result-description`}
+        role='dialog'
+        aria-labelledby='game-result-message'
+        aria-describedby='game-result-description'
+        onAnimationEnd={handleAnimationEnd}
       >
-        <p id={`game-result-message`} className={styles.resultModalMessage}>
+        <p id='game-result-message' className={styles.resultModalMessage}>
           {message}
         </p>
         <button
-          aria-label={`Play again`}
-          id={`gameResultModalCloseButton`}
-          onClick={closeModal}
+          aria-label='Play again'
+          id='gameResultModalCloseButton'
+          onClick={onClick}
           className={styles.resultModalButton}
         >
           Play again
