@@ -1,3 +1,25 @@
+@keyframes slideIn {
+  from {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
 .resultModalButton {
   border-radius: 5px;
   border: none;
@@ -15,7 +37,6 @@
 
 .resultModal {
   border-radius: 5px;
-  transition: transform 0.3s ease-in-out;
   display: grid;
   justify-items: center;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
@@ -42,14 +63,12 @@
   margin: 0 0 10px;
 }
 
-.modalEntrance {
-  transform: translateY(-100vh); /* slide down as appears */
+.modalEnter {
+  animation: slideIn 0.3s forwards ease-out;
 }
-.modalVisible {
-  transform: translateY(0);
-}
+
 .modalExit {
-  transform: translateY(-100vh); /* slide up as dissapears */
+  animation: slideOut 0.3s forwards ease-in;
 }
 
 .gameWonModal {
@@ -58,3 +77,13 @@
 .gameLostModal {
   color: #c01c28;
 }
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.1); /* matches default dialog::backdrop */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
