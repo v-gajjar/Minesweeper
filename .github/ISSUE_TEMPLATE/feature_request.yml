@@ -56,3 +56,4 @@ body:
             Following this Git Flow process helps prevent corrupted or broken code from being merged into the main branch.
           required: true
         - label: This issue includes enough detail to act on
+          required: true
