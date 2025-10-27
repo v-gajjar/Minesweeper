@@ -7,11 +7,11 @@ function RemainingFlagsCounter({
   remainingFlagsCount,
 }: RemainingFlagsCounterProps) {
   return (
-    <div className={styles.remainingFlagsCounter} data-testid='flags-remaining'>
-      <Flag size={25} color='#c01c28' weight='fill' aria-hidden='true' />
+    <>
+      <Flag size={25} color='#c01c28' weight='fill' aria-hidden='true'/>
       <span className={styles.remainingFlagsLabel}>Remaining Flags:</span>
       <span className={styles.remainingFlagsCount}>{remainingFlagsCount}</span>
-    </div>
+    </>
   );
 }
 

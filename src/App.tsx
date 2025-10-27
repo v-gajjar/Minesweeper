@@ -260,9 +260,11 @@ function App() {
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
         ></DifficultySelect>
-        <RemainingFlagsCounter
-          remainingFlagsCount={remainingFlagsCount}
-        ></RemainingFlagsCounter>
+        <div className='remainingFlagsCounter'>
+          <RemainingFlagsCounter
+            remainingFlagsCount={remainingFlagsCount}
+          ></RemainingFlagsCounter>
+        </div>
         {gameHasEnded() && (
           <ResultModal
             gameWon={userWonGame()}
