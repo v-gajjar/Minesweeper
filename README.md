@@ -85,20 +85,13 @@ For a full overview of how to get started, see the [Quick Start Guide](https://g
 
 ## Project Structure
 
-For a full overview of the folder layout, component organization, and key files, see:
-
-[Project Structure](https://github.com/v-gajjar/Minesweeper/wiki#project-structure)
+For a full overview of the folder layout, component organization, and key files, see the [Project Structure](https://github.com/v-gajjar/Minesweeper/wiki#project-structure).
 
 ---
 
 ## Tech Stack
 
-| Name                                                                  | Version | Description                                                 |
-| :-------------------------------------------------------------------- | :------ | :---------------------------------------------------------- |
-| [React](https://react.dev/)                                           | ^18.3.1 | UI library for building components.                         |
-| [Vite](https://vitejs.dev/)                                           | ^6.0.5  | Fast dev server & bundler.                                  |
-| [classnames](https://www.npmjs.com/package/classnames)                | ^2.5.1  | Utility for conditional classNames.                         |
-| [Phosphor Icons](https://www.npmjs.com/package/@phosphor-icons/react) | ^2.1.7  | Flexible icon set for React.                                |
+For a full overview of the current tech stack, see the [Tech Stack](https://github.com/v-gajjar/Minesweeper/wiki#tech-stack).
 
 ---
 
