@@ -3,4 +3,5 @@ import type { GameDifficultyLevelSettings } from '@config/gameDifficultyLevelSet
 export type DifficultySelectProps = {
   gameDifficultySettings: GameDifficultyLevelSettings[keyof GameDifficultyLevelSettings];
   onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  id: string;
 };
