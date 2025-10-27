@@ -77,29 +77,9 @@ To view planned milestones, ideas under discussion, and in-progress updates, che
 
 ---
 
-## Getting Started
+## Quick Start
 
-For a few overview of how to get started see:
-
-[Quick Start](https://github.com/v-gajjar/Minesweeper/wiki#quick-start)
-
----
-
-### Production Build
-
-Run a production-optimized build locally to verify everything works before deployment.
-
-1. Build the app
-
-```bash
-npm run build
-```
-
-2. Preview the production build locally
-
-```bash
-npm run preview
-```
+For a full overview of how to get started, see the [Quick Start Guide](https://github.com/v-gajjar/Minesweeper/wiki#quick-start).
 
 ---
 
@@ -135,6 +115,9 @@ Use this reference to learn how each script works and when to use it.
 
 We love contributions of all kinds — whether it’s fixing a bug, improving documentation, or suggesting a new feature.  
 Your support helps shape the game’s future.
+
+Before getting started, please take a moment to review our  
+[Code of Conduct](https://github.com/v-gajjar/Minesweeper/wiki#code-of-conduct).
 
 How to get involved:
 
