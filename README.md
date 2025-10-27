@@ -79,58 +79,9 @@ To view planned milestones, ideas under discussion, and in-progress updates, che
 
 ## Getting Started
 
-**Requirements:** Node 18+ (or Docker)
+For a few overview of how to get started see:
 
-### Clone & Run
-
-1. Clone repo
-
-```bash
-git clone https://github.com/v-gajjar/Minesweeper.git
-```
-
-2. Enter folder
-
-```bash
-cd Minesweeper
-```
-
-3. Install dependencies
-
-```bash 
-npm install
-```
-
-4. Start dev server
-
-```bash
-npm run dev
-```
-
-5. Run tests:
-
-```bash
-npm test
-```
-
-6. In your browser, visit [http://localhost:5173](http://localhost:5173)
-
-
-### Docker Run
-
-1. Build image
-
-```bash
-docker build -t minesweeper:v1 .
-```
-
-2. Run container
-
-```bash
-docker run -itd -p 8083:80 --name minesweeper minesweeper:v1
-```  
-
-3. In your browser, visit [http://localhost:8083](http://localhost:8083)
+[Quick Start](https://github.com/v-gajjar/Minesweeper/wiki#quick-start)
 
 ---
 
