@@ -260,7 +260,7 @@ function App() {
           gameDifficultySettings={gameDifficultySettings}
           onChange={onGameDifficultyLevelChanged}
         ></DifficultySelect>
-        <div className='remainingFlagsCounter-wrapper'>
+        <div className='remainingFlagsCounterWrapper'>
           <RemainingFlagsCounter
             remainingFlagsCount={remainingFlagsCount}
           ></RemainingFlagsCounter>
