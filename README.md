@@ -109,8 +109,9 @@ Use this reference to learn how each script works and when to use it.
 We love contributions of all kinds — whether it’s fixing a bug, improving documentation, or suggesting a new feature.  
 Your support helps shape the game’s future.
 
-Before getting started, please take a moment to review our  
-[Code of Conduct](https://github.com/v-gajjar/Minesweeper/wiki#code-of-conduct).
+Before you dive in, please read through our
+[Code of Conduct](https://github.com/v-gajjar/Minesweeper/wiki#code-of-conduct).  We value kindness and collaboration.
+Next, take a look at the [Contributing Guide](https://github.com/v-gajjar/Minesweeper/blob/develop/CONTRIBUTING.md) to learn how to get your first PR merged smoothly.
 
 How to get involved:
 
@@ -119,13 +120,14 @@ How to get involved:
 - Join discussions in the [Roadmap board](https://github.com/users/v-gajjar/projects/2)
 - Report issues or suggest features via [GitHub Issues](https://github.com/v-gajjar/Minesweeper/issues)
 
-> 💡 Don’t worry if you’re new! We’re happy to help guide you through setup, testing, or PR feedback — the goal is collaboration, not perfection.
+> Don’t worry if you’re new! We’re happy to help guide you through setup, testing, or PR feedback — the goal is collaboration, not perfection.
 
 ---
 
 ## Attributions
 
-- Inter font by Rasmus Andersson (SIL Open Font License 1.1)
+- [Inter font](https://rsms.me/inter/) by Rasmus Andersson — licensed under the [SIL Open Font License 1.1](https://openfontlicense.org/).
+- [Phosphor Icons](https://phosphoricons.com/) — licensed under the [MIT License](https://github.com/phosphor-icons/homepage/blob/master/LICENSE).
 
 ---
 
