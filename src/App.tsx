@@ -250,21 +250,6 @@ function App() {
         <h1 className='header-game-title'>Minesweeper</h1>
       </header>
       <main className='wrapper'>
-        <DifficultySelect
-          gameDifficultySettings={gameDifficultySettings}
-          onChange={onGameDifficultyLevelChanged}
-        ></DifficultySelect>
-        <div className='remainingFlagsCounterWrapper'>
-          <RemainingFlagsCounter
-            remainingFlagsCount={remainingFlagsCount}
-          ></RemainingFlagsCounter>
-        </div>
-        {gameHasEnded() && (
-          <ResultModal
-            gameWon={userWonGame()}
-            onClick={handleGameRestart}
-          ></ResultModal>
-        )}
         <div className='game_difficulty_select_wrapper'>
           <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
           <DifficultySelect
@@ -273,9 +258,11 @@ function App() {
             id={DIFFICULTY_SELECT_ID}
           ></DifficultySelect>
         </div>
-        <RemainingFlagsCounter
-          remainingFlagsCount={remainingFlagsCount}
-        ></RemainingFlagsCounter>
+        <div className='remainingFlagsCounterWrapper'>
+          <RemainingFlagsCounter
+            remainingFlagsCount={remainingFlagsCount}
+          ></RemainingFlagsCounter>
+        </div>
         <ResultModal
           open={isResultModalOpen}
           gameWon={gameWon}
