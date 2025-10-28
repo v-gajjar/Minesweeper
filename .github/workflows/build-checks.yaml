@@ -41,8 +41,8 @@ jobs:
         run: npx eslint src --ext .js,.jsx,.ts,.tsx --cache --quiet || true
 
       - name: 🧪 Run Prettier (warn-only)
-        run: npx prettier --list-different . || true
-
+        run: npx prettier --list-different .
+        
       - name: 🎨 Stylelint Summary Output
         run: |
           echo "## Stylelint Results" >> $GITHUB_STEP_SUMMARY
