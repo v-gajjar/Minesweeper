@@ -113,13 +113,6 @@ Before you dive in, please read through our
 [Code of Conduct](https://github.com/v-gajjar/Minesweeper/wiki#code-of-conduct).  We value kindness and collaboration.
 Next, take a look at the [Contributing Guide](https://github.com/v-gajjar/Minesweeper/blob/develop/CONTRIBUTING.md) to learn how to get your first PR merged smoothly.
 
-How to get involved:
-
-- Fork the repo & open a PR
-- Add yourself to [Contributors](./CONTRIBUTORS.md)
-- Join discussions in the [Roadmap board](https://github.com/users/v-gajjar/projects/2)
-- Report issues or suggest features via [GitHub Issues](https://github.com/v-gajjar/Minesweeper/issues)
-
 > Don’t worry if you’re new! We’re happy to help guide you through setup, testing, or PR feedback — the goal is collaboration, not perfection.
 
 ---
