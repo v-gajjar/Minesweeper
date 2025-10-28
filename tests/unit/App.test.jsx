@@ -50,5 +50,9 @@ describe('App surface components', () => {
     const el = screen.getByTestId('result-modal');
     expect(el).toBeDefined();
     expect(document.body.contains(el)).toBe(true);
+    const { getByTestId } = render(
+      <ResultModal open={true} onClose={() => {}} result='win' />
+    );
+    expect(getByTestId('result-modal')).toBeTruthy();
   });
 });

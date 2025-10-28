@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
 import DifficultySelect from '@/components/feature/DifficultySelect/DifficultySelect';
+
 import GameBoard from '@feature/GameBoard/GameBoard';
 import ResultModal from '@/components/feature/ResultModal/ResultModal';
 import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlagsCounter';
@@ -11,12 +12,12 @@ import {
   getMineLocations,
   getCellsWithMines,
   updateBoard,
+  getBoard,
+  getGameLostBoard,
   revealCell,
   coordinatesMatch,
   getFilteredFlagLocations,
-  getGameLostBoard,
-  getBoard,
-} from '@/minesweeperUtils';
+} from './utils/index.ts';
 
 import GameStatus from '@enum/GameStatus';
 
@@ -45,9 +46,7 @@ function App() {
   );
   const boardContainerRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    setupNewGame();
-  }, [gameDifficultySettings]);
+  const DIFFICULTY_SELECT_ID = 'game-difficulty-select';
 
   const onGameDifficultyLevelChanged = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -215,7 +214,8 @@ function App() {
     setBoard(updatedBoard);
   };
 
-  const setupNewGame = () => {
+  //memoized to prevent infinite loop --- IGNORE ---
+  const setupNewGame = useCallback(() => {
     const boardSize = gameDifficultySettings.boardSize;
     const rowCount = boardSize.rowCount;
     const columnCount = boardSize.columnCount;
@@ -230,25 +230,19 @@ function App() {
     setRemainingFlagsCount(gameDifficultySettings.mineCount);
     setSafeCellsCount(rowCount * columnCount - mineCount);
     setBoard(newBoard);
-  };
+  }, [gameDifficultySettings]);
 
-  const gameHasEnded = () => {
-    switch (gameStatus) {
-      case GameStatus.GAME_LOST:
-        return true;
-      case GameStatus.GAME_WON:
-        return true;
-      default:
-        return false;
-    }
-  };
+  //moved from above to here --- IGNORE ---
+  useEffect(() => {
+    setupNewGame();
+  }, [setupNewGame]);
 
-  const userWonGame = () => {
-    if (gameStatus === GameStatus.GAME_WON) {
-      return true;
-    }
-    return false;
-  };
+  const isResultModalOpen =
+    gameStatus === GameStatus.GAME_WON || gameStatus === GameStatus.GAME_LOST
+      ? true
+      : false;
+
+  const gameWon = gameStatus === GameStatus.GAME_WON ? true : false;
 
   return (
     <>
@@ -271,6 +265,22 @@ function App() {
             onClick={handleGameRestart}
           ></ResultModal>
         )}
+        <div className='game_difficulty_select_wrapper'>
+          <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
+          <DifficultySelect
+            gameDifficultySettings={gameDifficultySettings}
+            onChange={onGameDifficultyLevelChanged}
+            id={DIFFICULTY_SELECT_ID}
+          ></DifficultySelect>
+        </div>
+        <RemainingFlagsCounter
+          remainingFlagsCount={remainingFlagsCount}
+        ></RemainingFlagsCounter>
+        <ResultModal
+          open={isResultModalOpen}
+          gameWon={gameWon}
+          onClick={handleGameRestart}
+        ></ResultModal>
         <div className='boardContainer' ref={boardContainerRef}>
           <GameBoard
             board={board}

@@ -47,5 +47,6 @@ body {
   justify-content: center;
   padding: 15px 10px 0px 10px;
   max-width: fit-content;
+.game_difficulty_select_wrapper {
   margin: auto;
 }

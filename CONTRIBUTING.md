@@ -10,11 +10,25 @@ Following these guidelines helps to ensure everyone is using the same process to
 
 ## What Contributions Are Welcome
 
-A variety of contributions are welcome! People have reported bugs, suggested features to improve the project, helped with testing, reviewed and fixed broken PRs, worked on CI/CD pipelines, and made improvements to performance, styling, and documentation.
+A variety of contributions are welcome! People have helped in the following ways:
+- Bugs
+- Suggested features to improve the project,
+- Helped with testing,
+- Reviewed and fixed broken PRs,
+- Implememented/improved CI/CD pipelines
+- Improvements to performance
+- Improvements to styling
+- Implementing ccessibility and keyboard navigation support
+- Help with the documentation (this guide itself, the README and the Wiki)
 
+Any help with testing, in particular on Safari browsers, is particularly appreciated!!
+  
 ## What Contributions Are Not Needed (Currently)
 
-We are currently not looking for any more contributions to the UI mock-ups, but this may change in the future.
+- We are currently not looking for any more contributions to the UI mock-ups, but this may change in the future.
+- Contributions that aim to recreate the pixelated, old-school feel of the original Minesweeper or many of its clones.  
+  We have very carefully chosen modern styling to differentiate our version and maintain a consistent, contemporary user experience.
+
 
 ## Ground Rules
 
