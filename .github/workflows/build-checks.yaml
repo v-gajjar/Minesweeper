@@ -46,4 +46,4 @@ jobs:
       - name: 🎨 Stylelint Summary Output
         run: |
           echo "## Stylelint Results" >> $GITHUB_STEP_SUMMARY
-          npx stylelint "**/*.{css,scss}" >> $GITHUB_STEP_SUMMARY || true
+          npx stylelint "**/*.{css,scss}" --config .stylelintrc.json | tee -a $GITHUB_STEP_SUMMARY || true

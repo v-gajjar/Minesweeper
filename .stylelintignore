@@ -1,0 +1,33 @@
+# Build outputs
+dist/
+build/
+out/
+.vite/
+
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+package-lock.json
+
+# Test & coverage outputs
+coverage/
+*.test.css
+
+# Config & meta files
+.vscode/
+.idea/
+.git/
+.github/
+stylelint-report.json
+
+# Misc caches
+*.log
+*.cache/
+.DS_Store
+
+# Don’t lint TypeScript/JS files or Markdown
+**/*.ts
+**/*.tsx
+**/*.js
+**/*.jsx
+**/*.md
