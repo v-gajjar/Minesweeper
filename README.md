@@ -31,7 +31,7 @@
 
 ## About
 
-A modern, open-source remix of the classic Minesweeper, powered by today’s tech and tomorrow’s UX standards.
+A community-driven, open-source reimagining of the classic Minesweeper experience. Built with thoughtful UX, using modern front-end technologies including React and TypeScript.
 
 We’re not just cloning nostalgia, we’re reinventing it. Expect clean design, fluid gameplay, and a welcoming home screen that helps new players learn quickly, and lets veterans dive straight into “Play Now.”
 
