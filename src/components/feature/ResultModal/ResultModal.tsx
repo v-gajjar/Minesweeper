@@ -5,7 +5,6 @@ import styles from '@components/feature/ResultModal/ResultModal.module.css';
 
 function ResultModal({ open = false, gameWon, onClick }: ResultModalProps) {
   const [shouldRender, setShouldRender] = useState(open);
-  const [animationClass, setAnimationClass] = useState('');
 
   const message = gameWon ? 'You Won!' : 'Game Over!';
   const gameResultClass = gameWon ? styles.gameWonModal : styles.gameLostModal;
@@ -13,11 +12,8 @@ function ResultModal({ open = false, gameWon, onClick }: ResultModalProps) {
   useEffect(() => {
     if (open) {
       setShouldRender(true);
-      setAnimationClass(styles.modalEnter);
-    } else if (shouldRender) {
-      setAnimationClass(styles.modalExit);
     }
-  }, [open, shouldRender]);
+  }, [open]);
 
   // When exit animation ends, unmount the modal
   const handleAnimationEnd = () => {
@@ -26,18 +22,20 @@ function ResultModal({ open = false, gameWon, onClick }: ResultModalProps) {
     }
   };
 
-  const modalClass = classNames(
-    styles.resultModal,
-    animationClass,
-    gameResultClass
-  );
+  const modalClass = classNames(styles.resultModal, gameResultClass);
 
   if (!shouldRender) return null;
+
+  /*
+      IMPORTANT NOTE: 
+      The data-state attribute is used to trigger CSS animations for modal enter and exit - please do not remove it
+  */
 
   return (
     <div className={styles.modalOverlay} data-testid={`result-modal`}>
       <div
         id='gameResultModal'
+        data-state={open ? 'open' : 'closed'}
         className={modalClass}
         role='dialog'
         aria-labelledby='game-result-message'
