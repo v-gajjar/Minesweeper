@@ -46,13 +46,9 @@ describe('App surface components', () => {
   });
 
   it('renders a result modal', () => {
-    render(<ResultModal isOpen={true} onClose={() => {}} result="win" />);
+    render(<ResultModal open={true} result="win" onClick={() => {}} />);
     const el = screen.getByTestId('result-modal');
     expect(el).toBeDefined();
-    expect(document.body.contains(el)).toBe(true);
-    const { getByTestId } = render(
-      <ResultModal open={true} onClose={() => {}} result='win' />
-    );
-    expect(getByTestId('result-modal')).toBeTruthy();
+    expect(document.body.contains(el)).toBe(true);    
   });
 });
