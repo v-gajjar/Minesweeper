@@ -16,6 +16,15 @@ export type BoardSize = {
   columnCount: number;
 };
 
+export type DifficultyLevel = 'EASY' | 'MEDIUM' | 'HARD';
+
+export type DifficultyConfig = {
+  level: DifficultyLevel;
+  boardSize: BoardSize;
+  mineCount: number;
+  label: string;
+};
+
 export type Coordinate = {
   x: number;
   y: number;
