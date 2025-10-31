@@ -23,6 +23,8 @@ import GameStatus from '@enum/GameStatus';
 
 import './App.css';
 import type {
+  DifficultyLevel,
+  DifficultyConfig,
   BoardData,
   CellData,
   FlagLocations,
@@ -41,24 +43,20 @@ function App() {
   const [mineLocations, setMineLocations] = useState<MineLocations>([]);
   const [flagLocations, setFlagLocations] = useState<FlagLocations>([]);
 
-  const [gameDifficultySettings, setGameDifficultySettings] = useState(
-    GAME_DIFFICULTY_LEVEL_SETTINGS.EASY
-  );
+  const [gameDifficultySettings, setGameDifficultySettings] =
+    useState<DifficultyConfig>(GAME_DIFFICULTY_LEVEL_SETTINGS.EASY);
+
   const boardContainerRef = useRef<HTMLInputElement>(null);
 
   const DIFFICULTY_SELECT_ID = 'game-difficulty-select';
 
   const onGameDifficultyLevelChanged = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedLevel = event.target.value;
+      const selectedLevel = event.target.value as DifficultyLevel;
 
-      const difficultyLevel = Object.values(
-        GAME_DIFFICULTY_LEVEL_SETTINGS
-      ).find((difficultySetting) => selectedLevel === difficultySetting.level);
+      if (!(selectedLevel in GAME_DIFFICULTY_LEVEL_SETTINGS)) return;
 
-      if (!difficultyLevel) {
-        return;
-      }
+      const difficultyLevel = GAME_DIFFICULTY_LEVEL_SETTINGS[selectedLevel];
 
       resetBoardContainerScroll();
       setGameStatus(GameStatus.GAME_NOT_STARTED);
