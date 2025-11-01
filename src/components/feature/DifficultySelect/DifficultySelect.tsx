@@ -5,7 +5,7 @@ import type { DifficultySelectProps } from '@/components/feature/DifficultySelec
 import type { DifficultyConfig, DifficultyLevel } from '@/types';
 
 function DifficultySelect({
-  gameDifficultySettings,
+  difficultyLevel,
   onChange,
   id,
 }: DifficultySelectProps) {
@@ -16,7 +16,7 @@ function DifficultySelect({
 
   return (
     <select
-      value={gameDifficultySettings.level}
+      value={difficultyLevel}
       onChange={onChange}
       name='game-difficulty-select'
       id={id}
@@ -26,7 +26,7 @@ function DifficultySelect({
       {entries.map(([level, settings]) => (
         <option
           key={level}
-          value={settings.level}
+          value={level}
           aria-label={`${settings.label} - ${settings.boardSize.rowCount}x${settings.boardSize.columnCount} board with ${settings.mineCount} mines`}
         >
           {settings.label}
