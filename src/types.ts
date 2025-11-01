@@ -19,7 +19,6 @@ export type BoardSize = {
 export type DifficultyLevel = 'EASY' | 'MEDIUM' | 'HARD';
 
 export type DifficultyConfig = {
-  level: DifficultyLevel;
   boardSize: BoardSize;
   mineCount: number;
   label: string;
