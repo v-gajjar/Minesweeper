@@ -36,3 +36,5 @@ export type LocationColRow = {
 
 export type FlagLocations = Coordinate[];
 export type MineLocations = Coordinate[];
+
+export type GameStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'WON' | 'LOST';
