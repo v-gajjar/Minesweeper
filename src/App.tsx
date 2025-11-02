@@ -257,8 +257,10 @@ function App() {
             onChange={onGameDifficultyLevelChanged}
             id={DIFFICULTY_SELECT_ID}
           ></DifficultySelect>
+        </div>
+        <div className='remainingFlagsCounterWrapper'>
           <RemainingFlagsCounter
-          remainingFlagsCount={remainingFlagsCount}
+            remainingFlagsCount={remainingFlagsCount}
         ></RemainingFlagsCounter>
         </div>
         <ResultModal
