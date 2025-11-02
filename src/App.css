@@ -41,12 +41,6 @@ body {
 }
 
 .remainingFlagsCounterWrapper {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 15px 10px 0px 10px;
-  max-width: fit-content;
   margin: auto;
 }
 
