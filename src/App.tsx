@@ -23,6 +23,8 @@ import GameStatus from '@enum/GameStatus';
 
 import './App.css';
 import type {
+  DifficultyLevel,
+  DifficultyConfig,
   BoardData,
   CellData,
   FlagLocations,
@@ -41,28 +43,22 @@ function App() {
   const [mineLocations, setMineLocations] = useState<MineLocations>([]);
   const [flagLocations, setFlagLocations] = useState<FlagLocations>([]);
 
-  const [gameDifficultySettings, setGameDifficultySettings] = useState(
-    GAME_DIFFICULTY_LEVEL_SETTINGS.EASY
-  );
+  const [difficultyLevel, setDifficultyLevel] = useState<DifficultyLevel>('EASY');
+
   const boardContainerRef = useRef<HTMLInputElement>(null);
 
   const DIFFICULTY_SELECT_ID = 'game-difficulty-select';
 
+  const gameDifficultySettings: DifficultyConfig =
+    GAME_DIFFICULTY_LEVEL_SETTINGS[difficultyLevel];
+
   const onGameDifficultyLevelChanged = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedLevel = event.target.value;
-
-      const difficultyLevel = Object.values(
-        GAME_DIFFICULTY_LEVEL_SETTINGS
-      ).find((difficultySetting) => selectedLevel === difficultySetting.level);
-
-      if (!difficultyLevel) {
-        return;
-      }
+      const selectedLevel = event.target.value as DifficultyLevel;
 
       resetBoardContainerScroll();
       setGameStatus(GameStatus.GAME_NOT_STARTED);
-      setGameDifficultySettings(difficultyLevel);
+      setDifficultyLevel(selectedLevel);
     },
     []
   );
@@ -253,7 +249,7 @@ function App() {
         <div className='game_difficulty_select_wrapper'>
           <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
           <DifficultySelect
-            gameDifficultySettings={gameDifficultySettings}
+            difficultyLevel={difficultyLevel}
             onChange={onGameDifficultyLevelChanged}
             id={DIFFICULTY_SELECT_ID}
           ></DifficultySelect>
