@@ -159,9 +159,7 @@ function App() {
       : setGameStatus('IN_PROGRESS');
   };
 
-  const onToggleFlag = (x: number, y: number, event: React.SyntheticEvent) => {
-    event.preventDefault();
-
+  const onToggleFlag = (x: number, y: number) => {
     const rowIndex = x;
     const colIndex = y;
 
