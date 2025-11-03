@@ -16,6 +16,14 @@ export type BoardSize = {
   columnCount: number;
 };
 
+export type DifficultyLevel = 'EASY' | 'MEDIUM' | 'HARD';
+
+export type DifficultyConfig = {
+  boardSize: BoardSize;
+  mineCount: number;
+  label: string;
+};
+
 export type Coordinate = {
   x: number;
   y: number;
@@ -28,3 +36,5 @@ export type LocationColRow = {
 
 export type FlagLocations = Coordinate[];
 export type MineLocations = Coordinate[];
+
+export type GameStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'WON' | 'LOST';
