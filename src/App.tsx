@@ -250,9 +250,11 @@ function App() {
             id={DIFFICULTY_SELECT_ID}
           ></DifficultySelect>
         </div>
-        <RemainingFlagsCounter
-          remainingFlagsCount={remainingFlagsCount}
+        <div className='remainingFlagsCounterWrapper'>
+          <RemainingFlagsCounter
+            remainingFlagsCount={remainingFlagsCount}
         ></RemainingFlagsCounter>
+        </div>
         <ResultModal
           open={isResultModalOpen}
           gameWon={gameWon}
