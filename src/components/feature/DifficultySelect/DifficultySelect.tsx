@@ -14,10 +14,15 @@ function DifficultySelect({
     DifficultyConfig,
   ][];
 
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedLevel = event.target.value as DifficultyLevel;
+    onChange(selectedLevel);
+  };
+
   return (
     <select
       value={difficultyLevel}
-      onChange={onChange}
+      onChange={handleChange}
       name='game-difficulty-select'
       id={id}
       data-testid='difficulty-select'

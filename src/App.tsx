@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
@@ -49,16 +49,11 @@ function App() {
   const gameDifficultySettings: DifficultyConfig =
     GAME_DIFFICULTY_LEVEL_SETTINGS[difficultyLevel];
 
-  const onGameDifficultyLevelChanged = useCallback(
-    (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedLevel = event.target.value as DifficultyLevel;
-
-      resetBoardContainerScroll();
-      setGameStatus('NOT_STARTED');
-      setDifficultyLevel(selectedLevel);
-    },
-    []
-  );
+  const onSelectDifficulty = useCallback((difficultyLevel: DifficultyLevel) => {
+    resetBoardContainerScroll();
+    setGameStatus('NOT_STARTED');
+    setDifficultyLevel(difficultyLevel);
+  }, []);
 
   const handleGameRestart = () => {
     resetBoardContainerScroll();
@@ -237,7 +232,7 @@ function App() {
           <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
           <DifficultySelect
             difficultyLevel={difficultyLevel}
-            onChange={onGameDifficultyLevelChanged}
+            onChange={onSelectDifficulty}
             id={DIFFICULTY_SELECT_ID}
           ></DifficultySelect>
         </div>
