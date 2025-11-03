@@ -3,6 +3,6 @@ import type { CellData } from '@/types';
 
 export type CellProps = {
   cell: CellData;
-  onClick: (event: React.MouseEvent<HTMLElement>) => void;
-  onContextMenu: (event: React.MouseEvent<HTMLElement>) => void;
+  onClick: (x: number, y: number) => void;
+  onContextMenu: (x: number, y: number, event: React.SyntheticEvent) => void;
 };

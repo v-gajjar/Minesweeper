@@ -79,14 +79,12 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
       type='button'
       className={cellClass}
       data-testid='cell'
-      data-row={cell.x}
-      data-col={cell.y}
-      onClick={onClick}
+      onClick={() => onClick(cell.x, cell.y)}
+      onContextMenu={(event) => onContextMenu(cell.x, cell.y, event)}
       role='gridcell'
       aria-label={getAriaLabel()}
       aria-pressed={cell.isFlagged ? true : false}
       aria-disabled={cell.isRevealed}
-      onContextMenu={onContextMenu}
     >
       {renderCellContents()}
     </button>
