@@ -26,7 +26,6 @@ import type {
   BoardData,
   CellData,
   FlagLocations,
-  LocationColRow,
   MineLocations,
   GameStatus,
 } from '@/types';
@@ -73,12 +72,9 @@ function App() {
     boardContainerRef.current.scrollLeft = 0;
   };
 
-  const onRevealCell = (event: React.SyntheticEvent<HTMLElement>) => {
-    const target = event.target as unknown as {
-      dataset: { row: string; col: string };
-    };
-    const rowIndex = parseInt(target.dataset.row, 10);
-    const colIndex = parseInt(target.dataset.col, 10);
+  const onRevealCell = (x: number, y: number) => {
+    const rowIndex = x;
+    const colIndex = y;
 
     const selectedCell = board[rowIndex][colIndex];
 
@@ -163,14 +159,11 @@ function App() {
       : setGameStatus('IN_PROGRESS');
   };
 
-  const onToggleFlag = (event: React.MouseEvent<HTMLElement>) => {
+  const onToggleFlag = (x: number, y: number, event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    const target = event.currentTarget as unknown as {
-      dataset: LocationColRow;
-    };
-    const rowIndex = parseInt(target.dataset.row);
-    const colIndex = parseInt(target.dataset.col);
+    const rowIndex = x;
+    const colIndex = y;
 
     const selectedCell = board[rowIndex][colIndex];
 

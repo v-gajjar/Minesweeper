@@ -29,11 +29,6 @@ export type Coordinate = {
   y: number;
 };
 
-export type LocationColRow = {
-  col: string;
-  row: string;
-};
-
 export type FlagLocations = Coordinate[];
 export type MineLocations = Coordinate[];
 
