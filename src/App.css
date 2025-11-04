@@ -40,6 +40,10 @@ body {
   padding: 2px 0;
 }
 
+.remainingFlagsCounterWrapper {
+  margin: auto;
+}
+
 .game_difficulty_select_wrapper {
   margin: auto;
 }
