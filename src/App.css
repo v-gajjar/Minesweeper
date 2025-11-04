@@ -1,5 +1,5 @@
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, sans-serif;
   font-optical-sizing: auto;
 }
 
@@ -32,7 +32,7 @@ body {
   flex-grow: 1;
 }
 
-.boardContainer {
+.board-container {
   display: flex;
   overflow-y: hidden;
   justify-content: flex-start;

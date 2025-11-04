@@ -40,17 +40,17 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
 
     if (cell.isIncorrectlyFlagged) {
       return (
-        <span data-testid='x-icon'>
-          <X size={20} color='#c01c28' weight='bold' />
+        <span data-testid="x-icon">
+          <X size={20} color="#c01c28" weight="bold" />
         </span>
       );
     }
 
     if (cell.isFlagged) {
-      return <Flag size={20} color='#c01c28' weight='fill' />;
+      return <Flag size={20} color="#c01c28" weight="fill" />;
     }
     if (cell.hasMine) {
-      return <Bomb size={20} weight='fill' />;
+      return <Bomb size={20} weight="fill" />;
     }
     if (cell.adjacentMinesCount > 0) {
       const number = cell.adjacentMinesCount!;
@@ -67,7 +67,9 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
         return cell.hasExplodedMine ? 'Exploded mine' : 'Mine';
       }
       if (cell.adjacentMinesCount > 0) {
-        return `Cell with ${cell.adjacentMinesCount} adjacent mine${cell.adjacentMinesCount === 1 ? '' : 's'}`;
+        return `Cell with ${cell.adjacentMinesCount} adjacent mine${
+          cell.adjacentMinesCount === 1 ? '' : 's'
+        }`;
       }
       return 'Empty revealed cell';
     }
@@ -81,7 +83,7 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
 
   return (
     <button
-      type='button'
+      type="button"
       className={cellClass}
       data-testid='cell'
       onClick={() => onClick(cell.x, cell.y)}

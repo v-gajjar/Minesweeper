@@ -67,8 +67,6 @@ function App() {
 
   const resetBoardContainerScroll = () => {
     if (!boardContainerRef.current) return;
-    // scroll doesn't automatically reset when board size is changed
-    // so reset to 0 for better UX
     boardContainerRef.current.scrollLeft = 0;
   };
 
@@ -199,7 +197,6 @@ function App() {
     setBoard(updatedBoard);
   };
 
-  //memoized to prevent infinite loop --- IGNORE ---
   const setupNewGame = useCallback(() => {
     const boardSize = gameDifficultySettings.boardSize;
     const rowCount = boardSize.rowCount;
@@ -217,7 +214,6 @@ function App() {
     setBoard(newBoard);
   }, [gameDifficultySettings]);
 
-  //moved from above to here --- IGNORE ---
   useEffect(() => {
     setupNewGame();
   }, [setupNewGame]);
@@ -229,11 +225,11 @@ function App() {
 
   return (
     <>
-      <header className='header'>
-        <h1 className='header-game-title'>Minesweeper</h1>
+      <header className="header">
+        <h1 className="header-game-title">Minesweeper</h1>
       </header>
-      <main className='wrapper'>
-        <div className='game_difficulty_select_wrapper'>
+      <main className="wrapper">
+        <div className="game-difficulty-select-wrapper">
           <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
           <DifficultySelect
             difficultyLevel={difficultyLevel}
@@ -251,7 +247,7 @@ function App() {
           gameWon={gameWon}
           onClick={handleGameRestart}
         ></ResultModal>
-        <div className='boardContainer' ref={boardContainerRef}>
+        <div className="board-container" ref={boardContainerRef}>
           <GameBoard
             board={board}
             boardSize={gameDifficultySettings.boardSize}

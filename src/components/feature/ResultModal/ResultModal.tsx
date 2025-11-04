@@ -7,7 +7,9 @@ function ResultModal({ open = false, gameWon, onClick }: ResultModalProps) {
   const [shouldRender, setShouldRender] = useState(open);
 
   const message = gameWon ? 'You Won!' : 'Game Over!';
-  const gameResultClass = gameWon ? styles.gameWonModal : styles.gameLostModal;
+  const gameResultClass = gameWon
+    ? styles['game-won-modal']
+    : styles['game-lost-modal'];
 
   useEffect(() => {
     if (open) {
@@ -15,7 +17,6 @@ function ResultModal({ open = false, gameWon, onClick }: ResultModalProps) {
     }
   }, [open]);
 
-  // When exit animation ends, unmount the modal
   const handleAnimationEnd = () => {
     if (!open) {
       setShouldRender(false);
@@ -32,24 +33,24 @@ function ResultModal({ open = false, gameWon, onClick }: ResultModalProps) {
   */
 
   return (
-    <div className={styles.modalOverlay} data-testid={`result-modal`}>
+    <div className={styles['modal-overlay']} data-testid="result-modal">
       <div
         id='gameResultModal'
         data-state={open ? 'open' : 'closed'}
         className={modalClass}
-        role='dialog'
-        aria-labelledby='game-result-message'
-        aria-describedby='game-result-description'
+        role="dialog"
+        aria-labelledby="game-result-message"
+        aria-describedby="game-result-description"
         onAnimationEnd={handleAnimationEnd}
       >
-        <p id='game-result-message' className={styles.resultModalMessage}>
+        <p id="game-result-message" className={styles['result-modal-message']}>
           {message}
         </p>
         <button
-          aria-label='Play again'
-          id='gameResultModalCloseButton'
+          aria-label="Play again"
+          id="gameResultModalCloseButton"
           onClick={onClick}
-          className={styles.resultModalButton}
+          className={styles['result-modal-button']}
         >
           Play again
         </button>
