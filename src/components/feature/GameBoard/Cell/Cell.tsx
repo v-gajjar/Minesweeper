@@ -15,23 +15,23 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
   const getNumberedCellColour = (number: number) => {
     switch (number) {
       case 1:
-        return { color: 'blue' };
+        return styles.colorblue;
       case 2:
-        return { color: 'green' };
+        return styles.colorgreen;
       case 3:
-        return { color: 'red' };
+        return styles.colorred;
       case 4:
-        return { color: 'darkblue' };
+          return styles.colordarkblue;
       case 5:
-        return { color: 'brown' };
+        return styles.colorbrown;
       case 6:
-        return { color: 'lightblue' };
+        return styles.colorlightblue;
       case 7:
-        return { color: 'purple' };
+        return styles.colorpurple;
       case 8:
-        return { color: 'pink' };
+        return styles.colorpink;
       default:
-        return { color: 'black' };
+        return styles.colorblack;
     }
   };
 
@@ -54,7 +54,7 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
     }
     if (cell.adjacentMinesCount > 0) {
       const number = cell.adjacentMinesCount!;
-      return <span style={getNumberedCellColour(number)}>{number}</span>;
+      return <span className={styles[getNumberedCellColour(number)]}>{number}</span>;
     }
   };
 

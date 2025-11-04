@@ -27,3 +27,39 @@
 .cell.mine.exploded {
   background: orange;
 }
+
+.colorblue {
+  color: blue;
+}
+
+.colorgreen {
+  color: green;
+}
+
+.colorred {
+  color: red;
+}
+
+.colordarkblue {
+  color: darkblue;
+}
+
+.colorbrown {
+  color: brown;
+}
+
+.colorlightblue {
+  color: lightblue;
+}
+
+.colorpurple {
+  color: purple;
+}
+
+.colorpink {
+  color: pink;
+}
+
+.colorblack {
+  color: black;
+} 
