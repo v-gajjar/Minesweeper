@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
@@ -26,7 +26,6 @@ import type {
   BoardData,
   CellData,
   FlagLocations,
-  LocationColRow,
   MineLocations,
   GameStatus,
 } from '@/types';
@@ -50,16 +49,11 @@ function App() {
   const gameDifficultySettings: DifficultyConfig =
     GAME_DIFFICULTY_LEVEL_SETTINGS[difficultyLevel];
 
-  const onGameDifficultyLevelChanged = useCallback(
-    (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedLevel = event.target.value as DifficultyLevel;
-
-      resetBoardContainerScroll();
-      setGameStatus('NOT_STARTED');
-      setDifficultyLevel(selectedLevel);
-    },
-    []
-  );
+  const onSelectDifficulty = useCallback((difficultyLevel: DifficultyLevel) => {
+    resetBoardContainerScroll();
+    setGameStatus('NOT_STARTED');
+    setDifficultyLevel(difficultyLevel);
+  }, []);
 
   const handleGameRestart = () => {
     resetBoardContainerScroll();
@@ -73,12 +67,9 @@ function App() {
     boardContainerRef.current.scrollLeft = 0;
   };
 
-  const onRevealCell = (event: React.SyntheticEvent<HTMLElement>) => {
-    const target = event.target as unknown as {
-      dataset: { row: string; col: string };
-    };
-    const rowIndex = parseInt(target.dataset.row, 10);
-    const colIndex = parseInt(target.dataset.col, 10);
+  const onRevealCell = (x: number, y: number) => {
+    const rowIndex = x;
+    const colIndex = y;
 
     const selectedCell = board[rowIndex][colIndex];
 
@@ -163,14 +154,9 @@ function App() {
       : setGameStatus('IN_PROGRESS');
   };
 
-  const onToggleFlag = (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-
-    const target = event.currentTarget as unknown as {
-      dataset: LocationColRow;
-    };
-    const rowIndex = parseInt(target.dataset.row);
-    const colIndex = parseInt(target.dataset.col);
+  const onToggleFlag = (x: number, y: number) => {
+    const rowIndex = x;
+    const colIndex = y;
 
     const selectedCell = board[rowIndex][colIndex];
 
@@ -246,13 +232,15 @@ function App() {
           <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
           <DifficultySelect
             difficultyLevel={difficultyLevel}
-            onChange={onGameDifficultyLevelChanged}
+            onChange={onSelectDifficulty}
             id={DIFFICULTY_SELECT_ID}
           ></DifficultySelect>
         </div>
-        <RemainingFlagsCounter
-          remainingFlagsCount={remainingFlagsCount}
+        <div className='remainingFlagsCounterWrapper'>
+          <RemainingFlagsCounter
+            remainingFlagsCount={remainingFlagsCount}
         ></RemainingFlagsCounter>
+        </div>
         <ResultModal
           open={isResultModalOpen}
           gameWon={gameWon}

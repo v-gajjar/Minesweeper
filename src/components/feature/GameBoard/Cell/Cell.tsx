@@ -74,19 +74,22 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
     return 'Unrevealed cell';
   };
 
+  const handleContextMenu = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+    onContextMenu(cell.x, cell.y);
+  };
+
   return (
     <button
       type='button'
       className={cellClass}
       data-testid='cell'
-      data-row={cell.x}
-      data-col={cell.y}
-      onClick={onClick}
+      onClick={() => onClick(cell.x, cell.y)}
+      onContextMenu={handleContextMenu}
       role='gridcell'
       aria-label={getAriaLabel()}
       aria-pressed={cell.isFlagged ? true : false}
       aria-disabled={cell.isRevealed}
-      onContextMenu={onContextMenu}
     >
       {renderCellContents()}
     </button>
