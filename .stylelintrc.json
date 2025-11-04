@@ -1,3 +1,19 @@
 {
-  "extends": "stylelint-config-standard"
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "selector-class-pattern": [
+      "^[a-z0-9\\-]+$",
+      {
+        "message": "❌ Class names must be in kebab-case (lowercase letters and hyphens only).",
+        "severity": "error"
+      }
+    ],
+    "selector-id-pattern": [
+      "^[a-z0-9\\-]+$",
+      {
+        "message": "❌ ID selectors must be in kebab-case (lowercase letters and hyphens only).",
+        "severity": "error"
+      }
+    ]
+  }
 }
