@@ -63,7 +63,7 @@ For deeper technical details, see the [Architecture section in the Wiki](https:/
 
 ## How to Play
 
-Learn more about how to play the game, and specific features in the [Wiki].(https://github.com/v-gajjar/Minesweeper/wiki#how-to-play)
+Learn more about how to play the game, and specific features in the [Wiki](https://github.com/v-gajjar/Minesweeper/wiki#how-to-play)
 
 ---
 
