@@ -47,7 +47,7 @@ Every commit, idea, and bug report makes the game better.
 
 [![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper)](./CONTRIBUTORS.md)  
 
-Meet all our amazing [Contributors](./CONTRIBUTORS.md)
+Meet all our amazing [Contributors](./CONTRIBUTORS.md).
 
 ---
 
