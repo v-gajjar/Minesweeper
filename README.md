@@ -31,10 +31,12 @@
 
 ## About
 
-A modern, open-source remix of the classic Minesweeper, powered by today’s tech and tomorrow’s UX standards.
+A community-driven, open-source reimagining of the iconic Minesweeper game. Not another generic, copycat clone; We're evolving the game with modern styling and thoughtful UX for a variety of users. 
 
-We’re not just cloning nostalgia, we’re reinventing it. Expect clean design, fluid gameplay, and a welcoming home screen that helps new players learn quickly, and lets veterans dive straight into “Play Now.”
-
+One stand out feature will be welcoming and approachable home screen:
+- Easy access to game rules for new players
+- Quick play convenience for experienced players
+- Customistable settings for those wanting a more personalised experience
 ---
 
 ## Acknowledgements
