@@ -55,7 +55,7 @@ Meet all our amazing [Contributors](./CONTRIBUTORS.md).
 
 ![UI Flow Diagram](./src/assets/ui-flow.png)
 
-This diagram shows how the app’s components and game logic will interact — from user input to board rendering and win/loss conditions. We're currently working towards implementing this design
+This diagram shows how the app’s components and game logic will interact — from user input to board rendering and win/loss conditions. We're currently working towards implementing this design.
 
 For deeper technical details, see the [Architecture section in the Wiki](https://github.com/v-gajjar/Minesweeper/wiki#architecture).
 
