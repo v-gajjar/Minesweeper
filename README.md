@@ -41,7 +41,8 @@ One stand out feature will be welcoming and approachable home screen:
 
 ## Acknowledgements
 
-Minesweeper is a community-driven, open-source project, shaped by everyone who’s played, tested, and contributed.  
+A big thanks to the kind contributions of developers who have helped improve the project!
+
 Every commit, idea, and bug report makes the game better.  
 
 [![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper)](./CONTRIBUTORS.md)  
