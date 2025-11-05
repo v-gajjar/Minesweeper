@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
@@ -19,53 +19,41 @@ import {
   getFilteredFlagLocations,
 } from './utils/index.ts';
 
-import GameStatus from '@enum/GameStatus';
-
 import './App.css';
 import type {
+  DifficultyLevel,
+  DifficultyConfig,
   BoardData,
   CellData,
   FlagLocations,
-  LocationColRow,
   MineLocations,
+  GameStatus,
 } from '@/types';
 
 function App() {
   const [board, setBoard] = useState<BoardData>([]);
-  const [gameStatus, setGameStatus] = useState<number>(
-    GameStatus.GAME_NOT_STARTED
-  );
+  const [gameStatus, setGameStatus] = useState<GameStatus>('NOT_STARTED');
+
   const [remainingFlagsCount, setRemainingFlagsCount] = useState(0);
   const [shouldPlaceMines, setShouldPlaceMines] = useState(true);
   const [safeCellsCount, setSafeCellsCount] = useState(0);
   const [mineLocations, setMineLocations] = useState<MineLocations>([]);
   const [flagLocations, setFlagLocations] = useState<FlagLocations>([]);
 
-  const [gameDifficultySettings, setGameDifficultySettings] = useState(
-    GAME_DIFFICULTY_LEVEL_SETTINGS.EASY
-  );
+  const [difficultyLevel, setDifficultyLevel] = useState<DifficultyLevel>('EASY');
+
   const boardContainerRef = useRef<HTMLInputElement>(null);
 
   const DIFFICULTY_SELECT_ID = 'game-difficulty-select';
 
-  const onGameDifficultyLevelChanged = useCallback(
-    (event: React.ChangeEvent<HTMLSelectElement>) => {
-      const selectedLevel = event.target.value;
+  const gameDifficultySettings: DifficultyConfig =
+    GAME_DIFFICULTY_LEVEL_SETTINGS[difficultyLevel];
 
-      const difficultyLevel = Object.values(
-        GAME_DIFFICULTY_LEVEL_SETTINGS
-      ).find((difficultySetting) => selectedLevel === difficultySetting.level);
-
-      if (!difficultyLevel) {
-        return;
-      }
-
-      resetBoardContainerScroll();
-      setGameStatus(GameStatus.GAME_NOT_STARTED);
-      setGameDifficultySettings(difficultyLevel);
-    },
-    []
-  );
+  const onSelectDifficulty = useCallback((difficultyLevel: DifficultyLevel) => {
+    resetBoardContainerScroll();
+    setGameStatus('NOT_STARTED');
+    setDifficultyLevel(difficultyLevel);
+  }, []);
 
   const handleGameRestart = () => {
     resetBoardContainerScroll();
@@ -79,12 +67,9 @@ function App() {
     boardContainerRef.current.scrollLeft = 0;
   };
 
-  const onRevealCell = (event: React.SyntheticEvent<HTMLElement>) => {
-    const target = event.target as unknown as {
-      dataset: { row: string; col: string };
-    };
-    const rowIndex = parseInt(target.dataset.row, 10);
-    const colIndex = parseInt(target.dataset.col, 10);
+  const onRevealCell = (x: number, y: number) => {
+    const rowIndex = x;
+    const colIndex = y;
 
     const selectedCell = board[rowIndex][colIndex];
 
@@ -143,7 +128,7 @@ function App() {
       );
 
       setBoard(gameLostBoard);
-      setGameStatus(GameStatus.GAME_LOST);
+      setGameStatus('LOST');
 
       return;
     }
@@ -165,18 +150,13 @@ function App() {
     setSafeCellsCount(updatedSafeCellsCount);
 
     updatedSafeCellsCount === 0
-      ? setGameStatus(GameStatus.GAME_WON)
-      : setGameStatus(GameStatus.GAME_IN_PROGRESS);
+      ? setGameStatus('WON')
+      : setGameStatus('IN_PROGRESS');
   };
 
-  const onToggleFlag = (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault();
-
-    const target = event.currentTarget as unknown as {
-      dataset: LocationColRow;
-    };
-    const rowIndex = parseInt(target.dataset.row);
-    const colIndex = parseInt(target.dataset.col);
+  const onToggleFlag = (x: number, y: number) => {
+    const rowIndex = x;
+    const colIndex = y;
 
     const selectedCell = board[rowIndex][colIndex];
 
@@ -226,7 +206,7 @@ function App() {
     setMineLocations([]);
     setFlagLocations([]);
     setShouldPlaceMines(true);
-    setGameStatus(GameStatus.GAME_NOT_STARTED);
+    setGameStatus('NOT_STARTED');
     setRemainingFlagsCount(gameDifficultySettings.mineCount);
     setSafeCellsCount(rowCount * columnCount - mineCount);
     setBoard(newBoard);
@@ -238,11 +218,9 @@ function App() {
   }, [setupNewGame]);
 
   const isResultModalOpen =
-    gameStatus === GameStatus.GAME_WON || gameStatus === GameStatus.GAME_LOST
-      ? true
-      : false;
+    gameStatus === 'WON' || gameStatus === 'LOST' ? true : false;
 
-  const gameWon = gameStatus === GameStatus.GAME_WON ? true : false;
+  const gameWon = gameStatus === 'WON' ? true : false;
 
   return (
     <>
@@ -253,14 +231,16 @@ function App() {
         <div className='game_difficulty_select_wrapper'>
           <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
           <DifficultySelect
-            gameDifficultySettings={gameDifficultySettings}
-            onChange={onGameDifficultyLevelChanged}
+            difficultyLevel={difficultyLevel}
+            onChange={onSelectDifficulty}
             id={DIFFICULTY_SELECT_ID}
           ></DifficultySelect>
         </div>
-        <RemainingFlagsCounter
-          remainingFlagsCount={remainingFlagsCount}
+        <div className='remainingFlagsCounterWrapper'>
+          <RemainingFlagsCounter
+            remainingFlagsCount={remainingFlagsCount}
         ></RemainingFlagsCounter>
+        </div>
         <ResultModal
           open={isResultModalOpen}
           gameWon={gameWon}

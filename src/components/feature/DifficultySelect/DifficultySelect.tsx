@@ -1,38 +1,42 @@
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 import { memo } from 'react';
-import type { GameDifficultyLevelKeys } from '@enum/GameDifficultyLevel.interfaces';
-import type { DifficultySelectProps } from '@/components/feature/DifficultySelect/DifficultySelect.interfaces';
 
-const gameDifficultyLevelKeys = Object.keys(
-  GAME_DIFFICULTY_LEVEL_SETTINGS
-) as GameDifficultyLevelKeys[];
+import type { DifficultySelectProps } from '@/components/feature/DifficultySelect/DifficultySelect.interfaces';
+import type { DifficultyConfig, DifficultyLevel } from '@/types';
 
 function DifficultySelect({
-  gameDifficultySettings,
+  difficultyLevel,
   onChange,
   id,
 }: DifficultySelectProps) {
+  const entries = Object.entries(GAME_DIFFICULTY_LEVEL_SETTINGS) as [
+    DifficultyLevel,
+    DifficultyConfig,
+  ][];
+
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedLevel = event.target.value as DifficultyLevel;
+    onChange(selectedLevel);
+  };
+
   return (
     <select
-      value={gameDifficultySettings.level}
-      onChange={onChange}
+      value={difficultyLevel}
+      onChange={handleChange}
       name='game-difficulty-select'
       id={id}
       data-testid='difficulty-select'
       aria-describedby='difficulty-description'
     >
-      {gameDifficultyLevelKeys.map((setting) => {
-        const config = GAME_DIFFICULTY_LEVEL_SETTINGS[setting];
-        return (
-          <option
-            key={setting}
-            value={config.level}
-            aria-label={`${config.label} - ${config.boardSize.rowCount}x${config.boardSize.columnCount} board with ${config.mineCount} mines`}
-          >
-            {config.label}
-          </option>
-        );
-      })}
+      {entries.map(([level, settings]) => (
+        <option
+          key={level}
+          value={level}
+          aria-label={`${settings.label} - ${settings.boardSize.rowCount}x${settings.boardSize.columnCount} board with ${settings.mineCount} mines`}
+        >
+          {settings.label}
+        </option>
+      ))}
     </select>
   );
 }
