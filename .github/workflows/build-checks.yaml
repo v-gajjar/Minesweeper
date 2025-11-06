@@ -41,7 +41,12 @@ jobs:
         run: npx eslint src --ext .js,.jsx,.ts,.tsx --cache --quiet || true
 
       - name: 🧪 Run Prettier (warn-only)
-        run: npx prettier --list-different .
+        run: |
+          if ! npx prettier --list-different . > /tmp/prettier_diff.txt; then
+            echo "## Prettier Differences" >> $GITHUB_STEP_SUMMARY
+            cat /tmp/prettier_diff.txt >> $GITHUB_STEP_SUMMARY
+          fi
+        continue-on-error: true
 
       - name: 🎨 Stylelint Summary Output
         run: |
