@@ -19,7 +19,7 @@ A variety of contributions are welcome! People have helped in the following ways
 - Implememented/improved CI/CD pipelines
 - Improvements to performance
 - Improvements to styling
-- Implementing ccessibility and keyboard navigation support
+- Implementing accessibility and keyboard navigation support
 - Help with the documentation (this guide itself, the README and the Wiki)
 
 Any help with testing, in particular on Safari browsers, is particularly appreciated!!
