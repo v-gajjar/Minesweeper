@@ -40,7 +40,8 @@ function App() {
   const [mineLocations, setMineLocations] = useState<MineLocations>([]);
   const [flagLocations, setFlagLocations] = useState<FlagLocations>([]);
 
-  const [difficultyLevel, setDifficultyLevel] = useState<DifficultyLevel>('EASY');
+  const [difficultyLevel, setDifficultyLevel] =
+    useState<DifficultyLevel>('EASY');
 
   const boardContainerRef = useRef<HTMLInputElement>(null);
 
@@ -239,7 +240,7 @@ function App() {
         <div className='remainingFlagsCounterWrapper'>
           <RemainingFlagsCounter
             remainingFlagsCount={remainingFlagsCount}
-        ></RemainingFlagsCounter>
+          ></RemainingFlagsCounter>
         </div>
         <ResultModal
           open={isResultModalOpen}
