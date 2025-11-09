@@ -32,7 +32,7 @@ body {
   flex-grow: 1;
 }
 
-.boardContainer {
+.board-container {
   display: flex;
   overflow-y: hidden;
   justify-content: flex-start;
@@ -40,10 +40,10 @@ body {
   padding: 2px 0;
 }
 
-.remainingFlagsCounterWrapper {
+.remaining-flags-counter-wrapper {
   margin: auto;
 }
 
-.game_difficulty_select_wrapper {
+.game-difficulty-select-wrapper {
   margin: auto;
 }

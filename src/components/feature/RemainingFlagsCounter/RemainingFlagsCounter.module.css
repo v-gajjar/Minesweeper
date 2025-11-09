@@ -1,4 +1,4 @@
-.remainingFlagsCounter {
+.remaining-flags-counter {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -7,12 +7,12 @@
   max-width: fit-content;
 }
 
-.remainingFlagsLabel {
+.remaining-flags-label {
   display: flex;
   margin-left: 5px;
 }
 
-.remainingFlagsCount {
+.remaining-flags-count {
   display: flex;
   width: 23px;
   margin-left: 5px;
