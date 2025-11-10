@@ -20,7 +20,7 @@
   }
 }
 
-.resultModalButton {
+.result-modal-button {
   border-radius: 5px;
   border: none;
   background: rgb(211, 211, 211);
@@ -29,13 +29,13 @@
   box-shadow: 0 0 2px grey;
   outline-color: lightgrey;
 }
-.resultModalButton:hover {
+.result-modal-button:hover {
   background: rgb(190, 190, 190);
   box-shadow: 0 0 4px rgb(100, 100, 100);
   cursor: pointer;
 }
 
-.resultModal {
+.result-modal {
   border-radius: 5px;
   display: grid;
   justify-items: center;
@@ -52,7 +52,7 @@
   max-height: 92px;
 }
 
-.resultModalMessage {
+.result-modal-message {
   font-size: 36px;
   font-weight: 700;
   text-align: center;
@@ -63,21 +63,21 @@
   margin: 0 0 10px;
 }
 
-.resultModal[data-state='open'] {
+.result-modal[data-state='open'] {
   animation: slideIn 0.3s forwards ease-out;
 }
 
-.resultModal[data-state='closed'] {
+.result-modal[data-state='closed'] {
   animation: slideOut 0.3s forwards ease-in;
 }
 
-.gameWonModal {
+.game-won-modal {
   color: #1a7f37;
 }
-.gameLostModal {
+.game-lost-modal {
   color: #c01c28;
 }
-.modalOverlay {
+.modal-overlay {
   position: fixed;
   inset: 0;
   background-color: rgba(0, 0, 0, 0.1); /* matches default dialog::backdrop */
