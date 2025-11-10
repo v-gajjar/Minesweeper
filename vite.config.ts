@@ -7,7 +7,8 @@ export default defineConfig({
   base: '/Minesweeper/',
   css: {
     modules: {
-      generateScopedName: (name: string) => name, // keeps the literal name, no hash
+      localsConvention: 'camelCase',
+      generateScopedName: (name: string) => name, // Preserves original class names
     },
   },
   resolve: {
