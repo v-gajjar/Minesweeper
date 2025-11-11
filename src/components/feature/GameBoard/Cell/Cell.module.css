@@ -28,38 +28,38 @@
   background: orange;
 }
 
-.colorblue {
-  color: blue;
+.num-0 { 
+  color: black; 
 }
 
-.colorgreen {
-  color: green;
+.num-1 { 
+  color: blue; 
+
+}
+.num-2 { 
+  color: green; 
 }
 
-.colorred {
-  color: red;
+.num-3 { 
+  color: red; 
 }
 
-.colordarkblue {
-  color: darkblue;
+.num-4 { 
+  color: darkblue; 
 }
 
-.colorbrown {
-  color: brown;
+.num-5 { 
+  color: brown; 
 }
 
-.colorlightblue {
-  color: lightblue;
+.num-6 { 
+  color: lightblue; 
 }
 
-.colorpurple {
-  color: purple;
+.num-7 { 
+  color: purple; 
 }
 
-.colorpink {
-  color: pink;
+.num-8 { 
+  color: pink; 
 }
-
-.colorblack {
-  color: black;
-} 

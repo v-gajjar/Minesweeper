@@ -12,28 +12,7 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
     [styles.revealed]: cell.isRevealed,
   });
 
-  const getNumberedCellColour = (number: number) => {
-    switch (number) {
-      case 1:
-        return styles.colorblue;
-      case 2:
-        return styles.colorgreen;
-      case 3:
-        return styles.colorred;
-      case 4:
-          return styles.colordarkblue;
-      case 5:
-        return styles.colorbrown;
-      case 6:
-        return styles.colorlightblue;
-      case 7:
-        return styles.colorpurple;
-      case 8:
-        return styles.colorpink;
-      default:
-        return styles.colorblack;
-    }
-  };
+  const getNumberedCellClass = (number: number) => `num-${number >= 1 && number <= 8 ? number : 0}`;
 
   const renderCellContents = () => {
     if (!cell.isRevealed && !cell.isFlagged) return null;
@@ -54,7 +33,7 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
     }
     if (cell.adjacentMinesCount > 0) {
       const number = cell.adjacentMinesCount!;
-      return <span className={styles[getNumberedCellColour(number)]}>{number}</span>;
+      return <span className={styles[getNumberedCellClass(number)]}>{number}</span>;
     }
   };
 
