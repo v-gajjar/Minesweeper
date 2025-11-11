@@ -7,7 +7,9 @@ import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlags
 import ResultModal from '@feature/ResultModal/ResultModal';
 
 // Minimal mock data
-const mockBoard = Array.from({ length: 9 }, () => Array.from({ length: 9 }, () => ({})));
+const mockBoard = Array.from({ length: 9 }, () =>
+  Array.from({ length: 9 }, () => ({}))
+);
 const mockBoardSize = { rowCount: 9, columnCount: 9 };
 const mockDifficulty = { level: 'easy' };
 
@@ -33,7 +35,9 @@ describe('App surface components', () => {
 
   it('renders the remaining flags counter with the correct value', () => {
     const mockRemainingFlagsCount = 10;
-    render(<RemainingFlagsCounter remainingFlagsCount={mockRemainingFlagsCount} />);
+    render(
+      <RemainingFlagsCounter remainingFlagsCount={mockRemainingFlagsCount} />
+    );
 
     // Assert by visible text without jest-dom matchers
     const label = screen.getByText(/remaining flags/i);
@@ -46,9 +50,9 @@ describe('App surface components', () => {
   });
 
   it('renders a result modal', () => {
-    render(<ResultModal open={true} result="win" onClick={() => {}} />);
+    render(<ResultModal open={true} result='win' onClick={() => {}} />);
     const el = screen.getByTestId('result-modal');
     expect(el).toBeDefined();
-    expect(document.body.contains(el)).toBe(true);    
+    expect(document.body.contains(el)).toBe(true);
   });
 });
