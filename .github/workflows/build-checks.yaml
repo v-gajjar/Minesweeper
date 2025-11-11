@@ -48,7 +48,7 @@ jobs:
           fi
         continue-on-error: true
 
-      - name: 🎨 Stylelint Summary Output
+      - name: 🎨 Stylelint Check
         run: |
           echo "## Stylelint Results" >> $GITHUB_STEP_SUMMARY
-          npx stylelint "**/*.{css,scss}" >> $GITHUB_STEP_SUMMARY || true
+          npx stylelint "**/*.{css,scss}" --max-warnings=0 >> $GITHUB_STEP_SUMMARY
