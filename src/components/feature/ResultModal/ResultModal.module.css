@@ -64,11 +64,11 @@
 }
 
 .result-modal[data-state='open'] {
-  animation: slideIn 0.3s forwards ease-out;
+  animation: slide-in 0.3s forwards ease-out;
 }
 
 .result-modal[data-state='closed'] {
-  animation: slideOut 0.3s forwards ease-in;
+  animation: slide-out 0.3s forwards ease-in;
 }
 
 .game-won-modal {
