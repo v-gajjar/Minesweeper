@@ -1,4 +1,4 @@
-@keyframes slideIn {
+@keyframes slide-in {
   from {
     transform: translateY(-100vh);
     opacity: 0;
@@ -10,7 +10,7 @@
   }
 }
 
-@keyframes slideOut {
+@keyframes slide-out {
   from {
     transform: translateY(0);
     opacity: 1;
@@ -67,11 +67,11 @@
 }
 
 .result-modal[data-state='open'] {
-  animation: slideIn 0.3s forwards ease-out;
+  animation: slide-in 0.3s forwards ease-out;
 }
 
 .result-modal[data-state='closed'] {
-  animation: slideOut 0.3s forwards ease-in;
+  animation: slide-out 0.3s forwards ease-in;
 }
 
 .game-won-modal {
