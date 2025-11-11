@@ -45,7 +45,7 @@ A big thanks to the kind contributions of developers who have helped improve the
 
 Every commit, idea, and bug report makes the game better.  
 
-[![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper)](./CONTRIBUTORS.md)  
+[![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper&max=20&columns=6)](./CONTRIBUTORS.md)  
 
 Meet all our amazing [Contributors](./CONTRIBUTORS.md).
 
