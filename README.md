@@ -45,7 +45,7 @@ A big thanks to the kind contributions of developers who have helped improve the
 
 Every commit, idea, and bug report makes the game better.
 
-[![Contributors](https://img.shields.io/github/contributors/v-gajjar/Minesweeper)](./CONTRIBUTORS.md)
+[![Contributors](https://contrib.rocks/image?repo=v-gajjar/Minesweeper&anon=1&max=100&columns=10&v=2)](./CONTRIBUTORS.md)
 
 Meet all our amazing [Contributors](./CONTRIBUTORS.md).
 
