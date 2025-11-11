@@ -29,6 +29,7 @@
   box-shadow: 0 0 2px grey;
   outline-color: lightgrey;
 }
+
 .result-modal-button:hover {
   background: rgb(190, 190, 190);
   box-shadow: 0 0 4px rgb(100, 100, 100);
@@ -74,9 +75,11 @@
 .game-won-modal {
   color: #1a7f37;
 }
+
 .game-lost-modal {
   color: #c01c28;
 }
+
 .modal-overlay {
   position: fixed;
   inset: 0;
