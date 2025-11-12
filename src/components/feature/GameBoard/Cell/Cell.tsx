@@ -12,8 +12,6 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
     [styles.revealed]: cell.isRevealed,
   });
 
-  const getNumberedCellClass = (number: number) => `num-${number >= 1 && number <= 8 ? number : 0}`;
-
   const renderCellContents = () => {
     if (!cell.isRevealed && !cell.isFlagged) return null;
 
@@ -33,7 +31,7 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
     }
     if (cell.adjacentMinesCount > 0) {
       const number = cell.adjacentMinesCount!;
-      return <span className={styles[getNumberedCellClass(number)]}>{number}</span>;
+      return <span className={styles[`num-${number >= 1 && number <= 8 ? number : 0}`]}>{number}</span>;
     }
   };
 
