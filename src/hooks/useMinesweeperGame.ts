@@ -59,13 +59,14 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
     case 'TOGGLE_FLAG': {
       const { location } = action;
-      const { board, flagLocations, remainingFlagsCount = 0 } = state;
+      const board = cloneBoard(state.board);
+      const flagLocations = cloneLocations(state.flagLocations);
       const cell = board[location.x][location.y];
+      
       if (cell.isRevealed) return state;
 
       const isFlagged = !cell.isFlagged;
-      const updatedBoard = [...board];
-      updatedBoard[location.x][location.y] = { ...cell, isFlagged };
+      board[location.x][location.y] = { ...cell, isFlagged };
 
       const updatedFlagLocations = isFlagged
         ? [...flagLocations, { x: location.x, y: location.y }]
@@ -74,12 +75,12 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
           );
 
       const updatedRemainingFlags = isFlagged
-        ? remainingFlagsCount - 1
-        : remainingFlagsCount + 1;
+        ? state.remainingFlagsCount - 1
+        : state.remainingFlagsCount + 1;
 
       const nextState: GameState = {
         ...state,
-        board: updatedBoard,
+        board,
         flagLocations: updatedFlagLocations,
         remainingFlagsCount: updatedRemainingFlags,
       };
