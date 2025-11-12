@@ -5,12 +5,14 @@ on:
       workflows: ["build-job"]  
       types:
         - completed
+      branches:
+        - '**'
 
 permissions:
     contents: read
 
 jobs:
-    unit-test-job:
+    unit-test:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
