@@ -1,15 +1,17 @@
 name: lint-job
 
-on:
-  push:
-  pull_request:
+on: 
+    workflow_run:
+      workflows: ["build-job"]  
+      types:
+        - completed
 
 permissions:
   contents: read
   pull-requests: write
 
 jobs:
-  lint:
+  lint-job:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

@@ -9,9 +9,8 @@ permissions:
   pull-requests: write
 
 jobs:
-  build:
+  build-job:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
