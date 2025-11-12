@@ -81,7 +81,7 @@ function App() {
         <h1 className='header-game-title'>Minesweeper</h1>
       </header>
       <main className='wrapper'>
-        <div className='game_difficulty_select_wrapper'>
+        <div className='game-difficulty-select-wrapper'>
           <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
           <DifficultySelect
             difficultyLevel={difficultyLevel}
@@ -89,7 +89,7 @@ function App() {
             id={DIFFICULTY_SELECT_ID}
           ></DifficultySelect>
         </div>
-        <div className='remainingFlagsCounterWrapper'>
+        <div className='remaining-flags-counter-wrapper'>
           <RemainingFlagsCounter
             remainingFlagsCount={remainingFlagsCount}
           ></RemainingFlagsCounter>
@@ -99,7 +99,7 @@ function App() {
           gameWon={gameWon}
           onClick={handleGameRestart}
         ></ResultModal>
-        <div className='boardContainer' ref={boardContainerRef}>
+        <div className='board-container' ref={boardContainerRef}>
           <GameBoard
             board={board}
             boardSize={gameDifficultySettings.boardSize}
