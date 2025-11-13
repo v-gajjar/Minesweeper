@@ -19,7 +19,7 @@ jobs:
               id: date
               run: echo "today=$(date +'%m/%d/%Y')" >> "$GITHUB_OUTPUT"
 
-            - name: Runtime-Enviornment(Node js 20)
+            - name: Runtime-Environment(Node js 20)
               uses: actions/setup-node@v4
               with:
                  node-version: 20
