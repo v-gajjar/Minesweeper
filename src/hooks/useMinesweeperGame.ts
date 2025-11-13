@@ -1,3 +1,6 @@
+// src/hooks/useMinesweeperGame.ts
+
+import { useReducer } from 'react';
 import {
   getBoard,
   revealCell,
@@ -8,81 +11,185 @@ import {
   getFilteredFlagLocations,
 } from '../utils';
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
-import type { BoardData, DifficultyLevel } from '@/types';
+import type {
+  BoardData,
+  DifficultyLevel,
+  Coordinate,
+  FlagLocations,
+  MineLocations,
+  GameStatus,
+} from '@/types';
 
-type Location = { x: number; y: number };
-
-type GameState = {
+export type GameState = {
   board: BoardData;
-  flagLocations: Location[];
-  mineLocations: Location[];
+  flagLocations: FlagLocations;
+  mineLocations: MineLocations;
   shouldPlaceMines: boolean;
-  gameStatus: 'NOT_STARTED' | 'IN_PROGRESS' | 'WON' | 'LOST';
+  gameStatus: GameStatus;
   difficultyLevel: DifficultyLevel;
   remainingFlagsCount: number;
   safeCellsCount: number;
 };
 
-type GameAction =
+export type GameAction =
   | { type: 'START_NEW_GAME'; difficulty: DifficultyLevel }
-  | { type: 'TOGGLE_FLAG'; location: Location }
-  | { type: 'REVEAL_CELL'; location: Location };
+  | { type: 'TOGGLE_FLAG'; location: Coordinate }
+  | { type: 'REVEAL_CELL'; location: Coordinate };
 
 const cloneBoard = (board: BoardData): BoardData =>
   board.map((row) => row.map((cell) => ({ ...cell })));
 
-const cloneLocations = (locations: Location[]): Location[] =>
+const cloneLocations = (locations: Coordinate[]): Coordinate[] =>
   locations.map((location) => ({ ...location }));
 
+const getDifficultySettingsForLevel = (level: DifficultyLevel) =>
+  GAME_DIFFICULTY_LEVEL_SETTINGS[level];
+
+const getDifficultySettingsForState = (state: GameState) =>
+  getDifficultySettingsForLevel(state.difficultyLevel);
+
+// Helper to make intent clearer when accessing a cell by coordinate
+const getCellAt = (board: BoardData, { x, y }: Coordinate) => board[x][y];
+
+type ToggleFlagResult = {
+  board: BoardData;
+  flagLocations: FlagLocations;
+  remainingFlagsCount: number;
+  changed: boolean;
+};
+
+function toggleFlagOnBoard(
+  state: GameState,
+  location: Coordinate,
+): ToggleFlagResult {
+  const board = cloneBoard(state.board);
+  const flagLocations = cloneLocations(state.flagLocations);
+  const cell = getCellAt(board, location);
+
+  // Can't flag already revealed cells → no change
+  if (cell.isRevealed) {
+    return {
+      board: state.board,
+      flagLocations: state.flagLocations,
+      remainingFlagsCount: state.remainingFlagsCount,
+      changed: false,
+    };
+  }
+
+  const isFlagged = !cell.isFlagged;
+  board[location.x][location.y] = { ...cell, isFlagged };
+
+  const updatedFlagLocations: FlagLocations = isFlagged
+    ? [...flagLocations, { x: location.x, y: location.y }]
+    : flagLocations.filter((f) => !(f.x === location.x && f.y === location.y));
+
+  const updatedRemainingFlags = isFlagged
+    ? state.remainingFlagsCount - 1
+    : state.remainingFlagsCount + 1;
+
+  return {
+    board,
+    flagLocations: updatedFlagLocations,
+    remainingFlagsCount: updatedRemainingFlags,
+    changed: true,
+  };
+}
+
+function placeMinesOnFirstClick(
+  board: BoardData,
+  clickLocation: Coordinate,
+  state: GameState,
+): { board: BoardData; mineLocations: MineLocations } {
+  const settings = getDifficultySettingsForState(state);
+  const clickedCell = getCellAt(board, clickLocation);
+
+  const mineLocations = getMineLocations(
+    clickedCell,
+    board,
+    settings.mineCount,
+    settings.boardSize,
+  );
+
+  const boardWithMines = updateBoard(
+    board,
+    getCellsWithMines(mineLocations, board),
+  );
+
+  return {
+    board: boardWithMines,
+    mineLocations,
+  };
+}
+
+function getSafeProgress(
+  board: BoardData,
+  difficultyLevel: DifficultyLevel,
+): { safeCellsLeft: number; status: GameStatus } {
+  const settings = getDifficultySettingsForLevel(difficultyLevel);
+  const totalCells =
+    settings.boardSize.rowCount * settings.boardSize.columnCount;
+  const totalMines = settings.mineCount;
+  const totalSafeCells = totalCells - totalMines;
+
+  const revealedSafeCells = board
+    .flat()
+    .filter((c) => !c.hasMine && c.isRevealed).length;
+
+  const safeCellsLeft = totalSafeCells - revealedSafeCells;
+  const status: GameStatus =
+    safeCellsLeft === 0 ? 'WON' : 'IN_PROGRESS';
+
+  return { safeCellsLeft, status };
+}
+
+function createGameState(difficulty: DifficultyLevel): GameState {
+  const settings = getDifficultySettingsForLevel(difficulty);
+  const totalCells =
+    settings.boardSize.rowCount * settings.boardSize.columnCount;
+  const mineCount = settings.mineCount;
+
+  return {
+    board: getBoard(settings.boardSize),
+    flagLocations: [],
+    mineLocations: [],
+    shouldPlaceMines: true,
+    gameStatus: 'NOT_STARTED',
+    difficultyLevel: difficulty,
+    remainingFlagsCount: mineCount,
+    safeCellsCount: totalCells - mineCount,
+  };
+}
+
+/**
+ * Game rules:
+ * - START_NEW_GAME: reset board, flags, mines, and counters for the chosen difficulty.
+ * - TOGGLE_FLAG: toggle isFlagged, update flagLocations and remainingFlagsCount.
+ *   - Cannot flag revealed cells.
+ * - REVEAL_CELL:
+ *   - On first click, place mines away from the clicked cell and start the game.
+ *   - If a mine is revealed → LOST and show the lost board.
+ *   - Auto-remove flags from newly revealed cells.
+ *   - Track safeCellsCount; when it hits 0 → WON.
+ */
 export function gameReducer(state: GameState, action: GameAction): GameState {
   switch (action.type) {
     case 'START_NEW_GAME': {
-      const difficulty = GAME_DIFFICULTY_LEVEL_SETTINGS[action.difficulty];
-      const totalCells =
-        difficulty.boardSize.rowCount * difficulty.boardSize.columnCount;
-      const mineCount = difficulty.mineCount;
-      const newBoard = getBoard(difficulty.boardSize);
-
-      const nextState: GameState = {
-        ...state,
-        board: newBoard,
-        flagLocations: [],
-        mineLocations: [],
-        shouldPlaceMines: true,
-        gameStatus: 'NOT_STARTED',
-        remainingFlagsCount: mineCount,
-        safeCellsCount: totalCells - mineCount,
-        difficultyLevel: action.difficulty,
-      };
-      return nextState;
+      return createGameState(action.difficulty);
     }
 
     case 'TOGGLE_FLAG': {
       const { location } = action;
-      const board = cloneBoard(state.board);
-      const flagLocations = cloneLocations(state.flagLocations);
-      const cell = board[location.x][location.y];
-      
-      if (cell.isRevealed) return state;
+      const result = toggleFlagOnBoard(state, location);
 
-      const isFlagged = !cell.isFlagged;
-      board[location.x][location.y] = { ...cell, isFlagged };
-
-      const updatedFlagLocations = isFlagged
-        ? [...flagLocations, { x: location.x, y: location.y }]
-        : flagLocations.filter(
-            (f) => !(f.x === location.x && f.y === location.y)
-          );
-
-      const updatedRemainingFlags = isFlagged
-        ? state.remainingFlagsCount - 1
-        : state.remainingFlagsCount + 1;
+      if (!result.changed) {
+        return state;
+      }
 
       const nextState: GameState = {
         ...state,
-        board,
-        flagLocations: updatedFlagLocations,
-        remainingFlagsCount: updatedRemainingFlags,
+        board: result.board,
+        flagLocations: result.flagLocations,
+        remainingFlagsCount: result.remainingFlagsCount,
       };
       return nextState;
     }
@@ -95,7 +202,9 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
       let flagLocations = cloneLocations(state.flagLocations);
       let { shouldPlaceMines, gameStatus } = state;
 
-      const cellBeforeReveal = board[location.x][location.y];
+      const cellBeforeReveal = getCellAt(board, location);
+
+      // ignore clicks on revealed/flagged cells or finished games
       if (
         cellBeforeReveal.isRevealed ||
         cellBeforeReveal.isFlagged ||
@@ -107,37 +216,37 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
       // place mines on first click
       if (shouldPlaceMines) {
-        const settings = GAME_DIFFICULTY_LEVEL_SETTINGS[state.difficultyLevel];
-        mineLocations = getMineLocations(
-          cellBeforeReveal,
-          board,
-          settings.mineCount,
-          settings.boardSize
-        );
-        board = updateBoard(board, getCellsWithMines(mineLocations, board));
+        const placement = placeMinesOnFirstClick(board, location, state);
+        board = placement.board;
+        mineLocations = placement.mineLocations;
         shouldPlaceMines = false;
         gameStatus = 'IN_PROGRESS';
       }
 
-      // reveal clicked cell
+      // reveal clicked cell (and cascades)
       const updatedBoard = updateBoard(
         board,
         revealCell(
           location.x,
           location.y,
           board,
-          GAME_DIFFICULTY_LEVEL_SETTINGS[state.difficultyLevel].boardSize
-        )
+          getDifficultySettingsForState(state).boardSize,
+        ),
       );
 
       // hit a mine → game over
-      const revealedCell = updatedBoard[location.x][location.y];
+      const revealedCell = getCellAt(updatedBoard, location);
       if (revealedCell.hasMine) {
         const lostBoard = getGameLostBoard(
           updatedBoard,
           mineLocations,
-          flagLocations
+          flagLocations,
         );
+
+        const settings = getDifficultySettingsForState(state);
+        const remainingFlagsCount =
+          settings.mineCount - flagLocations.length;
+
         const nextState: GameState = {
           ...state,
           board: lostBoard,
@@ -145,35 +254,38 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
           mineLocations,
           shouldPlaceMines,
           flagLocations,
+          safeCellsCount: 0,
+          remainingFlagsCount,
         };
         return nextState;
       }
 
+      // otherwise, update flags + safe cell count and maybe mark win
+      const revealedCells = updatedBoard.flat().filter((c) => c.isRevealed);
+
       const updatedFlagLocations = getFilteredFlagLocations(
         flagLocations,
-        updatedBoard.flat().filter((c) => c.isRevealed)
+        revealedCells,
       );
 
-      const settings = GAME_DIFFICULTY_LEVEL_SETTINGS[state.difficultyLevel];
-      const totalCells =
-        settings.boardSize.rowCount * settings.boardSize.columnCount;
-      const totalMines = settings.mineCount;
-      const totalSafeCells = totalCells - totalMines;
-      const revealedSafeCells = updatedBoard
-        .flat()
-        .filter((c) => !c.hasMine && c.isRevealed).length;
+      const { safeCellsLeft, status } = getSafeProgress(
+        updatedBoard,
+        state.difficultyLevel,
+      );
 
-      const nextGameStatus =
-        revealedSafeCells === totalSafeCells ? 'WON' : 'IN_PROGRESS';
+      const settings = getDifficultySettingsForState(state);
+      const remainingFlagsCount =
+        settings.mineCount - updatedFlagLocations.length;
 
       const nextState: GameState = {
         ...state,
         board: updatedBoard,
-        gameStatus: nextGameStatus,
+        gameStatus: status,
         mineLocations,
         shouldPlaceMines,
         flagLocations: updatedFlagLocations,
-        safeCellsCount: totalSafeCells - revealedSafeCells,
+        safeCellsCount: safeCellsLeft,
+        remainingFlagsCount,
       };
       return nextState;
     }
@@ -183,31 +295,33 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
   }
 }
 
-export const initialGameState: GameState = {
-  board: [],
-  flagLocations: [],
-  mineLocations: [],
-  shouldPlaceMines: true,
-  gameStatus: 'NOT_STARTED',
-  difficultyLevel: 'EASY',
-  remainingFlagsCount: 0,
-  safeCellsCount: 0,
-};
+export const initialGameState: GameState = createGameState('EASY');
 
 export function initializeGameState(state: GameState): GameState {
-  const settings = GAME_DIFFICULTY_LEVEL_SETTINGS[state.difficultyLevel];
-  const totalCells =
-    settings.boardSize.rowCount * settings.boardSize.columnCount;
-  const mineCount = settings.mineCount;
+  return createGameState(state.difficultyLevel);
+}
+
+// Thin hook wrapper so App.tsx can just call functions instead of dispatching actions directly
+export function useMinesweeperGame() {
+  const [state, dispatch] = useReducer(
+    gameReducer,
+    initialGameState,
+    initializeGameState,
+  );
+
+  const startNewGame = (difficulty: DifficultyLevel) =>
+    dispatch({ type: 'START_NEW_GAME', difficulty });
+
+  const revealCellAt = (location: Coordinate) =>
+    dispatch({ type: 'REVEAL_CELL', location });
+
+  const toggleFlagAt = (location: Coordinate) =>
+    dispatch({ type: 'TOGGLE_FLAG', location });
 
   return {
-    ...state,
-    board: getBoard(settings.boardSize),
-    flagLocations: [],
-    mineLocations: [],
-    shouldPlaceMines: true,
-    gameStatus: 'NOT_STARTED',
-    remainingFlagsCount: mineCount,
-    safeCellsCount: totalCells - mineCount,
+    state,
+    startNewGame,
+    revealCellAt,
+    toggleFlagAt,
   };
 }
