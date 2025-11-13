@@ -1,76 +1,62 @@
-# Contributors
+# Contributors:
 
-- **Amber Adamson**  
-  [GitHub](https://github.com/aadamsongit) • [LinkedIn](https://www.linkedin.com/in/amber-adamson-a33a3860/)  
-  - Refactored App component to remove manual DOM modal manipulation  
-  - Improved React best practices by removing useEffect with direct DOM access  
-  - Help with refactoring on App.tsx and utils files  
-  - Suggested improvements to better follow React conventions
+- **Amber Adamson** [GitHub](https://github.com/aadamsongit) [LinkedIn](https://www.linkedin.com/in/amber-adamson-a33a3860/)
+  - Refactored App component to remove manual DOM modal manipulation
+  - Improved React best practices by removing useEffect with direct DOM access
+  - Help with refactoring on App.tsx and utils files
+  - Suggestions for improving other parts of the project so it better follows React conventions
 
-- **BJ Rutledge**  
-  [LinkedIn](https://www.linkedin.com/in/bj-rutledge/)  
-  - Suggested improvements for code cleanliness and separation of concerns
+- **BJ Rutledge** [LinkedIn](https://www.linkedin.com/in/bj-rutledge/)
+  - Made suggestions that improved code cleanliness and separation of concerns.
 
-- **Brenda Hensley**  
-  [LinkedIn](https://www.linkedin.com/in/brenda-hensley-/)  
-  - Fixed issues in the ESLint configuration file  
+- **Brenda Hensley** [LinkedIn](https://www.linkedin.com/in/brenda-hensley-/)
+  - Helped fix issues in the ESLint configuration file
   - Added automation scripts for ESLint and Prettier checks
 
-- **Daniela Grothe**  
-  [LinkedIn](https://www.linkedin.com/in/daniela-grothe-743ab8235/)  
-  - Identified longpress issues on Safari and helped find a solution
+- **Daniela Grothe** [LinkedIn](https://www.linkedin.com/in/daniela-grothe-743ab8235/)
+  - Identified an issue with longpress not working on Safari and helped with finding solut
 
-- **Engombe Lokanga**  
-  [LinkedIn](https://www.linkedin.com/in/engombelokanga/)  
-  - Helped refactor component organisation and naming conventions
+- **Engombe Lokanga** [LinkedIn](https://www.linkedin.com/in/engombelokanga/)
+  - Help with refactoring the component organisation and naming
 
-- **Gavin Hensley**  
-  [LinkedIn](https://www.linkedin.com/in/g-hensley/)  
-  - Assisted with accessibility improvements  
-  - Suggested various improvements  
-  - Helped refactor the utils file into TypeScript
+- **Gavin Hensley** [LinkedIn](https://www.linkedin.com/in/g-hensley/)
+  - Help with implementing accessibility
+  - Suggestions for improvements
+  - Help with refactoring the utils file into TypeScript
 
-- **Hannah Olbrich**  
-  [GitHub](https://github.com/hannahro15) • [LinkedIn](https://www.linkedin.com/in/hannaholbrich/)  
-  - Identified inconsistent CSS naming across modules and recommended standardising all rules to kebab-case
+- **Hannah Olbrich** [GitHub](https://github.com/hannahro15) [LinkedIn](https://www.linkedin.com/in/hannaholbrich/)
+  - Identified inconsistent CSS naming conventions across modules and suggested standardising all rule names to use kebab-case for consistency and readability
 
-- **Heliomar Pena**  
-  [LinkedIn](https://www.linkedin.com/in/heliomar/)  
-  - Offered code cleanliness suggestions  
-  - Suggested evaluating the Phosphor Icons library  
-  - Provided issue feedback and helped test and approve PRs  
-  - Identified and fixed a rendering performance issue  
+- **Heliomar Pena** [LinkedIn](https://www.linkedin.com/in/heliomar/)
+  - Offered various suggestions to write cleaner code
+  - Suggested exploring the Phosphor Icons library
+  - Provided feedback on issues and helped with testing and approving PRs
+  - Identified and fixed a rendering performance issue
   - Helping with TypeScript conversion
 
-- **James Baskett**  
-  [LinkedIn](https://www.linkedin.com/in/james-blaskett/)  
-  - Suggested performance and architecture improvements  
-  - Major improvements to GameResultModal styling, positioning, and animation
+- **James Baskett** [LinkedIn](https://www.linkedin.com/in/james-blaskett/)
+  - Provided suggestions that helped improve performance and architecture
+  - Significantly helped with improving the position, styling an animation of the GameResultModal
 
-- **Nick Clark**  
-  [GitHub](https://github.com/NickTheDevOpsGuy)  
-  - Reviewed and fixed issues across various PRs  
-  - Added GitHub Actions and tests  
-  - Helping with TypeScript conversion  
-  - Improved the README  
-  - Reviewing, testing, and approving PRs
+- **Nick Clark** [GitHub](https://github.com/NickTheDevOpsGuy)
+  - Help with reviewing and fixing issues on various PRs
+  - Added GitHub Actions and some tests.
+  - Helping with TypeScript conversion
+  - Help with improvements to the README
+  - Help with reviewing, testing and approving PRs
 
-- **Rishik Chakravarty**  
-  [GitHub](https://github.com/rishikrc3) • [LinkedIn](https://www.linkedin.com/in/rishik-chakravarty/)  
-  - Helping with DevOps tasks  
-  - Breaking GitHub Actions into modular workflow files  
-  - Improving Docker configuration and structure
+- **Rishik Chakravarty** [GitHub](https://github.com/rishikrc3) [LinkedIn](https://www.linkedin.com/in/rishik-chakravarty/)
+  - Helping with DevOps tasks
+  - Breaking the GitHub Actions into their own workflow files
+  - Helping improve and clean up Docker configuration
 
-- **Tawheed Ahmed**  
-  [LinkedIn](https://www.linkedin.com/in/tawheed-ahmed-dev/)  
-  - Helping build UI features  
-  - Assisting with UI redesign and navigation UX
+- **Tawheed Ahmed** [LinkedIn](https://www.linkedin.com/in/tawheed-ahmed-dev/)
+  - Helping with building UI features
+  - Helping with redesigning the UI and navigation UX
 
-- **Umer Farooq Mala**  
-  [GitHub](https://github.com/umermala)  
-  - Created the Dockerfile and updated README with Docker usage instructions
+- **Umer Farooq Mala** [GitHub](https://github.com/umermala)
+  - Created a Dockerfile and updated the README with Docker-related instructions.
 
-- **Velimir Đurković**  
-  [LinkedIn](https://www.linkedin.com/in/djvelimir/)  
-  - Reported a critical game-win logic bug  
-  - Suggested automatically flagging remaining mines once all safe cells are revealed
+- **Velimir Đurković** [LinkedIn](https://www.linkedin.com/in/djvelimir/)
+  - Reported a critical bug related to the game win logic.
+  - Provided a improvement suggestion (automaticaly placing red flags on the remaining mines once all non-mines fields have been revealed).
