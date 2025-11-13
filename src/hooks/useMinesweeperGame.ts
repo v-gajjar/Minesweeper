@@ -199,7 +199,7 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
       let board = cloneBoard(state.board);
       let mineLocations = cloneLocations(state.mineLocations);
-      let flagLocations = cloneLocations(state.flagLocations);
+      const flagLocations = cloneLocations(state.flagLocations);
       let { shouldPlaceMines, gameStatus } = state;
 
       const cellBeforeReveal = getCellAt(board, location);
