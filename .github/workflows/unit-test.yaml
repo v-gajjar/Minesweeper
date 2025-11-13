@@ -1,12 +1,8 @@
 name: test-job
 
 on: 
-    workflow_run:
-      workflows: ["build-job"]  
-      types:
-        - completed
-      branches:
-        - '**'
+  push:
+  pull_request:
 
 permissions:
     contents: read
