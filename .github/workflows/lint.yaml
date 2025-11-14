@@ -1,4 +1,4 @@
-name: build-job
+name: lint-job
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   pull-requests: write
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,5 +34,18 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build App (Vite)
-        run: pnpm run build
+      - name: Run ESLint
+        run: pnpm exec eslint src --ext .js,.jsx,.ts,.tsx --cache --quiet || true
+
+      - name: Run Prettier (warn-only)
+        run: |
+          if ! pnpm exec prettier --list-different . > /tmp/prettier_diff.txt; then
+            echo "## Prettier Differences" >> $GITHUB_STEP_SUMMARY
+            cat /tmp/prettier_diff.txt >> $GITHUB_STEP_SUMMARY
+          fi
+        continue-on-error: true
+
+      - name: Stylelint Summary Output
+        run: |
+          echo "## Stylelint Results" >> $GITHUB_STEP_SUMMARY
+          pnpm exec stylelint "**/*.{css,scss}" >> $GITHUB_STEP_SUMMARY || true

@@ -1,4 +1,4 @@
-name: test-job
+name: unit-job
 
 on:
   push:
