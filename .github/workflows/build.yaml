@@ -26,6 +26,7 @@ jobs:
           node-version: 20
           cache: pnpm
 
+      # Make pnpm available on PATH
       - name: Enable pnpm via Corepack
         run: |
           corepack enable
@@ -33,6 +34,12 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+
+      - name: Run Lint
+        run: pnpm run lint
+
+      - name: Run Tests
+        run: pnpm run test
 
       - name: Build App (Vite)
         run: pnpm run build
