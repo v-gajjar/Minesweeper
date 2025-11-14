@@ -31,7 +31,8 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
     }
     if (cell.adjacentMinesCount > 0) {
       const number = cell.adjacentMinesCount!;
-      return <span className={styles[`num-${number >= 1 && number <= 8 ? number : 0}`]}>{number}</span>;
+      const cellNumberClass = styles[`num${number}`]
+      return <span className={cellNumberClass}>{number}</span>;
     }
   };
 
