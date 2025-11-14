@@ -3,5 +3,6 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ]
+  ],
+  "exclude": ["dist", "node_modules", "vite.config.ts"]
 }
