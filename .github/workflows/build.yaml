@@ -20,24 +20,24 @@ jobs:
         id: date
         run: echo "today=$(date +'%m/%d/%Y')" >> "$GITHUB_OUTPUT"
 
-      # 1) Setup Node and enable pnpm caching
+      # 1) Install pnpm so setup-node cache: pnpm can find it
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+
+      # 2) Setup Node.js and enable pnpm caching
       - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: pnpm
 
-      # 2) Enable pnpm via Corepack (Node 20 image has this)
-      - name: Enable pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@10.0.0 --activate
-          pnpm --version
-
-      # 3) Install deps (cached via setup-node's pnpm cache)
+      # 3) Install dependencies via pnpm
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 4) Build
+      # 4) Build the app
       - name: Build App (Vite)
         run: pnpm run build
