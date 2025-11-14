@@ -1,12 +1,12 @@
-import { useReducer, useRef, useCallback } from 'react';
+import { useReducer, useRef, useCallback, useEffect } from 'react';
 
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
 import DifficultySelect from '@/components/feature/DifficultySelect/DifficultySelect';
-
 import GameBoard from '@feature/GameBoard/GameBoard';
 import ResultModal from '@/components/feature/ResultModal/ResultModal';
 import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlagsCounter';
+import GameTimer from '@feature/GameTimer/GameTimer';
 
 import './App.css';
 import type { DifficultyLevel, DifficultyConfig } from '@/types';
@@ -15,10 +15,16 @@ import {
   initialGameState,
   gameReducer,
   initializeGameState,
-} from './hooks/useMinesweeperGame.ts';
+} from './hooks/useMinesweeperGame';
+
+// import timer controls so App can drive the timer based on game events
+import {
+  timerStart,
+  timerStop,
+  timerReset,
+} from '@feature/GameTimer/useGameTimer';
 
 function App() {
-  // stored state variables
   const [state, dispatch] = useReducer(
     gameReducer,
     initialGameState,
@@ -27,7 +33,7 @@ function App() {
 
   const { board, gameStatus, remainingFlagsCount, difficultyLevel } = state;
 
-  const boardContainerRef = useRef<HTMLInputElement>(null);
+  const boardContainerRef = useRef<HTMLDivElement>(null);
 
   const DIFFICULTY_SELECT_ID = 'game-difficulty-select';
 
@@ -36,27 +42,45 @@ function App() {
 
   const resetBoardContainerScroll = () => {
     if (!boardContainerRef.current) return;
-    // scroll doesn't automatically reset when board size is changed
-    // so reset to 0 for better UX
     boardContainerRef.current.scrollLeft = 0;
   };
 
+  // stop timer when game ends
+  useEffect(() => {
+    if (gameStatus === 'WON' || gameStatus === 'LOST') {
+      timerStop();
+    }
+  }, [gameStatus]);
+
   const onSelectDifficulty = useCallback(
-    (difficultyLevel: DifficultyLevel) => {
+    (difficulty: DifficultyLevel) => {
       resetBoardContainerScroll();
-      dispatch({ type: 'START_NEW_GAME', difficulty: difficultyLevel });
+      // new game → reset timer to 00:00 and stop it
+      timerReset();
+      dispatch({ type: 'START_NEW_GAME', difficulty });
     },
     [dispatch]
   );
 
-  const handleGameRestart = () => {
+  const handleGameRestart = useCallback(() => {
     resetBoardContainerScroll();
+    // restart → reset timer as well
+    timerReset();
     dispatch({ type: 'START_NEW_GAME', difficulty: difficultyLevel });
-  };
+  }, [difficultyLevel, dispatch]);
 
   const onRevealCell = useCallback(
     (x: number, y: number) => {
-      if (gameStatus === 'WON' || gameStatus === 'LOST') return;
+      if (gameStatus === 'WON' || gameStatus === 'LOST') {
+        return;
+      }
+
+      // first click → start timer
+      if (gameStatus === 'NOT_STARTED') {
+        timerReset();
+        timerStart();
+      }
+
       dispatch({ type: 'REVEAL_CELL', location: { x, y } });
     },
     [dispatch, gameStatus]
@@ -70,42 +94,45 @@ function App() {
     [dispatch, gameStatus]
   );
 
-  const isResultModalOpen =
-    state.gameStatus === 'WON' || state.gameStatus === 'LOST' ? true : false;
-
-  const gameWon = state.gameStatus === 'WON' ? true : false;
+  const isResultModalOpen = gameStatus === 'WON' || gameStatus === 'LOST';
+  const gameWon = gameStatus === 'WON';
 
   return (
     <>
-      <header className='header'>
-        <h1 className='header-game-title'>Minesweeper</h1>
+      <header className="header">
+        <h1 className="header-game-title">Minesweeper</h1>
+        <div className="header-timer">
+          <GameTimer />
+        </div>
       </header>
-      <main className='wrapper'>
-        <div className='game-difficulty-select-wrapper'>
+
+      <main className="wrapper">
+        <div className="game-difficulty-select-wrapper">
           <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
           <DifficultySelect
             difficultyLevel={difficultyLevel}
             onChange={onSelectDifficulty}
             id={DIFFICULTY_SELECT_ID}
-          ></DifficultySelect>
+          />
         </div>
-        <div className='remaining-flags-counter-wrapper'>
-          <RemainingFlagsCounter
-            remainingFlagsCount={remainingFlagsCount}
-          ></RemainingFlagsCounter>
+
+        <div className="remaining-flags-counter-wrapper">
+          <RemainingFlagsCounter remainingFlagsCount={remainingFlagsCount} />
         </div>
+
         <ResultModal
           open={isResultModalOpen}
           gameWon={gameWon}
           onClick={handleGameRestart}
-        ></ResultModal>
-        <div className='board-container' ref={boardContainerRef}>
+        />
+
+        <div className="board-container" ref={boardContainerRef}>
           <GameBoard
             board={board}
             boardSize={gameDifficultySettings.boardSize}
             onClick={onRevealCell}
             onContextMenu={onToggleFlag}
-          ></GameBoard>
+          />
         </div>
       </main>
     </>

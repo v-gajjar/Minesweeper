@@ -15,35 +15,45 @@ body {
 }
 
 .header-game-title {
-  margin: auto;
   margin-bottom: 10px;
 }
 
 .header {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-timer {
+  display: flex;
   justify-content: center;
-  padding: 10px;
+  margin-top: 4px;
 }
 
 .wrapper {
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
   flex-grow: 1;
+  /* optional: uncomment if you want everything centered */
+  /* align-items: center; */
 }
 
 .board-container {
   display: flex;
+  justify-content: center; /* or flex-start if you prefer */
   overflow-y: hidden;
-  justify-content: flex-start;
   margin: 5px;
   padding: 2px 0;
 }
 
 .remaining-flags-counter-wrapper {
-  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
 }
 
 .game-difficulty-select-wrapper {
-  margin: auto;
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
 }
