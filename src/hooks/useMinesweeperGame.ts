@@ -60,7 +60,7 @@ type ToggleFlagResult = {
 
 function toggleFlagOnBoard(
   state: GameState,
-  location: Coordinate,
+  location: Coordinate
 ): ToggleFlagResult {
   const board = cloneBoard(state.board);
   const flagLocations = cloneLocations(state.flagLocations);
@@ -98,7 +98,7 @@ function toggleFlagOnBoard(
 function placeMinesOnFirstClick(
   board: BoardData,
   clickLocation: Coordinate,
-  state: GameState,
+  state: GameState
 ): { board: BoardData; mineLocations: MineLocations } {
   const settings = getDifficultySettingsForState(state);
   const clickedCell = getCellAt(board, clickLocation);
@@ -107,12 +107,12 @@ function placeMinesOnFirstClick(
     clickedCell,
     board,
     settings.mineCount,
-    settings.boardSize,
+    settings.boardSize
   );
 
   const boardWithMines = updateBoard(
     board,
-    getCellsWithMines(mineLocations, board),
+    getCellsWithMines(mineLocations, board)
   );
 
   return {
@@ -123,7 +123,7 @@ function placeMinesOnFirstClick(
 
 function getSafeProgress(
   board: BoardData,
-  difficultyLevel: DifficultyLevel,
+  difficultyLevel: DifficultyLevel
 ): { safeCellsLeft: number; status: GameStatus } {
   const settings = getDifficultySettingsForLevel(difficultyLevel);
   const totalCells =
@@ -136,10 +136,30 @@ function getSafeProgress(
     .filter((c) => !c.hasMine && c.isRevealed).length;
 
   const safeCellsLeft = totalSafeCells - revealedSafeCells;
-  const status: GameStatus =
-    safeCellsLeft === 0 ? 'WON' : 'IN_PROGRESS';
+  const status: GameStatus = safeCellsLeft === 0 ? 'WON' : 'IN_PROGRESS';
 
   return { safeCellsLeft, status };
+}
+
+export function getHintLocationFromState(state: GameState): Coordinate | null {
+  
+  if (state.gameStatus !== 'IN_PROGRESS') {
+    return null;
+  }
+
+  const { board } = state;
+  const candidates: Coordinate[] = [];
+
+  for (let x = 0; x < board.length; x++) {
+    const row = board[x];
+    for (let y = 0; y < row.length; y++) {
+      const cell = row[y];
+      if (!cell.isRevealed && !cell.isFlagged && !cell.hasMine) {
+        candidates.push({ x, y });
+      }
+    }
+  }
+  return candidates.length > 0 ? candidates[0] : null;
 }
 
 function createGameState(difficulty: DifficultyLevel): GameState {
@@ -230,8 +250,8 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
           location.x,
           location.y,
           board,
-          getDifficultySettingsForState(state).boardSize,
-        ),
+          getDifficultySettingsForState(state).boardSize
+        )
       );
 
       // hit a mine → game over
@@ -240,12 +260,11 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
         const lostBoard = getGameLostBoard(
           updatedBoard,
           mineLocations,
-          flagLocations,
+          flagLocations
         );
 
         const settings = getDifficultySettingsForState(state);
-        const remainingFlagsCount =
-          settings.mineCount - flagLocations.length;
+        const remainingFlagsCount = settings.mineCount - flagLocations.length;
 
         const nextState: GameState = {
           ...state,
@@ -265,12 +284,12 @@ export function gameReducer(state: GameState, action: GameAction): GameState {
 
       const updatedFlagLocations = getFilteredFlagLocations(
         flagLocations,
-        revealedCells,
+        revealedCells
       );
 
       const { safeCellsLeft, status } = getSafeProgress(
         updatedBoard,
-        state.difficultyLevel,
+        state.difficultyLevel
       );
 
       const settings = getDifficultySettingsForState(state);
@@ -306,8 +325,10 @@ export function useMinesweeperGame() {
   const [state, dispatch] = useReducer(
     gameReducer,
     initialGameState,
-    initializeGameState,
+    initializeGameState
   );
+
+  const getHintLocation = () => getHintLocationFromState(state);
 
   const startNewGame = (difficulty: DifficultyLevel) =>
     dispatch({ type: 'START_NEW_GAME', difficulty });
@@ -323,5 +344,6 @@ export function useMinesweeperGame() {
     startNewGame,
     revealCellAt,
     toggleFlagAt,
+    getHintLocation,
   };
 }

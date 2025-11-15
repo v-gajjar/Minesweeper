@@ -29,34 +29,33 @@
   background: orange;
 }
 
-.num1 { 
-  color: blue; 
-
+.num1 {
+  color: blue;
 }
-.num2 { 
-  color: green; 
-}
-
-.num3 { 
-  color: red; 
+.num2 {
+  color: green;
 }
 
-.num4 { 
-  color: darkblue; 
+.num3 {
+  color: red;
 }
 
-.num5 { 
-  color: brown; 
+.num4 {
+  color: darkblue;
 }
 
-.num6 { 
-  color: lightblue; 
+.num5 {
+  color: brown;
 }
 
-.num7 { 
-  color: purple; 
+.num6 {
+  color: lightblue;
 }
 
-.num8 { 
-  color: pink; 
+.num7 {
+  color: purple;
+}
+
+.num8 {
+  color: pink;
 }

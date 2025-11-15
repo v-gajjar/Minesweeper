@@ -15,6 +15,7 @@ import {
   initialGameState,
   gameReducer,
   initializeGameState,
+  getHintLocationFromState
 } from './hooks/useMinesweeperGame.ts';
 
 function App() {
@@ -22,7 +23,7 @@ function App() {
   const [state, dispatch] = useReducer(
     gameReducer,
     initialGameState,
-    initializeGameState
+    initializeGameState,
   );
 
   const { board, gameStatus, remainingFlagsCount, difficultyLevel } = state;
@@ -75,41 +76,54 @@ function App() {
 
   const gameWon = state.gameStatus === 'WON' ? true : false;
 
-  return (
-    <>
-      <header className='header'>
-        <h1 className='header-game-title'>Minesweeper</h1>
-      </header>
-      <main className='wrapper'>
-        <div className='game-difficulty-select-wrapper'>
-          <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
-          <DifficultySelect
-            difficultyLevel={difficultyLevel}
-            onChange={onSelectDifficulty}
-            id={DIFFICULTY_SELECT_ID}
-          ></DifficultySelect>
-        </div>
-        <div className='remaining-flags-counter-wrapper'>
-          <RemainingFlagsCounter
-            remainingFlagsCount={remainingFlagsCount}
-          ></RemainingFlagsCounter>
-        </div>
-        <ResultModal
-          open={isResultModalOpen}
-          gameWon={gameWon}
-          onClick={handleGameRestart}
-        ></ResultModal>
-        <div className='board-container' ref={boardContainerRef}>
-          <GameBoard
-            board={board}
-            boardSize={gameDifficultySettings.boardSize}
-            onClick={onRevealCell}
-            onContextMenu={onToggleFlag}
-          ></GameBoard>
-        </div>
-      </main>
-    </>
-  );
+  const handleHintClick = () => {
+  const coord = getHintLocationFromState(state);
+  console.log('HINT:', coord);
+};
+
+return (
+  <>
+    <header className='header'>
+      <h1 className='header-game-title'>Minesweeper</h1>
+    </header>
+    <main className='wrapper'>
+      <div className='game-difficulty-select-wrapper'>
+        <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
+        <DifficultySelect
+          difficultyLevel={difficultyLevel}
+          onChange={onSelectDifficulty}
+          id={DIFFICULTY_SELECT_ID}
+        />
+      </div>
+
+      <div className='remaining-flags-counter-wrapper'>
+        <RemainingFlagsCounter remainingFlagsCount={remainingFlagsCount} />
+      </div>
+
+      {/* ⬇️ add this block here ⬇️ */}
+      <div className="hint-button-wrapper">
+        <button type="button" onClick={handleHintClick}>
+          Hint
+        </button>
+      </div>
+      {/* ⬆️ add this block here ⬆️ */}
+
+      <ResultModal
+        open={isResultModalOpen}
+        gameWon={gameWon}
+        onClick={handleGameRestart}
+      />
+      <div className='board-container' ref={boardContainerRef}>
+        <GameBoard
+          board={board}
+          boardSize={gameDifficultySettings.boardSize}
+          onClick={onRevealCell}
+          onContextMenu={onToggleFlag}
+        />
+      </div>
+    </main>
+  </>
+);
 }
 
 export default App;

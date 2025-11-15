@@ -25,6 +25,11 @@ body {
   padding: 10px;
 }
 
+.hint-button-wrapper {
+  margin: auto;
+  margin-top: 8px;
+}
+
 .wrapper {
   display: flex;
   justify-content: flex-start;
