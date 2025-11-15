@@ -29,33 +29,33 @@
   background: orange;
 }
 
+.hint {
+  outline: 3px solid #4aa3ff; /* bright blue highlight */
+  outline-offset: -2px;
+  background-color: rgba(74, 163, 255, 0.15);
+}
+
 .num1 {
   color: blue;
 }
 .num2 {
   color: green;
 }
-
 .num3 {
   color: red;
 }
-
 .num4 {
   color: darkblue;
 }
-
 .num5 {
   color: brown;
 }
-
 .num6 {
   color: lightblue;
 }
-
 .num7 {
   color: purple;
 }
-
 .num8 {
   color: pink;
 }

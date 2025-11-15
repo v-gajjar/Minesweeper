@@ -1,4 +1,4 @@
-import type { BoardData, BoardSize } from '@/types';
+import type { BoardData, BoardSize, Coordinate } from '@/types';
 import type { CellProps } from '@/components/feature/GameBoard/Cell/Cell.interfaces';
 
 export type GameBoardProps = {
@@ -6,4 +6,5 @@ export type GameBoardProps = {
   boardSize: BoardSize;
   onClick: CellProps['onClick'];
   onContextMenu: CellProps['onContextMenu'];
+  hintLocation?: Coordinate | null;
 };

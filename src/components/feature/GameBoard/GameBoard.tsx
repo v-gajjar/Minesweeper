@@ -8,6 +8,7 @@ function GameBoard({
   boardSize,
   onClick,
   onContextMenu,
+  hintLocation,
 }: GameBoardProps) {
   // CSS custom properties to control the grid layout
   const style = {
@@ -30,6 +31,11 @@ function GameBoard({
             key={`cell-${rowIndex}-${colIndex}`}
             onClick={onClick}
             onContextMenu={onContextMenu}
+            isHint={
+              hintLocation != null &&
+              hintLocation.x === rowIndex &&
+              hintLocation.y === colIndex
+            }
           />
         ))
       )}

@@ -142,24 +142,72 @@ function getSafeProgress(
 }
 
 export function getHintLocationFromState(state: GameState): Coordinate | null {
-  
   if (state.gameStatus !== 'IN_PROGRESS') {
     return null;
   }
 
   const { board } = state;
-  const candidates: Coordinate[] = [];
+  const allSafe: Coordinate[] = [];
+  const frontierSafe: Coordinate[] = [];
 
-  for (let x = 0; x < board.length; x++) {
-    const row = board[x];
-    for (let y = 0; y < row.length; y++) {
-      const cell = row[y];
+  const rowCount = board.length;
+  const colCount = board[0]?.length ?? 0;
+
+  // helper: push safe cell if not revealed/flagged/mine
+  const tryAddSafe = (x: number, y: number, target: Coordinate[]) => {
+    const cell = board[x][y];
+    if (!cell.isRevealed && !cell.isFlagged && !cell.hasMine) {
+      // avoid duplicates in frontier array
+      if (!target.some((c) => c.x === x && c.y === y)) {
+        target.push({ x, y });
+      }
+    }
+  };
+
+  // 1) collect all safe candidates
+  for (let x = 0; x < rowCount; x++) {
+    for (let y = 0; y < colCount; y++) {
+      const cell = board[x][y];
       if (!cell.isRevealed && !cell.isFlagged && !cell.hasMine) {
-        candidates.push({ x, y });
+        allSafe.push({ x, y });
       }
     }
   }
-  return candidates.length > 0 ? candidates[0] : null;
+
+  // 2) collect safe cells that are NEXT TO any revealed cell
+  for (let x = 0; x < rowCount; x++) {
+    for (let y = 0; y < colCount; y++) {
+      const cell = board[x][y];
+      if (!cell.isRevealed) continue;
+
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dy = -1; dy <= 1; dy++) {
+          if (dx === 0 && dy === 0) continue;
+          const nx = x + dx;
+          const ny = y + dy;
+          if (nx < 0 || ny < 0 || nx >= rowCount || ny >= colCount) continue;
+
+          tryAddSafe(nx, ny, frontierSafe);
+        }
+      }
+    }
+  }
+
+  // 3) prefer frontier hints, otherwise any safe cell, otherwise no hint
+  const pickRandom = (coords: Coordinate[]) => {
+    const i = Math.floor(Math.random() * coords.length);
+    return coords[i];
+  };
+
+  if (frontierSafe.length > 0) {
+    return pickRandom(frontierSafe);
+  }
+
+  if (allSafe.length > 0) {
+    return pickRandom(allSafe);
+  }
+
+  return null;
 }
 
 function createGameState(difficulty: DifficultyLevel): GameState {

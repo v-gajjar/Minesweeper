@@ -22,33 +22,85 @@ body {
 .header {
   display: flex;
   justify-content: center;
-  padding: 10px;
+  padding: 20px 10px; /* more breathing room at the top */
+}
+
+/* ===========================
+   Difficulty select section
+   =========================== */
+
+.game-difficulty-select-wrapper {
+  margin: 8px auto 10px; /* spacing under the Difficulty row */
+}
+
+/* ===========================
+   Hint button + hint text
+   =========================== */
+
+.hint-button {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #f7f7f7;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.hint-button:hover {
+  background: #ececec;
+}
+
+/* remove the transform so it doesn't "slide" on click */
+/* you can delete this block entirely if you already have it */
+.hint-button:active {
+  /* no transform here */
+}
+
+/* optional flash class if you wired hintFlash in App.tsx */
+.hint-button-flash {
+  box-shadow: 0 0 8px 2px #fbbf24;
+  background: #fff7e6;
+  border-color: #fbbf24;
 }
 
 .hint-button-wrapper {
-  margin: auto;
-  margin-top: 8px;
+  width: 100%;
+  margin: 0 auto 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.hint-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #16a34a;
+  text-align: center;
+  margin: 0;
+}
+
+/* ===========================
+   Remaining flags + layout
+   =========================== */
+
+.remaining-flags-counter-wrapper {
+  margin: 10px auto 12px;
 }
 
 .wrapper {
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
   flex-grow: 1;
+  align-items: center; /* center everything in the main column */
 }
 
+/* board wrapper so large boards can scroll horizontally if needed */
 .board-container {
   display: flex;
   overflow-y: hidden;
   justify-content: flex-start;
-  margin: 5px;
+  margin: 5px auto;
   padding: 2px 0;
-}
-
-.remaining-flags-counter-wrapper {
-  margin: auto;
-}
-
-.game-difficulty-select-wrapper {
-  margin: auto;
 }

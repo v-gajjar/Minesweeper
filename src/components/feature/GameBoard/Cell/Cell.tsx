@@ -3,13 +3,14 @@ import { Bomb, X, Flag } from '@phosphor-icons/react';
 import type { CellProps } from '@/components/feature/GameBoard/Cell/Cell.interfaces';
 import styles from '@components/feature/GameBoard/Cell/Cell.module.css';
 
-function Cell({ cell, onClick, onContextMenu }: CellProps) {
+function Cell({ cell, onClick, onContextMenu, isHint }: CellProps) {
   const cellClass = classNames({
     [styles.cell]: true,
     [styles.mine]: cell.hasMine,
     [styles.exploded]: cell.hasExplodedMine,
     [styles.flagged]: cell.isFlagged,
     [styles.revealed]: cell.isRevealed,
+    [styles.hint]: isHint,
   });
 
   const renderCellContents = () => {
