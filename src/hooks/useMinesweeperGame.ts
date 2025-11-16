@@ -147,28 +147,33 @@ export function getHintLocationFromState(state: GameState): Coordinate | null {
   }
 
   const { board } = state;
+  const rowCount = board.length;
+  if (rowCount === 0) return null;
+
+  const colCount = board[0].length;
+
   const allSafe: Coordinate[] = [];
   const frontierSafe: Coordinate[] = [];
 
-  const rowCount = board.length;
-  const colCount = board[0]?.length ?? 0;
+  const frontierSeen = new Set<string>();
 
-  // helper: push safe cell if not revealed/flagged/mine
-  const tryAddSafe = (x: number, y: number, target: Coordinate[]) => {
+  const isSafeCandidate = (x: number, y: number) => {
     const cell = board[x][y];
-    if (!cell.isRevealed && !cell.isFlagged && !cell.hasMine) {
-      // avoid duplicates in frontier array
-      if (!target.some((c) => c.x === x && c.y === y)) {
-        target.push({ x, y });
-      }
-    }
+    return !cell.isRevealed && !cell.isFlagged && !cell.hasMine;
+  };
+
+  const addFrontierSafe = (x: number, y: number) => {
+    if (!isSafeCandidate(x, y)) return;
+    const key = `${x},${y}`;
+    if (frontierSeen.has(key)) return;
+    frontierSeen.add(key);
+    frontierSafe.push({ x, y });
   };
 
   // 1) collect all safe candidates
   for (let x = 0; x < rowCount; x++) {
     for (let y = 0; y < colCount; y++) {
-      const cell = board[x][y];
-      if (!cell.isRevealed && !cell.isFlagged && !cell.hasMine) {
+      if (isSafeCandidate(x, y)) {
         allSafe.push({ x, y });
       }
     }
@@ -183,17 +188,18 @@ export function getHintLocationFromState(state: GameState): Coordinate | null {
       for (let dx = -1; dx <= 1; dx++) {
         for (let dy = -1; dy <= 1; dy++) {
           if (dx === 0 && dy === 0) continue;
+
           const nx = x + dx;
           const ny = y + dy;
+
           if (nx < 0 || ny < 0 || nx >= rowCount || ny >= colCount) continue;
 
-          tryAddSafe(nx, ny, frontierSafe);
+          addFrontierSafe(nx, ny);
         }
       }
     }
   }
 
-  // 3) prefer frontier hints, otherwise any safe cell, otherwise no hint
   const pickRandom = (coords: Coordinate[]) => {
     const i = Math.floor(Math.random() * coords.length);
     return coords[i];
