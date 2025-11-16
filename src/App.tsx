@@ -3,7 +3,6 @@ import { useReducer, useRef, useCallback, useState } from 'react';
 import { GAME_DIFFICULTY_LEVEL_SETTINGS } from '@config/gameDifficultyLevelSettings';
 
 import DifficultySelect from '@/components/feature/DifficultySelect/DifficultySelect';
-
 import GameBoard from '@feature/GameBoard/GameBoard';
 import ResultModal from '@/components/feature/ResultModal/ResultModal';
 import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlagsCounter';
@@ -72,9 +71,9 @@ function App() {
   );
 
   const isResultModalOpen =
-    state.gameStatus === 'WON' || state.gameStatus === 'LOST' ? true : false;
+    state.gameStatus === 'WON' || state.gameStatus === 'LOST';
 
-  const gameWon = state.gameStatus === 'WON' ? true : false;
+  const gameWon = state.gameStatus === 'WON';
 
   // after useReducer:
   const [hintLocation, setHintLocation] = useState<Coordinate | null>(null);
@@ -108,21 +107,25 @@ function App() {
           />
         </div>
 
-        <div className="hint-button-wrapper">
-  <button
-    type="button"
-    className="hint-button"
-    onClick={handleHintClick}
-  >
-    Hint
-  </button>
+        <div className='hint-button-wrapper'>
+          <button
+            type='button'
+            className='hint-button'
+            onClick={handleHintClick}
+          >
+            Hint
+          </button>
 
-  {hintLocation && (
-    <p className="hint-text">
-      Hint: try row {hintLocation.x + 1}, column {hintLocation.y + 1}
-    </p>
-  )}
-</div>
+          {hintLocation && (
+            <p
+              className={`hint-text ${
+                hintFlash ? 'hint-text--flash' : ''
+              }`}
+            >
+              Hint: try row {hintLocation.x + 1}, column {hintLocation.y + 1}
+            </p>
+          )}
+        </div>
 
         <div className='remaining-flags-counter-wrapper'>
           <RemainingFlagsCounter remainingFlagsCount={remainingFlagsCount} />
@@ -133,6 +136,7 @@ function App() {
           gameWon={gameWon}
           onClick={handleGameRestart}
         />
+
         <div className='board-container' ref={boardContainerRef}>
           <GameBoard
             board={board}
