@@ -17,14 +17,14 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
 
     if (cell.isIncorrectlyFlagged) {
       return (
-        <span data-testid='x-icon'>
-          <X size={20} color='#c01c28' weight='bold' />
+        <span data-testid='x-icon' className={styles.crossicon}>
+          <X size={20} weight='bold' />
         </span>
       );
     }
 
     if (cell.isFlagged) {
-      return <Flag size={20} color='#c01c28' weight='fill' />;
+      return <span className={styles.flagicon}><Flag size={20} weight='fill' /></span>;
     }
     if (cell.hasMine) {
       return <Bomb size={20} weight='fill' />;

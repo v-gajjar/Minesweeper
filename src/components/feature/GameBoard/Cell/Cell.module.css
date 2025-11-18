@@ -60,3 +60,7 @@
 .num8 { 
   color: pink; 
 }
+
+.flagicon, .crossicon {
+  color: #c01c28;
+}
