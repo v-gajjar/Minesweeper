@@ -61,6 +61,10 @@
   color: pink; 
 }
 
-.flagicon, .crossicon {
+.flag-icon, .cross-icon {
   color: #c01c28;
+}
+
+.bomb-icon {
+  color: black;
 }

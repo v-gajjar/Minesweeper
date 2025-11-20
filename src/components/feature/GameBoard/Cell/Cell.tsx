@@ -17,17 +17,17 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
 
     if (cell.isIncorrectlyFlagged) {
       return (
-        <span data-testid='x-icon' className={styles.crossicon}>
+        <span data-testid='x-icon' className={styles.crossIcon}>
           <X size={20} weight='bold' />
         </span>
       );
     }
 
     if (cell.isFlagged) {
-      return <span className={styles.flagicon}><Flag size={20} weight='fill' /></span>;
+      return <Flag size={20} className={styles.flagIcon} weight='fill' />;
     }
     if (cell.hasMine) {
-      return <Bomb size={20} weight='fill' />;
+      return <Bomb size={20} className={styles.bombIcon} weight='fill' />;
     }
     if (cell.adjacentMinesCount > 0) {
       const number = cell.adjacentMinesCount!;
