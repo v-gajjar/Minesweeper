@@ -17,8 +17,8 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
 
     if (cell.isIncorrectlyFlagged) {
       return (
-        <span data-testid='x-icon' className={styles.crossIcon}>
-          <X size={20} weight='bold' />
+        <span data-testid='x-icon'>
+          <X size={20} className={styles.crossIcon} weight='bold' />
         </span>
       );
     }
