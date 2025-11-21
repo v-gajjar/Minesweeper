@@ -9,7 +9,6 @@
   position: relative;
   border-radius: 5px;
   font-size: 16px;
-  transition: background 0.12s ease;
 }
 
 .cell:focus {
@@ -19,53 +18,46 @@
 
 .cell:hover {
   cursor: pointer;
-  background: #bfbfbf;
+  background: gray;
 }
 
 .cell.revealed {
   background: #e8e8e8;
-  box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.15);
-  font-weight: 600; /* bold numbers when revealed */
 }
 
 .cell.mine.exploded {
-  background: #ff9933; /* friendlier orange blast */
+  background: orange;
 }
 
-/* Optional: give flagged cells a slightly stronger border */
-.flagged {
-  border-color: #777777;
+.num1 { 
+  color: blue; 
+
 }
 
-/* Number colours – tuned for clarity and dev's requirements */
-.num1 {
-  color: #1d4ed8; /* vivid blue */
+.num2 { 
+  color: green; 
 }
 
-.num2 {
-  color: #15803d; /* deep green */
+.num3 { 
+  color: red; 
 }
 
-.num3 {
-  color: #e76e00; /* more yellow-orange, clearly distinct from red flags */
+.num4 { 
+  color: darkblue; 
 }
 
-.num4 {
-  color: #312e81; /* deep indigo – much darker than 1 */
+.num5 { 
+  color: brown; 
 }
 
-.num5 {
-  color: #92400e; /* real brown, not red-looking */
+.num6 { 
+  color: lightblue; 
 }
 
-.num6 {
-  color: #0f766e; /* teal */
+.num7 { 
+  color: purple; 
 }
 
-.num7 {
-  color: #374151; /* gray-700 */
-}
-
-.num8 {
-  color: #1f2937; /* gray-800 */
+.num8 { 
+  color: pink; 
 }
