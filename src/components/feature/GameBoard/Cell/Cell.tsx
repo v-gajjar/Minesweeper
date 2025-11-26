@@ -31,7 +31,7 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
     }
     if (cell.adjacentMinesCount > 0) {
       const number = cell.adjacentMinesCount!;
-      const cellNumberClass = styles[`num${number}`]
+      const cellNumberClass = styles[`num${number}`];
       return <span className={cellNumberClass}>{number}</span>;
     }
   };
