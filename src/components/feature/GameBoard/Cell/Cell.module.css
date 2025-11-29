@@ -1,71 +1,140 @@
+/* -------------------------------------------------------
+   Unrevealed Cell
+------------------------------------------------------- */
 .cell {
   height: 39px;
   width: 39px;
-  background: lightgray;
-  border: 1px solid whitesmoke;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  border-radius: 5px;
+
+  /* Darker unrevealed tile for strong contrast */
+  background-color: #a8a8a8;
+  border: 1px solid #8e8e8e;
+  border-radius: 3px;
+
   font-size: 16px;
+  font-weight: 600;
+
+  /* Subtle grid line effect */
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05);
+
+  transition:
+    background-color 140ms ease,
+    border-color 140ms ease,
+    transform 120ms ease,
+    box-shadow 120ms ease,
+    filter 120ms ease;
 }
 
-.cell:focus {
-  outline: 2px solid #06c;
+/* Hover on unrevealed */
+.cell:hover:not(.revealed) {
+  cursor: pointer;
+  background-color: #b6b6b6;
+  transform: scale(1.015); /* Subtle lift */
+}
+
+/* Keyboard focus */
+.cell:focus-visible {
+  outline: 2px solid #0066cc;
+  outline-offset: 1px;
   z-index: 1;
 }
 
-.cell:hover {
-  cursor: pointer;
-  background: gray;
-}
-
+/* -------------------------------------------------------
+   Revealed Cell
+------------------------------------------------------- */
 .cell.revealed {
-  background: #e8e8e8;
+  background-color: #ececec; /* lighter tile */
+  border-color: #d2d2d2;
+
+  box-shadow: none;
+  transform: scale(1);
+  font-weight: 700;
+
+  animation: cell-reveal-flash 120ms ease-out;
 }
 
+/* Reveal flash effect */
+@keyframes cell-reveal-flash {
+  0% {
+    filter: brightness(135%);
+  }
+  100% {
+    filter: brightness(100%);
+  }
+}
+
+/* -------------------------------------------------------
+   Mine Explosion Cell
+------------------------------------------------------- */
 .cell.mine.exploded {
-  background: orange;
+  background-color: #ff4b4b;
+  border-color: #cc3636;
+  color: #000;
+  font-weight: 700;
+
+  animation: cell-explode-shake 200ms ease-out;
+  filter: brightness(110%);
 }
 
-.num-1 { 
-  color: blue; 
-
+/* Explosion shake effect */
+@keyframes cell-explode-shake {
+  0%, 100% { transform: translate(0, 0); }
+  20%      { transform: translate(-2px, 1px); }
+  40%      { transform: translate(2px, -1px); }
+  60%      { transform: translate(-1px, 2px); }
+  80%      { transform: translate(1px, -2px); }
 }
 
-.num-2 { 
-  color: green; 
+/* -------------------------------------------------------
+   Number Colors (Classic Minesweeper Palette)
+------------------------------------------------------- */
+
+.num-1 {
+  color: #0e63c9; /* blue */
 }
 
-.num-3 { 
-  color: red; 
+.num-2 {
+  color: #2e7d32; /* green */
 }
 
-.num-4 { 
-  color: darkblue; 
+.num-3 {
+  color: #c62828; /* red */
 }
 
-.num-5 { 
-  color: brown; 
+.num-4 {
+  color: #7b1fa2; /* purple */
 }
 
-.num-6 { 
-  color: lightblue; 
+.num-5 {
+  color: #ef6c00; /* orange */
 }
 
-.num-7 { 
-  color: purple; 
+.num-6 {
+  color: #00897b; /* teal */
 }
 
-.num-8 { 
-  color: pink; 
+.num-7 {
+  color: #4527a0; /* deep violet */
 }
 
-.flag-icon, .cross-icon {
+.num-8 {
+  color: #ad1457; /* magenta */
+}
+
+/* -------------------------------------------------------
+   Icons
+------------------------------------------------------- */
+
+.flag-icon,
+.cross-icon {
+  font-size: 18px;
   color: #c01c28;
 }
 
 .bomb-icon {
-  color: black;
+  font-size: 18px;
+  color: #000;
 }

@@ -1,8 +1,34 @@
+/* -------------------------------------------------------
+   Game Board Grid Container
+   - Defines the layout for all cells
+   - Provides the frame, spacing, and visual structure
+------------------------------------------------------- */
 .board {
   display: grid;
+  /* Dynamically build the board using CSS variables 
+     provided by React (rows/columns from game state) */
   grid-template-columns: repeat(var(--columns), 39px);
   grid-template-rows: repeat(var(--rows), 39px);
+
+  /* No spacing between tiles to maintain a tight grid */
   gap: 0;
+
+  /* Size adjusts based on tile count; centers board */
   width: fit-content;
-  margin: auto;
+  margin: 0 auto;
+
+  /* Padding to separate tiles from outer frame */
+  padding: 8px;
+
+  /* Background frame behind all tiles */
+  background-color: #c4c4c4;
+
+  /* Soft rounding on board corners */
+  border-radius: 8px;
+
+  /* Subtle outline for definition against page background */
+  border: 1px solid #a9a9a9;
+
+  /* Clean shadow to give the board depth without looking heavy */
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
 }
