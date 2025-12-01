@@ -19,8 +19,7 @@
     "lint:css": "stylelint \"**/*.{css,scss}\"",
     "lint:css:fix": "stylelint \"**/*.{css,scss}\" --fix",
     "check": "pnpm run format && pnpm run lint",
-    "check:fix": "pnpm run format && pnpm run lint:fix",
-    "preinstall": "node ./scripts/check-pm.js"
+    "check:fix": "pnpm run format && pnpm run lint:fix"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
