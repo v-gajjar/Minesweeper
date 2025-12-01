@@ -4,12 +4,11 @@ const execPath = process.env.npm_execpath || '';
 const userAgent = process.env.npm_config_user_agent || '';
 
 // Explicitly detect pnpm first
-const isPnpm =
-  execPath.includes('pnpm') ||
-  userAgent.startsWith('pnpm/');
+const isPnpm = execPath.includes('pnpm') || userAgent.startsWith('pnpm/');
 
 // Detect npm / yarn only if it's not pnpm
-const isNpm = !isPnpm && (execPath.includes('npm') || userAgent.startsWith('npm/'));
+const isNpm =
+  !isPnpm && (execPath.includes('npm') || userAgent.startsWith('npm/'));
 const isYarn = execPath.includes('yarn') || userAgent.startsWith('yarn/');
 
 if (isNpm || isYarn) {
