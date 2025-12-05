@@ -12,7 +12,7 @@
 }
 
 .cell:focus {
-  outline: 2px solid #0066cc;
+  outline: 2px solid #06c;
   z-index: 1;
 }
 
@@ -20,10 +20,52 @@
   cursor: pointer;
   background: gray;
 }
+
 .cell.revealed {
   background: #e8e8e8;
 }
 
 .cell.mine.exploded {
   background: orange;
+}
+
+.num-1 {
+  color: blue;
+}
+
+.num-2 {
+  color: green;
+}
+
+.num-3 {
+  color: red;
+}
+
+.num-4 {
+  color: darkblue;
+}
+
+.num-5 {
+  color: brown;
+}
+
+.num-6 {
+  color: lightblue;
+}
+
+.num-7 {
+  color: purple;
+}
+
+.num-8 {
+  color: pink;
+}
+
+.flag-icon,
+.cross-icon {
+  color: #c01c28;
+}
+
+.bomb-icon {
+  color: black;
 }

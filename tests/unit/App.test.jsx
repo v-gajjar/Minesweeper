@@ -1,4 +1,5 @@
-import { render } from '@testing-library/react';
+// tests/unit/App.test.jsx
+import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import GameBoard from '@feature/GameBoard/GameBoard';
 import DifficultySelect from '@feature/DifficultySelect/DifficultySelect';
@@ -6,40 +7,52 @@ import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlags
 import ResultModal from '@feature/ResultModal/ResultModal';
 
 // Minimal mock data
-const mockBoard = Array(9).fill(Array(9).fill({}));
+const mockBoard = Array.from({ length: 9 }, () =>
+  Array.from({ length: 9 }, () => ({}))
+);
 const mockBoardSize = { rowCount: 9, columnCount: 9 };
 const mockDifficulty = { level: 'easy' };
-const mockFlagsRemaining = 10;
 
-describe('App Component', () => {
+describe('App surface components', () => {
   it('renders the game board', () => {
-    const { getByTestId } = render(
-      <GameBoard board={mockBoard} boardSize={mockBoardSize} />
-    );
-    expect(getByTestId('game-board')).toBeTruthy();
+    render(<GameBoard board={mockBoard} boardSize={mockBoardSize} />);
+    const el = screen.getByTestId('game-board');
+    expect(el).toBeDefined();
+    expect(document.body.contains(el)).toBe(true);
   });
 
   it('renders the difficulty selector', () => {
-    const { getByTestId } = render(
+    render(
       <DifficultySelect
         gameDifficultySettings={mockDifficulty}
         onChange={() => {}}
       />
     );
-    expect(getByTestId('difficulty-select')).toBeTruthy();
+    const el = screen.getByTestId('difficulty-select');
+    expect(el).toBeDefined();
+    expect(document.body.contains(el)).toBe(true);
   });
 
-  it('renders the remaining flags counter', () => {
-    const { getByTestId } = render(
-      <RemainingFlagsCounter flagsRemaining={mockFlagsRemaining} />
+  it('renders the remaining flags counter with the correct value', () => {
+    const mockRemainingFlagsCount = 10;
+    render(
+      <RemainingFlagsCounter remainingFlagsCount={mockRemainingFlagsCount} />
     );
-    expect(getByTestId('flags-remaining')).toBeTruthy();
+
+    // Assert by visible text without jest-dom matchers
+    const label = screen.getByText(/remaining flags/i);
+    expect(label).toBeDefined();
+    expect(document.body.contains(label)).toBe(true);
+
+    const value = screen.getByText(String(mockRemainingFlagsCount));
+    expect(value).toBeDefined();
+    expect(value.textContent).toBe(String(mockRemainingFlagsCount));
   });
 
   it('renders a result modal', () => {
-    const { getByTestId } = render(
-      <ResultModal open={true} onClose={() => {}} result='win' />
-    );
-    expect(getByTestId('result-modal')).toBeTruthy();
+    render(<ResultModal open={true} result='win' onClick={() => {}} />);
+    const el = screen.getByTestId('result-modal');
+    expect(el).toBeDefined();
+    expect(document.body.contains(el)).toBe(true);
   });
 });

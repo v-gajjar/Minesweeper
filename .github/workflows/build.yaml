@@ -1,0 +1,42 @@
+name: build-job
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Date Setup (MM/DD/YYYY)
+        id: date
+        run: echo "today=$(date +'%m/%d/%Y')" >> "$GITHUB_OUTPUT"
+
+      # 1) Install pnpm so setup-node cache: pnpm can find it
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      # 2) Setup Node.js and enable pnpm caching
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      # 3) Install dependencies via pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 4) Build the app
+      - name: Build App (Vite)
+        run: pnpm run build

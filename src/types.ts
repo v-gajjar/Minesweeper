@@ -1,3 +1,5 @@
+// src/types.ts
+
 export type CellData = {
   hasMine: boolean;
   hasExplodedMine?: boolean;
@@ -16,15 +18,21 @@ export type BoardSize = {
   columnCount: number;
 };
 
+export type DifficultyLevel = 'EASY' | 'MEDIUM' | 'HARD';
+
+export type DifficultyConfig = {
+  boardSize: BoardSize;
+  mineCount: number;
+  label: string;
+};
+
+// Coordinate: x = row index, y = column index
 export type Coordinate = {
   x: number;
   y: number;
 };
 
-export type LocationColRow = {
-  col: string;
-  row: string;
-};
-
 export type FlagLocations = Coordinate[];
 export type MineLocations = Coordinate[];
+
+export type GameStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'WON' | 'LOST';
