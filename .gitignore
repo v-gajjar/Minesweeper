@@ -1,47 +1,79 @@
-# Logs
-logs
-*.log
-npm-debug.log*
+# ----------------------------------------
+# Node & Package Managers
+# ----------------------------------------
+node_modules/
+pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-pnpm-debug.log*
+npm-debug.log*
 lerna-debug.log*
+package-lock.json
 
-# Dependencies
-node_modules/
+# pnpm store (if local)
+.pnpm-store/
 
+# ----------------------------------------
 # Build output
+# ----------------------------------------
 dist/
 dist-ssr/
 build/
-coverage/
-
-# Local environment
 *.local
 
-# ESLint
-.eslintcache
+# Vite cache
+.vite/
+.vitepress/
 
-# Vite
-.cache/
-vite.config.ts.timestamp-*
-vite.config.js.timestamp-*
-
-# TypeScript
+# Vitest / Jest coverage
+coverage/
 *.tsbuildinfo
 
-# Editor stuff
+# ----------------------------------------
+# Logs
+# ----------------------------------------
+logs/
+*.log
+
+# ----------------------------------------
+# Environment
+# ----------------------------------------
+.env
+.env.local
+.env.*.local
+
+# ----------------------------------------
+# TypeScript Build Info
+# ----------------------------------------
+tsconfig.tsbuildinfo
+*.tsbuildinfo
+
+# ----------------------------------------
+# IDE / Editor
+# ----------------------------------------
 .vscode/*
 !.vscode/extensions.json
 .idea/
-.DS_Store
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
+# ----------------------------------------
+# Mac / OS-Specific
+# ----------------------------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# macOS metadata files
+.Spotlight-V100
+.Trashes
+
+# ----------------------------------------
 # Misc
-*.pem
-*.env
-*.env.*.local
+# ----------------------------------------
+Thumbs.db

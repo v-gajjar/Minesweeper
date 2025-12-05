@@ -29,35 +29,43 @@
   background: orange;
 }
 
-.num1 { 
-  color: blue; 
-
+.num-1 {
+  color: blue;
 }
 
-.num2 { 
-  color: green; 
+.num-2 {
+  color: green;
 }
 
-.num3 { 
-  color: red; 
+.num-3 {
+  color: red;
 }
 
-.num4 { 
-  color: darkblue; 
+.num-4 {
+  color: darkblue;
 }
 
-.num5 { 
-  color: brown; 
+.num-5 {
+  color: brown;
 }
 
-.num6 { 
-  color: lightblue; 
+.num-6 {
+  color: lightblue;
 }
 
-.num7 { 
-  color: purple; 
+.num-7 {
+  color: purple;
 }
 
-.num8 { 
-  color: pink; 
+.num-8 {
+  color: pink;
+}
+
+.flag-icon,
+.cross-icon {
+  color: #c01c28;
+}
+
+.bomb-icon {
+  color: black;
 }

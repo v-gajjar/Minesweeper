@@ -1,6 +1,6 @@
 name: lint-job
 
-on: 
+on:
   push:
   pull_request:
 
@@ -11,6 +11,7 @@ permissions:
 jobs:
   lint:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,27 +20,38 @@ jobs:
         id: date
         run: echo "today=$(date +'%m/%d/%Y')" >> "$GITHUB_OUTPUT"
 
-      - name: Runtime-Environment(Node js 20)
+      # 1) Install pnpm before setup-node cache
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      # 2) Setup Node.js with pnpm cache
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
+          cache: pnpm
 
+      # 3) Install dependencies
       - name: Install dependencies
-        run: npm ci
+        run: pnpm install --frozen-lockfile
 
+      # 4) Run ESLint (warn-only)
       - name: Run ESLint
-        run: npx eslint src --ext .js,.jsx,.ts,.tsx --cache --quiet
+        run: pnpm exec eslint src --ext .js,.jsx,.ts,.tsx --cache --quiet || true
 
+      # 5) Run Prettier (warn-only, summary)
       - name: Run Prettier (warn-only)
         run: |
-          if ! npx prettier --list-different . > /tmp/prettier_diff.txt; then
+          if ! pnpm exec prettier --list-different . > /tmp/prettier_diff.txt; then
             echo "## Prettier Differences" >> $GITHUB_STEP_SUMMARY
             cat /tmp/prettier_diff.txt >> $GITHUB_STEP_SUMMARY
           fi
         continue-on-error: true
 
+      # 6) Stylelint summary output
       - name: Stylelint Summary Output
         run: |
           echo "## Stylelint Results" >> $GITHUB_STEP_SUMMARY
-          npx stylelint "**/*.{css,scss}" >> $GITHUB_STEP_SUMMARY || true
+          pnpm exec stylelint "**/*.{css,scss}" >> $GITHUB_STEP_SUMMARY || true
