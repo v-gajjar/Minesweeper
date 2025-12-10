@@ -28,3 +28,44 @@
 .cell.mine.exploded {
   background: orange;
 }
+
+.num-1 {
+  color: blue;
+}
+
+.num-2 {
+  color: green;
+}
+
+.num-3 {
+  color: red;
+}
+
+.num-4 {
+  color: darkblue;
+}
+
+.num-5 {
+  color: brown;
+}
+
+.num-6 {
+  color: lightblue;
+}
+
+.num-7 {
+  color: purple;
+}
+
+.num-8 {
+  color: pink;
+}
+
+.flag-icon,
+.cross-icon {
+  color: #c01c28;
+}
+
+.bomb-icon {
+  color: black;
+}

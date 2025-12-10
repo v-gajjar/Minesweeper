@@ -10,14 +10,14 @@
   - Made suggestions that improved code cleanliness and separation of concerns.
 
 - **Brenda Hensley** [LinkedIn](https://www.linkedin.com/in/brenda-hensley-/)
-  - Helped fix issues in the ESLint configation file
+  - Helped fix issues in the ESLint configuration file
   - Added automation scripts for ESLint and Prettier checks
 
 - **Daniela Grothe** [LinkedIn](https://www.linkedin.com/in/daniela-grothe-743ab8235/)
-  - Identifed an issue with longpress not working on Safari and helped with finding solut
+  - Identified an issue with longpress not working on Safari and helped with finding solut
 
 - **Engombe Lokanga** [LinkedIn](https://www.linkedin.com/in/engombelokanga/)
-  - Help with refactoring the compoment organisation and naming
+  - Help with refactoring the component organisation and naming
 
 - **Gavin Hensley** [LinkedIn](https://www.linkedin.com/in/g-hensley/)
   - Help with implementing accessibility
@@ -28,14 +28,14 @@
   - Identified inconsistent CSS naming conventions across modules and suggested standardising all rule names to use kebab-case for consistency and readability
 
 - **Heliomar Pena** [LinkedIn](https://www.linkedin.com/in/heliomar/)
-  - Offered various suggestions to write cleaner code. 
-  - Suggested exploring the Phosphor Icons library. 
+  - Offered various suggestions to write cleaner code
+  - Suggested exploring the Phosphor Icons library
   - Provided feedback on issues and helped with testing and approving PRs
   - Identified and fixed a rendering performance issue
   - Helping with TypeScript conversion
 
 - **James Baskett** [LinkedIn](https://www.linkedin.com/in/james-blaskett/)
-  - Provided suggestions that helped improve performance and architecture.
+  - Provided suggestions that helped improve performance and architecture
   - Significantly helped with improving the position, styling an animation of the GameResultModal
 
 - **Nick Clark** [GitHub](https://github.com/NickTheDevOpsGuy)
@@ -44,6 +44,11 @@
   - Helping with TypeScript conversion
   - Help with improvements to the README
   - Help with reviewing, testing and approving PRs
+
+- **Rishik Chakravarty** [GitHub](https://github.com/rishikrc3) [LinkedIn](https://www.linkedin.com/in/rishik-chakravarty/)
+  - Helping with DevOps tasks
+  - Breaking the GitHub Actions into their own workflow files
+  - Helping improve and clean up Docker configuration
 
 - **Tawheed Ahmed** [LinkedIn](https://www.linkedin.com/in/tawheed-ahmed-dev/)
   - Helping with building UI features

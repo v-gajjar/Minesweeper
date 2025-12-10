@@ -1,3 +1,5 @@
+// src/types.ts
+
 export type CellData = {
   hasMine: boolean;
   hasExplodedMine?: boolean;
@@ -24,6 +26,7 @@ export type DifficultyConfig = {
   label: string;
 };
 
+// Coordinate: x = row index, y = column index
 export type Coordinate = {
   x: number;
   y: number;
