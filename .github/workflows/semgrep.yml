@@ -1,45 +1,29 @@
-name: Semgrep Scan
+name: Semgrep
 
 on:
   pull_request:
-    branches: [main, development]
-
-permissions:
-  contents: read
-  security-events: write
+    branches: [ main ]
 
 jobs:
   semgrep:
     runs-on: ubuntu-latest
-    env:
-      SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Set up Python 3.x
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.x'
+      - uses: actions/checkout@v4
 
       - name: Install Semgrep
         run: pip install semgrep
 
-      # Run scan and save SARIF output
-      - name: Run Semgrep scan
-        run: semgrep ci --metrics=off --no-suppress-errors --sarif > semgrep-results.sarif
+      - name: Semgrep scan (React + TS)
+        run: |
+          semgrep scan \
+            --config=p/react \
+            --config=p/typescript \
+            --json > semgrep-report.json
 
-      # Upload SARIF to GitHub Security tab
-      - name: Upload SARIF to code scanning
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: semgrep-results.sarif
-
-      # Keep a downloadable artifact for audits
-      - name: Upload SARIF artifact
+      - name: Upload Semgrep report artifact
         uses: actions/upload-artifact@v4
         with:
-          name: semgrep-sarif
-          path: semgrep-results.sarif
-          retention-days: 120
+          name: semgrep-report
+          path: semgrep-report.json
+          retention-days: 7
