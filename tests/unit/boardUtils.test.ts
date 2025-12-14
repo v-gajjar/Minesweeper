@@ -4,7 +4,7 @@ import {
   updateBoard,
   isOffBoard,
   getGameLostBoard,
-} from '@/utils//boardUtils';
+} from '@/utils/boardUtils';
 import type { BoardData, BoardSize, CellData } from '@/types';
 
 describe('boardUtils', () => {
