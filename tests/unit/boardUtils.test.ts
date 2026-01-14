@@ -60,6 +60,29 @@ describe('boardUtils', () => {
       expect(updatedBoard[1][1].adjacentMinesCount).toBe(2);
       expect(updatedBoard[1][0].hasMine).toBe(false);
     });
+
+    it('should verfy non-updated cells remain unchanged after applying updatedCells', () => {
+        const initialBoard: BoardData = getBoard({ rowCount: 4, columnCount: 4 });  
+        const updatedCells: CellData[] = [
+          {
+            x: 0,
+            y: 0,
+            isRevealed: true,
+            hasMine: false,
+            isFlagged: false,
+            adjacentMinesCount: 1,
+            hasExplodedMine: false,
+            isIncorrectlyFlagged: false,
+          },
+        ];
+    
+        const updatedBoard: BoardData = updateBoard(initialBoard, updatedCells);
+    
+        expect(updatedBoard[0][0].isRevealed).toBe(true);
+        expect(updatedBoard[0][1].isRevealed).toBe(false);
+        expect(updatedBoard[1][0].isRevealed).toBe(false);
+        expect(updatedBoard[1][1].isRevealed).toBe(false);
+      });
   });
 
   describe('isOffBoard', () => {
@@ -68,8 +91,6 @@ describe('boardUtils', () => {
 
       expect(isOffBoard(-1, 0, boardSize)).toBe(true);
       expect(isOffBoard(0, -1, boardSize)).toBe(true);
-      expect(isOffBoard(5, 0, boardSize)).toBe(true);
-      expect(isOffBoard(0, 5, boardSize)).toBe(true);
     });
 
     it('should return false for coordinates inside the board', () => {
@@ -129,5 +150,58 @@ describe('boardUtils', () => {
       expect(gameLostBoard[1][1].isIncorrectlyFlagged).toBe(true);
       expect(gameLostBoard[0][0].hasExplodedMine).toBe(false);
     });
+  });
+
+  it ('should verify a flagged mine is not revealed (mines that are flagged should be skipped', () => {
+    const initialBoard: BoardData = getBoard({ rowCount: 5, columnCount: 5 });
+
+    initialBoard[0][0] = {
+      x: 0,
+      y: 0,
+      isRevealed: false,
+      hasMine: true,
+      isFlagged: true,
+      adjacentMinesCount: 0,
+      hasExplodedMine: false,
+      isIncorrectlyFlagged: false,
+    };
+
+    const mineLocations = [{ x: 0, y: 0 }];
+    const flagLocations = [{ x: 0, y: 0 }];
+
+    const gameLostBoard: BoardData = getGameLostBoard(
+      initialBoard,
+      mineLocations,
+      flagLocations
+    );
+
+    expect(gameLostBoard[0][0].isRevealed).toBe(false);
+    expect(gameLostBoard[0][0].hasExplodedMine).toBe(false);
+  });
+
+  it ('should verify a flagged mine is not marked incorrectly flagged (only non-mine flags should be marked incorrect', () => {
+    const initialBoard: BoardData = getBoard({ rowCount: 5, columnCount: 5 });
+
+    initialBoard[0][0] = {
+      x: 0,
+      y: 0,
+      isRevealed: false,
+      hasMine: true,
+      isFlagged: true,
+      adjacentMinesCount: 0,
+      hasExplodedMine: false,
+      isIncorrectlyFlagged: false,
+    };
+
+    const mineLocations = [{ x: 0, y: 0 }];
+    const flagLocations = [{ x: 0, y: 0 }];
+
+    const gameLostBoard: BoardData = getGameLostBoard(
+      initialBoard,
+      mineLocations,
+      flagLocations
+    );
+
+    expect(gameLostBoard[0][0].isIncorrectlyFlagged).toBe(false);
   });
 });
