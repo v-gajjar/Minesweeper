@@ -61,7 +61,7 @@ describe('boardUtils', () => {
       expect(updatedBoard[1][0].hasMine).toBe(false);
     });
 
-    it('should verfy non-updated cells remain unchanged after applying updatedCells', () => {
+    it('should verify non-updated cells remain unchanged after applying updatedCells', () => {
         const initialBoard: BoardData = getBoard({ rowCount: 4, columnCount: 4 });  
         const updatedCells: CellData[] = [
           {
