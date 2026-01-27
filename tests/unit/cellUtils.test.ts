@@ -7,11 +7,17 @@ import {
 } from '../../src/utils/cellUtils';
 import type { CellData } from '../../src/types';
 
-// Helper to generate mock CellData objects for tests
+/**
+ * Factory helper for building valid CellData objects.
+ * Defaults to a safe, unrevealed, unflagged non-mine cell.
+ * Individual properties can be overridden per test.
+ */
 const makeCell = (
   x: number,
   y: number,
-  overrides: Partial<Omit<CellData, 'adjacentMinesCount'>> & { adjacentMinesCount?: number } = {}
+  overrides: Partial<Omit<CellData, 'adjacentMinesCount'>> & {
+    adjacentMinesCount?: number;
+  } = {}
 ): CellData => ({
   x,
   y,
@@ -24,14 +30,14 @@ const makeCell = (
 
 describe('cellUtils', () => {
   describe('coordinatesMatch', () => {
-    it('returns true when both coordinates match exactly', () => {
+    it('returns true when two coordinate objects refer to the same board position', () => {
       const a = { x: 1, y: 2 };
       const b = { x: 1, y: 2 };
 
       expect(coordinatesMatch(a, b)).toBe(true);
     });
 
-    it('returns false when any coordinate differs', () => {
+    it('returns false when either x or y differs', () => {
       const a = { x: 1, y: 2 };
       const b = { x: 3, y: 2 };
 
@@ -40,42 +46,43 @@ describe('cellUtils', () => {
   });
 
   describe('getFilteredFlagLocations', () => {
-    it('removes flags that match provided cell coordinates', () => {
+    it('removes flags that overlap with existing cell coordinates', () => {
       const flags = [
         { x: 0, y: 0 },
-        { x: 1, y: 1 }, // this one matches a cell and should be removed
+        { x: 1, y: 1 }, // overlaps with a cell and should be removed
         { x: 2, y: 2 },
       ];
 
-      const cells = [{ x: 1, y: 1 }];
+      const cells: CellData[] = [makeCell(1, 1)];
       const result = getFilteredFlagLocations(flags, cells);
 
+      // Only flags that do NOT overlap with cells should remain
       expect(result).toEqual([
         { x: 0, y: 0 },
         { x: 2, y: 2 },
       ]);
     });
 
-    it('returns original flags when no flags match any cells', () => {
+    it('returns all flags when none overlap with any cell coordinates', () => {
       const flags = [
         { x: 0, y: 0 },
         { x: 1, y: 1 },
         { x: 2, y: 2 },
       ];
 
-      const cells = [{ x: 99, y: 99 }]; // no match anywhere
+      const cells: CellData[] = [makeCell(99, 99)];
       const result = getFilteredFlagLocations(flags, cells);
 
       expect(result).toEqual(flags);
     });
 
-    it('returns original flags when the cells list is empty', () => {
+    it('returns all flags when no cells are provided', () => {
       const flags = [
         { x: 0, y: 0 },
         { x: 1, y: 1 },
       ];
 
-      const cells: [] = [];
+      const cells: CellData[] = [];
       const result = getFilteredFlagLocations(flags, cells);
 
       expect(result).toEqual(flags);
@@ -83,34 +90,40 @@ describe('cellUtils', () => {
   });
 
   describe('getIncorrectlyFlaggedCells', () => {
-    it('marks flagged non-mine cells as incorrectly flagged', () => {
+    it('returns flagged cells that do NOT contain mines', () => {
       const board = [
         [makeCell(0, 0, { hasMine: false }), makeCell(0, 1, { hasMine: true })],
-        [makeCell(1, 0, { hasMine: false }), makeCell(1, 1, { hasMine: false })],
+        [
+          makeCell(1, 0, { hasMine: false }),
+          makeCell(1, 1, { hasMine: false }),
+        ],
       ];
 
-      const flags = [{ x: 0, y: 0 }]; // flag placed on a non-mine cell
+      // Flag is placed on a non-mine cell, which is incorrect
+      const flags = [{ x: 0, y: 0 }];
       const result = getIncorrectlyFlaggedCells(board, flags);
 
       expect(result).toHaveLength(1);
-      expect(result[0].x).toBe(0);
-      expect(result[0].y).toBe(0);
-      expect(result[0].hasMine).toBe(false);
-      expect(result[0].isIncorrectlyFlagged).toBe(true);
+      expect(result[0]).toMatchObject({
+        x: 0,
+        y: 0,
+        hasMine: false,
+        isIncorrectlyFlagged: true,
+      });
     });
 
-    it('ignores flags that correctly mark mines', () => {
+    it('does not include flags that correctly mark mines', () => {
       const board = [[makeCell(0, 0, { hasMine: true })]];
 
-      const flags = [{ x: 0, y: 0 }]; // flag placed ON a mine
+      const flags = [{ x: 0, y: 0 }];
       const result = getIncorrectlyFlaggedCells(board, flags);
 
       expect(result).toHaveLength(0);
     });
 
-    it('returns empty list when there are no flagged locations', () => {
+    it('returns an empty array when no flags are present', () => {
       const board = [[makeCell(0, 0, { hasMine: false })]];
-      const flags: [] = [];
+      const flags: { x: number; y: number }[] = [];
 
       const result = getIncorrectlyFlaggedCells(board, flags);
 
@@ -119,32 +132,34 @@ describe('cellUtils', () => {
   });
 
   describe('getRevealedMineCells', () => {
-    it('reveals all unflagged mine cells', () => {
+    it('reveals all unflagged mine cells when the game ends', () => {
       const board = [
         [
           makeCell(0, 0, { hasMine: true }), // unflagged mine
           makeCell(0, 1, { hasMine: false }),
         ],
         [
-          makeCell(1, 0, { hasMine: true, isFlagged: true }), // flagged mine
+          makeCell(1, 0, { hasMine: true, isFlagged: true }), // correctly flagged mine
           makeCell(1, 1, { hasMine: false }),
         ],
       ];
 
       const mineLocations = [
-        { x: 0, y: 0 }, // this one should be revealed
-        { x: 1, y: 0 }, // flagged mine, should be skipped
+        { x: 0, y: 0 }, // should be revealed
+        { x: 1, y: 0 }, // should be skipped (flagged)
       ];
 
       const result = getRevealedMineCells(board, mineLocations);
 
       expect(result).toHaveLength(1);
-      expect(result[0].x).toBe(0);
-      expect(result[0].y).toBe(0);
-      expect(result[0].isRevealed).toBe(true);
+      expect(result[0]).toMatchObject({
+        x: 0,
+        y: 0,
+        isRevealed: true,
+      });
     });
 
-    it('skips mines that are flagged', () => {
+    it('does not reveal mines that are already flagged', () => {
       const board = [[makeCell(0, 0, { hasMine: true, isFlagged: true })]];
 
       const mineLocations = [{ x: 0, y: 0 }];
@@ -153,9 +168,9 @@ describe('cellUtils', () => {
       expect(result).toHaveLength(0);
     });
 
-    it('returns empty list when no mine locations are provided', () => {
+    it('returns an empty array when there are no mine locations', () => {
       const board = [[makeCell(0, 0, { hasMine: false })]];
-      const mineLocations: [] = [];
+      const mineLocations: { x: number; y: number }[] = [];
 
       const result = getRevealedMineCells(board, mineLocations);
 
