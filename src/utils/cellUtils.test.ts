@@ -4,8 +4,8 @@ import {
   getIncorrectlyFlaggedCells,
   getRevealedMineCells,
   coordinatesMatch,
-} from '../../src/utils/cellUtils';
-import type { CellData } from '../../src/types';
+} from './cellUtils';
+import type { CellData } from '../types';
 
 /**
  * Factory helper for building valid CellData objects.
