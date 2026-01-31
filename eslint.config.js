@@ -57,10 +57,13 @@ export default [
   },
 
   // --------------------------------------------------
-  // Tests (Vitest / WIP-friendly)
+  // Tests (Vitest globals, WIP-friendly)
   // --------------------------------------------------
   {
-    files: ["tests/**/*.{js,jsx,ts,tsx}", "**/*.test.{js,jsx,ts,tsx}"],
+    files: [
+      "**/*.{test,spec}.{js,jsx,ts,tsx}",
+      "tests/**/*.{js,jsx,ts,tsx}",
+    ],
     languageOptions: {
       parser: tseslint.parser,
       ecmaVersion: "latest",
@@ -79,7 +82,7 @@ export default [
       // Let placeholders exist while tests are under construction
       "@typescript-eslint/no-unused-vars": "warn",
 
-      // Keep parity with app rules, but avoid noise in tests
+      // Avoid noise for common test patterns
       "@typescript-eslint/no-unused-expressions": [
         "error",
         { allowShortCircuit: true, allowTernary: true },

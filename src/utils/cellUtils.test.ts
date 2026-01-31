@@ -4,8 +4,8 @@ import {
   getIncorrectlyFlaggedCells,
   getRevealedMineCells,
   coordinatesMatch,
-} from './cellUtils';
-import type { CellData } from '../types';
+} from '@/utils/cellUtils';
+import type { CellData } from '@/types';
 
 /**
  * Factory helper for building valid CellData objects.
@@ -37,9 +37,16 @@ describe('cellUtils', () => {
       expect(coordinatesMatch(a, b)).toBe(true);
     });
 
-    it('returns false when either x or y differs', () => {
+    it('returns false when x differs but y matches', () => {
       const a = { x: 1, y: 2 };
-      const b = { x: 3, y: 2 };
+      const b = { x: 2, y: 2 };
+
+      expect(coordinatesMatch(a, b)).toBe(false);
+    });
+
+    it('returns false when y differs but x matches', () => {
+      const a = { x: 1, y: 2 };
+      const b = { x: 1, y: 3 };
 
       expect(coordinatesMatch(a, b)).toBe(false);
     });
@@ -56,7 +63,7 @@ describe('cellUtils', () => {
       const cells: CellData[] = [makeCell(1, 1)];
       const result = getFilteredFlagLocations(flags, cells);
 
-      // Only flags that do NOT overlap with cells should remain
+      // Only flags that do not overlap with cells should remain
       expect(result).toEqual([
         { x: 0, y: 0 },
         { x: 2, y: 2 },
@@ -87,10 +94,19 @@ describe('cellUtils', () => {
 
       expect(result).toEqual(flags);
     });
+
+    it('returns an empty array when there are no flags', () => {
+      const flags: { x: number; y: number }[] = [];
+      const cells: CellData[] = [makeCell(1, 1)];
+
+      const result = getFilteredFlagLocations(flags, cells);
+
+      expect(result).toEqual([]);
+    });
   });
 
   describe('getIncorrectlyFlaggedCells', () => {
-    it('returns flagged cells that do NOT contain mines', () => {
+    it('returns flagged cells that do not contain mines', () => {
       const board = [
         [makeCell(0, 0, { hasMine: false }), makeCell(0, 1, { hasMine: true })],
         [
@@ -139,14 +155,14 @@ describe('cellUtils', () => {
           makeCell(0, 1, { hasMine: false }),
         ],
         [
-          makeCell(1, 0, { hasMine: true, isFlagged: true }), // correctly flagged mine
+          makeCell(1, 0, { hasMine: true, isFlagged: true }), // flagged mine
           makeCell(1, 1, { hasMine: false }),
         ],
       ];
 
       const mineLocations = [
         { x: 0, y: 0 }, // should be revealed
-        { x: 1, y: 0 }, // should be skipped (flagged)
+        { x: 1, y: 0 }, // should be skipped because it is flagged
       ];
 
       const result = getRevealedMineCells(board, mineLocations);
