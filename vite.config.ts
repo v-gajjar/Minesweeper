@@ -34,5 +34,6 @@ export default defineConfig({
       'src/**/*.{test,spec}.{js,jsx,ts,tsx}',
       'tests/**/*.{test,spec}.{js,jsx,ts,tsx}',
     ],
+    setupFiles: ['./tests/setupTests.ts'],
   },
 });
