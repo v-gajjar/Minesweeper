@@ -1,4 +1,3 @@
-// eslint.config.js
 import js from "@eslint/js";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
@@ -8,14 +7,18 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default [
+  // Ignore build output
   { ignores: ["dist", "coverage"] },
 
+  // Base configs
   js.configs.recommended,
   ...tseslint.configs.recommended,
   reactHooks.configs["recommended-latest"],
   reactRefresh.configs.vite,
 
-  // App code (browser)
+  // --------------------------------------------------
+  // App code (browser / React)
+  // --------------------------------------------------
   {
     files: ["src/**/*.{js,jsx,ts,tsx}"],
     languageOptions: {
@@ -42,18 +45,25 @@ export default [
       "react/react-in-jsx-scope": "off",
       "react/prop-types": "off",
 
-      // This repo has short-circuit patterns. Allow them to avoid false flags.
+      // This repo uses short-circuit patterns intentionally
       "@typescript-eslint/no-unused-expressions": [
         "error",
         { allowShortCircuit: true, allowTernary: true },
       ],
     },
-    settings: { react: { version: "detect" } },
+    settings: {
+      react: { version: "detect" },
+    },
   },
 
-  // Tests (Vitest globals)
+  // --------------------------------------------------
+  // Tests (Vitest globals, WIP-friendly)
+  // --------------------------------------------------
   {
-    files: ["tests/**/*.{js,jsx,ts,tsx}", "**/*.test.{js,jsx,ts,tsx}"],
+    files: [
+      "**/*.{test,spec}.{js,jsx,ts,tsx}",
+      "tests/**/*.{js,jsx,ts,tsx}",
+    ],
     languageOptions: {
       parser: tseslint.parser,
       ecmaVersion: "latest",
@@ -62,10 +72,27 @@ export default [
       globals: { ...globals.browser, ...globals.vitest },
     },
     plugins: { prettier },
-    rules: { "prettier/prettier": "warn" },
+    rules: {
+      "prettier/prettier": "warn",
+
+      // Allow blank / WIP tests
+      "@typescript-eslint/no-empty-function": "off",
+      "no-empty": "off",
+
+      // Let placeholders exist while tests are under construction
+      "@typescript-eslint/no-unused-vars": "warn",
+
+      // Avoid noise for common test patterns
+      "@typescript-eslint/no-unused-expressions": [
+        "error",
+        { allowShortCircuit: true, allowTernary: true },
+      ],
+    },
   },
 
-  // Config/tooling (Node env)
+  // --------------------------------------------------
+  // Config & tooling (Node environment)
+  // --------------------------------------------------
   {
     files: [
       "*.config.{js,cjs,mjs,ts}",
