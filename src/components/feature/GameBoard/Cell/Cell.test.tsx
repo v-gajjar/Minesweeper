@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Cell from './Cell';
 
-describe('cells', () => {
+describe('Cell', () => {
   const defaultCell = {
     x: 0,
     y: 0,
