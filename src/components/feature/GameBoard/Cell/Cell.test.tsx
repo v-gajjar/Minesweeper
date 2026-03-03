@@ -15,7 +15,7 @@ describe('cells', () => {
     adjacentMinesCount: 0,
   };
 
-  it ('should render an incorrectly flagged cell', () => {
+  it('should render an incorrectly flagged cell', () => {
     render(<Cell 
       cell={{ ...defaultCell, isFlagged: true, isIncorrectlyFlagged: true }} 
       onClick={() => {}}
