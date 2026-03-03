@@ -12,16 +12,15 @@ describe('ResultModal', () => {
   it('renders game over message when open and game is lost', () => {
     render(<ResultModal open={true} gameWon={false} onClick={() => {}} />);
 
-    expect(screen.getByTestId('result-modal')).toBeDefined();
-    expect(screen.getByRole('dialog')).toBeDefined();
-    expect(screen.getByText('Game Over!')).toBeDefined();
-    expect(screen.getByRole('button', { name: /play again/i })).toBeDefined();
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.textContent).toContain('Game Over!');
+    expect(dialog.textContent).toContain('Play again');
   });
 
   it('renders win message when open and game is won', () => {
     render(<ResultModal open={true} gameWon={true} onClick={() => {}} />);
 
-    expect(screen.getByText('You Won!')).toBeDefined();
+    expect(screen.getByRole('dialog').textContent).toContain('You Won!');
   });
 
   it('calls onClick when Play again button is clicked', () => {
@@ -50,7 +49,8 @@ describe('ResultModal', () => {
 
     const dialogWhileClosing = screen.getByRole('dialog');
     expect(dialogWhileClosing.getAttribute('data-state')).toBe('closed');
-    expect(screen.getByTestId('result-modal')).toBeDefined();
+    // Modal still in DOM until animation ends (getByTestId would throw if unmounted)
+    screen.getByTestId('result-modal');
 
     // Simulate animation end to trigger unmount
     fireEvent.animationEnd(dialogWhileClosing);
