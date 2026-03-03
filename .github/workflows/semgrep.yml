@@ -1,9 +1,12 @@
 name: Semgrep
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     branches: [ develop ]
-
+    
 jobs:
   semgrep:
     runs-on: ubuntu-latest
