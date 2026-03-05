@@ -2,9 +2,9 @@
   "extends": "stylelint-config-standard",
   "rules": {
     "selector-class-pattern": [
-      "^(?:header|wrapper|board|cell|revealed|mine|exploded|num[0-9]+|header-game-title|board-container|remaining-flags-counter-wrapper|game-difficulty-select-wrapper|[a-z0-9]+(?:-[a-z0-9]+)+)$",
+      "^(?:header|wrapper|board|cell|revealed|mine|exploded|[a-z0-9]+(?:-[a-z0-9]+)+)$",
       {
-        "message": "Class names must be in kebab-case (lowercase letters/numbers with at least one hyphen), except a small allow-list of legacy names like .header, .wrapper, .board, .cell, .revealed, .mine, .exploded, and .num1–.num8.",
+        "message": "Class names must be in kebab-case (lowercase letters/numbers with at least one hyphen), except a small allow-list of legacy names like .header, .wrapper, .board, .cell, .revealed, .mine, and .exploded.",
         "severity": "error"
       }
     ],
