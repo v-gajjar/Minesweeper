@@ -1,45 +1,60 @@
-import { useEffect, useState } from 'react';
-
+import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import type { ResultModalProps } from '@/components/feature/ResultModal/ResultModal.interface';
+import styles from '@components/feature/ResultModal/ResultModal.module.css';
 
-function ResultModal({ gameWon, onClick }: ResultModalProps) {
-  const [modalStateClass, setModalStateClass] = useState('modalEntrance');
+function ResultModal({ open = false, gameWon, onClick }: ResultModalProps) {
+  const [shouldRender, setShouldRender] = useState(open);
+
   const message = gameWon ? 'You Won!' : 'Game Over!';
-  const gameResultClass = gameWon ? 'gameWonModal' : 'gameLostModal';
+  const gameResultClass = gameWon ? styles.gameWonModal : styles.gameLostModal;
 
-  // Combine animation + result style into one class
-  const modalClass = classNames(modalStateClass, gameResultClass);
+  useEffect(() => {
+    if (open) {
+      setShouldRender(true);
+    }
+  }, [open]);
 
-  // Start entrance-to-visible transition after mount
-  useEffect(() => setModalStateClass('modalVisible'), []);
+  // When exit animation ends, unmount the modal
+  const handleAnimationEnd = () => {
+    if (!open) {
+      setShouldRender(false);
+    }
+  };
 
-  function closeModal() {
-    setModalStateClass('modalExit');
-    setTimeout(onClick, 300); // Wait for the transition to finish before calling onClick (Make sure 500ms matches your CSS transition duration)
-  }
-  //useEffect and useState are used to manage the the CSS class state for the modal dialog (initially modalEntrance)
-  //The starting class is initially "modalEntrance" and changes to "modalVisible" after the component mounts.
-  //When the closeModal function is called, it sets the class is changed to to "modalExit" and calls the onClick function passed as a prop.
-  //This allows for a smooth transition effect when the modal is closed.
+  const modalClass = classNames(styles.resultModal, gameResultClass);
+
+  if (!shouldRender) return null;
+
+  /*
+      IMPORTANT NOTE: 
+      The data-state attribute is used to trigger CSS animations for modal enter and exit - please do not remove it
+  */
 
   return (
-    <dialog
-      id='gameResultModal'
-      className={modalClass}
-      data-testid='result-modal'
-      aria-labelledby='game-result-message'
-      aria-describedby='game-result-description'
-    >
-      <p id='game-result-message'>{message}</p>
-      <button
-        aria-label='Play again'
-        id='gameResultModalCloseButton'
-        onClick={closeModal}
+    <div className={styles.modalOverlay} data-testid={`result-modal`}>
+      <div
+        id='gameResultModal'
+        data-state={open ? 'open' : 'closed'}
+        className={modalClass}
+        role='dialog'
+        aria-labelledby='game-result-message'
+        aria-describedby='game-result-description'
+        onAnimationEnd={handleAnimationEnd}
       >
-        Play again
-      </button>
-    </dialog>
+        <p id='game-result-message' className={styles.resultModalMessage}>
+          {message}
+        </p>
+        <button
+          aria-label='Play again'
+          id='gameResultModalCloseButton'
+          onClick={onClick}
+          className={styles.resultModalButton}
+        >
+          Play again
+        </button>
+      </div>
+    </div>
   );
 }
 

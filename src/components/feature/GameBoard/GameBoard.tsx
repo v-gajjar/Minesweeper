@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
 import Cell from '@/components/feature/GameBoard/Cell/Cell';
+import styles from '@/components/feature/GameBoard/GameBoard.module.css';
 import type { GameBoardProps } from '@feature/GameBoard/GameBoard.interfaces';
 
 function GameBoard({
@@ -17,8 +18,7 @@ function GameBoard({
   return (
     <div
       style={style}
-      className='board'
-      id='board'
+      className={styles.board}
       data-testid='game-board'
       role='grid'
       aria-label={`Minesweeper grid ${boardSize.rowCount} by ${boardSize.columnCount}`}

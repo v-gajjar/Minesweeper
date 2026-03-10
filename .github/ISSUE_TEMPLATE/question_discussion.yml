@@ -1,0 +1,50 @@
+name: Question or Discussion
+description: Ask a question or start a focused discussion.
+labels: [question]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Topic
+        Describe what you’d like to know or discuss.
+
+  - type: textarea
+    id: topic
+    attributes:
+      label: Topic or Question
+      placeholder: What would you like to know or clarify?
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Context
+        Provide any background information, examples, or links.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      placeholder: Background, examples, related references.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Screenshots or Logs
+        Optional visuals or supporting evidence.
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots or Logs
+      placeholder: Upload or paste relevant images or logs.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues and discussions
+          required: true

@@ -1,5 +1,5 @@
 * {
-  font-family: 'Inter', sans-serif;
+  font-family: Inter, sans-serif;
   font-optical-sizing: auto;
 }
 
@@ -14,79 +14,15 @@ body {
   height: 100%;
 }
 
-.game-title {
+.header-game-title {
   margin: auto;
-}
-
-h1 {
   margin-bottom: 10px;
 }
 
-header {
+.header {
   display: flex;
   justify-content: center;
   padding: 10px;
-}
-
-dialog button {
-  border-radius: 5px;
-  border: none;
-  background: rgb(211, 211, 211);
-  padding: 5px;
-  margin: 0;
-  box-shadow: 0 0 2px grey;
-  outline-color: lightgrey;
-}
-dialog button:hover {
-  background: rgb(190, 190, 190);
-  box-shadow: 0 0 4px rgb(100, 100, 100);
-  cursor: pointer;
-}
-
-dialog {
-  border-radius: 5px;
-  transition: transform 0.3s ease-in-out;
-  display: grid;
-  justify-items: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  padding: 20px;
-  border: 1px solid lightgray;
-  background: white;
-  width: 250px;
-  gap: 12px;
-  position: fixed;
-  top: 0;
-  margin-top: 0;
-  height: 92px;
-  max-height: 92px;
-}
-
-dialog p {
-  font-size: 36px;
-  font-weight: 700;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin: 0 0 10px;
-}
-
-.modalEntrance {
-  transform: translateY(-100vh); /* slide down as appears */
-}
-.modalVisible {
-  transform: translateY(0);
-}
-.modalExit {
-  transform: translateY(-100vh); /* slide up as dissapears */
-}
-
-.gameWonModal {
-  color: #1a7f37;
-}
-.gameLostModal {
-  color: #c01c28;
 }
 
 .wrapper {
@@ -96,12 +32,7 @@ dialog p {
   flex-grow: 1;
 }
 
-.game-difficulty-select-wrapper {
-  padding: 10px;
-  margin: 0 auto;
-}
-
-#boardContainer {
+.board-container {
   display: flex;
   overflow-y: hidden;
   justify-content: flex-start;
@@ -109,62 +40,10 @@ dialog p {
   padding: 2px 0;
 }
 
-#board {
-  display: grid;
-  grid-template-columns: repeat(var(--columns), 39px);
-  grid-template-rows: repeat(var(--rows), 39px);
-  gap: 0;
-  width: fit-content;
+.remaining-flags-counter-wrapper {
   margin: auto;
 }
 
-#remainingFlagsCounter {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  padding: 15px 10px 0px 10px;
-  max-width: fit-content;
+.game-difficulty-select-wrapper {
   margin: auto;
-}
-
-#remainingFlagsLabel {
-  display: flex;
-  margin-left: 5px;
-}
-
-#remainingFlagsCount {
-  display: flex;
-  width: 23px;
-  margin-left: 5px;
-}
-
-.cell {
-  height: 39px;
-  width: 39px;
-  background: lightgray;
-  border: 1px solid whitesmoke;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-.cell:focus {
-  outline: 2px solid #0066cc;
-  z-index: 1;
-}
-
-.cell:hover {
-  cursor: pointer;
-  background: gray;
-}
-.cell.revealed {
-  background: #e8e8e8;
-}
-
-.cell.mine.exploded {
-  background: orange;
 }

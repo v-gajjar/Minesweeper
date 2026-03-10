@@ -1,0 +1,19 @@
+.remaining-flags-counter {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 15px 10px 0;
+  max-width: fit-content;
+}
+
+.remaining-flags-label {
+  display: flex;
+  margin-left: 5px;
+}
+
+.remaining-flags-count {
+  display: flex;
+  width: 23px;
+  margin-left: 5px;
+}

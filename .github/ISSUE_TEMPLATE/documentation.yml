@@ -1,0 +1,64 @@
+name: Documentation
+description: Request documentation updates or additions.
+labels: [documentation]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Description
+        Indicate which documentation needs work.
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      placeholder: Link or path and what needs to be updated or added.
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Proposed Change
+        Describe the updates or additions you suggest.
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed Change
+      placeholder: The section or wording you would add or change.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Screenshots
+        Optional images for context.
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      placeholder: Upload or drag images here.
+
+  - type: markdown
+    attributes:
+      value: |
+        ## Additional Context
+        Any related issues, PRs, or external references.
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      placeholder: Related issues, PRs, or external links.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues or PRs for related docs work
+          required: true
+        - label: This issue includes enough detail to act on
+          required: true

@@ -1,0 +1,93 @@
+@keyframes slide-in {
+  from {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+.result-modal-button {
+  border-radius: 5px;
+  border: none;
+  background: rgb(211 211 211);
+  padding: 5px;
+  margin: 0;
+  box-shadow: 0 0 2px rgb(128 128 128);
+  outline-color: rgb(211 211 211);
+}
+
+.result-modal-button:hover {
+  background: rgb(190 190 190);
+  box-shadow: 0 0 4px rgb(100 100 100);
+  cursor: pointer;
+}
+
+.result-modal {
+  border-radius: 5px;
+  display: grid;
+  justify-items: center;
+  box-shadow: 0 2px 10px rgb(0 0 0 / 20%);
+  padding: 20px;
+  border: 1px solid rgb(211 211 211);
+  background: rgb(255 255 255);
+  width: 250px;
+  gap: 12px;
+  position: fixed;
+  top: 0;
+  margin-top: 0;
+  height: 92px;
+  max-height: 92px;
+}
+
+.result-modal-message {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 10px;
+}
+
+.result-modal[data-state='open'] {
+  animation: slide-in 0.3s forwards ease-out;
+}
+
+.result-modal[data-state='closed'] {
+  animation: slide-out 0.3s forwards ease-in;
+}
+
+.game-won-modal {
+  color: #1a7f37;
+}
+
+.game-lost-modal {
+  color: #c01c28;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgb(0 0 0 / 10%); /* matches default dialog::backdrop */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}

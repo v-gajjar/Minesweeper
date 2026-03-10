@@ -1,23 +1,39 @@
 import { defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react';
-import path from 'path';
+import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
   plugins: [react()],
   base: '/Minesweeper/',
+  css: {
+    modules: {
+      localsConvention: 'camelCase',
+      generateScopedName: (name: string) => name, // keeps the literal name, no hash
+    },
+  },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@components': path.resolve(__dirname, './src/components'),
-      '@feature': path.resolve(__dirname, './src/components/feature'),
-      '@config': path.resolve(__dirname, './src/config'),
-      '@enum': path.resolve(__dirname, './src/enum'),
-      '@types': path.resolve(__dirname, './src/types'),
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+      '@components': fileURLToPath(
+        new URL('./src/components', import.meta.url)
+      ),
+      '@feature': fileURLToPath(
+        new URL('./src/components/feature', import.meta.url)
+      ),
+      '@config': fileURLToPath(new URL('./src/config', import.meta.url)),
+      '@enum': fileURLToPath(new URL('./src/enum', import.meta.url)),
+      '@types': fileURLToPath(new URL('./src/types', import.meta.url)),
     },
   },
   test: {
     environment: 'jsdom',
     globals: true,
-    include: ['tests/**/*.{test,spec}.{js,jsx,ts,tsx}'],
+
+    // Co-located tests + legacy /tests folder
+    include: [
+      'src/**/*.{test,spec}.{js,jsx,ts,tsx}',
+      'tests/**/*.{test,spec}.{js,jsx,ts,tsx}',
+    ],
+    setupFiles: ['./tests/setupTests.ts'],
   },
 });
