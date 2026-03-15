@@ -1,0 +1,10 @@
+{
+  "difficulty": "Difficulty",
+  "beginner": "Beginner",
+  "intermediate": "Intermediate",
+  "expert": "Expert",
+  "welcome": "Welcome, folks!",
+  "youWon": "You Won!",
+  "gameOver": "Game Over!",
+  "playAgain": "Play again"
+}

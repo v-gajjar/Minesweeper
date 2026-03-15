@@ -1,0 +1,10 @@
+{
+  "difficulty": "Schwierigkeitsgrad",
+  "beginner": "Anfänger",
+  "intermediate": "Fortgeschritten",
+  "expert": "Experte",
+  "welcome": "Willkommen, Leute!",
+  "youWon": "Gewonnen!",
+  "gameOver": "Spiel ist aus!",
+  "playAgain": "Neues Spiel"
+}

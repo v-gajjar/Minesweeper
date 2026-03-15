@@ -86,7 +86,7 @@ function App() {
       </header>
       <main className='wrapper'>
         <div className='game-difficulty-select-wrapper'>
-          <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
+          <label htmlFor={DIFFICULTY_SELECT_ID}>{t("common:difficulty")}: </label>
           <DifficultySelect
             difficultyLevel={difficultyLevel}
             onChange={onSelectDifficulty}
