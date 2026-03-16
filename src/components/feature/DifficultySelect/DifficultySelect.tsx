@@ -34,7 +34,11 @@ function DifficultySelect({
         <option
           key={level}
           value={level}
-          aria-label={`${t(settings.label)} - ${settings.boardSize.rowCount}x${settings.boardSize.columnCount} board with ${settings.mineCount} mines`}
+          aria-label={`${t(settings.label)} - ${t('common:ariaBoardWithNMines',{
+            rowCount: settings.boardSize.rowCount,
+            columnCount: settings.boardSize.columnCount,
+            mineCount: settings.mineCount
+          })}`}
         >
           {t(settings.label)}
         </option>
