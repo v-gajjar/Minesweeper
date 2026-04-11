@@ -7,11 +7,12 @@ import * as deCommon from './locales/de/common.json';
 
 export const defaultNS = 'common'; // Default name space
 const browserLang = navigator.language.split('-')[0];
+const initialLng = browserLang === 'de' ? 'de' : 'en';
 
 i18next
   .use(initReactI18next)
   .init({
-    lng: 'en', // Default language
+    lng: initialLng,
     fallbackLng: 'en', // Fallback language
     debug: true, // Enable debug mode (optional)
     resources: {
