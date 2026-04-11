@@ -14,7 +14,7 @@ i18next
   .init({
     lng: initialLng,
     fallbackLng: 'en', // Fallback language
-    debug: true, // Enable debug mode (optional)
+    debug: import.meta.env.MODE !== 'test',
     resources: {
       en: { common: enCommon },
       de: { common: deCommon },
