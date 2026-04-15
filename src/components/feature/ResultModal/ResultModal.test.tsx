@@ -1,6 +1,8 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { cleanup, render, screen, fireEvent } from '@testing-library/react';
+import { afterEach, describe, it, expect, vi } from 'vitest';
 import ResultModal from './ResultModal';
+
+afterEach(cleanup);
 
 describe('ResultModal', () => {
   it('does not render when initially closed', () => {
