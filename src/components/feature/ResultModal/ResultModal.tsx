@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import type { ResultModalProps } from '@/components/feature/ResultModal/ResultModal.interface';
 import styles from '@components/feature/ResultModal/ResultModal.module.css';
+import { useTranslation } from 'react-i18next';
 
 function ResultModal({ open = false, gameWon, onClick }: ResultModalProps) {
   const [shouldRender, setShouldRender] = useState(open);
-
-  const message = gameWon ? 'You Won!' : 'Game Over!';
+  const { t } = useTranslation();
+  const message = gameWon ? 'common:youWon' : 'common:gameOver';
   const gameResultClass = gameWon ? styles.gameWonModal : styles.gameLostModal;
 
   useEffect(() => {
@@ -43,15 +44,15 @@ function ResultModal({ open = false, gameWon, onClick }: ResultModalProps) {
         onAnimationEnd={handleAnimationEnd}
       >
         <p id='game-result-message' className={styles.resultModalMessage}>
-          {message}
+          {t(message)}
         </p>
         <button
-          aria-label='Play again'
+          aria-label={t('common:playAgain')}
           id='gameResultModalCloseButton'
           onClick={onClick}
           className={styles.resultModalButton}
         >
-          Play again
+          {t('common:playAgain')}
         </button>
       </div>
     </div>

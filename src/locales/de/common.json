@@ -1,0 +1,20 @@
+{
+  "difficulty": "Schwierigkeitsgrad",
+  "beginner": "Anfänger",
+  "intermediate": "Fortgeschritten",
+  "expert": "Experte",
+  "welcome": "Willkommen, Leute!",
+  "ariaBoardWithNMines": "{{rowCount}} mal {{columnCount}} Spielfeld mit {{mineCount}} Minen.",
+  "ariaBoardDescription": "Minesweeper Spiel mit {{rowCount}} mal {{columnCount}} Feldern.",
+  "ariaFlaggedCell": "Markiertes Feld",
+  "ariaExplodedMine": "Explodierte Mine",
+  "ariaMine": "Mine",
+  "ariaCellWithAdjacentMines": "Feld mit {{adjacentMinesCount}} angrenzenden Minen.",
+  "ariaCellWithOneAdjacentMine": "Feld mit einer angrenzenden Mine.",
+  "ariaEmptyRevealedCell": "Freies aufgedecktes Feld",
+  "ariaUnrevealedCell": "Feld noch nicht aufgedeckt",
+  "remainingFlags": "Verbliebene Flaggen",
+  "youWon": "Gewonnen!",
+  "gameOver": "Spiel ist aus!",
+  "playAgain": "Neues Spiel"
+}

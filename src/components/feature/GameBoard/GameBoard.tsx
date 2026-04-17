@@ -1,3 +1,5 @@
+// GameBoard.tsx
+import { useTranslation } from 'react-i18next';
 import type { CSSProperties } from 'react';
 import Cell from '@/components/feature/GameBoard/Cell/Cell';
 import styles from '@/components/feature/GameBoard/GameBoard.module.css';
@@ -15,13 +17,17 @@ function GameBoard({
     '--columns': `${boardSize.columnCount}`,
   } as CSSProperties;
 
+  const { t } = useTranslation();
+
   return (
     <div
       style={style}
       className={styles.board}
       data-testid='game-board'
       role='grid'
-      aria-label={`Minesweeper grid ${boardSize.rowCount} by ${boardSize.columnCount}`}
+      aria-label={t('common:ariaBoardDescription',
+        { rowCount: boardSize.rowCount, columnCount: boardSize.columnCount}
+      )}
     >
       {board.map((rows, rowIndex) =>
         rows.map((_, colIndex) => (

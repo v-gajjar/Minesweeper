@@ -1,3 +1,5 @@
+// Cell.tsx
+import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import { Bomb, X, Flag } from '@phosphor-icons/react';
 import type { CellProps } from '@/components/feature/GameBoard/Cell/Cell.interfaces';
@@ -11,6 +13,8 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
     [styles.flagged]: cell.isFlagged,
     [styles.revealed]: cell.isRevealed,
   });
+
+  const { t } = useTranslation();
 
   const renderCellContents = () => {
     if (!cell.isRevealed && !cell.isFlagged) return null;
@@ -38,18 +42,20 @@ function Cell({ cell, onClick, onContextMenu }: CellProps) {
 
   const getAriaLabel = () => {
     if (cell.isFlagged) {
-      return 'Flagged cell';
+      return t('common:ariaFlaggedCell');
     }
     if (cell.isRevealed) {
       if (cell.hasMine) {
-        return cell.hasExplodedMine ? 'Exploded mine' : 'Mine';
+        return cell.hasExplodedMine ? t('common:ariaExplodedMine') : t('common:ariaMine');
       }
       if (cell.adjacentMinesCount > 0) {
-        return `Cell with ${cell.adjacentMinesCount} adjacent mine${cell.adjacentMinesCount === 1 ? '' : 's'}`;
+        return cell.adjacentMinesCount === 1 
+          ? t('common:ariaCellWithOneAdjacentMine')
+          : t('common:ariaCellWithAdjacentMines', {adjacentMinesCount: cell.adjacentMinesCount});
       }
-      return 'Empty revealed cell';
+      return t('common:ariaEmptyRevealedCell');
     }
-    return 'Unrevealed cell';
+    return t('common:ariaUnrevealedCell');
   };
 
   const handleContextMenu = (event: React.SyntheticEvent) => {
