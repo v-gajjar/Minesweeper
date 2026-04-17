@@ -1,6 +1,8 @@
-import { render, screen } from '@testing-library/react';
-import { describe, it, expect } from 'vitest';
+import { cleanup, render, screen } from '@testing-library/react';
+import { afterEach, describe, it, expect } from 'vitest';
 import GameBoard from './GameBoard';
+
+afterEach(cleanup);
 
 describe('GameBoard component', () => {
   it('renders GameBoard and displays cells', () => {
