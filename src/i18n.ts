@@ -1,0 +1,24 @@
+// i18n.ts
+import i18next from 'i18next';
+import { initReactI18next } from 'react-i18next';
+
+import * as enCommon from './locales/en/common.json';
+import * as deCommon from './locales/de/common.json';
+
+export const defaultNS = 'common'; // Default name space
+const browserLang = navigator.language.split('-')[0];
+const initialLng = browserLang === 'de' ? 'de' : 'en';
+
+i18next
+  .use(initReactI18next)
+  .init({
+    lng: initialLng,
+    fallbackLng: 'en', // Fallback language
+    debug: import.meta.env.MODE !== 'test',
+    resources: {
+      en: { common: enCommon },
+      de: { common: deCommon },
+  },
+});
+
+export default i18next;
