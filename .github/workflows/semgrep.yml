@@ -1,0 +1,32 @@
+name: Semgrep
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches: [ develop ]
+    
+jobs:
+  semgrep:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Semgrep
+        run: pip install semgrep
+
+      - name: Semgrep scan (React + TS)
+        run: |
+          semgrep scan \
+            --config=p/react \
+            --config=p/typescript \
+            --json > semgrep-report.json
+
+      - name: Upload Semgrep report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-report
+          path: semgrep-report.json
+          retention-days: 7
