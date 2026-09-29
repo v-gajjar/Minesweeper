@@ -10,6 +10,8 @@ import RemainingFlagsCounter from '@feature/RemainingFlagsCounter/RemainingFlags
 
 import './App.css';
 import type { DifficultyLevel, DifficultyConfig } from '@/types';
+import { LanguageSwitcher } from './LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 import {
   initialGameState,
@@ -40,6 +42,8 @@ function App() {
     // so reset to 0 for better UX
     boardContainerRef.current.scrollLeft = 0;
   };
+
+  const { t } = useTranslation();
 
   const onSelectDifficulty = useCallback(
     (difficultyLevel: DifficultyLevel) => {
@@ -82,12 +86,14 @@ function App() {
       </header>
       <main className='wrapper'>
         <div className='game-difficulty-select-wrapper'>
-          <label htmlFor={DIFFICULTY_SELECT_ID}>Difficulty: </label>
+          <label htmlFor={DIFFICULTY_SELECT_ID}>{t("common:difficulty")}: </label>
           <DifficultySelect
             difficultyLevel={difficultyLevel}
             onChange={onSelectDifficulty}
             id={DIFFICULTY_SELECT_ID}
           ></DifficultySelect>
+          <LanguageSwitcher
+          ></LanguageSwitcher>
         </div>
         <div className='remaining-flags-counter-wrapper'>
           <RemainingFlagsCounter

@@ -27,13 +27,11 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
-    globals: true,
 
     // Co-located tests + legacy /tests folder
     include: [
       'src/**/*.{test,spec}.{js,jsx,ts,tsx}',
       'tests/**/*.{test,spec}.{js,jsx,ts,tsx}',
     ],
-    setupFiles: ['./tests/setupTests.ts'],
   },
 });

@@ -1,4 +1,4 @@
-name: lint-job
+name: lint-minesweeper
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   lint:
@@ -16,42 +15,65 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Date Setup (MM/DD/YYYY)
-        id: date
-        run: echo "today=$(date +'%m/%d/%Y')" >> "$GITHUB_OUTPUT"
-
-      # 1) Install pnpm before setup-node cache
+      # Reads pnpm@10.0.0 from package.json
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           run_install: false
 
-      # 2) Setup Node.js with pnpm cache
-      - name: Setup Node.js 20
+      - name: Setup Node.js 24
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
-      # 3) Install dependencies
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # 4) Run ESLint (warn-only)
       - name: Run ESLint
-        run: pnpm exec eslint src --ext .js,.jsx,.ts,.tsx --cache --quiet || true
-
-      # 5) Run Prettier (warn-only, summary)
-      - name: Run Prettier (warn-only)
-        run: |
-          if ! pnpm exec prettier --list-different . > /tmp/prettier_diff.txt; then
-            echo "## Prettier Differences" >> $GITHUB_STEP_SUMMARY
-            cat /tmp/prettier_diff.txt >> $GITHUB_STEP_SUMMARY
-          fi
         continue-on-error: true
-
-      # 6) Stylelint summary output
-      - name: Stylelint Summary Output
         run: |
-          echo "## Stylelint Results" >> $GITHUB_STEP_SUMMARY
-          pnpm exec stylelint "**/*.{css,scss}" >> $GITHUB_STEP_SUMMARY || true
+          pnpm exec eslint src \
+            --ext .js,.jsx,.ts,.tsx \
+            --cache \
+            --quiet \
+            2>&1 | tee /tmp/eslint-results.txt
+
+          echo "## ESLint Results" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -s /tmp/eslint-results.txt ]; then
+            cat /tmp/eslint-results.txt >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No ESLint errors found." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Run Prettier
+        continue-on-error: true
+        run: |
+          pnpm exec prettier \
+            --list-different . \
+            2>&1 | tee /tmp/prettier-results.txt
+
+          echo "## Prettier Differences" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -s /tmp/prettier-results.txt ]; then
+            cat /tmp/prettier-results.txt >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No Prettier differences found." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Run Stylelint
+        continue-on-error: true
+        run: |
+          pnpm exec stylelint \
+            "**/*.{css,scss}" \
+            2>&1 | tee /tmp/stylelint-results.txt
+
+          echo "## Stylelint Results" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -s /tmp/stylelint-results.txt ]; then
+            cat /tmp/stylelint-results.txt >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No Stylelint errors found." >> "$GITHUB_STEP_SUMMARY"
+          fi

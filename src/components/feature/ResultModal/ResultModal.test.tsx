@@ -1,6 +1,22 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { cleanup, render, screen, fireEvent } from '@testing-library/react';
+import { afterEach, describe, it, expect, vi } from 'vitest';
 import ResultModal from './ResultModal';
+
+vi.mock('react-i18next', () => ({
+  useTranslation: () => ({
+    t: (key: string) => {
+      const translations: Record<string, string> = {
+        'common:gameOver': 'Game Over!',
+        'common:youWon': 'You Won!',
+        'common:playAgain': 'Play again',
+      };
+
+      return translations[key] ?? key;
+    },
+  }),
+}));
+
+afterEach(cleanup);
 
 describe('ResultModal', () => {
   it('does not render when initially closed', () => {
